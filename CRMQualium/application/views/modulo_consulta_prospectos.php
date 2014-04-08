@@ -1,5 +1,5 @@
  <div class="contenedor_modulo"> 
-    <section>
+   <!-- <section> 
         <h1 id="titulo_del_modulo"><label>Clientes</label></h1>
             <nav>
                 <ul id="menu_modulo" class="nav nav-pills">
@@ -29,7 +29,7 @@
                    </li>       
                </ul>
           </nav>   
-  </section>
+  </section>-->
   <section class="contenedor_principal_modulos">
      
         <table id="tbla_cliente" class="table table-striped">      
