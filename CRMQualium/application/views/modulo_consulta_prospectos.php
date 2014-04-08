@@ -4,7 +4,7 @@
             <nav>
                 <ul id="menu_modulo" class="nav nav-pills">
                     <li>
-                        <a href="">
+                        <a href="modulo_consulta_prospectos">
                           <div class="icono_menu_modulo">
                             <span class="icon-contact"></span>
                           </div>
@@ -12,7 +12,7 @@
                         </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="modulo_consulta_clientes">
                         <div class="icono_menu_modulo">
                           <span class="icon-phpbb"></span>
                         </div>
@@ -44,17 +44,18 @@
 
             </tr>
             <tr>
-                <td class="td_checbox"><input  type="checkbox"></td>
+                <td class="contenido_prospecto"><input  type="checkbox"></td>
                 <td><img src="img/fotosClientes/cliente3.jpg" alt="" class="img-thumbnail"></td>
                 <td>Instituto Mexicano Del Seguro Social</td>
                 <td>Sector Salud</td>
                 <td>Enrique Peña Nieto</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                 </td>
+                    <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -81,6 +82,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
              <tr>
@@ -94,6 +96,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
             <tr>
@@ -107,6 +110,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
             <tr>
@@ -120,6 +124,8 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
+
                  </td>
             </tr>
             <tr>
@@ -133,6 +139,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
             <tr>
@@ -146,6 +153,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
             <tr>
@@ -159,6 +167,7 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
             </tr>
             <tr>
