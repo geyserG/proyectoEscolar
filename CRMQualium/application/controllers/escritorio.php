@@ -4,10 +4,10 @@ class Escritorio extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
-        $this->load->helper('url');
+        
     }  
 
-	//public function index($page = 'escritorio')
+	//Vista inicial
 	public function index()
 	{
 		$this->area_Estatica();
@@ -15,26 +15,24 @@ class Escritorio extends CI_Controller {
 		
 	}
 
-	//...cabecera..//menu...
+	//...Funcion que carga la estructura inicial...//...cabecera..//menu...
 	public function area_Estatica(){
 		$this->load->view('cabecra_y_menu.html');
 		$this->load->view('header');
 		$this->load->view('menu');
 	}
 
-
-	//public function clientes($page = 'modulo_Clientes'){
 	public function clientes(){
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes.php');
+		$link = $this->uri->segment(1);
 
-		//$link = $this->uri->segment(1);
 		if($this->uri->segment(1) == 'modulo_cliente_nuevo')
 		{
 			$this->load->view($this->uri->segment(1));
 		}
-		if($this->uri->segment(1) == 'modulo_consulta_cliente')
+		if($this->uri->segment(1) == 'modulo_consulta_clientes')
 		{
 			$this->load->view($this->uri->segment(1));
 		}
@@ -42,7 +40,7 @@ class Escritorio extends CI_Controller {
 		{
 			$this->load->view($this->uri->segment(1));
 		}
-	
+		
 	}
 
 	public function proyectos(){
