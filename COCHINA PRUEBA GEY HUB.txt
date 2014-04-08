@@ -3,7 +3,11 @@ DVJSDVBASÑDJVBÑASD
 DSVSJDVB-----rODRIgo
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 mas prueba de git hib residencia qualioum.. escrito por rodrigo
+=======
+Geyser está codificando este archivito!
+>>>>>>> 6fd345a9ac0458d795e8a9106d6a4f48a8c9cfce
 =======
 
 Esta es una cochina prueba que hace beto en el cochino archivo
