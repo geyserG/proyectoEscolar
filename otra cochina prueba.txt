@@ -1,1 +1,30 @@
+<<<<<<< HEAD
 estoy escribiendo, soy geyser
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________________________
+
+otra prueba escrito por rodrigo tec residence
+______________________________________________
+>>>>>>> 2714edbdd76ae53919d52fd1d07329ca70e9ff01
