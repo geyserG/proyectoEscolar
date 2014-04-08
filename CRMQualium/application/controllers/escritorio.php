@@ -2,17 +2,89 @@
 
 class Escritorio extends CI_Controller {
 
-	public function index($page = 'escritorio')
-	{
-		if(!file_exists('application/views/'.$page.'.php'))
-		{
-			//La pagina solicitada no existe....
-			show_404();
-		}
+	public function __construct() {
+        parent::__construct();
+        $this->load->helper('url');
+    }  
 
+	//public function index($page = 'escritorio')
+	public function index()
+	{
+		$this->area_Estatica();
+		$this->load->view('escritorio');	
+		
+	}
+
+	//...cabecera..//menu...
+	public function area_Estatica(){
 		$this->load->view('cabecra_y_menu.html');
 		$this->load->view('header');
 		$this->load->view('menu');
-		$this->load->view($page);	
 	}
-}
+
+
+	//public function clientes($page = 'modulo_Clientes'){
+	public function clientes(){
+	
+		$this->area_Estatica();
+		$this->load->view('modulo_Clientes.php');
+
+		//$link = $this->uri->segment(1);
+		if($this->uri->segment(1) == 'modulo_cliente_nuevo')
+		{
+			$this->load->view($this->uri->segment(1));
+		}
+		if($this->uri->segment(1) == 'modulo_consulta_cliente')
+		{
+			$this->load->view($this->uri->segment(1));
+		}
+		if($this->uri->segment(1) == 'modulo_consulta_prospectos')
+		{
+			$this->load->view($this->uri->segment(1));
+		}
+	
+	}
+
+	public function proyectos(){
+		$this->area_Estatica();
+	}
+
+	public function contratos(){
+		$this->area_Estatica();
+	}
+
+	public function cotizacion(){
+		$this->area_Estatica();
+		$this->load->view('modulo_cotizaciones');
+		if($this->uri->segment(1) == 'modulo_cotizaciones_nuevo')
+		{
+			$this->load->view($this->uri->segment(1));
+		}
+		if($this->uri->segment(1) == 'modulo_cotizaciones_consulta')
+		{
+			$this->load->view($this->uri->segment(1));
+		}
+	}
+
+	public function facturas (){
+		$this->area_Estatica();
+
+	}
+
+	public function actividades(){
+		$this->area_Estatica();
+	}
+
+	public function catalogos(){
+		$this->area_Estatica();
+	}
+
+	public function usuarios(){
+		$this->area_Estatica();
+	}
+
+	public function configuracion(){
+		$this->area_Estatica();
+	}
+
+}//FIN DE LA CLASE...
