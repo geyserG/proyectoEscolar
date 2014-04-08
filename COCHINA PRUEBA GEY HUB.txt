@@ -2,4 +2,9 @@ BDNDKNVBSDV
 DVJSDVBASÑDJVBÑASD
 DSVSJDVB-----rODRIgo
 
+<<<<<<< HEAD
 Geyser está codificando este archivito!
+=======
+
+Esta es una cochina prueba que hace beto en el cochino archivo
+>>>>>>> 206886c6d8ee76a01114c86a0b7be214a95a0f22
