@@ -1,38 +1,7 @@
 <!-- <div id="contenedor"> -->
 <!-- prueba de sincronizacion git hub-->
 <div class="contenedor_modulo"> 
-    <section>
-        <h1 id="titulo_del_modulo"><label>Clientes</label></h1>
-        <nav>
-            <ul id="menu_modulo" class="nav nav-pills">
-                <li>
-                    <a href="">
-                      <div class="icono_menu_modulo">
-                        <span class="icon-contact"></span>
-                      </div>
-                      Prospectos
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                      <div class="icono_menu_modulo">
-                        <span class="icon-phpbb"></span>
-                      </div>
-                      Clientes
-                    </a>
-                </li>  
-                <li >
-                    <a href="modulo_cliente_nuevo">
-                      <div class="icono_menu_modulo">
-                        <span class="icon-uniF476"></span>
-                      </div>
-                      Nuevo
-                    </a>
-                    
-                </li>       
-            </ul>
-        </nav>   
-    </section>
+    
     <section class="contenedor_principal_modulos">
         <h3>Nuevo Cliente</h3>
         <hr>
@@ -51,10 +20,32 @@
             <input type="text" id="nombreComercial"  class="form-control" placeholder="Nombre comercial" value="Donde">
             <input type="text" id="nombreFiscal" class="form-control" placeholder="Nombre físcal" value="Donde S.A. de C.V.">
             <input type="email" id="emal" class="form-control" placeholder="Email" value="donde@gmail.com">
+
+            <input type="text" id="rfc" class="form-control" placeholder="RFC" value="E4823343EE">
+
+            <input type="text" id="paginaCliente"  class="form-control" placeholder="Página web" value="donde.com.mx.cl.es">
             <!-- <input type="text" class="form-control" placeholder="Telefono movil"> -->
 
             <!-- Este es el pequeño formulario para registrar teléfonos -->
-              <div>
+              
+        </div>
+
+
+        <div class="input_info">
+            <select id="giro" class= "form-control" > 
+                <option value="" disabled style='display:none;'>Giro</option> 
+                <option> Manufacturera </option> 
+                <option> Agropecuaria </option> 
+                <option selected> Comercial </option> 
+                <option> Transporte </option> 
+                <option> Educación </option> 
+                <option> Servicios públicos </option>
+                <option> Salud </option> 
+                <option> Comunicación </option>  
+            </select>
+            <textarea id="txtareaDireccion" class="form-control" rows="3" placeholder="Dirección"></textarea>
+            <!-- <input type="text" class="form-control" placeholder="Telefono de oficina"> -->
+            <div>
                   <div class="input-group">
                       <div class="btn-group">
                         <form>
@@ -78,23 +69,6 @@
                       </div>
                   </div>
               </div>
-        </div>
-
-
-        <div class="input_info">
-            <select id="giro" class= "form-control" > 
-                <option value="" disabled style='display:none;'>Giro</option> 
-                <option> Manufacturera </option> 
-                <option> Agropecuaria </option> 
-                <option selected> Comercial </option> 
-                <option> Transporte </option> 
-                <option> Educación </option> 
-                <option> Servicios públicos </option>
-                <option> Salud </option> 
-                <option> Comunicación </option>  
-            </select>
-            <textarea id="txtareaDireccion" class="form-control" rows="3" placeholder="Dirección"></textarea>
-            <!-- <input type="text" class="form-control" placeholder="Telefono de oficina"> -->
         </div>
         <div class="desborde"></div>
 
@@ -356,11 +330,35 @@
         <br>
         
         <div class="dato_contacto">
-            <h3>Datos Específicos</h3>
+            <h3>Datos de Representante</h3>
             <hr>
-            <input type="text" id="rfc" class="form-control" placeholder="RFC" value="E4823343EE">
             <input type="text" id="nombreRepresentante"  class="form-control" placeholder="Representante" value="Fulano Mengano Mengano">
-            <input type="text" id="paginaCliente"  class="form-control" placeholder="Página web" value="donde.com.mx.cl.es">
+            <input type="text" id="emailRepresentante" class="form-control" placeholder="Correo" value="fulano@hotmail.com">
+            <input type="text" id="cargoRepresentante" class="form-control" placeholder="Cargo" value="Gerente de ventas">
+            <div>
+                <div class="input-group">
+                    <div class="btn-group">
+                      <form>
+                        <input type="text"  class="form-control" name="telefonoRepresentante" value="1010101010">
+                      </form>
+                    </div>
+                    <div class="btn-group">
+                        <select class="form-control" name="tipoTelefonoRepresentante">
+                            <option value="Casa">Casa</option>
+                            <option value="Fax">Fax</option>
+                            <option value="Movil" selected>Movil</option>
+                            <option value="Oficina">Oficina</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Trabajo">Trabajo</option>
+                            <option value="Otro">Otro</option>
+                            <option disabled>Tipo</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <div class="otroTelefono"><button type="button" class="btn btn-default"><span class="icon-uniF476"></span></button></div> 
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="dato_contacto">
@@ -415,4 +413,25 @@
   <script type="text/javascript" src="js/backbone/app.js"></script>
 
 <!-- plantillas -->
-  <script type="text/templates"></script>
+  <script type="text/templates" id="listaClientes">
+      <div><%- tipoCliente %><div>
+      <div><%- nombreFiscal %><div>
+      <div><%- nombreComercial %><div>
+      <div><%- rfc %><div>
+      <div><%- paginaWeb %><div>
+      <div><%- email %><div>
+      <div><%- telefonosCliente %><div>
+      <div><%- giro %><div>
+      <div><%- direccion %><div>
+      <div><%- serviciosInteres %><div>
+      <div><%- serviciosCuenta %><div>
+      <div><%- archivos %><div>
+      <div><%- representante %><div>
+      <div><%- correoRepresentante %><div>
+      <div><%- cargoRepresentante %><div>
+      <div><%- telefonosRepresentante %><div>
+      <div><%- nombreContacto %><div>
+      <div><%- correoContacto %><div>
+      <div><%- cargoContacto %><div>
+      <div><%- telefonosContacto %><div>
+  </script>
