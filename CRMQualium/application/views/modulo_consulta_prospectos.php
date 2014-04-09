@@ -1,4 +1,4 @@
- <div class="contenedor_modulo"> 
+ <!-- <div class="contenedor_modulo">  -->
    <!-- <section> 
         <h1 id="titulo_del_modulo"><label>Clientes</label></h1>
             <nav>
@@ -30,17 +30,17 @@
                </ul>
           </nav>   
   </section>-->
-  <section class="contenedor_principal_modulos">
-     
+  <!-- <section class="contenedor_principal_modulos"> -->
+  <div id="posicion_infotd" >
         <table id="tbla_cliente" class="table table-striped">      
             <tr>
-                <th>Todos<input type="checkbox"></th>
+                <th>&nbsp;Todos<br><input type="checkbox"></th>
                 <th></th>
                 <th>&nbsp;Nombre Comercial<input class="form-control" type="text" placeholder="Buscar"></th>
-                <th>&nbsp;Giro<input class="form-control" type="text" placeholder="Buscar"></th>
-                <th>&nbsp;&nbsp;Representante</th>
-                <th>Ultima Actividad</th>
-                <th>Operaciones</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Giro
+                <th>&nbsp;Representante<input class="form-control" type="text" placeholder="Buscar"></th></th>
+                <th>&nbsp;&nbsp;&nbsp;Ultima<br>&nbsp;Actividad</th>
+                <th>&nbsp;&nbsp;Operaciones</th>
 
             </tr>
             <tr>
@@ -181,12 +181,15 @@
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                  <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
+                 </td>
                  </td>
               </tr>
         </table>
         <button type="button" class="btn btn-default">Eliminar varios</button> 
+      </div>
     </div> 
-</section>
+<!-- </section> -->
 
 
 <script type="text/javascript">

@@ -1,19 +1,20 @@
+      <div id="posicion_infotd" >
       <table id="tbla_cliente" class="table table-striped">      
             <tr>
-                <th>Todos<input type="checkbox"></th>
+                <th>&nbsp;Todos<br><input type="checkbox"></th>
                 <th></th>
                 <th>&nbsp;Nombre Comercial<input class="form-control" type="text" placeholder="Buscar"></th>
-                <th>&nbsp;Correo
-                <th>&nbsp;&nbsp;Representante<input class="form-control" type="text" placeholder="Buscar"></th></th>
-                <th>Ultima Actividad</th>
-                <th>Operaciones</th>
+                <th>Correo
+                <th>&nbsp;Representante<input class="form-control" type="text" placeholder="Buscar"></th></th>
+                <th>&nbsp;&nbsp;&nbsp;Ultima <br>&nbsp;Actividad</th>
+                <th>&nbsp;&nbsp;Operaciones</th>
 
             </tr>
             <tr>
                 <td class="contenido_prospecto"><input  type="checkbox"></td>
                 <td><img src="img/fotosClientes/cliente3.jpg" alt="" class="img-thumbnail"></td>
                 <td>Instituto Mexicano Del Seguro Social</td>
-                <td>Sector Salud</td>
+                <td>@gmail</td>
                 <td>Enrique Peña Nieto</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -27,7 +28,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/cliente4.png" alt="" class="img-thumbnail"></td>
                 <td>Apple </td>
-                <td>Manufacturera</td>
+                <td>@gmail</td>
                 <td>Steve Jobs</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -40,7 +41,7 @@
              <tr>
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/fb.png" alt="" class="img-thumbnail"></td>     <td>Facebook</td>
-                <td>Agropecuaria</td>
+                <td>@hotmail</td>
                 <td>Mark Zukenberg</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -54,7 +55,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/youtube.jpg" alt="" class="img-thumbnail"></td>
                 <td>youtube</td>
-                <td>Comercial</td>
+                <td>@hotmail</td>
                 <td>Steven Chan</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -68,7 +69,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/tw.png" alt="" class="img-thumbnail"></td>
                 <td>Twitter</td>
-                <td>Transporte</td>
+                <td>@yahoo.mx</td>
                 <td>Evan Williams</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -82,8 +83,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/coliseo.jpg" alt="" class="img-thumbnail"></td>
                 <td>Coliseo Yucatán</td>
-                <td>Centro de espectaculos</td>
-                <td>Rolando Zapata Bello</td>
+                <td>@yahoo.mx@hotmail.com             <td>Rolando Zapata Bello</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
                     <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
@@ -96,7 +96,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/ford.png" alt="" class="img-thumbnail"></td>
                 <td>Ford Motor Company</td>
-                <td>Comercial</td>
+                <td>@hotmail.com</td>
                 <td>Henry Ford</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -110,7 +110,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/google.jpg" alt="" class="img-thumbnail"></td>
                 <td>Google</td>
-                <td>Publicidad</td>
+                <td>@hotmail.com</td>
                 <td>Larry Page</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -123,7 +123,7 @@
             <tr>
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/mozilla.jpg" alt="" class="img-thumbnail"></td>
-                <td>Mozilla  Firefox</td>
+                <td>@firefox.mx</td>
                 <td>Comunicacion</td>
                 <td>Beto Canul May</td>
                 <td>04/06/2014</td>
@@ -138,7 +138,7 @@
                 <td><input type="checkbox"></td>
                 <td><img src="img/fotosClientes/che.jpg" alt="" class="img-thumbnail"></td>
                 <td>Chevrolet</td>
-                <td>Comercial</td>
+                <td>@gmail.com</td>
                 <td>Geyser Ramirez Sanches</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
@@ -149,8 +149,9 @@
                 </td>
              </tr>
         </table>
-        <button type="button" class="btn btn-default">Eliminar varios</button> 
-    </div> 
+            <button type="button" class="btn btn-default">Eliminar varios</button> 
+       </div>
+  </div> 
 <!-- </section> -->
 
 
