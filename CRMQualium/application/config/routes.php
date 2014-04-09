@@ -43,13 +43,14 @@
 //$route['404_override'] = '';
 
 $route['default_controller'] = "escritorio";
-$route['(:any)'] = 'escritorio/index/$1';
+//$route['(:any)'] = 'escritorio/index/$1';
 $route['escritorio'] = 'escritorio/index/$1';
 
 //Rutas para el cliente
-$route['modulo_Clientes'] = 'escritorio/clientes/$1';
+$route['modulo_Clientes'] = 'escritorio/clientes';
 $route['modulo_cliente_nuevo'] = 'escritorio/clientes/$1';
-$route['modulo_consulta_prospecto'] = 'escritorio/clientes/$1';
+$route['modulo_consulta_clientes'] = 'escritorio/clientes/$1';
+$route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
