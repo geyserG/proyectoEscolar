@@ -1,8 +1,8 @@
 <!-- <div id="contenedor"> -->
 <!-- prueba de sincronizacion git hub-->
-<div class="contenedor_modulo"> 
+<!-- <div class="contenedor_modulo">  -->
     
-    <section class="contenedor_principal_modulos">
+    <!-- <section class="contenedor_principal_modulos"> -->
         <h3>Nuevo Cliente</h3>
         <hr>
         <div class="btn-group" data-toggle="buttons">
@@ -398,40 +398,45 @@
 
         <button type="button" id="btn_crear" class="btn btn-primary">Aceptar</button>
         <button type="button" id="btn_cancelar" class="btn btn-danger">Cancelar</button>
-    </section>
+    <!-- </section> -->
 
-</div>
+    <div id="divClientes"></div>
 <!-- </div> -->
+</div>
 
+
+<!-- plantillas -->
+  <script type="text/templates" id="listaClientes">
+      <%- tipoCliente %>
+      <%- nombreFiscal %>
+      <%- nombreComercial %>
+      <%- rfc %>
+      <%- paginaWeb %>
+      <%- email %>
+      <%- telefonosCliente %>
+      <%- giro %>
+      <%- direccion %>
+      <%- serviciosInteres %>
+      <%- serviciosCuenta %>
+      <%- archivos %>
+      <%- representante %>
+      <%- correoRepresentante %>
+      <%- cargoRepresentante %>
+      <%- telefonosRepresentante %>
+      <%- nombreContacto %>
+      <%- correoContacto %>
+      <%- cargoContacto %>
+      <%- telefonosContacto %>
+  </script>
+
+  
 <!-- Librerias Backbone -->
   <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
   <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
   <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
 <!--MV*-->
-  <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
   <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
+  <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
+  <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
+  <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
   <script type="text/javascript" src="js/backbone/app.js"></script>
-
-<!-- plantillas -->
-  <script type="text/templates" id="listaClientes">
-      <div><%- tipoCliente %><div>
-      <div><%- nombreFiscal %><div>
-      <div><%- nombreComercial %><div>
-      <div><%- rfc %><div>
-      <div><%- paginaWeb %><div>
-      <div><%- email %><div>
-      <div><%- telefonosCliente %><div>
-      <div><%- giro %><div>
-      <div><%- direccion %><div>
-      <div><%- serviciosInteres %><div>
-      <div><%- serviciosCuenta %><div>
-      <div><%- archivos %><div>
-      <div><%- representante %><div>
-      <div><%- correoRepresentante %><div>
-      <div><%- cargoRepresentante %><div>
-      <div><%- telefonosRepresentante %><div>
-      <div><%- nombreContacto %><div>
-      <div><%- correoContacto %><div>
-      <div><%- cargoContacto %><div>
-      <div><%- telefonosContacto %><div>
-  </script>
