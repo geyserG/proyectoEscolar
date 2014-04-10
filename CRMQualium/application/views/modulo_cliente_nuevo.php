@@ -36,12 +36,13 @@
                 <option value="" disabled style='display:none;'>Giro</option> 
                 <option> Manufacturera </option> 
                 <option> Agropecuaria </option> 
-                <option selected> Comercial </option> 
+                <option> Comercial </option> 
                 <option> Transporte </option> 
                 <option> Educación </option> 
                 <option> Servicios públicos </option>
                 <option> Salud </option> 
-                <option> Comunicación </option>  
+                <option> Comunicación </option> 
+                <option selected disabled>Giro</option>
             </select>
             <textarea id="txtareaDireccion" class="form-control" rows="3" placeholder="Dirección"></textarea>
             <!-- <input type="text" class="form-control" placeholder="Telefono de oficina"> -->
@@ -49,7 +50,7 @@
                   <div class="input-group">
                       <div class="btn-group">
                         <form>
-                          <input type="text" class="form-control" name="telefonoCliente" value="1010101010">
+                          <input type="text" class="form-control" name="telefonoCliente" placeholder="número de teléfono">
                         </form>
                       </div>
                       <div class="btn-group">
@@ -339,7 +340,7 @@
                 <div class="input-group">
                     <div class="btn-group">
                       <form>
-                        <input type="text"  class="form-control" name="telefonoRepresentante" value="1010101010">
+                        <input type="text"  class="form-control" name="telefonoRepresentante" placeholder="número de teléfono">
                       </form>
                     </div>
                     <div class="btn-group">
@@ -362,7 +363,7 @@
         </div>
 
         <div class="dato_contacto">
-            <h3>Datos contacto</h3>
+            <div><h3>Datos contacto</h3><button id="otroContacto"><span class="icon-uniF476"></span></button></div>
             <hr>
             <input type="text" id="contactoNombre" class="form-control" placeholder="Nombre" value="Nombre Apellido">
             <input type="text" id="contactoEmail" class="form-control" placeholder="Correo" value="fulano@hotmail.com">
@@ -371,7 +372,7 @@
                 <div class="input-group">
                     <div class="btn-group">
                       <form>
-                        <input type="text"  class="form-control" name="telefonoContacto" value="1010101010">
+                        <input type="text"  class="form-control" name="telefonoContacto" placeholder="número de teléfono">
                       </form>
                     </div>
                     <div class="btn-group">
@@ -400,33 +401,148 @@
         <button type="button" id="btn_cancelar" class="btn btn-danger">Cancelar</button>
     <!-- </section> -->
 
+
+    <button id="btn_eliminar">x</button>
     <div id="divClientes"></div>
+    <div id="divContactos"></div>
 <!-- </div> -->
 </div>
 
 
 <!-- plantillas -->
   <script type="text/templates" id="listaClientes">
-      <%- tipoCliente %>
-      <%- nombreFiscal %>
-      <%- nombreComercial %>
-      <%- rfc %>
-      <%- paginaWeb %>
-      <%- email %>
-      <%- telefonosCliente %>
-      <%- giro %>
-      <%- direccion %>
-      <%- serviciosInteres %>
-      <%- serviciosCuenta %>
-      <%- archivos %>
-      <%- representante %>
-      <%- correoRepresentante %>
-      <%- cargoRepresentante %>
-      <%- telefonosRepresentante %>
-      <%- nombreContacto %>
-      <%- correoContacto %>
-      <%- cargoContacto %>
-      <%- telefonosContacto %>
+      <div>
+          <b style="color:blue;">idCliente</b>
+          <%- idCliente %>
+      </div>
+      <div>
+          <b style="color:blue;">tipoCliente</b>
+          <%- tipoCliente %>
+      </div>
+      <div>
+          <b style="color:blue;">nombreFiscal</b>
+          <%- nombreFiscal %>
+      </div>
+      <div>
+          <b style="color:blue;">nombreComercial</b>
+          <%- nombreComercial %>
+      </div>
+      <div>
+          <b style="color:blue;">rfc</b>
+          <%- rfc %>
+      </div>
+      <div>
+          <b style="color:blue;">paginaWeb</b>
+          <%- paginaWeb %>
+      </div>
+      <div>
+          <b style="color:blue;">email</b>
+          <%- email %>
+      </div>
+      <div>
+          <b style="color:red;">telefonosCliente</b>
+          <% if (telefonosCliente.length > 1) {
+              for (var i = 0; i < telefonosCliente.length; i++) { %>
+                <div><%-telefonosCliente[i].telefono%>-
+                <%-telefonosCliente[i].tipo%></div>
+          <% };
+             } else { %>
+              <div><%-telefonosCliente.telefono%>-
+              <%-telefonosCliente.tipo%></div>
+          <% }; %>
+      </div>
+      <div>
+          <b style="color:blue;">giro</b>
+          <%- giro %>
+      </div>
+      <div>
+          <b style="color:blue;">direccion</b>
+          <%- direccion %>
+      </div>
+      <div>
+          <b style="color:blue;">serviciosInteres</b>
+          <%- serviciosInteres %>
+      </div>
+      <div>
+          <b style="color:blue;">serviciosCuenta</b>
+          <%- serviciosCuenta %>
+      </div>
+      <div>
+          <b style="color:blue;">archivos</b>
+          <% if (archivos.length > 1) {
+              for (var i = 0; i < archivos.length; i++) { %>
+                <div>
+                    nombre: <%-archivos[i].nombre%><br>
+                    tipo: <%-archivos[i].tipo%><br>
+                    comentario: <%-archivos[i].comentario%><br><br>
+                </div>
+          <% };
+             } else { %>
+              <div>
+                  nombre: <%-archivos.nombre%><br>
+                  tipo: <%-archivos.tipo%><br>
+                  comentario: <%-archivos.comentario%><br>
+              </div>
+          <% }; %>
+      </div>
+      <div>
+          <b style="color:blue;">representante</b>
+          <%- representante %>
+      </div>
+      <div>
+          <b style="color:blue;">correoRepresentante</b>
+          <%- correoRepresentante %>
+      </div>
+      <div>
+          <b style="color:blue;">cargoRepresentante</b>
+          <%- cargoRepresentante %>
+      </div>
+      <div>
+          <b style="color:red;">telefonosRepresentante</b>
+          <% if (telefonosRepresentante.length > 1) {
+              for (var i = 0; i < telefonosRepresentante.length; i++) { %>
+                <div><%-telefonosRepresentante[i].telefono%>-
+                <%-telefonosRepresentante[i].tipo%></div>
+          <% };
+             } else { %>
+              <div><%-telefonosRepresentante.telefono%>-
+              <%-telefonosRepresentante.tipo%></div>
+          <% }; %>
+      </div>
+  </script>
+  <script type="text/templates" id="listaContacto">
+      <div>
+          <b style="color:blue;">idContacto</b>
+          <%- idContacto %>
+      </div>
+      <div>
+          <b style="color:blue;">idCliente</b>
+          <%- idCliente %>
+      </div>
+      <div>
+          <b style="color:blue;">nombreContacto</b>
+          <%- nombreContacto %>
+      </div>
+      <div>
+          <b style="color:blue;">correoContacto</b>
+          <%- correoContacto %>
+      </div>
+      <div>
+          <b style="color:blue;">cargoContacto</b>
+          <%- cargoContacto %>
+      </div>
+      <div>
+          <b style="color:red;">telefonosContacto</b>
+          <% if (telefonosContacto.length > 1) {
+              for (var i = 0; i < telefonosContacto.length; i++) { %>
+                <div><%-telefonosContacto[i].telefono%>-
+                <%-telefonosContacto[i].tipo%></div>
+          <% };
+             } else { %>
+              <div><%-telefonosContacto.telefono%>-
+              <%-telefonosContacto.tipo%></div>
+          <% }; %>
+      </div>
   </script>
 
   
@@ -435,6 +551,9 @@
   <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
   <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
 <!--MV*-->
+  <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
+  <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
+  <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
   <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
   <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
