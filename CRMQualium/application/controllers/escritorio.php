@@ -1,10 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Escritorio extends CI_Controller {
+include 'api.php';
+class Escritorio extends Api {
 
 	public function __construct() {
         parent::__construct();
-        
+        // header("Access-Control-Allow-Orgin: *");
+        // header("Access-Control-Allow-Methods: *");
+        // header("Content-Type: application/json");
+                
     }  
 
 	//Vista inicial
@@ -15,30 +18,25 @@ class Escritorio extends CI_Controller {
 		
 	}
 
-	//...Funcion que carga la estructura inicial...//...cabecera..//menu...
-	public function area_Estatica(){
-		$this->load->view('cabecra_y_menu.html');
-		$this->load->view('header');
-		$this->load->view('menu');
-	}
-
+	//Toma la uri del modulo y la devuelve
+	
 	public function clientes(){
 	
 		$this->area_Estatica();
-		$this->load->view('modulo_Clientes.php');
-		$link = $this->uri->segment(1);
+		$this->load->view('modulo_Clientes');
+		
 
-		if($this->uri->segment(1) == 'modulo_cliente_nuevo')
+		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
-			$this->load->view($this->uri->segment(1));
+			$this->load->view($this->ruta());
 		}
-		if($this->uri->segment(1) == 'modulo_consulta_clientes')
+		if($this->ruta() == 'modulo_consulta_clientes')
 		{
-			$this->load->view($this->uri->segment(1));
+			$this->load->view($this->ruta());
 		}
-		if($this->uri->segment(1) == 'modulo_consulta_prospectos')
+		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
-			$this->load->view($this->uri->segment(1));
+			$this->load->view($this->ruta());
 		}
 		
 	}
@@ -54,13 +52,13 @@ class Escritorio extends CI_Controller {
 	public function cotizacion(){
 		$this->area_Estatica();
 		$this->load->view('modulo_cotizaciones');
-		if($this->uri->segment(1) == 'modulo_cotizaciones_nuevo')
+		if($this->ruta() == 'modulo_cotizaciones_nuevo')
 		{
-			$this->load->view($this->uri->segment(1));
+			$this->load->view($this->ruta());
 		}
-		if($this->uri->segment(1) == 'modulo_cotizaciones_consulta')
+		if($this->ruta() == 'modulo_cotizaciones_consulta')
 		{
-			$this->load->view($this->uri->segment(1));
+			$this->load->view($this->ruta());
 		}
 	}
 
