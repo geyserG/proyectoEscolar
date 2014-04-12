@@ -7,16 +7,16 @@ var ColeccionContactos = Backbone.Collection.extend({
 
 	obtenerTodos : function () {
 		return this.filter( function (contacto){
-			return contacto.get('idContacto');
+			return contacto.get('id');
 		});
 	},
 
-	establecerIdSiguiente	: function () {
+	/*establecerIdSiguiente	: function () {
 		if(!this.length){
 			return 1;
 		}
 		return this.last().get('idContacto') + 1;
-	}
+	}*/
 });
 
 app.coleccionContactos = new ColeccionContactos();

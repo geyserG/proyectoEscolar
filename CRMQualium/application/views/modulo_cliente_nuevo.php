@@ -1,7 +1,7 @@
 <!-- <div id="contenedor"> -->
 <!-- prueba de sincronizacion git hub-->
 <!-- <div class="contenedor_modulo">  -->
-    
+    <link rel="stylesheet" type="text/css" href="css/estilos_modulo_clientes_nuevo.less">
     <!-- <section class="contenedor_principal_modulos"> -->
         <h3>Nuevo Cliente</h3>
         <hr>
@@ -333,9 +333,9 @@
         <div class="dato_contacto">
             <h3>Datos de Representante</h3>
             <hr>
-            <input type="text" id="nombreRepresentante"  class="form-control" placeholder="Representante" value="Fulano Mengano Mengano">
-            <input type="text" id="emailRepresentante" class="form-control" placeholder="Correo" value="fulano@hotmail.com">
-            <input type="text" id="cargoRepresentante" class="form-control" placeholder="Cargo" value="Gerente de ventas">
+            <input type="text" id="nombreRepresentante"  class="form-control" placeholder="Nombre completo del representante">
+            <input type="text" id="emailRepresentante" class="form-control" placeholder="Correo">
+            <input type="text" id="cargoRepresentante" class="form-control" placeholder="Cargo">
             <div>
                 <div class="input-group">
                     <div class="btn-group">
@@ -363,11 +363,11 @@
         </div>
 
         <div class="dato_contacto">
-            <div><h3>Datos contacto</h3><button id="otroContacto"><span class="icon-uniF476"></span></button></div>
+            <div><h3>Datos de contacto</h3><button id="btn_otroContacto"><span class="icon-uniF476"></span></button></div>
             <hr>
-            <input type="text" id="contactoNombre" class="form-control" placeholder="Nombre" value="Nombre Apellido">
-            <input type="text" id="contactoEmail" class="form-control" placeholder="Correo" value="fulano@hotmail.com">
-            <input type="text" id="contactoCargo" class="form-control" placeholder="Cargo" value="Gerente de ventas">
+            <input type="text" id="contactoNombre" class="form-control" placeholder="Nombre completo del contacto">
+            <input type="text" id="contactoEmail" class="form-control" placeholder="Correo">
+            <input type="text" id="contactoCargo" class="form-control" placeholder="Cargo">
             <div>
                 <div class="input-group">
                     <div class="btn-group">
@@ -408,17 +408,16 @@
 <!-- </div> -->
 </div>
 
-
 <!-- plantillas -->
   <script type="text/templates" id="listaClientes">
-      <div>
-          <b style="color:blue;">idCliente</b>
-          <%- idCliente %>
-      </div>
-      <div>
-          <b style="color:blue;">tipoCliente</b>
-          <%- tipoCliente %>
-      </div>
+      
+      
+      
+      
+      
+      
+      
+      
       <div>
           <b style="color:blue;">nombreFiscal</b>
           <%- nombreFiscal %>
@@ -467,57 +466,56 @@
           <b style="color:blue;">serviciosCuenta</b>
           <%- serviciosCuenta %>
       </div>
-      <div>
-          <b style="color:blue;">archivos</b>
-          <% if (archivos.length > 1) {
-              for (var i = 0; i < archivos.length; i++) { %>
-                <div>
-                    nombre: <%-archivos[i].nombre%><br>
-                    tipo: <%-archivos[i].tipo%><br>
-                    comentario: <%-archivos[i].comentario%><br><br>
-                </div>
-          <% };
-             } else { %>
-              <div>
-                  nombre: <%-archivos.nombre%><br>
-                  tipo: <%-archivos.tipo%><br>
-                  comentario: <%-archivos.comentario%><br>
-              </div>
-          <% }; %>
-      </div>
-      <div>
-          <b style="color:blue;">representante</b>
-          <%- representante %>
-      </div>
-      <div>
-          <b style="color:blue;">correoRepresentante</b>
-          <%- correoRepresentante %>
-      </div>
-      <div>
-          <b style="color:blue;">cargoRepresentante</b>
-          <%- cargoRepresentante %>
-      </div>
-      <div>
-          <b style="color:red;">telefonosRepresentante</b>
-          <% if (telefonosRepresentante.length > 1) {
-              for (var i = 0; i < telefonosRepresentante.length; i++) { %>
-                <div><%-telefonosRepresentante[i].telefono%>-
-                <%-telefonosRepresentante[i].tipo%></div>
-          <% };
-             } else { %>
-              <div><%-telefonosRepresentante.telefono%>-
-              <%-telefonosRepresentante.tipo%></div>
-          <% }; %>
-      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
   </script>
   <script type="text/templates" id="listaContacto">
+      
+      
+      
       <div>
-          <b style="color:blue;">idContacto</b>
-          <%- idContacto %>
-      </div>
-      <div>
-          <b style="color:blue;">idCliente</b>
-          <%- idCliente %>
+          <b style="color:blue;">tipoContacto</b>
+          <%- tipoContacto %>
       </div>
       <div>
           <b style="color:blue;">nombreContacto</b>
@@ -543,6 +541,7 @@
               <%-telefonosContacto.tipo%></div>
           <% }; %>
       </div>
+      <hr>
   </script>
 
   
@@ -552,10 +551,10 @@
   <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
 <!--MV*-->
   <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
-  <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
-  <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
   <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
+  <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
+  <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
   <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
   <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
   <script type="text/javascript" src="js/backbone/app.js"></script>
