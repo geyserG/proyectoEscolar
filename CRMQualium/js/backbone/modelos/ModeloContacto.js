@@ -2,8 +2,7 @@ var app = app || {};
 
 app.ModeloContacto = Backbone.Model.extend({
 	defaults	: {
-			   // idContacto : '',
-				// idCliente : '',
+			    idCliente : '',
 			 tipoContacto : '',
 		   nombreContacto : '',
    		   correoContacto : '',

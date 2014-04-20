@@ -16,7 +16,11 @@ var ColeccionClientes = Backbone.Collection.extend({
 			return 1;
 		}
 		return this.last().get('idCliente') + 1;
-	}*/
+	},*/
+
+	obtenerUltimoId	: function () {
+		return this.last().get('id');
+	}
 });
 
 app.coleccionClientes = new ColeccionClientes();

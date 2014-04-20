@@ -2,27 +2,19 @@ var app = app || {};
 
 app.ModeloClente = Backbone.Model.extend({
 	defaults	: {
-					 // idCliente : '',
 			   nombreComercial : '', // [1,quialium]
 			      nombreFiscal : '',
 			             email : '',
 			               rfc : '',
 			         paginaWeb : '',
 			              giro : '',
+			 comentarioCliente : '',
 			         direccion : '',
 			       tipoCliente : '',
 			  telefonosCliente : '',
 			  serviciosInteres : '',
-			   serviciosCuenta : ''
-					  // archivos : '',
-		// 		 representante : '',
-		//    correoRepresentante : '',
-		// 	cargoRepresentante : '',
-		// telefonosRepresentante : '',
-		//         nombreContacto : '',
-		//         correoContacto : '',
-		//          cargoContacto : '',
-		//      telefonosContacto : ''
+			   serviciosCuenta : '',
+			              logo : '',
 	}
 });
 
