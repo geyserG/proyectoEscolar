@@ -31,14 +31,15 @@
           </nav>   
   </section>-->
   <!-- <section class="contenedor_principal_modulos"> -->
-  <div id="posicion_infotd" >
-        <table id="tbla_cliente" class="table table-striped">      
+
+<div id="posicion_infotd">
+   <table id="tbla_cliente" class="table table-striped">      
             <tr>
                 <th>&nbsp;Todos<br><input type="checkbox"></th>
                 <th></th>
                 <th>&nbsp;Nombre Comercial<input class="form-control" type="text" placeholder="Buscar"></th>
-                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Giro
-                <th>&nbsp;Representante<input class="form-control" type="text" placeholder="Buscar"></th></th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Giro</th>
+                <th>&nbsp;Representante<input class="form-control" type="text" placeholder="Buscar"></th>
                 <th>&nbsp;&nbsp;&nbsp;Ultima<br>&nbsp;Actividad</th>
                 <th>&nbsp;&nbsp;Operaciones</th>
 
@@ -76,7 +77,7 @@
                 <td><img src="img/fotosClientes/fb.png" alt="" class="img-thumbnail"></td>                
                 <td>Facebook</td>
                 <td>Agropecuaria</td>
-                 <td>Mark Zukenberg</td>
+                <td>Mark Zukenberg</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
                   <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
@@ -183,12 +184,16 @@
                   <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
                  </td>
-                 </td>
+                 
               </tr>
         </table>
         <button type="button" class="btn btn-default">Eliminar varios</button> 
-      </div>
-    </div> 
+    </div>
+  </div>
+    
+       
+      
+      
 <!-- </section> -->
 
 
