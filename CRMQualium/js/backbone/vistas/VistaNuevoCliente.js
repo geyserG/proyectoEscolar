@@ -108,16 +108,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	agregarTodosLosArchivos	: function () {
 		app.coleccionArchivos.each(this.agregarArchivo, this);
 	},
-// -----agregarCliente---------------------------- 
-	agregarCliente	: function (cliente) {
-		var vistaCliente = new app.VistaCliente({model:cliente});
-
-		this.$divClientes.append(vistaCliente.render().el);
-	},
-// -----agregarTodosLosClientes------------------- 
-	agregarTodosLosClientes	: function () {
-		app.coleccionClientes.each(this.agregarCliente, this);
-	},
 // -----agregarContacto--------------------------- 
 	agregarContacto	: function (contacto) {
 		var vistaContacto = new app.VistaContacto({model:contacto});

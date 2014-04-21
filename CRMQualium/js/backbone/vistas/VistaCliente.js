@@ -1,9 +1,9 @@
 var app = app || {};
 
 app.VistaCliente = Backbone.View.extend({
-	tagName	: 'h5',
+	tagName	: 'tr',
 
-	plantilla : _.template($('#listaClientes').html()),
+	plantilla : _.template($('#plantilla_td_de_cliente').html()),
 
 	events	: {
 	},
