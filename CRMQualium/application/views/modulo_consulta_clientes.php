@@ -245,8 +245,8 @@
                   <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   </div><br><br>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span><br><br>
-                  <span href="#div1"  class="MO icon-friends"  data-toggle="tooltip" data-placement="top" title="contactos"></span>
-                </div>
+                  <span href="#div1"  class="MO icon-back"  data-toggle="tooltip" data-placement="top" title="Regresar a Cliente"></span>             
+                 </div>
               </div>
               <img id="logo_empresa_info" src="img/fotosClientes/coliseoyuc.jpg" alt="Imagen-Cliente" class="img-thumbnail">
                 <div class="info_cliente1">
@@ -261,7 +261,8 @@
                   <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
                   </div><br><br>
                   <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span><br><br>
-                  <span href="#div1"  class="MO icon-friends"  data-toggle="tooltip" data-placement="top" title="contactos"></span>
+                  <span href="#div1"  class="MO icon-friends"  data-toggle="tooltip" data-placement="top" title="Contactos"></span><br><br>
+
                 </div>
                 <div id="info_cliente2">
                   <label><h5><b>Nombre Físcal:</b></h5></label>

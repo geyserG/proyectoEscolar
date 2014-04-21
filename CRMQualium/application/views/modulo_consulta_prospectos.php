@@ -1,54 +1,3 @@
-<<<<<<< HEAD
-<!-- <div class="contenedor_modulo">  -->
-<!-- <section> 
-<h1 id="titulo_del_modulo"><label>Clientes</label></h1>
-<nav>
-<ul id="menu_modulo" class="nav nav-pills">
-<li>
-<a href="modulo_consulta_prospectos">
-<div class="icono_menu_modulo">
-<span class="icon-contact"></span>
-</div>
-Prospectos
-</a>
-</li>
-<li>
-<a href="modulo_consulta_clientes">
-<div class="icono_menu_modulo">
-<span class="icon-phpbb"></span>
-</div>
-Clientes
-</a>
-</li>  
-<li>
-<a href="modulo_cliente_nuevo">
-<div class="icono_menu_modulo">
-<span class="icon-uniF476"></span>
-</div>
-Nuevo
-</a>
-</li>       
-</ul>
-</nav>   
-</section>-->
-<!-- <section class="contenedor_principal_modulos"> -->
-        <div id="posicion_infotd" >
-            <table id="tbla_cliente" class="table table-striped">      
-                <tr>
-                    <th>Todos<br><input type="checkbox"></th>
-                    <th></th>
-                    <th>Nombre Comercial<input class="form-control" type="text" placeholder="Buscar"></th>
-                    <th>Giro</th>
-                    <th>Página web<input class="form-control" type="text" placeholder="Buscar"></th>
-                    <th style="text-align=center;">Ultima<br>Actividad</th>
-                    <th>Operaciones</th>
-                </tr>
-                <!-- Aquí se irán añadiendo los clientes a la tabla -->
-            </table>
-            <button type="button" class="btn btn-default">Eliminar varios</button> 
-        </div>
-    </div>
-=======
  <!-- <div class="contenedor_modulo">  -->
    <!-- <section> 
         <h1 id="titulo_del_modulo"><label>Clientes</label></h1>
@@ -103,10 +52,11 @@ Nuevo
                 <td>Enrique Peña Nieto</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                    <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
                     <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
                     <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                    <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
                 </td>
             </tr>
             <tr>
@@ -117,11 +67,12 @@ Nuevo
                 <td>Steve Jobs</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                  <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
              <tr>
                 <td><input type="checkbox"></td>
@@ -131,11 +82,12 @@ Nuevo
                 <td>Mark Zukenberg</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
              <tr>
                 <td><input type="checkbox"></td>
@@ -145,11 +97,12 @@ Nuevo
                 <td>Steven Chan</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -159,11 +112,12 @@ Nuevo
                 <td>Evan Williams</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -173,12 +127,12 @@ Nuevo
                 <td>Rolando Zapata Bello</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -188,11 +142,12 @@ Nuevo
                 <td>Henry Ford</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -202,11 +157,12 @@ Nuevo
                 <td>Larry Page</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -216,11 +172,12 @@ Nuevo
                 <td>Beto Canul May</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                   <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span></div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -230,65 +187,131 @@ Nuevo
                 <td>Geyser Ramirez Sanches</td>
                 <td>04/06/2014</td>
                 <td class="icon-operaciones">
-                  <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-                  <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-                  <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-                 </td>
-                 
-              </tr>
+                    <div class="eliminar_cliente">
+                    <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
+                    </div>
+                    <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
+                    <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+                    <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
+                </td>
+            </tr>
         </table>
         <button type="button" class="btn btn-default">Eliminar varios</button> 
     </div>
   </div>
+<!-- ---------------------------Modal consulta informacion del cliente---------- -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <p class="panel-title"><h4>Información</h4></p>
+                 <span id="cerrar_consulta" class="glyphicon glyphicon-remove close" data-dismiss="modal" aria-hidden="true"></span>
+               </div>
+               <div id="contenido_cliente" class="panel-body">
+              
+      <!--  --------------------Informacion del representante y contactos---------------- -->
+              <div id="div1" class="divoculto">
+                <div  class="contactos">
+                  <label><h2><b>Representante</b></h2></label><br>
+                  <label><h5><b>Nombre completo:</b></h5></label>
+                  <label><h5>Coliseo Yucatán</h5></label><br>
+                  <label><h5><b>Cargo:</b></h5></label>
+                  <label><h5>Director</h5></label><br>
+                  <label><h5><b>Telefono:</b></h5></label>
+                  <label><h5>969995678</h5></label><br>
+                  <label><h5><b>Celular:</b></h5></label>
+                  <label><h5>9992456789</h5></label><br>
+                  <label><h5><b>Correo electrónico:</b></h5></label>
+                  <label><h5>Coliseo@gmail.com</h5></label><br>
+                </div>
+                <div class="contactos">
+                  <label><h2><b>contacto</b></h2></label><br>
+                  <label><h5><b>Nombre completo:</b></h5></label>
+                  <label><h5>Coliseo Yucatán</h5></label>&nbsp;&nbsp;
+                  <label><h5><b>Cargo:</b></h5></label>
+                  <label><h5>Director</h5></label><br>
+                  <label><h5><b>Telefono:</b></h5></label>
+                  <label><h5>969995678</h5></label>&nbsp;&nbsp;
+                  <label><h5><b>Celular:</b></h5></label>
+                  <label><h5>9992456789</h5></label><br>
+                  <label><h5><b>Correo electrónico:</b></h5></label>
+                  <label><h5>Coliseo@gmail.com</h5></label><br>
+                 </div>
+                 <div id="icon-operaciones3">
+                  <div class="eliminar_cliente">
+                  <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+                  </div><br><br>
+                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span><br><br>
+                  <span href="#div1"  class="MO icon-back"  data-toggle="tooltip" data-placement="top" title="contactos"></span>                  
+                </div>
+              </div>
+              <img id="logo_empresa_info" src="img/fotosClientes/coliseoyuc.jpg" alt="Imagen-Cliente" class="img-thumbnail">
+                <div class="info_cliente1">
+                  <label><h3><b>Coliseo Yucatán</b></h3></label><br>
+                  <label><h5><b>Representante:</b></h5></label><br>
+                  <label><a href="#">Ir a proyecto</a></label><br>
+                  <label><h5><b>R.F.C:</b></h5></label><br>
+                </div><br>
+                <!-- -----------------Iconos para eliminar y editar contacto---------- -->
+                <div id="icon-operaciones2">
+                  <div class="eliminar_cliente">
+                  <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+                  </div><br><br>
+                  <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span><br><br>
+                  <span href="#div1"  class="MO icon-friends"  data-toggle="tooltip" data-placement="top" title="contactos"></span>
+                </div>
+                <div id="info_cliente2">
+                  <label><h5><b>Nombre Físcal:</b></h5></label>
+                  <label><h5>Coliseo Yucatán</h5></label><br>
+                  <label><h5><b>Dirección:</b></h5></label>
+                  <label><h5>Carretera Mérida-Progreso Km10</h5></label><br>
+                  <label><h5><b>Telefono:</b></h5></label>
+                  <label><h5>969995678</h5></label><br>
+                  <label><h5><b>Celular:</b></h5></label>
+                  <label><h5>9992456789</h5></label><br>
+                  <label><h5><b>Correo electrónico:</b></h5></label>
+                  <label><h5>Coliseo@gmail.com</h5></label><br>
+                  <label><h5><b>Página Web:</b></h5></label>
+                  <label><h5>www.ColiseoYuc.com</h5></label><br>
+                </div>
+                <hr id="color_hr">
+                <div id="divcomentarios">
+                  <label><p><h5><b>Comentarios:</b> Lorem ipsum dolor sit   amet,consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</h5></p>
+                  </label> 
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+
+<script type="text/javascript">
+  $(document).on('ready', function(){
+      $('.icon-trash').on('click',function(){
+            window.confirm('Estas seguro de eliminar al cliente');
+          });
+        });
+
+  jQuery(document).ready(function(){ 
+    $(".oculto").hide();              
+    $(".MO").click(function(){
+          var nodo = $(this).attr("href");  
+
+          if ($(nodo).is(":visible")){
+               $(nodo).hide(450);
+               return false;
+          }else{
+    $(".oculto").hide(450);               
+    $(nodo).fadeToggle(450);
+
+    return false;
+          }
+    });
+}); 
+  </script>
     
-       
-      
-      
->>>>>>> ba21e89216ca1a656165297004d5b5c15d8a6e94
 <!-- </section> -->
 
 
-<script type="text/javascript">
-    $(document).on('ready', function(){
-        $('.icon-uniF478').on('click',function(){
-            window.confirm('Estas seguro de eliminar al cliente');
-        });
-    });
-</script>
-
-
-<!-- PLANTILLAS -->
-<script type="text/templates" id="plantilla_td_de_cliente">
-    <td class="contenido_prospecto"><input  type="checkbox"></td>
-    <td><img src="<%- logo %>" alt="" class="img-thumbnail"></td>
-    <td><%- nombreFiscal %></td>
-    <td><%- giro %></td>
-    <td><%- paginaWeb %></td>
-    <td>04/06/2014</td>
-    <td class="icon-operaciones">
-        <span class="icon-uniF478"  data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-        <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-        <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-        <span class="icon-uniF488"  data-toggle="tooltip" data-placement="top" title="Ver contacto"></span>
-    </td>
-</script>
-
-
-<!-- Librerias Backbone -->
-    <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
-    <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
-    <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
-<!--MV*-->
-    <!-- modelos -->
-    <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
-    <!-- colecciones -->
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
-    <!-- vistas -->
-    <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
-    <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
-    <!-- vista general -->
-    <script type="text/javascript" src="js/backbone/vistas/VistaConsultaCliente.js"></script>
-    <script type="text/javascript" src="js/backbone/app.js"></script>
