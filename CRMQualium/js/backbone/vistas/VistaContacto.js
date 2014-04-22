@@ -6,6 +6,7 @@ app.VistaContacto = Backbone.View.extend({
 	plantilla : _.template($('#listaContacto').html()),
 
 	events	: {
+		'click .icon-friends'	: 'verContactos' //Es el boton para ver CONTACTOS
 	},
 
 	initialize	: function () {
@@ -15,5 +16,9 @@ app.VistaContacto = Backbone.View.extend({
 	render	: function () {
 		this.$el.append(this.plantilla( this.model.toJSON() ));
 		return this;
+	},
+
+	verContactos	: function () {
+		alert('quires ver contactos');
 	}
 });
