@@ -43,6 +43,17 @@ class Escritorio extends Api {
 
 	public function proyectos(){
 		$this->area_Estatica();
+		$this->load->view('modulo_proyectos');
+		
+
+		if($this->ruta() == 'modulo_proyectos_nuevo')
+		{
+			$this->load->view($this->ruta());
+		}
+		if($this->ruta() == 'modulo_proyectos_consulta')
+		{
+			$this->load->view($this->ruta());
+		}
 	}
 
 	public function contratos(){

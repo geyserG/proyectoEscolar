@@ -53,7 +53,9 @@ $route['modulo_consulta_clientes'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 //Rutas para la proyectos
-$route['modulo_proyectos'] = 'escritorio/proyectos/$1';
+$route['modulo_proyectos'] = 'escritorio/proyectos/';
+$route['modulo_proyectos_nuevo'] = 'escritorio/proyectos/';
+$route['modulo_proyectos_consulta'] = 'escritorio/proyectos/';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 

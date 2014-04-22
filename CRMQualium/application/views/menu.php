@@ -16,7 +16,7 @@
 		</li>
 		<li class="">
 			<label class="icono" for="3"><span class="icon-uniF53D"></span></label>
-			<a id="3" class="anclaMenu" href="#">
+			<a id="3" class="anclaMenu" href="modulo_proyectos">
 				Proyectos
 			</a>
 		</li>
