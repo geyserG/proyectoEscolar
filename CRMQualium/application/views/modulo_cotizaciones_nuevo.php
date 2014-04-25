@@ -1,5 +1,5 @@
 	
-	<div class="contenedor_modulo">
+	<!-- <div class="contenedor_modulo"> -->
 		<section class="contenedor_principal_modulos">
 
 			<h3>Información Básica</h3>
@@ -303,6 +303,6 @@
 			<button type="button" class="btn btn-default"><span class="icon-preview"></span> Vista previa</button>
 			<button type="button" class="btn btn-danger">Cancelar</button>
 		</section>
-	</div>
+	<!-- </div> -->
 		<!-- <div class="desborde"></div> -->
 </div>

@@ -1,4 +1,4 @@
-		<div class="contenedor_modulo">
+		<!-- <div class="contenedor_modulo"> -->
 		<section class="contenedor_principal_modulos">
 
 			<table id="tabla_cotizaciones" class="table table-striped">
@@ -169,7 +169,7 @@
 			<button type="button" class="btn btn-default">Marcar todos</button>
 			<button type="button" class="btn btn-default">Desmarcar todos</button>
 	</section>
-</div>
+<!-- </div> -->
 
 <script type="text/javascript">
 	$(document).on('ready',function(){

@@ -54,13 +54,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// app.coleccionArchivos.fetch();
 
 
-		this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
-		this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
+		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
+		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
 		app.coleccionClientes.fetch();
 
 		
-		this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
-		this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
+		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
+		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
 		app.coleccionContactos.fetch();
 
 	},
@@ -99,28 +99,28 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		};
 	},
 // -----agregarArchivo---------------------------- 
-	agregarArchivo	: function (archivo) {
-		var vistaArchivo = new app.VistaArchivo({model:archivo});
+	// agregarArchivo	: function (archivo) {
+	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
 
-		this.$divArchivos.append(vistaArchivo.render().el);
-	},
+	// 	this.$divArchivos.append(vistaArchivo.render().el);
+	// },
 // -----agregarTodosLosArchivos------------------- 
-	agregarTodosLosArchivos	: function () {
-		app.coleccionArchivos.each(this.agregarArchivo, this);
-	},
+	// agregarTodosLosArchivos	: function () {
+	// 	app.coleccionArchivos.each(this.agregarArchivo, this);
+	// },
 // -----agregarContacto--------------------------- 
-	agregarContacto	: function (contacto) {
-		var vistaContacto = new app.VistaContacto({model:contacto});
+	// agregarContacto	: function (contacto) {
+	// 	var vistaContacto = new app.VistaContacto({model:contacto});
 
-		this.$divContactos.append(vistaContacto.render().el);
-	},
+	// 	this.$divContactos.append(vistaContacto.render().el);
+	// },
 // -----agregarTodosLosContactos------------------ 
-	agregarTodosLosContactos	: function () {
-		app.coleccionClientes.each(this.agregarContacto, this);
-	},
-	dameClienteNuevo	: function (cliente) {
-		console.log('cliente');
-	},
+	// agregarTodosLosContactos	: function () {
+	// 	app.coleccionClientes.each(this.agregarContacto, this);
+	// },
+	// dameClienteNuevo	: function (cliente) {
+	// 	console.log('cliente');
+	// },
 // -----eliminarCopia----------------------------- 
 	eliminarCopia	: function (elemento) {
 		$(elemento.currentTarget).parents('.copia').remove();

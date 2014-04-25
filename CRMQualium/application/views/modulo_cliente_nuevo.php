@@ -493,7 +493,7 @@
         </div>
     </div>
 
-    <!-- <button id="btn_eliminar">x</button> -->
+    <button id="btn_eliminar">x</button>
     <!-- <div id="divClientes"></div> -->
     <!-- <div id="divContactos"></div> -->
     <!-- <div id="divArchivos"></div> -->
