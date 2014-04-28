@@ -5,25 +5,29 @@
     class Model_contact extends CI_Model
     {  
 
+        
+        function set_tel(){
+            $obj = new model_phone();
+            return $obj;
+        }
+
         function insert_contact(){
 
-            //TELEFONOS DEL CONTACTO.
-
-            
-            $telefonos = json_encode($this->input->post('telefonosContacto'));
-            $id_tel = $this->db->insert_id($telefonos);
-
-            //DATOS DE CONTACTOS        
-        	$contactos = array(
+            $contactos = array(
         						'nombre_completo' => $this->input->post('nombreContacto'),
-                                'telefono_id'     => $id_tel,
-        						'correo'		  => $this->input->post('correoContacto'),
+                                'correo'		  => $this->input->post('correoContacto'),
         						'cargo'			  => $this->input->post('cargoContacto')
         					  );//Verificar si es un arreglo
 
-            //Verificar si es un arreglo           
-            
-            $this->db->insert_id($contactos);
+            $query = $this->db->insert($contactos);
+            $id    = $this->insert_id();
+
+            $tel = set_tel();
+            $tid = $tel->insert_p($post['telefono_contacto']);
+            $data = array('contacto_id'=>$id, 'telefono_id'=>$tid);
+
+            $this->db->insert->('telefonos_contactos', $data);
+
         }
         function get_mcontact(){
 
@@ -38,19 +42,20 @@
         function update_mcontact(){
         	
           $contactos = array(
-                              'nombre_completo' => $this->input->post('nombreContacto'),
-                              'telefono_id'     => $id_tel,
-                              'correo'          => $this->input->post('correoContacto'),
-                              'cargo'           => $this->input->post('cargoContacto')
-                            );//Verificar si es un arreglo
+                                'nombre_completo' => $this->input->post('nombreContacto'),
+                                'correo'          => $this->input->post('correoContacto'),
+                                'cargo'           => $this->input->post('cargoContacto')
+                              );//Verificar si es un arreglo
 
             $this->db->where('id', $id);
             $this->db->update('contacto', $contactos); 
 
         }
-        function delete_mcontact(){
+        private function delete_phone($id){
 
-            $id = $this->input->post('id');
-        	
+            $query = $this->db->delete('contactos', array('id' => $id));
+            return $query;
+            
         }
-    }
+
+}
