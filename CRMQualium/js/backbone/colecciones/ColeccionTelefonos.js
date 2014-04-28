@@ -1,0 +1,22 @@
+var app = app || {};
+
+var ColeccionTelefonos = Backbone.Collection.extend({
+	model	: app.ModeloTelefono,
+
+	localStorage	: new Backbone.LocalStorage('telefonos-backbone'),
+
+	obtenerTodos : function () {
+		return this.filter( function (telefono){
+			return telefono.get('id');
+		});
+	},
+
+	establecerIdSiguiente	: function () {
+		if(!this.length){
+			return 1;
+		}
+		return this.last().get('id') + 1;
+	}
+});
+
+app.coleccionTelefonos = new ColeccionTelefonos();

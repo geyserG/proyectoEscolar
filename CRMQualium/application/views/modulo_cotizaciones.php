@@ -1,4 +1,4 @@
-	<div id="contenido_modulo_cotizacion">
+	<div class="contenedor_modulo">
 		<section id="cabecera_modulo">
 			<h1 id="titulo_del_modulo"><label>Cotizaciones</label></h1>
 			<nav>

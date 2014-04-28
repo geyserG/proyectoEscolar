@@ -14,6 +14,11 @@
 	margin: 0px;
 	padding: 0px;
 }
+
+body{
+	background: #F1F1F1;
+}
+
 a:link{ /*El agregado ":link" sierve para afectar a la etiqueta ancla, pero más especificamente a todas sus propiedades*/
 	cursor: pointer;
 	text-decoration: none;
@@ -34,7 +39,8 @@ li{
 	width: 100%;
 	display: block;
 	padding: 13px 13px 0 13px;
-	/*position: fixed;*/
+	position: fixed;
+	z-index: 3;
 }
 
 /* {{{{{{{{{{{{{{{{{Estilo de datos del usuario}}}}}}}}}}}}}}}}} */
@@ -113,17 +119,19 @@ li{
 /* {{{{{{{{{{{{{{{{{Estilo del menu}}}}}}}}}}}}}}}}} */
 #menu{
 	background: @colorPrimario-Menu;
-	height: 100%;
+	/*height: 100%;*/
 	float: left;
 	padding: 0px 5px 0px 5px;
 	/*position: absolute;*/
-	width: 12%;
+	width: 160px;
+	margin-left: -160px;
 	-webkit-transition: 0.2s;
-	/*bottom: 0px;*/
-	/*position: fixed;*/
-	/*top: 0px;*/
+	bottom: 0px;
+	position: fixed;
+	top: 50px;
 	/*overflow-y: auto;*/
 	/*overflow-x: hidden;*/
+	z-index: 1;
 }
 #menu-lista{
 	padding: 0px 5px 0px 5px;
@@ -166,15 +174,20 @@ li{
 	-webkit-transition: 0.4s;
 }
 #btn_menu:checked ~ #menu{
-	width: 3.3%;
+	width: 50px;
 	-webkit-transition: 0.4s;
 }
+/*#btn_menu:checked ~ .contenedor{
+	margin-left: 50px;
+	-webkit-transition: 0.4s;
+}*/
 #btn_menu:checked ~ #contenedor_dashboard{
 	width: 96.7%;
 	-webkit-transition: 0.4s;
 }
 #btn_menu:checked ~ .contenedor_modulo{
-	width: 96.7%;
+	width: 110%;
+	margin-left: -110px;
 	-webkit-transition: 0.4s;
 }
 #btn_menu:checked ~ #menu .anclaMenu{

@@ -54,6 +54,11 @@ margin-right: 100px;
 .input_info .btn-group-justified{
 	width: 400px;
 }
+.input_info{
+	display: inline-block;
+	padding-right: 100px;
+	float: left;
+}
 /*----------Css tabla de cosulta---*/
 .contenedor_principal_modulos #tbla_cliente{
 		width: 100%;
@@ -74,12 +79,16 @@ margin-right: 100px;
 		};
 	}
 
-#tbla_cliente table tr td{
+/*#tbla_cliente table tr td{
 	border:0px;
-}
+}*/
 
-#tbla_cliente table tr .atributo {
-	text-align: right;
+#tbla_cliente table tr .atributo{
+	/*top: 0px;*/
+	text-align: left;
+	width: 170px;
+	/*padding: auto 0px auto 0px;*/
+	vertical-align: text-top;
 	color: #428bca;
 }
 
@@ -101,7 +110,7 @@ margin-right: 100px;
 
 }
 
-.icon-operaciones .eliminar_cliente span:hover{
+.icon-operaciones .icon-trash:hover{ //ES EL ICONO DE ELIMINAR CLIENTE
 		
 		background: red;
 		border-radius: 3px;
@@ -180,20 +189,19 @@ margin-right: 100px;
 	/* float: left; */
 	display: inline-block;
 	right: 15px;
-	margin-top: 25px;
+	margin-top: 100px;
 	/* margin-right: 1px; */
 	/*background: #333333;*/
 	/*height: 111px;*/
-	/*width: 40px;*/
 	/*color: #d7d7d7;*/
 	/*padding: 7px;*/
 	position: absolute;
 	
 	
 }
-#icon-operaciones2 span{
-		font-size: 15px;
-		/*padding: 5px;*/
+#icon-operaciones2 button label{
+		/*font-size: 15px;*/
+		/*padding: 0px;*/
 		/*opacity: 1;*/
 		
 }
@@ -282,17 +290,37 @@ margin-right: 100px;
 	font-size: 20px;
 }
 
-
-.divoculto {
-	float: left;
+.visible{
+	visibility: visible;
+	opacity: 1;
+	/*height: auto;*/
+	/*transform:none;*/
+	transition:visibility .45s, opacity .45s;
+	/*position: inherit;*/
+}
+.oculto {
+	visibility: hidden;
+	opacity: 0;
+	height: 0px;
+	/*transform:translateX(-2000px);*/
+	transition:visibility .6s, opacity .6s, height .6s;
+	z-index: 5;
+    /*position: absolute;*/
+	/*float: left;
 	margin-left: -15px;
 	margin-top: -15px;
 	height: 550px;
 	width: 598px;
 	border: 1px outset #999999;
-	background-color: white;
+	background-color: white;*/
 	/*padding: 20px;*/
-     position: absolute;
+}
+
+.editar{
+	display: none;
+}
+.editando{
+	display: block;
 }
 
 /*#divcomentarios{
@@ -302,12 +330,25 @@ margin-right: 100px;
 }*/
 
 
-.contactos{
+/*.contactos{
 
 	float: left;
 	margin-left: 20px;
+}*/
+/*
+.divDatoContacto{
+	position: relative;
+	display: inline-block;
 }
 
+.divDatoContacto .atributo{
+	position: absolute;
+	top: 0px;
+}*/
 
 
 
+.foto{
+	width: 40px;
+	height: 40px;
+}

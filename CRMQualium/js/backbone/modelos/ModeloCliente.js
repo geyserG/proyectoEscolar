@@ -2,20 +2,34 @@ var app = app || {};
 
 app.ModeloClente = Backbone.Model.extend({
 	defaults	: {
-			   nombreComercial : '', // [1,quialium]
-			      nombreFiscal : '',
-			             email : '',
-			               rfc : '',
-			         paginaWeb : '',
-			              giro : '',
-			 comentarioCliente : '',
-			         direccion : '',
-			       tipoCliente : '',
-			  telefonosCliente : '',
-			  serviciosInteres : '',
-			   serviciosCuenta : '',
-			              logo : '',
+			 //   nombreComercial : '', // [1,quialium]
+			 //      nombreFiscal : '',
+			 //             email : '',
+			 //               rfc : '',
+			 //         paginaWeb : '',
+			 //              giro : '',
+			 // comentarioCliente : '',
+			 //         direccion : '',
+			 //       tipoCliente : '',
+			 //  telefonosCliente : '',
+			 //  serviciosInteres : '',
+			 //   serviciosCuenta : '',
+			 //              logo : '',
+			 visibilidad : true
+	},
+
+	cambiarVisibilidad: function () {
+		this.save({
+			visibilidad: !this.get('visibilidad')
+		});
 	}
+
+	// validate: function (atributos, opciones) {
+	// 	if (atributos.end < atributos.start) {
+	// 		console.log(atributos);
+	// 		console.log(opciones);
+	// 	}
+	// }
 });
 
 // app.clienteDefault = new app.ModeloClente();
