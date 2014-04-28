@@ -46,11 +46,15 @@ $route['default_controller'] = "escritorio";
 //$route['(:any)'] = 'escritorio/index/$1';
 $route['escritorio'] = 'escritorio/index/$1';
 
-//Rutas para el cliente
+# Rutas para el cliente
 $route['modulo_Clientes'] = 'escritorio/clientes';
 $route['modulo_cliente_nuevo'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_clientes'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
+
+# Rutas para la api de clientes.
+$route['api_cliente'] = 'api_cliente/api';
+$route['api_cliente/(:num)'] = 'api_cliente/api';
 
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
@@ -89,6 +93,12 @@ $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
 
 //Rutas para el modulo de configuracion...
 $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
+// $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
+// $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
+
+//Rutas para el modulo de configuracion...
+$route['phones'] = 'api_telefono/api';
+$route['phones/(:num)'] = 'api_telefono/api/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 

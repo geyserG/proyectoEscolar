@@ -4,10 +4,14 @@ class Escritorio extends Api {
 
 	public function __construct() {
         parent::__construct();
+<<<<<<< HEAD
         // header("Access-Control-Allow-Orgin: *");
         // header("Access-Control-Allow-Methods: *");
         // header("Content-Type: application/json");
                 
+=======
+        $this->load->model('model_customer', 'customer');
+>>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840
     }  
 
 	//Vista inicial
@@ -24,7 +28,7 @@ class Escritorio extends Api {
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes');
-		
+		$data['clientes'] = $this->customer->get_customers_model();
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
@@ -32,7 +36,11 @@ class Escritorio extends Api {
 		}
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
+<<<<<<< HEAD
 			$this->load->view($this->ruta());
+=======
+			$this->load->view($this->ruta(), $data);
+>>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840
 		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{

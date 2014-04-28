@@ -230,6 +230,19 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
+<<<<<<< HEAD
+		 Backbone.emulateHTTP = true;
+		  Backbone.emulateJSON = true;
+		app.coleccionClientes.create(this.nuevosAtributosCliente(),{wait: true, success: function (respuesta) {
+			$('#h1_nombreCliente').html('<span id="span_cliente">'+respuesta.get('nombreComercial')+'</span>'+'. Datos de contacto');
+			$('.visible').toggleClass('oculto');
+
+			Backbone.emulateHTTP = false;
+		  	Backbone.emulateJSON = false;
+		}});
+
+
+=======
 		
 		// this.urlFoto();
 		console.log($('#direccion').attr('src'));
@@ -270,6 +283,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		this.nuevoTelefono(this.recursividadTelefonos(idCliente,document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')));
 		
+>>>>>>> c542427fa83ec47dbf462f640e82f629bcc57e00
 		// this.otroContacto();
 		// this.nuevoContacto();
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
