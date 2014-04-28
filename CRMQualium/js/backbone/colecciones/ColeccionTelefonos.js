@@ -3,7 +3,8 @@ var app = app || {};
 var ColeccionTelefonos = Backbone.Collection.extend({
 	model	: app.ModeloTelefono,
 
-	localStorage	: new Backbone.LocalStorage('telefonos-backbone'),
+	// localStorage	: new Backbone.LocalStorage('telefonos-backbone'),
+	url 	:'http://crmqualium.com/api_telefonos',
 
 	obtenerTodos : function () {
 		return this.filter( function (telefono){
@@ -19,4 +20,4 @@ var ColeccionTelefonos = Backbone.Collection.extend({
 	}
 });
 
-app.coleccionTelefonos = new ColeccionTelefonos();
+app.coleccionTelefonos = new ColeccionTelefonos(app.coleccionTelefonosCodeIgniter);

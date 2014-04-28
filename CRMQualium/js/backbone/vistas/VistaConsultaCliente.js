@@ -10,14 +10,14 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
 		this.listenTo(app.coleccionClientes, 'reset', this.obtenerClientes);
 		// this.listenTo(app.coleccionClientes, 'change:visibilidad', this.obtenerClientes);
-		app.coleccionClientes.fetch();
+		// app.coleccionClientes.fetch();
 		this.obtenerClientes();
 		// this.agregarCliente();
 
 		
 		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
 		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
-		app.coleccionContactos.fetch();
+		// app.coleccionContactos.fetch();
 	},
 	render		: function () {
 		return this;

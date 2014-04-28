@@ -3,7 +3,8 @@ var app = app || {};
 var ColeccionArchivos = Backbone.Collection.extend({
 	model	: app.ModeloArchivo,
 
-	localStorage	: new Backbone.LocalStorage('archivos-backbone'),
+	// localStorage	: new Backbone.LocalStorage('archivos-backbone'),
+	url 	:'http://crmqualium.com/api_archivos',
 
 	obtenerTodos : function () {
 		return this.filter( function (archivo){
@@ -19,4 +20,4 @@ var ColeccionArchivos = Backbone.Collection.extend({
 	}*/
 });
 
-app.coleccionArchivos = new ColeccionArchivos();
+app.coleccionArchivos = new ColeccionArchivos(app.coleccionArchivosCodeIgniter);
