@@ -13,6 +13,8 @@ class  Api_cliente extends Api {
 
     public function api() {
 
+        // $id = $this->uri->segment(2);   
+
     	switch ($this->metodo()) {
     		case 'post':
     			$this->insert();
@@ -20,14 +22,14 @@ class  Api_cliente extends Api {
     		case 'get':
     			$this->get_customers();
     			break;	
-    		case 'update':
-    			$this->update();
+    		case 'put':
+                 $this->update_c($this->put_id());
     			break;	
     		case 'delete':
     			$this->delete();
     			break;
     		default:
-    			# code...
+    			$this->response('405');
     			break;
     	}
 
@@ -35,22 +37,28 @@ class  Api_cliente extends Api {
 
     private function insert(){
 
-    	$query = $this->Customer->insert_customer();
-    	$data = $this->response($query);
-    	$this->load->view('',$data);
+         $post = $this->ipost();   
+        
+        $query = $this->Customer->insert_customer($post);
 
+        if($query){
+
+             $this->response($query, 201);        
+
+        }else{
+             $this->response($query, 404);
+        }         
     }
 
     private function get_customers(){
 
-    	$query = $this->Customer->get_customers_model();
-                        
+    	$query = $this->Customer->get_customers_model();                        
     	if($query){
 
-    		$data['json'] = $this->response(200, $query);
+    		$data['clientes'] = $this->response($query, 200);
 
     	}else{
-    		$data['json'] = $this->response(404, $query);
+    		$data['clientes'] = $this->response($query, 404);
     	} 
         $this->area_Estatica();
     	$this->load->view('modulo_Clientes');
@@ -58,24 +66,31 @@ class  Api_cliente extends Api {
     	
     }
 
-    private function update(){
+    private function update_c($id){
+        
+        # La función put(); Devuelve el array con los campos espicificos para actualizar
+        $put = $this->put();
+        
+      	$query = $this->Customer->update_customer($id, $put);
+             
+         if($query){
 
-    	// $query = $this->Model_customer->update_customer();
-    	// $data = $this->response('',$query);
-    	// $this->load->view('', $data);
-    	
+             $this->response($query, 200);        
 
-
+        }else{
+             $this->response($query, 304);
+        } 
     }
 
     private function delete(){
 
-    	$query = $this->Model_customer->delete_customer();
-    	$data = $this->response('',$query);
-    	$this->load->view('', $data);
+    	// $query = $this->Model_customer->delete_customer();
+    	// $data = $this->response('',$query);
+    	// $this->load->view('', $data);
 
     }
 
+} # Fin de la Clase Api_cliente
 
 
     // POSIBLES ARREGLOS DE OBJETOS
@@ -84,8 +99,4 @@ class  Api_cliente extends Api {
     // LOS  ARCHIVOS ARREGLO DE OBJETOS O SOLO UN OBJETO
     // TELEFONOS DEL REPRESENTANTE
     // UN ARREGLO DE CONTACTOS
-
-
-
-}
 

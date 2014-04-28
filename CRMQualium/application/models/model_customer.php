@@ -2,162 +2,250 @@
 	/**
 	* Operaciones en la base de datos con los clientes
 	*/
+	include 'model_phone.php';
 	class Model_customer extends CI_Model
 	{
 		
 		function __construct()
 		{
-			$this->load->database();
+			$this->load->database();			
 		}
 
-		public function insert_customer(){
+		function set_tel(){
+			$obj = new model_phone();
+			return $obj;
+		}
 
-		//ESTA LIBRERIA DESCOMPONE LOS INPUTS POST QUE LLEGAN COMO ARREGLO
-		$this->load->library->('my_functions');	
+		public function insert_customer($post){	
 
-		//Regresa el id del cliente insertado.
-    	$cliente_id = $this->insert($this->input->post('nombreComercial'));
+			// $x=0; # Este es un contador para mi array de inserción...	
 
-    	//LA FUNCION ARRAYPOST() DEVUELVE EL ID DEL ATRIBUTO Y EL VALOR DEL ATRIBUTO.
+			// # Se almacena al cliente en la base de datos... 						
+			// $this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 'tipoCliente'=>$post['tipoCliente']));
+			// # devolvemos su id_cliente para registrar sus atributos...
+			// $id_cliente = $this->db->insert_id();
 
-    	$nF 			= $this->my_functions->arraypost($this->input->post('nombreFiscal'));    	
-    	$tC 			= $this->my_functions->arraypost($this->input->post('tipoCliente'));    	
-    	$correo 		= $this->my_functions->arraypost($this->input->post('email'));    	
-    	$giro 			= $this->my_functions->arraypost($this->input->post('giro'));    	
-    	$direccion 		= $this->my_functions->arraypost($this->input->post('direccion'));    	
-    	$rfc 			= $this->my_functions->arraypost($this->input->post('rfc'));    	
-    	$comentario 	= $this->my_functions->arraypost($this->input->post('comentario'));    	
-    	$representate 	= $this->my_functions->arraypost($this->input->post('representate'));    	
-    	$pWeb 			= $this->my_functions->arraypost($this->input->post('paginaWeb'));   		
-    	
-    	//LA FUNCION PRE_INSERT DEVUELVE LAS VARIABLES ARRAY CON DOS DATOS 'id':1 'dato': 'nombre'
-    	//SI ALGUNO DE ESTOS DOS FALTA LOS IGNORA.
+			// # Traemos la tabla de atributos
+			// $this->db->select('*');
+			// $atr = $this->db->get('atributo_cliente');
 
-    	$atributos_cliente = pre_insert($nF, $tC, $correo, $giro, $direccion, $rfc, $comentario, $representate, $pWeb);	
-    		
-		$this->db->insert_bacth('cliente_atributo', $atributos_cliente);
+			// # Recorremos la consulta de los atributos para conocer el id de cada atributo			
+			// foreach ($atr->result() as $key => $value) {
 
-    	//TELEFONOS DEL CLIENTE Y DE LOS CONTACTOS.
-    	$telefonos 			= $this->input->post('telefonos');//posible arreglo de objetos
+			// 	# Recorremos el post...
+			// 	foreach ($post as $key2 => $value2) {
+			// 		# Verificamos que campos post tienen valor
+			// 		if($value2)
+			// 		{	
+			// 			# Comparamos si la clave del arreglo $post es igual al valor del objeto $value->atributo...
+			// 			if($key2==$value->atributo){
+			// 				# Si son identicos entonces ya conocemos con certeza a que clave pertenece cada valor...
+			// 				# Rellenamos el array con todos los datos no nulos del post...
+			// 				$data[$x] = array(  'cliente_id' => $id_cliente,
+			// 				   			   		'atributo_id' => $value->id,
+			// 			    			   		'dato' => $value2
+		 //                         		 	 );	
+			// 				#incrementamos nuestro contador para cambiar la posición de data
+			// 				$x++;							
+			// 			} # Fin del if($key2)
+			// 		}# Fin del if($value2)
+			// 	} # Fin del foreach $post...
+			// }# Fin del foreach $atributos...
 
-    	$servicios_interes 	= $this->input->post('serviciosInteres');
+			// # Ahora una vez validado los registros que contienen valores procedemos a la inserción en la bd...
+			// $query = $this->db->insert_batch('cliente_atributo', $data);
 
-    	$servicios_cliente 	= $this->input->post('serviciosCuenta');//Puede venir un arreglo
-    	
-    	$archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
+			// $tel = $this->set_tel();
 
-    	
-    	//$cliente_atributos = array('cliente_id' => , $cliente_id);
+			// $id_tel = $tel->insert_p($post['telefonos']);
+			// return $query;
+			var_dump($post);
+			die();
+
+			
+			// # Llama al metodo insert_phones y le manda la variable de telefonos para que se encargue
+			// # de registralos en la bd y devuelve "el id" o "los id´s" para posteriores operaciones... 
+			// $id_tel = $this->insert_phones($post);
+		
+				 		
+	 	// 	# El metodo insert_phones_customer asocia el id de cliente con "el id" o "id´s" de los telefonos
+	 	// 	# si se realizo devuelve un booleano
+	 	// 	$respT = $this->insert_phones_customer($id_tel, $id_cliente);
+
+			// # Aquí se inserta los servicios que le interesa al cliente o prospecto...
+			// if($post->serviciosInteres===true){
+			// 	$respSI = $this->insert_servicios_interes($post->serviciosInteres, $id_cliente);	
+			// }
+			
+			// return $post; 	
+			  //   	$archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
+
 
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
-
-	
-
+			// # Armamos el arreglo para la inserción de la relación de los id´s
+			// $phone_customer = array('cliente_id'=>$post['cliente_id'],
+			// 						'telefono_id' =>$phone_id);
+			// # Aquí relcionamos los id´s del telefono y de la persona a quien pertenece
+			// $query2 = $this->db->insert('telefonos_cliente', $phone_customer);
 
 		public function get_customers_model()
 		{
-			$this->db->select('clientes.id, clientes.nombre, cliente_atributo.dato');
-			$this->db->from('clientes');
-			$this->db->join('cliente_atributo', 'cliente_atributo.cliente_id = clientes.id');
-			$query = $this->db->get();			
-			return $query->result_array();
+			$cont=0;
+			$conts=0;
+			$contz=0;
+			$resp = array();
+
+			###############################################
+			$this->db->select('*');
+			$cliente = $this->db->get('clientes');
+			###############################################
+			
+			$this->db->select('cliente_atributo.cliente_id, atributo_cliente.atributo, cliente_atributo.dato');
+			$this->db->from('cliente_atributo'); # de la tabla cliente_atributo
+			$this->db->join('atributo_cliente', 'atributo_cliente.id = cliente_atributo.atributo_id');
+			$atributos = $this->db->get();	
+			################################################
+
+			$this->db->select('servicios.nombre, servicios_interes.cliente_id');
+			$this->db->from('servicios'); # de la tabla cliente_atributo
+			$this->db->join('servicios_interes', 'servicios_interes.servicio_id = servicios.id');
+			$serviciosI = $this->db->get();	
+			
+			################################################
+
+			$this->db->select('telefonos.id, telefonos.numero, telefonos.tipo, telefonos_cliente.cliente_id, telefonos_cliente.telefono_id');
+			$this->db->from('telefonos'); # de la tabla cliente_atributo
+			$this->db->join('telefonos_cliente', 'telefonos_cliente.telefono_id = telefonos.id');
+			$telefonos = $this->db->get();	
+			
+			################################################
+
+			foreach ($cliente->result() as $key) {				
+
+			 	foreach ($atributos->result() as $key2=>$value) {
+			 		
+			 		if($key->id==$value->cliente_id){
+
+			 			$datos[$cont]['id'] = $key->id;
+			 			$datos[$cont]['nombreComercial'] = $key->nombreComercial;
+			 			$datos[$cont]['tipoCliente'] = $key->tipoCliente;
+			 			$datos[$cont][$value->atributo] = $value->dato;
+			 					 			
+			 		} # Fin del If
+
+			 	} # Fin del foreach() $atributos
+			 	foreach ($serviciosI->result() as $serv=>$value) {
+			 				if($value->cliente_id==$key->id){
+			 					$datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
+			 					 $conts++;
+			 				}
+			 			
+			 		}
+			 	foreach ($telefonos->result() as $tele=>$vals) {
+			 				if($vals->cliente_id==$key->id){
+			 					$datos[$cont]['telefonosCliente'][$contz]= array('telefono'=>$vals->numero, 'tipo'=>$vals->tipo);#[$contz] = $vals->numero;
+			 					$contz++;
+			 					
+			 				}
+			 	}	
+			 	$cont++;
+			}# Fin del foreach() $clientes
+
+			return $datos;			
+		} # Fin de la función get_customers_model()
+
+		
+		public function update_customer($id, $put){
+
+			# La propiedad visible archiva al cliente como si estuviera eliminado a la vista de un usuario normal...
+			# Solo el superusuario podrá eliminar al cliente...
+			if(key($put)=='visible'){
+
+				$this->db->where('id', $id);
+       			$query = $this->db->update('clientes', $put);
+			}else{
+
+			}
+		
+			return $query;			
+
 		}
 
-		public function update_customer(){
+		public function delete_customer($id){
 
+			$query = $this->db->delete('clientes', array('id' => $id));
+        	return $query;
 		}
 
-		public function delete_customer(){
 
-		}
+		public function insert_servicios_interes($servicios, $id_cliente)
+		{
+			if(is_array($servicios))
+			{
+				for ($i=0; $i < count($servicios); $i++) { 
+					$this->db->insert('servicios_interes', array('cliente_id' => $id_cliente, 
+																 'servicio_id'=> $servicios[$i])
+									 );
+				} # Fin del for
+			} # Fin del if
+			else{
 
+				$this->db->insert('servicios_interes', array('cliente_id' => $id_cliente, 
+															 'servicio_id'=> $servicios)
+								 );
+			} # Fin del else
+		}# Fin del metodo insertar servicios...
 
+	    public function insert_phones($post){
+
+	    	if($post->telefonosCliente){
+
+				if(is_array($post->telefonosCliente))
+				{
+
+					for ($i=0; $i < count($post->telefonosCliente); $i++) { 
+
+						$this->db->insert('telefonos', array( 'numero'=>$post->telefonosCliente[$i]->telefono,
+															  'tipo'=>$post->telefonosCliente[$i]->tipo)
+										  );
+						$id[$i] = $this->db->insert_id();
+					}
+					return $id;
+				}
+				else
+				{
+					$this->db->insert('telefonos', array( 'numero'=>$post->telefonosCliente->telefono,
+														  'tipo'=>$post->telefonosCliente->tipo)
+									 );
+					return $this->db->insert_id();
+				}
+			} # If telefonosCliente...
+			else{
+
+				$this->db->insert('telefonos', array( 'numero'=>$post->numero,
+					 									  'tipo'=>$post->tipo)
+									 );
+					return $this->db->insert_id();
+				
+
+			} #Fin del if telefonosCliente...
+
+		} # Fin del metodo insert_phones();
+
+		public function insert_phones_customer($id_tel, $id_cliente)
+		{
+			if(is_array($id_tel))
+	 		{
+	 			for ($t=0; $t < count($id_tel) ; $t++) { 
+	 				$this->db->insert('telefonos_cliente', array('cliente_id'=>$id_cliente, 'telefono_id'=>$id_tel[$t]));
+	 			}
+	 			return true;
+	 		}
+	 		else{
+	 			$this->db->insert('telefonos_cliente', array('cliente_id'=>$id_cliente, 'telefono_id'=>$id_tel));
+	 			return true;
+	 		}
+		} # Fin de la función insert_phones_customer()
 
 	}//Fin de la clase Model_Customer		
-
-
-
-
-
-
-
-
-
-
-	// $nF = $this->my_functions->arraypost($this->input->post('nombreFiscal'));
- //    	if($nF[0]&&$nF[1])
- //        {
- //            $data[0] =  array(  'cliente_id' => $cliente_id,
-	// 			    			'atributo_id' => $nF[0],
-	// 			    			'dato' => $nF[1]
- //                         );
- //        }
-
- //    	$tC = $this->my_functions->arraypost($this->input->post('tipoCliente'));
- //    	if($tC[0]&&$tC[1])
- //        {
- //            $data[1] =  array(  'cliente_id' => $cliente_id,
-	// 			    			'atributo_id' => $tC[0],
-	// 			    			'dato' => $tC[1]
- //                         );
- //        }
-
- //    	$correo = $this->my_functions->arraypost($this->input->post('email'));
- //    	if($coreo[0]&&$correo[1])
- //        {
- //            $data[2] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $correo[0],
-	// 		    			  'dato' => $correo[1]
- //                         );
- //        }
-
- //    	$giro = $this->my_functions->arraypost($this->input->post('giro'));
- //    	if($giro[0]&&$giro[1])
- //        {
- //            $data[3] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $giro[0],
-	// 		    			  'dato' => $giro[1]
- //                         );
- //        }
-
- //    	$direccion = $this->my_functions->arraypost($this->input->post('direccion'));
- //    	if($direccion[0]&&$direccion[1])
- //        {
- //            $data[4] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $direccion[0],
-	// 		    			  'dato' => $direccion[1]);
- //        }
-
- //    	$rfc = $this->my_functions->arraypost($this->input->post('rfc'));
- //    	if($rfc[0]&&$rfc[1])
- //        {
- //            $data[5] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $rfc[0],
-	// 		    			  'dato' => $rfc[1]);
- //        }
-
- //    	$comentario = $this->my_functions->arraypost($this->input->post('comentario'));
- //    	if($comentario[0]&&$comentario[1])
- //        {
- //            $data[6] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $comentario[0],
-	// 		    			  'dato' => $comentario[1]);
- //        }
-
- //    	$representate = $this->my_functions->arraypost($this->input->post('representate'));
- //    	if($comentario[0]&&$comentario[1])
- //        {
- //            $data[7] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $representate[0],
-	// 		    			  'dato' => $representate[1]);
- //        }
-
- //    	$pWeb = $this->my_functions->arraypost($this->input->post('paginaWeb'));
- //    	if($comentario[0]&&$comentario[1])
- //        {
- //            $data[7] =  array('cliente_id' => $cliente_id,
-	// 		    			  'atributo_id' => $pWeb[0],
-	// 		    			  'dato' => $pWeb[1]);
- //        }
-    	

@@ -4,6 +4,7 @@ class Escritorio extends Api {
 
 	public function __construct() {
         parent::__construct();
+        $this->load->model('model_customer', 'customer');
     }  
 
 	//Vista inicial
@@ -18,16 +19,16 @@ class Escritorio extends Api {
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes');
-		
+		$data['clientes'] = $this->customer->get_customers_model();
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
 			$this->load->view($this->ruta());
 		}
-		// if($this->ruta() == 'modulo_consulta_clientes')
-		// {
-		// 	$this->load->view($this->ruta());
-		// }
+		if($this->ruta() == 'modulo_consulta_clientes')
+		{
+			$this->load->view($this->ruta(), $data);
+		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
 			$this->load->view($this->ruta());

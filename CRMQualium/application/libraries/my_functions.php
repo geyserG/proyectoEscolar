@@ -82,97 +82,88 @@ class My_functions {
     	}
 	}//Fin de arraypost
 
+	function pre_insert($id, $cliente, $atr)
+	{
+		$datos = (array)$cliente;
+		$key = array_keys($datos);
+		$val = array_values($datos);
+
+		foreach ($atr->result() as $key => $value) {
+			# code...
+		}
+
+	}
+
+	
 	
 
 	//DEVUEVLVE ARREGLOS QUE TIENEN VALOR EN SUS UNICAS TRES POSICIONES.
-	function pre_insert($cliente_id, $nF, $tC, $correo, $giro, $direccion, $rfc, $comentario, $representate, $pWeb)
+	function prwe_insert($id, $cliente)
 	{	
 			$cont=0;
-			$valor = $nF[0]&&$nF[1];
 
-			if(($nF[0]&&$nF[1])&&$cliente_id)
+			if($cliente->nombreFiscal)
 	        {
-	            $data[$cont] = array(  'cliente_id' => $cliente_id,
-					    				'atributo_id' => $nF[0],
-					    				'dato' => $nF[1]
-	                         );
-
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 1,
+					    			  'dato' => $cliente->nombreFiscal
+	                         		);
 	            $cont++;
 	        }
-
 	    
-	    	if($tC[0]&&$tC[1])
+	    	if($cliente->email)
 	        {
-	            $data[$cont] =  array(  'cliente_id' => $cliente_id,
-					    			'atributo_id' => $tC[0],
-					    			'dato' => $tC[1]
-	                         );
-	             $cont++;
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 2,
+					    			  'dato' => $cliente->email
+	                         		);
+	            $cont++;
 	        }
-
 	    
-	    	if($correo[0]&&$correo[1])
+	    	if($cliente->rfc)
 	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $correo[0],
-				    			  'dato' => $correo[1]
-	                         ); 
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 3,
+					    			  'dato' => $cliente->rfc
+	                         		);
 	            $cont++;
 	        }
-
 	    
-	    	if($giro[0]&&$giro[1])
+	    	if($cliente->paginaWeb)
 	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $giro[0],
-				    			  'dato' => $giro[1]
-	                         );
+	            $data[$cont] = array(  'cliente_id' => $id,
+					    			   'atributo_id' => 4,
+					    			   'dato' => $cliente->paginaWeb
+	                         		);
 	            $cont++;
 	        }
-
-	       	if($direccion[0]&&$direccion[1])
-	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $direccion[0],
-				    			  'dato' => $direccion[1]);
-	            $cont++;
-	        }
-
 	    
-	    	if($rfc[0]&&$rfc[1])
+	    	if($cliente->giro)
 	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $rfc[0],
-				    			  'dato' => $rfc[1]);
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 5,
+					    			  'dato' => $cliente->giro
+	                         		);
 	            $cont++;
 	        }
 
-	    
-	    	if($comentario[0]&&$comentario[1])
+	        if($cliente->comentarioCliente)
 	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $comentario[0],
-				    			  'dato' => $comentario[1]);
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 6,
+					    			  'dato' => $cliente->comentarioCliente
+					    			);
 	            $cont++;
 	        }
 
-	    
-	    	if($representate[0]&&$representate[1])
+	        if($cliente->direccion)
 	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $representate[0],
-				    			  'dato' => $representate[1]);
+	            $data[$cont] = array( 'cliente_id' => $id,
+					    			  'atributo_id' => 7,
+					    			  'dato' => $cliente->direccion
+					    			 );
 	            $cont++;
 	        }
-
-	      	if($pWeb[0]&&$pWeb[1])
-	        {
-	            $data[$cont] =  array('cliente_id' => $cliente_id,
-				    			  'atributo_id' => $pWeb[0],
-				    			  'dato' => $pWeb[1]);
-	             $cont++;
-	        }
-
         return $data;
 	         
     }//FIN DEL METODO PRE_INSERT();

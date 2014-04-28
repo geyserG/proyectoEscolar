@@ -92,7 +92,7 @@
                                 <a>
                                     <span>Tarjeta de presentación frente</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='11' value='11'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='1' value='1'>
                                     </div>
                                 </a>
                             </li>
@@ -100,7 +100,7 @@
                                 <a>
                                     <span>Medallón</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='261' value='261'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='261' value='2'>
                                     </div>
                                 </a>
                             </li>
@@ -108,7 +108,7 @@
                                 <a>
                                     <span>Tríptico</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='31' value='31'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='31' value='3'>
                                     </div>
                                 </a>
                             </li>
@@ -116,7 +116,7 @@
                                 <a>
                                     <span>Díptico</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='41' value='41'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='41' value='4'>
                                     </div>
                                 </a>
                             </li>
@@ -124,7 +124,7 @@
                                 <a>
                                     <span>Catálogo</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='51' value='51'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='51' value='5'>
                                     </div>
                                 </a>
                             </li>
@@ -132,7 +132,7 @@
                                 <a>
                                     <span>Tarjeta de presentación frente y vuelta</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='61' value='61'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='61' value='6'>
                                     </div>
                                 </a>
                             </li>
@@ -140,7 +140,7 @@
                                 <a>
                                     <span>Anuncio sencillo</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='71' value='71'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='71' value='7'>
                                     </div>
                                 </a>
                             </li>
@@ -148,7 +148,15 @@
                                 <a>
                                     <span>Menú de restaurante</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='81' value='81'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='81' value='8'>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span>Diseño de caja</span>
+                                    <div id='check_posicion'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='91' value='9'>
                                     </div>
                                 </a>
                             </li>
@@ -156,7 +164,7 @@
                                 <a>
                                     <span>Branding completo</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='91' value='91'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='101' value='10'>
                                     </div>
                                 </a>
                             </li>
@@ -164,7 +172,7 @@
                                 <a>
                                     <span>Logo animado</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='101' value='101'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='111' value='11'>
                                     </div>
                                 </a>
                             </li>
@@ -172,7 +180,7 @@
                                 <a>
                                     <span>Vídeo branding</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='111' value='111'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='121' value='12'>
                                     </div>
                                 </a>
                             </li>
@@ -180,7 +188,7 @@
                                 <a>
                                     <span>Campaña</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='121' value='121'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='131' value='13'>
                                     </div>
                                 </a>
                             </li>
@@ -188,7 +196,7 @@
                                 <a>
                                     <span>Aplicaciones de campaña</span>
                                     <div id='check_posicion'>
-                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='131' value='131'>
+                                        <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='141' value='14'>
                                     </div>
                                 </a>
                             </li>
@@ -198,32 +206,32 @@
                       <ul>
                           <li><a href='#'><span>Página web sencilla</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='141' value='141'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='151' value='15'>
                           </div></a></li>
                           <li><a href='#'><span>Página Web complicada
                           (Mas de 5 secciones)</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='151' value='151'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='161' value='16'>
                           </div></a></li>
                           <li><a href='#'><span>Página Web con sistema interno</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='161' value='161'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='171' value='17'>
                           </div></a></li>
                           <li><a href='#'><span>App sencilla</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='171' value='171'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='181' value='18'>
                           </div></a></li>
                           <li><a href='#'><span>App complicada</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='181' value='181'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='191' value='19'>
                           </div></a></li>
                           <li><a href='#'><span>Sistema de ventas</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='191' value='191'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='201' value='20'>
                           </div></a></li>
                           <li><a href='#'><span>Rediseño página web</span>
                           <div id='check_posicion'>
-                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='201' value='201'>
+                            <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='221' value='21'>
                           </div></a></li>
                       </ul>
                     </li>
@@ -231,7 +239,7 @@
                         <ul>
                             <li><a href='#'><span>Comercial video</span>
                             <div id='check_posicion'>
-                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='211' value='211'>
+                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='231' value='22'>
                             </div></a></li>
                         </ul>
                     </li>
@@ -239,11 +247,11 @@
                         <ul>
                             <li><a href='#'><span>Redes sociales</span>
                             <div id='check_posicion'>
-                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='221' value='221'>
+                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='241' value='23'>
                             </div></a></li>
                             <li><a href='#'><span>Mailing</span>
                             <div id='check_posicion'>
-                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='231' value='231'>
+                              <input type='checkbox' class="serviciosInteres" name="serviciosInteres" id='241' value='24'>
                             </div></a></li>
                         </ul>
                     </li>    

@@ -15,10 +15,10 @@
 
             //DATOS DE CONTACTOS        
         	$contactos = array(
-        						'nombre_completo'	=> $this->input->post('nombreContacto'),
-                                'telefono_id'       => $id_tel,
-        						'correo'			=> $this->input->post('correoContacto'),
-        						'cargo'				=> $this->input->post('cargoContacto')
+        						'nombre_completo' => $this->input->post('nombreContacto'),
+                                'telefono_id'     => $id_tel,
+        						'correo'		  => $this->input->post('correoContacto'),
+        						'cargo'			  => $this->input->post('cargoContacto')
         					  );//Verificar si es un arreglo
 
             //Verificar si es un arreglo           
@@ -38,11 +38,11 @@
         function update_mcontact(){
         	
           $contactos = array(
-                                'nombre_completo'   => $this->input->post('nombreContacto'),
-                                'telefono_id'       => $id_tel,
-                                'correo'            => $this->input->post('correoContacto'),
-                                'cargo'             => $this->input->post('cargoContacto')
-                              );//Verificar si es un arreglo
+                              'nombre_completo' => $this->input->post('nombreContacto'),
+                              'telefono_id'     => $id_tel,
+                              'correo'          => $this->input->post('correoContacto'),
+                              'cargo'           => $this->input->post('cargoContacto')
+                            );//Verificar si es un arreglo
 
             $this->db->where('id', $id);
             $this->db->update('contacto', $contactos); 

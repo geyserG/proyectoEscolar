@@ -172,10 +172,17 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
+		 Backbone.emulateHTTP = true;
+		  Backbone.emulateJSON = true;
 		app.coleccionClientes.create(this.nuevosAtributosCliente(),{wait: true, success: function (respuesta) {
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+respuesta.get('nombreComercial')+'</span>'+'. Datos de contacto');
 			$('.visible').toggleClass('oculto');
+
+			Backbone.emulateHTTP = false;
+		  	Backbone.emulateJSON = false;
 		}});
+
+
 		// this.otroContacto();
 		// this.nuevoContacto();
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO

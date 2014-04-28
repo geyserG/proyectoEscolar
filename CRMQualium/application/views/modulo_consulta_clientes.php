@@ -197,6 +197,12 @@
     <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
     <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
 <!--MV*-->
+<script type="text/javascript">
+    var app = app || {};
+    app.coleccionDeClientes = <?=json_encode($clientes) ?>;
+    console.log(app.coleccionDeClientes);
+    var ENTER_KEY = 13;
+</script>
     <!-- modelos -->
     <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
