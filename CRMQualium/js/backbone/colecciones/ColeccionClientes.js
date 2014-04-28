@@ -20,6 +20,10 @@ var ColeccionClientes = Backbone.Collection.extend({
 
 	obtenerUltimoId	: function () {
 		return this.last().get('id');
+	},
+
+	obtenerUltimo	: function () {
+		return this.last();
 	}
 });
 
