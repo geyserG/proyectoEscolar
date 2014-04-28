@@ -4,6 +4,10 @@ class Escritorio extends Api {
 
 	public function __construct() {
         parent::__construct();
+        // header("Access-Control-Allow-Orgin: *");
+        // header("Access-Control-Allow-Methods: *");
+        // header("Content-Type: application/json");
+                
     }  
 
 	//Vista inicial
@@ -14,6 +18,8 @@ class Escritorio extends Api {
 		
 	}
 
+	//Toma la uri del modulo y la devuelve
+	
 	public function clientes(){
 	
 		$this->area_Estatica();
@@ -24,10 +30,10 @@ class Escritorio extends Api {
 		{
 			$this->load->view($this->ruta());
 		}
-		// if($this->ruta() == 'modulo_consulta_clientes')
-		// {
-		// 	$this->load->view($this->ruta());
-		// }
+		if($this->ruta() == 'modulo_consulta_clientes')
+		{
+			$this->load->view($this->ruta());
+		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
 			$this->load->view($this->ruta());
@@ -37,17 +43,6 @@ class Escritorio extends Api {
 
 	public function proyectos(){
 		$this->area_Estatica();
-		$this->load->view('modulo_proyectos');
-		
-
-		if($this->ruta() == 'modulo_proyectos_nuevo')
-		{
-			$this->load->view($this->ruta());
-		}
-		if($this->ruta() == 'modulo_proyectos_consulta')
-		{
-			$this->load->view($this->ruta());
-		}
 	}
 
 	public function contratos(){

@@ -6,9 +6,8 @@ class  Api_cliente extends Api {
 
 	public function __construct() {
         parent::__construct();
-        $this->load->model('Model_customer', 'Customer');
+    	$this->load->model('Model_customer');
         $this->load->helper('url');
-       
     }
 
     public function api() {
@@ -35,7 +34,7 @@ class  Api_cliente extends Api {
 
     private function insert(){
 
-    	$query = $this->Customer->insert_customer();
+    	$query = $this->Model_customer->insert_customer();
     	$data = $this->response($query);
     	$this->load->view('',$data);
 
@@ -43,18 +42,17 @@ class  Api_cliente extends Api {
 
     private function get_customers(){
 
-    	$query = $this->Customer->get_customers_model();
-                        
+    	$query = $this->Model_customer->get_customers_model();
     	if($query){
 
-    		$data['json'] = $this->response(200, $query);
+    		$data = $this->response(200, $query);
 
     	}else{
-    		$data['json'] = $this->response(404, $query);
+    		$data = $this->response(404, $query);
     	} 
-        $this->area_Estatica();
-    	$this->load->view('modulo_Clientes');
-    	$this->load->view('pruebas', $data);
+    	    $this->area_Estatica();
+    		$this->load->view('modulo_Clientes');
+    		$this->load->view($this->ruta());
     	
     }
 
@@ -64,7 +62,29 @@ class  Api_cliente extends Api {
     	// $data = $this->response('',$query);
     	// $this->load->view('', $data);
     	
+    	//Regresa el id del cliente insertado.
+    	$cliente_id = $this->insert($this->input->post('nombreComercial'));
 
+    	$this->input->post('nombreFiscal');
+    	$this->input->post('tipoCliente');
+    	$this->input->post('email');
+    	$this->input->post('giro');
+    	$this->input->post('direccion');
+    	$this->input->post('rfc');
+    	$this->input->post('comentario');
+    	$this->input->post('representate');
+    	$this->input->post('paginaWeb');
+
+    	$telefonos = $this->input->post('telefonos');//posible arreglo de objetos
+    	$this->input->post('serviciosInteres');
+    	$this->input->post('serviciosCuenta');//Puede venir un arreglo
+    	$this->input->post('archivos');//Pendiente de como pasarlo 	        
+    	$contactos = $this->input->post('nombreContacto');//Verificar si es un arreglo
+    	$correo_contacto = $this->input->post('correoContacto');//Verificar si es un arreglo
+    	$this->input->post('cargoContacto');//Verificar si es un arreglo
+    	$this->input->post('telefonosContacto');//Verificar si es un arreglo
+    	
+    	//$cliente_atributos = array('cliente_id' => , $cliente_id);
 
     }
 

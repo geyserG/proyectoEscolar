@@ -50,13 +50,10 @@ $route['escritorio'] = 'escritorio/index/$1';
 $route['modulo_Clientes'] = 'escritorio/clientes';
 $route['modulo_cliente_nuevo'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_clientes'] = 'escritorio/clientes/$1';
-// $route['modulo_consulta_clientes'] = 'api_contacto/api/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 //Rutas para la proyectos
-$route['modulo_proyectos'] = 'escritorio/proyectos/';
-$route['modulo_proyectos_nuevo'] = 'escritorio/proyectos/';
-$route['modulo_proyectos_consulta'] = 'escritorio/proyectos/';
+$route['modulo_proyectos'] = 'escritorio/proyectos/$1';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 
