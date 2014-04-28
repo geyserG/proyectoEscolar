@@ -269,7 +269,6 @@
                       <li><a href=''><span>Servicios</span></a></li>
                       <li class='has-sub'><a href='#'><span>Diseño Gráfico</span></a>
                         <ul>
-<<<<<<< HEAD
                             <li>
                                 <a>
                                     <span>Tarjeta de presentación frente</span>
@@ -479,7 +478,6 @@
                        <div id='check_posicion'><input type='checkbox' class="serviciosCuenta" name="serviciosCuenta" id='12' value='12'></div></a></li>
                        <li><a><span>Aplicaciones de campaña</span>
                        <div id='check_posicion'><input type='checkbox' class="serviciosCuenta" name="serviciosCuenta" id='13' value='13'></div></a></li>
-=======
                            <li><a ><span>Tarjeta de presentación frente</span>
                            <div id='check_posicion'><input type='checkbox' class="serviciosCuenta" name="serviciosCuenta" id='1' value='1'></div></a></li>
                            <li><a><span>Medallón</span>
@@ -541,7 +539,6 @@
                            <div id='check_posicion'><input type='checkbox' class="serviciosCuenta" name="serviciosCuenta" id='23' value='23'></div></a></li>
                        </ul>
                       </li>
->>>>>>> c542427fa83ec47dbf462f640e82f629bcc57e00
                     </ul>
                   </div>
                   <div class="desborde"></div>

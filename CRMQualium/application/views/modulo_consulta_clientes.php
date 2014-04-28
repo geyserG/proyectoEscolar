@@ -415,11 +415,11 @@
 
 
 <script type="text/javascript">
-    var app = app  || {};
-    app.coleccionClientesCodeIgniter = <?php json_encode($clientes) ?>;
-    app.coleccionContactosCodeIgniter = <?php json_encode($contactos) ?>;
-    app.coleccionArchivosCodeIgniter = <?php json_encode($archivos) ?>;
-    app.coleccionTelefonosCodeIgniter = <?php json_encode($telefonos) ?>;
+    // var app = app  || {};
+    // app.coleccionClientesCodeIgniter = <?php json_encode($clientes) ?>;
+    // app.coleccionContactosCodeIgniter = <?php json_encode($contactos) ?>;
+    // app.coleccionArchivosCodeIgniter = <?php json_encode($archivos) ?>;
+    // app.coleccionTelefonosCodeIgniter = <?php json_encode($telefonos) ?>;
 </script>
 
 <!-- Librerias Backbone -->
@@ -429,10 +429,10 @@
 <!--MV*-->
 <script type="text/javascript">
     var app = app || {};
-    app.coleccionDeClientes = <?=json_encode($clientes) ?>;
+    app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
     console.log(app.coleccionDeClientes);
     var ENTER_KEY = 13;
-</script>
+ </script>
     <!-- modelos -->
     <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>

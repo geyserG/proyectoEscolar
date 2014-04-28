@@ -97,8 +97,8 @@ $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 
 //Rutas para el modulo de configuracion...
-$route['phones'] = 'api_telefono/api';
-$route['phones/(:num)'] = 'api_telefono/api/$1';
+$route['api_telefonos'] = 'api_telefono/api';
+$route['api_telefonos/(:num)'] = 'api_telefono/api/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 

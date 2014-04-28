@@ -31,11 +31,7 @@ class Escritorio extends Api {
 		}
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
-
-			$this->load->view($this->ruta());
-
 			$this->load->view($this->ruta(), $data);
-
 		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
