@@ -11,6 +11,29 @@
 			$this->load->database();			
 		}
 
+<<<<<<< HEAD
+		public function insert_customer(){
+
+		}
+
+		public function get_customers_model()
+		{
+			$query = $this->db->get('clientes');
+			return $query->result_array();
+		}
+
+		public function update_customer(){
+
+		}
+
+		public function delete_customer(){
+
+		}
+
+
+
+	}//Fin de la clase Model_Customer		
+=======
 		function set_tel(){
 			$obj = new model_phone();
 			return $obj;
@@ -249,3 +272,4 @@
 		} # Fin de la función insert_phones_customer()
 
 	}//Fin de la clase Model_Customer		
+>>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840

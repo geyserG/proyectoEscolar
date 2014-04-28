@@ -1,7 +1,7 @@
 var app = app || {};
 
 var ColeccionClientes = Backbone.Collection.extend({
-	model	: app.ModeloClente,
+	model	: app.ModeloCliente,
 
 	// localStorage	: new Backbone.LocalStorage('clientes-backbone'),
 	url: 'http://crmqualium.com/api_cliente',
@@ -36,7 +36,7 @@ app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
 	}
 });
 
-app.coleccionClientes = new ColeccionClientes();
+app.coleccionClientes = new ColeccionClientes(app.coleccionClientesCodeIgniter);
 
 // console.log(app.coleccionClientes.toJSON());
 >>>>>>> c542427fa83ec47dbf462f640e82f629bcc57e00

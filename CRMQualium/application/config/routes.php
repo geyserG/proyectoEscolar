@@ -57,9 +57,7 @@ $route['api_cliente'] = 'api_cliente/api';
 $route['api_cliente/(:num)'] = 'api_cliente/api';
 
 //Rutas para la proyectos
-$route['modulo_proyectos'] = 'escritorio/proyectos/';
-$route['modulo_proyectos_nuevo'] = 'escritorio/proyectos/';
-$route['modulo_proyectos_consulta'] = 'escritorio/proyectos/';
+$route['modulo_proyectos'] = 'escritorio/proyectos/$1';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 // $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
 

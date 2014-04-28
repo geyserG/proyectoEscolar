@@ -216,8 +216,12 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		if (this.arregloDeContactos.length > 0) {
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
 				var idContacto;
+				Backbone.emulateHTTP = true;
+		  		Backbone.emulateJSON = true;
 				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, success:function(exito){
 					idContacto = exito.get('nombreContacto');
+					Backbone.emulateHTTP = false;
+		  			Backbone.emulateJSON = false;
 					// console.log(this.arrTelefonosContac[i]);
 				}});
 				this.nuevoTelefono(this.recursividadTelefonos(idContacto,this.arrTelefonosContac[i][0],this.arrTelefonosContac[i][1]));
@@ -267,7 +271,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		
 		var idCliente;
 
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
 		app.coleccionClientes.create(json,{wait:true, success:function(exito){
+			Backbone.emulateHTTP = false;
+			Backbone.emulateJSON = false;
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
 			idCliente = exito.get('id');
 			this.$('.visibleR').toggleClass('ocultoR');
@@ -286,10 +294,18 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		if (objsTelefonos != undefined) {
 			if (objsTelefonos.length) {
 				for (var i = 0; i < objsTelefonos.length; i++) {
+					Backbone.emulateHTTP = true;
+		  			Backbone.emulateJSON = true;
 					app.coleccionTelefonos.create(objsTelefonos[i]);
+		 			Backbone.emulateHTTP = false;
+		  			Backbone.emulateJSON = false;
 				};
 			} else{
+				Backbone.emulateHTTP = true;
+		  		Backbone.emulateJSON = true;
 				app.coleccionTelefonos.create(objsTelefonos);
+		 		Backbone.emulateHTTP = false;
+		  		Backbone.emulateJSON = false;
 			};
 		};
 	},

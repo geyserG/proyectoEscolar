@@ -845,6 +845,13 @@
       </div>
   </script> -->
 
+<script type="text/javascript">
+    var app = app  || {};
+    app.coleccionClientesCodeIgniter = <?php json_encode($clientes) ?>;
+    app.coleccionContactosCodeIgniter = <?php json_encode($contactos) ?>;
+    app.coleccionArchivosCodeIgniter = <?php json_encode($archivos) ?>;
+    app.coleccionTelefonosCodeIgniter = <?php json_encode($telefonos) ?>;
+</script>
   
 <!-- Librerias Backbone -->
   <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
