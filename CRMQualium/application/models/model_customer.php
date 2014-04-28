@@ -6,40 +6,17 @@
 	class Model_customer extends CI_Model
 	{
 		
-		function __construct()
+		public function __construct()
 		{
 			$this->load->database();			
 		}
 
-<<<<<<< HEAD
-		public function insert_customer(){
-
-		}
-
-		public function get_customers_model()
-		{
-			$query = $this->db->get('clientes');
-			return $query->result_array();
-		}
-
-		public function update_customer(){
-
-		}
-
-		public function delete_customer(){
-
-		}
-
-
-
-	}//Fin de la clase Model_Customer		
-=======
 		function set_tel(){
 			$obj = new model_phone();
 			return $obj;
 		}
 
-		public function insert_customer($post){	
+		function insert_customer($post){	
 
 			// $x=0; # Este es un contador para mi array de inserción...	
 
@@ -112,7 +89,7 @@
 			// # Aquí relcionamos los id´s del telefono y de la persona a quien pertenece
 			// $query2 = $this->db->insert('telefonos_cliente', $phone_customer);
 
-		public function get_customers_model()
+		 function get_customers_model()
 		{
 			$cont=0;
 			$conts=0;
@@ -272,4 +249,4 @@
 		} # Fin de la función insert_phones_customer()
 
 	}//Fin de la clase Model_Customer		
->>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840
+

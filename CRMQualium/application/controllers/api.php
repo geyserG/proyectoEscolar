@@ -2,10 +2,14 @@
 
 class  Api extends CI_Controller {
 
-
+     public function __construct() {
+         parent::__construct();
+         $this->load->library('My_functions');
+        
+     }
     public function metodo(){
         # Recupera el nombre del metodo y lo convierte a minusculas...
-    	return strtolower($_SERVER['REQUEST_METHOD']);
+        return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
     public function ruta()
@@ -21,46 +25,28 @@ class  Api extends CI_Controller {
     }
  
     //...Funcion que carga la estructura inicial...//...cabecera..//menu...
-	public function area_Estatica(){
-		$this->load->view('cabecra_y_menu.html');
-		$this->load->view('header');
-		$this->load->view('menu');
-	}
+    public function area_Estatica(){
+        $this->load->view('cabecra_y_menu.html');
+        $this->load->view('header');
+        $this->load->view('menu');
+    }
 
-	protected function response($data, $status)
-	{
-<<<<<<< HEAD
-		$status_message = $this->request_status($status);
-		header("HTTP/1.1 $status $status_message");
-=======
+    protected function response($data, $status)
+    {
         # $status es el codigo de respuesta que regresa la consulta
         $this->set_headers($status); 
         $status_message = $this->requestStatus($status);
 
-		header("HTTP/1.1 $status $status_message");                    
->>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840
+        header("HTTP/1.1 $status $status_message");                    
         $response['status'] = $status;
-       // $response['status_message'] = $status_message;
+        $response['status_message'] = $status_message;
         $response['data'] = $data;
-<<<<<<< HEAD
-       
-        $json_response['json'] = json_encode($response);
-        $this->load->view('escritorio',$json_response);
-        //return $json_response;
-
-	}
-	public function ruta()
-	{
-		return $this->uri->segment(1);		
-	}
-=======
         $resp = json_encode($response); 
         echo $resp;
         exit;
         
-    }	
->>>>>>> 8a291be3c6e70f79df879c2411b3ab31bd995840
-	
+    }   
+    
     # Codigo de Respuesta despues de una petición...
     protected function requestStatus($code) {
         $status = array(  
