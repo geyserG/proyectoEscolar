@@ -3,9 +3,8 @@
     * Operaciones en la base de datos con los contactos
     */
     class Model_contact extends CI_Model
-    {  
+    {          
 
-        
         function set_tel(){
             $obj = new model_phone();
             return $obj;
@@ -23,7 +22,7 @@
             $id    = $this->insert_id();
 
             $tel = set_tel();
-            $tid = $tel->insert_p($post['telefono_contacto']);
+            $tid = $tel->insert_p($post['telefono']);
             $data = array('contacto_id'=>$id, 'telefono_id'=>$tid);
 
             $this->db->insert->('telefonos_contactos', $data);
@@ -51,7 +50,7 @@
             $this->db->update('contacto', $contactos); 
 
         }
-        private function delete_phone($id){
+        private function delete_mcontacto($id){
 
             $query = $this->db->delete('contactos', array('id' => $id));
             return $query;

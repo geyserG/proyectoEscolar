@@ -27,7 +27,7 @@ class Escritorio extends Api {
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
-			$this->load->view($this->ruta());
+			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
