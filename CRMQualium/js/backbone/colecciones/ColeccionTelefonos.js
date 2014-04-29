@@ -20,4 +20,4 @@ var ColeccionTelefonos = Backbone.Collection.extend({
 	}
 });
 
-app.coleccionTelefonos = new ColeccionTelefonos(app.coleccionTelefonosCodeIgniter);
+app.coleccionTelefonos = new ColeccionTelefonos();

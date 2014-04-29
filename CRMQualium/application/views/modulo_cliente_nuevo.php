@@ -724,7 +724,12 @@
     <!-- <div id="divArchivos"></div> -->
 <!-- </div> -->
 </div>
-
+<script type="text/javascript">
+    var app = app || {};
+    
+    app.coleccionDeClientes = <?= json_encode($clientes) ?>;
+    console.log(app.coleccionDeClientes);
+</script>
 
 <!-- plantillas -->
   <!-- 
@@ -842,13 +847,7 @@
       </div>
   </script> -->
 
-<script type="text/javascript">
-    var app = app  || {};
-    app.coleccionClientesCodeIgniter = <?php json_encode($clientes) ?>;
-    app.coleccionContactosCodeIgniter = <?php json_encode($contactos) ?>;
-    app.coleccionArchivosCodeIgniter = <?php json_encode($archivos) ?>;
-    app.coleccionTelefonosCodeIgniter = <?php json_encode($telefonos) ?>;
-</script>
+
   
 <!-- Librerias Backbone -->
   <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
@@ -867,6 +866,5 @@
   <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
   <!--<script type="text/javascript" src="js/backbone/vistas/VistaTelefono.js"></script>-->
   <!-- <script type="text/javascript" src="js/backbone/vistas/VistaArchivo.js"></script> -->
-
-  <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
-  <script type="text/javascript" src="js/backbone/app.js"></script>
+    <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
+    <script type="text/javascript" src="js/backbone/app.js"></script>

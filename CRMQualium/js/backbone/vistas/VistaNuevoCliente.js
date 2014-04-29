@@ -49,6 +49,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.arrTelefonosContac   = new Array();
 		this.$listaInteres        = $('#listaInteres');
 		this.$listaCuenta         = $('#listaCuenta');
+	
 		// this.direccionFoto = '';
 	//Variables de temporales, COMENTAR PARA NOS VER DATOS AL FONDO DE LA PÁGINA;
 		this.$divClientes         = $('#divClientes');
@@ -61,18 +62,18 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// app.coleccionArchivos.fetch();
 
 
-		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
-		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
+		this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
+		this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
 		app.coleccionClientes.fetch();
 
 		
 		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
 		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
-		app.coleccionContactos.fetch();
+		// app.coleccionContactos.fetch();
 
 
 
-		app.coleccionTelefonos.fetch();
+		// app.coleccionTelefonos.fetch();
 
 	},
 // -----render------------------------------------ 
@@ -243,7 +244,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		
 		// this.urlFoto();
-		console.log($('#direccion').attr('src'));
+		// console.log($('#direccion').attr('src'));
 
 		var json = this.nuevosAtributosCliente();
 		
@@ -279,32 +280,29 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			this.$('.visibleR').toggleClass('ocultoR');
 		}});
 
-		this.nuevoTelefono(this.recursividadTelefonos(idCliente,document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')));
+	
+		// this.nuevoTelefono();
 		// this.otroContacto();
 		// this.nuevoContacto();
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
 		
 	},
 // -----nuevoTelefono------------------------------
-	nuevoTelefono	: function (objsTelefonos) {
-		if (objsTelefonos != undefined) {
-			if (objsTelefonos.length) {
-				for (var i = 0; i < objsTelefonos.length; i++) {
-					Backbone.emulateHTTP = true;
-		  			Backbone.emulateJSON = true;
-					app.coleccionTelefonos.create(objsTelefonos[i]);
-		 			Backbone.emulateHTTP = false;
-		  			Backbone.emulateJSON = false;
-				};
-			} else{
-				Backbone.emulateHTTP = true;
-		  		Backbone.emulateJSON = true;
-				app.coleccionTelefonos.create(objsTelefonos);
-		 		Backbone.emulateHTTP = false;
-		  		Backbone.emulateJSON = false;
-			};
-		};
-	},
+	// nuevoTelefono	: function (objsTelefonos) {
+	// 	if (objsTelefonos != undefined) {
+	// 		Backbone.emulateHTTP = true;
+ //  			Backbone.emulateJSON = true;
+	// 		if (objsTelefonos.length) {
+	// 			for (var i = 0; i < objsTelefonos.length; i++) {
+	// 				app.coleccionTelefonos.create(objsTelefonos[i]);
+	// 			};
+	// 		} else{
+	// 			app.coleccionTelefonos.create(objsTelefonos);
+	// 		};
+	//  		Backbone.emulateHTTP = false;
+	//   		Backbone.emulateJSON = false;
+	// 	};
+	// },
 // -----nuevoArchivo---------------No sirve aquí-- 
 	// nuevoArchivo	: function () {
 	// 	var arreglo = new Array();
@@ -356,7 +354,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
            comentarioCliente : this.$comentarioCliente.val().trim(),
                    direccion : this.$direccion.val().trim(),
                  tipoCliente : this.tipoCliente,
-            // telefonosCliente : this.recursividadTelefonos(document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')),
+            	   telefonos : this.recursividadTelefonos(document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')),
             serviciosInteres : this.recursividadServicios(document.getElementsByName('serviciosInteres')),
              serviciosCuenta : this.recursividadServicios(document.getElementsByName('serviciosCuenta')),
                         foto : this.urlFoto()
@@ -471,13 +469,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		}
 	},
 // -----recursividadTelefonos--------------------- 
-	recursividadTelefonos	: function (esDe,telefono,tipo) {
+	recursividadTelefonos	: function (telefono,tipo) {
 		if (telefono.length > 1) {
 			var arreglo = new Array();
 			for (var i = 0; i < telefono.length; i++) {
 				if ($(telefono[i]).val() != "") {
 					// console.log('fue en el if');
-					arreglo[i] = this.recursividadTelefonos(esDe,telefono[i],tipo[i]);
+					arreglo[i] = this.recursividadTelefonos(telefono[i],tipo[i]);
 				};
 			};
 
@@ -485,9 +483,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		} else if($(telefono).val() != "") {
 			// console.log('fue en el else');
 			var objetoTelefono = {};
-			objetoTelefono.telefono = $(telefono).val().trim();
+			objetoTelefono.numero = $(telefono).val().trim();
 			objetoTelefono.tipo = $(tipo).val();
-			objetoTelefono.esDe = esDe;
+			// objetoTelefono.esDe = esDe;
 
 			return jQuery.parseJSON(JSON.stringify(objetoTelefono));
 		};

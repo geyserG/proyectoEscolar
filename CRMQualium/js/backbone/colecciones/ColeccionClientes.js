@@ -24,17 +24,19 @@ var ColeccionClientes = Backbone.Collection.extend({
 	},
 
 	parse	: function (response) {
-		return response.cliente;
-	}
-});
+		return response.data;
+	},
 
-app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
 	obtenerUltimo	: function () {
 		return this.last();
 	}
 });
 
-app.coleccionClientes = new ColeccionClientes(app.coleccionClientesCodeIgniter);
+// app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
+	
+// });
+
+app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
 
 // console.log(app.coleccionClientes.toJSON());
 
