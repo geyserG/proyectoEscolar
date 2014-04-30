@@ -3,7 +3,7 @@
     * Operaciones en la base de datos con los contactos
     */
     include 'model_phone.php';
-    class Model_representante extends CI_Model
+    class Modelo_representante extends CI_Model
     {          
 
         function set_tel()
@@ -12,7 +12,7 @@
             return $obj;
         }
 
-        function insert_representate($post){
+        function insert_r($post){
             
             $representante = array(
                                 'nombre' => $post['nombre'],
@@ -27,15 +27,31 @@
             $data = array('idcliente'=> $post['idCliente'], 'idrepresentante'=>$id);
             $this->db->insert('representante_cliente', $data);
 
-            $tel = $this->set_tel();
-            $id_tel = $tel->insert_p($post['telefonos']);
 
-            $tel = array('idrepresentante'=> $id, 'idtelefono'=>$id_tel);
-            $this->db->insert_batch('telefonos_representante', $tel);
+            # Existe algún telefono?
+            if(array_key_exists('telefonos', $post)){
+                
+                # Crea un objeto de tipo telefono...
+                $tel = $this->set_tel();
+                # Envia la variable $post['telefono'] al modelo telefonos...
+                $id_tel = $tel->insert_p($post['telefonos']);
 
-            ($query) ? ($id_tel) ? return true : return echo 'Error al registrar telefonos de representante' : return echo 'Error al registrar representante';
-                       
-        }
+                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
+                if(is_array($id_tel)){
+                     # ahora envía el id contacto y telefono para relacionar contacto y telefono...
+                    for ($i=0; $i<count($id_tel); $i++) { 
+                        #$this->db->insert('telefonos_representante', array('idrepresentante'=> $id, 'idtelefono'=>$id_tel[$i]));
+                        $var[$i] = array('idrepresentante'=> $id, 'idtelefono'=>$id_tel[$i]);
+                    } 
+                       $this->db->insert_batch('telefonos_representante', $var);             
+                                   
+                }else{
+                    $this->db->insert('telefonos_representante', array('idrepresentante'=> $id, 'idtelefono'=>$id_tel));
+                }
+                 
+             } # Fin del post telefonos          
+                     
+        } # Fin del insert_representante();
 
         function get_representante(){
 
@@ -59,7 +75,7 @@
             $this->db->update('contacto', $contactos); 
 
         }
-        private function delete_representante($id){
+       function delete_representante($id){
 
             $query = $this->db->delete('contactos', array('id' => $id));
             return $query;

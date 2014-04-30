@@ -18,49 +18,65 @@
 
 		function insert_customer($post){	
 
-		// 	$x=0; # Este es un contador para mi array de inserción...	
+			$x=0; # Este es un contador para mi array de inserción...	
 
-		// 	# Se almacena al cliente en la base de datos... 						
-		// 	$this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 'tipoCliente'=>$post['tipoCliente']));
-		// 	# devolvemos su id_cliente para registrar sus atributos...
-		// 	$id_cliente = $this->db->insert_id();
+			# Se almacena al cliente en la base de datos... 						
+			$this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 'tipoCliente'=>$post['tipoCliente']));
+			# devolvemos su id_cliente para registrar sus atributos...
+			$id_cliente = $this->db->insert_id();
 
-		// 	# Traemos la tabla de atributos
-		// 	$this->db->select('*');
-		// 	$atr = $this->db->get('atributo_cliente');
+			# Traemos la tabla de atributos
+			$this->db->select('*');
+			$atr = $this->db->get('atributo_cliente');
 
-		// 	# Recorremos la consulta de los atributos para conocer el id de cada atributo			
-		// 	foreach ($atr->result() as $key => $value) {
+			# Recorremos la consulta de los atributos para conocer el id de cada atributo			
+			foreach ($atr->result() as $key => $value) {
 
-		// 		# Recorremos el post...
-		// 		foreach ($post as $key2 => $value2) {
-		// 			# Verificamos que campos post tienen valor
-		// 			if($value2)
-		// 			{	
-		// 				# Comparamos si la clave del arreglo $post es igual al valor del objeto $value->atributo...
-		// 				if($key2==$value->atributo){
-		// 					# Si son identicos entonces ya conocemos con certeza a que clave pertenece cada valor...
-		// 					# Rellenamos el array con todos los datos no nulos del post...
-		// 					$data[$x] = array(  'cliente_id' => $id_cliente,
-		// 					   			   		'atributo_id' => $value->id,
-		// 				    			   		'dato' => $value2
-		//                          		 	 );	
-		// 					#incrementamos nuestro contador para cambiar la posición de data
-		// 					$x++;							
-		// 				} # Fin del if($key2)
-		// 			}# Fin del if($value2)
-		// 		} # Fin del foreach $post...
-		// 	}# Fin del foreach $atributos...
+				# Recorremos el post...
+				foreach ($post as $key2 => $value2) {
+					# Verificamos que campos post tienen valor
+					if($value2)
+					{	
+						# Comparamos si la clave del arreglo $post es igual al valor del objeto $value->atributo...
+						if($key2==$value->atributo){
+							# Si son identicos entonces ya conocemos con certeza a que clave pertenece cada valor...
+							# Rellenamos el array con todos los datos no nulos del post...
+							$data[$x] = array(  'cliente_id' => $id_cliente,
+							   			   		'atributo_id' => $value->id,
+						    			   		'dato' => $value2
+		                         		 	 );	
+							#incrementamos nuestro contador para cambiar la posición de data
+							$x++;							
+						} # Fin del if($key2)
+					}# Fin del if($value2)
+				} # Fin del foreach $post...
+			}# Fin del foreach $atributos...
 
-		// 	# Ahora una vez validado los registros que contienen valores procedemos a la inserción en la bd...
-		// 	$query = $this->db->insert_batch('cliente_atributo', $data);
+			# Ahora una vez validado los registros que contienen valores procedemos a la inserción en la bd...
+			$query = $this->db->insert_batch('cliente_atributo', $data);
 
-		// 	if(array_key_exists('telefonos', $post)){
-		// 	$tel = $this->set_tel();
+			 if(array_key_exists('telefonos', $post)){
+                
+                # Crea un objeto de tipo telefono...
+                $tel = $this->set_tel();
+                # Envia la variable $post['telefono'] al modelo telefonos...
+                $id_tel = $tel->insert_p($post['telefonos']);
 
-		// 	$id_tel = $tel->insert_p($post['telefonos']);
-		// 	return $id_tel;
-		// 	}
+
+                if(is_array($id_tel)){
+                	
+	                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
+	                for ($i=0; $i<count($id_tel); $i++) { 
+	                	$var[$i] = array('cliente_id'=> $id_cliente, 'telefono_id'=>$id_tel[$i]);
+	                }
+	                $this->db->insert_batch('telefonos_cliente',$var);
+	                               
+            	}else{
+            	   	$this->db->insert('telefonos_cliente', array('cliente_id'=> $id_cliente, 'telefono_id'=>$id_tel));
+            	}
+             }
+
+
 		return true;
 			
 

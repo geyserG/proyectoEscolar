@@ -27,14 +27,32 @@
             $data = array('cliente_id'=> $post['idCliente'], 'contacto_id'=>$id);
             $this->db->insert('contacto_cliente', $data);
 
-            $tel = $this->set_tel();
-            $id_tel = $tel->insert_p($post['telefonos']);
+            # Existe algún telefono?
+            if(array_key_exists('telefonos', $post)){
+                
+                # Crea un objeto de tipo telefono...
+                $tel = $this->set_tel();
+                # Envia la variable $post['telefono'] al modelo telefonos...
+                $id_tel = $tel->insert_p($post['telefonos']);
 
-            $tel = array('contactos_id'=> $id, 'telefono_id'=>$id_tel);
-            $this->db->insert('telefonos_contactos', $tel);
 
-            return $id_tel;
+                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
+                if(is_array($id_tel)){
+                        
+                    # ahora envía el id contacto y telefono para relacionar contacto y telefono...
+                    for ($i=0; $i<count($id_tel); $i++) { 
+                       $var[$i] = array('contacto_id'=> $id, 'telefono_id'=>$id_tel[$i]);                        
+                    } 
+                     $this->db->insert_batch('telefonos_contactos', $var);
+                                                       
+                }else{
+                       $this->db->insert('telefonos_contactos', array('contacto_id'=> $id, 'telefono_id'=>$id_tel));
+                }
+                 
+             }
 
+
+            return true;
             
         }
 

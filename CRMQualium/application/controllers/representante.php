@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  Representante extends Api {
+class Representante extends Api {
 
 	public function __construct() {
         parent::__construct();
@@ -16,16 +16,16 @@ class  Representante extends Api {
 
     	switch ($this->metodo()) {
     		case 'post':
-    			$this->insert_representate();
+    			$this->insert_representante();
     			break;
     		case 'get':
-    			$this->get_representates($id);
+    			$this->get_representantes($id);
     			break;	
     		case 'put':
-                 $this->update_representate($id);
+                 $this->update_representante($id);
     			break;	
     		case 'delete':
-    			$this->delete_representate($id);
+    			$this->delete_representante($id);
     			break;
     		default:
     			$this->response('',405);
@@ -34,7 +34,7 @@ class  Representante extends Api {
 
     }
     
-    private function insert_representate(){
+    private function insert_representante(){
 
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
         $post = $this->ipost();         
@@ -43,21 +43,21 @@ class  Representante extends Api {
         ($query) ? $this->response($query, 201) : $this->response($query, 406);
     }
 
-    private function get_representate($id){
+    private function get_representante($id){
 
     	$query = $this->representante->get_r($id);                        
     	($query) ? $this->response($query, 302) : $this->response($query, 404);
     	
     }
 
-    private function update_representate($id){
+    private function update_representante($id){
 
         $put = $this->put();
     	$query = $this->representante->update_r($id, $put);
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
-    private function delete_representate($id){
+    private function delete_representante($id){
 
     	$query = $this->representante->delete_r($id);    	
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
