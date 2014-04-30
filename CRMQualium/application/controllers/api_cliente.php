@@ -13,11 +13,11 @@ class  Api_cliente extends Api {
 
     public function api() {
 
-        // $id = $this->uri->segment(2);   
+        $id = $this->uri->segment(2);   
 
         switch ($this->metodo()) {
             case 'post':
-                $this->insert();
+                $this->insert_c();
                 break;
             case 'get':
                 $this->get_customers();
@@ -35,21 +35,21 @@ class  Api_cliente extends Api {
 
     }
 
-    private function insert(){
 
-         $post = $this->ipost();   
-         var_dump($post);
-         die();
-        
-        // $query = $this->Customer->insert_customer($post);
 
-        // if($query){
+    private function insert_c(){
 
-        //      $this->response($query, 201);        
+        $post = $this->ipost();   
+                
+        $query = $this->Customer->insert_customer($post);
 
-        // }else{
-        //      $this->response($query, 404);
-        // }         
+        if($query){
+
+             $this->response($query, 201);        
+
+        }else{
+             $this->response($query, 404);
+        }         
     }
 
     private function get_customers(){

@@ -13,15 +13,37 @@
 
 		public function insert_p($post)
 		{
-			# Telefono a registrar
-			$phone = array('numero'=>$post['numero'], 'tipo'=>$post['tipo']);
-			# Esperamos un true de la consulta
-			$query = $this->db->insert('telefonos', $phone);
-			# insert_id() es una función del helper de CI para devolver el id de la nueva inserción						
-			$id = $this->db->insert_id();
-			($query) ? $var = $id : $var = $query;	
-			return $var;	
-		}
+			# $post es true?
+			if($post){
+
+				# Es un array?...existe la posición 0?
+				if(is_array($post)&&array_key_exists(0, $post))
+				{
+
+					for ($i=0; $i < count($post); $i++) 
+					{ 
+						$this->db->insert('telefonos', array( 'numero'=>$post[$i]->numero,
+															  'tipo'  =>$post[$i]->tipo));
+						$id[$i] = $this->db->insert_id();
+					}
+					return $id;
+				} # Fin del if $post igual a array y existe la posición 0
+				else
+				{
+					if(is_object($post)){ $post = (array)$post; }
+
+					$this->db->insert('telefonos', array( 'numero'=>$post['numero'],
+														  'tipo'  =>$post['tipo']));
+					return $this->db->insert_id();
+				} # Fin del else
+
+			} #Fin if si $post es verdadero...		
+			else{
+				# Si no tiene telefono...
+				return false;
+			}
+
+	}# Fin del metodo insertar telefono.
 
 		public function get_p($id)
 		{

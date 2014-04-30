@@ -3,7 +3,7 @@
     * Operaciones en la base de datos con los contactos
     */
     include 'model_phone.php';
-    class Model_contact extends CI_Model
+    class Model_representante extends CI_Model
     {          
 
         function set_tel()
@@ -12,33 +12,32 @@
             return $obj;
         }
 
-        function insert_mcontact($post){
+        function insert_representate($post){
             
-            $contactos = array(
+            $representante = array(
                                 'nombre' => $post['nombre'],
                                 'correo' => $post['correo'],
         						'cargo'	 => $post['cargo']
-        					  );
+        					  );//Verificar si es un arreglo
 
-            $query = $this->db->insert('contacto',$contactos);
+            $query = $this->db->insert('representante',$representante);
             $id    = $this->db->insert_id();
 
             
-            $data = array('cliente_id'=> $post['idCliente'], 'contacto_id'=>$id);
-            $this->db->insert('contacto_cliente', $data);
+            $data = array('idcliente'=> $post['idCliente'], 'idrepresentante'=>$id);
+            $this->db->insert('representante_cliente', $data);
 
             $tel = $this->set_tel();
             $id_tel = $tel->insert_p($post['telefonos']);
 
-            $tel = array('contactos_id'=> $id, 'telefono_id'=>$id_tel);
-            $this->db->insert('telefonos_contactos', $tel);
+            $tel = array('idrepresentante'=> $id, 'idtelefono'=>$id_tel);
+            $this->db->insert_batch('telefonos_representante', $tel);
 
-            return $id_tel;
-
-            
+            ($query) ? ($id_tel) ? return true : return echo 'Error al registrar telefonos de representante' : return echo 'Error al registrar representante';
+                       
         }
 
-        function get_mcontact(){
+        function get_representante(){
 
                      $this->db->Select('nombre_completo, cargo, correo, telefonos.numero, telefonos.tipo');
                      $this->db->from('contacto');
@@ -48,19 +47,19 @@
             return $query->result_array();        	
         }
 
-        function update_mcontact(){
+        function update_representante(){
         	
           $contactos = array(
-                                'nombre_completo' => $this->input->post('nombreContacto'),
-                                'correo'          => $this->input->post('correoContacto'),
-                                'cargo'           => $this->input->post('cargoContacto')
+                                'nombre_completo' => $this->input->post('nombre'),
+                                'correo'          => $this->input->post('correo'),
+                                'cargo'           => $this->input->post('cargo')
                               );//Verificar si es un arreglo
 
             $this->db->where('id', $id);
             $this->db->update('contacto', $contactos); 
 
         }
-        private function delete_mcontacto($id){
+        private function delete_representante($id){
 
             $query = $this->db->delete('contactos', array('id' => $id));
             return $query;

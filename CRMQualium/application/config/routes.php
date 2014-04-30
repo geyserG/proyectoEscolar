@@ -52,9 +52,7 @@ $route['modulo_cliente_nuevo'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_clientes'] = 'escritorio/clientes/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
-# Rutas para la api de clientes.
-$route['api_cliente'] = 'api_cliente/api';
-$route['api_cliente/(:num)'] = 'api_cliente/api';
+
 
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
@@ -102,6 +100,15 @@ $route['api_telefonos/(:num)'] = 'api_telefono/api/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 
+$route['api_contactos'] = 'api_contacto/api';
+$route['api_contactos/(:num)'] = 'api_contacto/api/$1';
+
+# Rutas para la api de clientes.
+$route['api_cliente'] = 'api_cliente/api';
+$route['api_cliente/(:num)'] = 'api_cliente/api';
+
+$route['api_representante'] = 'representante/api';
+$route['api_representante/(:num)'] = 'representante/api/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
