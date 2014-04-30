@@ -57,7 +57,7 @@
                     <div class="input-group">
                         <div class="btn-group">
                             <form>
-                              <input type="text" class="form-control"name="telefonoCliente" placeholder="Teléfono" maxlength="10"><!-- id="telefonoCliente"  onchange="validarNumero(this.id)"-->
+                              <input type="text" class="form-control telefonoCliente" name="telefonoCliente" placeholder="Teléfono" maxlength="10"  onchange="validarNumero(this.class)"><!---->
                             </form>
                         </div>
                         <div class="btn-group">

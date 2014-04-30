@@ -20,7 +20,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		'change #fotoCliente'		: 'obtenerFoto',
 		'click  #ir'				: 'deshacerRegistro',
 
-		'change #email'				: 'validarCorreo'
+		// validaciones
+		'blur #email'			: 'validarCorreo',
+		'blur .telefonoCliente'	: 'validarTelefono',
 
 	},
 
@@ -38,6 +40,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.$logoCliente         = $('#logoCliente');
 		this.$comentarioCliente   = $('#comentarioCliente');
 		this.$foto	              = $("#direccion");
+
 	// Datos especificos
 		this.$nombreRepresentante = $('#nombreRepresentante');
 		this.$correoRepresentante = $('#emailRepresentante');
@@ -252,8 +255,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		
 		// this.urlFoto();
 		// console.log($('#direccion').attr('src'));
-		this.validarDatos();
-		return;
+		// this.validarDatos();
+		// return;
 
 		var json = this.nuevosAtributosCliente();
 		
@@ -541,12 +544,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		};
 	},
-// -----validarCorreo------------------------------
+// -----validarCorreo-----------------------------
 	validarCorreo	: function () {
-		console.log(this.$email.val().trim());
-		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) ) {
-		  alert('No es un correo valido!');
-		}
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($email.val().trim())) ) {
+	      alert('No es un correo valido!');
+	      return false;
+	    }
+	},
+//------validarTelefono---------------------------
+	validarTelefono	: function (elemento) {
+		// alert($(elemento.currentTarget).val());
+		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim()))) {
+	        alert('Escriba un número correcto');
+	        return false;
+	    }
 	}
 });
 

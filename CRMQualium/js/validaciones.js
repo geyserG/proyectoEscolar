@@ -22,28 +22,27 @@
 // }
 
 
-function validarNumero(id){
-    var valor= document.getElementById(id).value;
+function validarTelefono(class){
     if(!(/^\d{10}$/.test(valor))) {
-        document.getElementById(id).value="";
-        document.getElementById(id).focus();
-        document.getElementById(id).placeholder="Escriba su numero telefónico de 10 digitos, sin espacios ni guiones";
+        document.getElementById(class).value="";
+        document.getElementById(class).focus();
+        alert('Escriba un número correcto');
         return false;
     }
     return true;
 }
 
-// function obligatorioNombre(id){
-//     var caracter= document.getElementById(id).value;
-    
-//     if(caracter==null || caracter.length==0 || /^\s+$/.test(caracter)){
-//         document.getElementById(id).value="";
-//         document.getElementById(id).focus();
-//         alert("Escribe correctamente su nombre");
-//         return false;
-//     }
-//     return true;
-// }
+function validarCorreo () {
+    if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(     )) ) {
+      alert('No es un correo valido!');
+    }
+}
+
+function validarNumero (elemento) {
+    if( isNaN($(this.$telefono.val().trim())) ) {
+      alert('No es un numero valido');
+    }
+}
 
 function validarDireccion(elEvento){
     var evento = elEvento || window.event;
