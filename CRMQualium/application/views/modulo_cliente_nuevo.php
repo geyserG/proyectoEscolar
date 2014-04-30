@@ -27,7 +27,7 @@
             <div class="input_info">
                 <input type="text" id="nombreComercial"  class="form-control" placeholder="Nombre comercial">
                 <input type="text" id="nombreFiscal" class="form-control" placeholder="Nombre físcal">
-                <input type="email" id="emal" class="form-control" placeholder="Email">
+                <input type="email" id="email" class="form-control" placeholder="Email">
 
                 <input type="text" id="rfc" class="form-control" placeholder="RFC">
 
@@ -57,7 +57,7 @@
                     <div class="input-group">
                         <div class="btn-group">
                             <form>
-                              <input type="text" class="form-control" name="telefonoCliente" placeholder="Teléfono">
+                              <input type="text" class="form-control"name="telefonoCliente" placeholder="Teléfono" maxlength="10"><!-- id="telefonoCliente"  onchange="validarNumero(this.id)"-->
                             </form>
                         </div>
                         <div class="btn-group">
@@ -675,18 +675,23 @@
     app.coleccionDeClientes = <?= json_encode($clientes) ?>;
     console.log(app.coleccionDeClientes);
 </script>
-  
+
+<!-- Utilerias -->
+    
+    <script type="text/javascript" src="js/validaciones.js"></script>
 <!-- Librerias Backbone -->
   <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
   <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
   <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
 <!--MV*-->
   <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
+  <script type="text/javascript" src="js/backbone/modelos/ModeloRepresentante.js"></script>
   <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
   <script type="text/javascript" src="js/backbone/modelos/ModeloTelefono.js"></script>
   <!-- <script type="text/javascript" src="js/backbone/modelos/ModeloArchivo.js"></script> -->
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionTelefonos.js"></script>
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
+  <script type="text/javascript" src="js/backbone/colecciones/ColeccionRepresentantes.js"></script>
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
   <!-- <script type="text/javascript" src="js/backbone/colecciones/ColeccionArchivos.js"></script> -->
   <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>

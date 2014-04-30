@@ -18,7 +18,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		'click	.otroTelefono'	    : 'otroTelefono',
 		'click 	#btn_otroContacto'  : 'otroContacto',
 		'change #fotoCliente'		: 'obtenerFoto',
-		'click  #ir'				: 'deshacerRegistro'
+		'click  #ir'				: 'deshacerRegistro',
+
+		'change #email'				: 'validarCorreo'
 
 	},
 
@@ -28,7 +30,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.tipoCliente          = '';
 		this.$nombreFiscal        = $('#nombreComercial');
 		this.$nombreComercial     = $('#nombreFiscal');
-		this.$email               = $('#emal');
+		this.$email               = $('#email');
 		this.$rfc                 = $('#rfc');
 		this.$paginaWeb           = $('#paginaCliente');
 		this.$giro                = $('#giro');
@@ -181,38 +183,38 @@ app.VistaNuevoCliente = Backbone.View.extend({
 // -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
 		this.otroContacto();
-		if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
-			if (this.arregloDeContactos.length > 0) {
-				// console.log('si tiene longitud');
-				this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(0, this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante')));//, 
+		// if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
+		// 	if (this.arregloDeContactos.length > 0) {
+		// 		// console.log('si tiene longitud');
+		// 		this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(0, this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante')));//, 
 
-				// var idContacto = '';
-				// for (var i = 0; i < this.arregloDeContactos.length; i++) {
-				// 	app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, function(exito){
-				// 		if ((i+1) == this.arregloDeContactos.length)
-				// 			idContacto = exito.get('id');
-				// 	}});
-				// };
-				// this.arrTelefonosContac[this.arrTelefonosContac.length] = new Array( );
-
-				
-			} else{
-				// console.log('no tiene longitud');
-				this.arregloDeContactos[0] = this.nuevosAtributosContacto(0, this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante')));//, 
-
-				// var idContacto = '';
-				// for (var i = 0; i < this.arregloDeContactos.length; i++) {
-				// 	app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, function(exito){
-				// 		if ((i+1) == this.arregloDeContactos.length)
-				// 			idContacto = exito.get('id');
-				// 	}});
-				// };
-				// this.arrTelefonosContac[0] = new Array( );
-				// console.log(this.arrTelefonosContac[0]);
+		// 		// var idContacto = '';
+		// 		// for (var i = 0; i < this.arregloDeContactos.length; i++) {
+		// 		// 	app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, function(exito){
+		// 		// 		if ((i+1) == this.arregloDeContactos.length)
+		// 		// 			idContacto = exito.get('id');
+		// 		// 	}});
+		// 		// };
+		// 		// this.arrTelefonosContac[this.arrTelefonosContac.length] = new Array( );
 
 				
-			}
-		}
+		// 	} else{
+		// 		// console.log('no tiene longitud');
+		// 		this.arregloDeContactos[0] = this.nuevosAtributosContacto(0, this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante')));//, 
+
+		// 		// var idContacto = '';
+		// 		// for (var i = 0; i < this.arregloDeContactos.length; i++) {
+		// 		// 	app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, function(exito){
+		// 		// 		if ((i+1) == this.arregloDeContactos.length)
+		// 		// 			idContacto = exito.get('id');
+		// 		// 	}});
+		// 		// };
+		// 		// this.arrTelefonosContac[0] = new Array( );
+		// 		// console.log(this.arrTelefonosContac[0]);
+
+				
+		// 	}
+		// }
 
 		if (this.arregloDeContactos.length > 0) {
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
@@ -220,7 +222,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				Backbone.emulateHTTP = true;
 		  		Backbone.emulateJSON = true;
 				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, success:function(exito){
-					idContacto = exito.get('nombreContacto');
+					// idContacto = exito.get('nombreContacto');
 					// console.log(this.arrTelefonosContac[i]);
 				}});
 				Backbone.emulateHTTP = false;
@@ -228,6 +230,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				// this.nuevoTelefono(this.recursividadTelefonos(idContacto,this.arrTelefonosContac[i][0],this.arrTelefonosContac[i][1]));
 			};
 		}
+
+		if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
+			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante'))));
+		}
+
 	},
 // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
@@ -241,10 +248,12 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// 	Backbone.emulateHTTP = false;
 		//   	Backbone.emulateJSON = false;
 		// }});
-
+	
 		
 		// this.urlFoto();
 		// console.log($('#direccion').attr('src'));
+		this.validarDatos();
+		return;
 
 		var json = this.nuevosAtributosCliente();
 		
@@ -260,15 +269,17 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		}
 
 		if (!json.nombreComercial || !json.tipoCliente){
-			alert('Registre un nombre para el cliente y el tipo de cliente');
+			alert('Registre el tipo de cliente y un nombre de cliente');
 			return;
 		}
+
+		/////////borrar///////////////////////////////
 		// console.log();
 		// if (app.coleccionClientes.findWhere({id:})) {
 		// 	console.log('id econtrado');
 		// };
-		
-		var idCliente;
+		///////////borrar///////////////////////////////
+		// var idCliente;
 
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
@@ -280,12 +291,12 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 
-	
+		////////////borrar//////////////////////////////7
 		// this.nuevoTelefono();
 		// this.otroContacto();
 		// this.nuevoContacto();
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
-		
+		////////////borrar//////////////////////////////7
 	},
 // -----nuevoTelefono------------------------------
 	// nuevoTelefono	: function (objsTelefonos) {
@@ -332,14 +343,14 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// 	}
 	// },
 // -----nuevosAtributosContacto------------------- 
-	nuevosAtributosContacto	: function (tipo,nombre,correo,cargo,telefonos) {/**/
+	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {/*tipo,*/
 		return {
-			        idCliente : app.coleccionClientes.obtenerUltimoId(),
-				 tipoContacto : tipo,
-			   nombreContacto : nombre,
-			   correoContacto : correo,
-			    cargoContacto : cargo,
-			telefonosContacto : telefonos
+			idCliente : app.coleccionClientes.obtenerUltimoId(),
+				 // tipo : tipo,
+			   nombre : nombre,
+			   correo : correo,
+			    cargo : cargo,
+			telefonos : telefonos
 		}
 	},
 // -----nuevosAtributosCliente-------------------- 
@@ -412,7 +423,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
             //     showMessage(mensaje);
             // }
         });
-        return 'img/fotosClientes/'+resp.responseText+'';
+        if (resp.responseText != "") return 'img/fotosClientes/'+resp.responseText+'';
+        
         // console.log();
 	},
 // -----otroTelefono------------------------------ 
@@ -432,14 +444,14 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		if (this.$nombreContacto.val().trim() && this.$correoContacto.val().trim() && this.$cargoContacto.val().trim()) {
 			if (this.arregloDeContactos.length > 0) {
 				if (this.arregloDeContactos > 1) {
-					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(1,this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
 					// this.arrTelefonosContac[this.arrTelefonosContac.length + 1] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 				} else {
-					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(1,this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
 					// this.arrTelefonosContac[this.arrTelefonosContac.length] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 				};
 			} else {
-				this.arregloDeContactos[0] = this.nuevosAtributosContacto(1,this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+				this.arregloDeContactos[0] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
 				// this.arrTelefonosContac[0] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 			};
 
@@ -528,6 +540,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			return jQuery.parseJSON(JSON.stringify(objetoArchivo));
 
 		};
+	},
+// -----validarCorreo------------------------------
+	validarCorreo	: function () {
+		console.log(this.$email.val().trim());
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) ) {
+		  alert('No es un correo valido!');
+		}
 	}
 });
 
@@ -535,14 +554,13 @@ app.vistaNuevoCliente = new app.VistaNuevoCliente();
 
 // console.log(app.vistaNuevoCliente.$el);
 
-function showMessage (message){
+function showMessage (message) {
     $("#mensajeFoto").html("").show();
     $("#mensajeFoto").html(message);
 }
 //comprobamos si el archivo a subir es una imagen
 //para visualizarla una vez haya subido
-function isImage (extension)
-{
+function isImage (extension) {
     switch(extension.toLowerCase()) 
     {
         case 'jpg': case 'gif': case 'png': case 'jpeg':

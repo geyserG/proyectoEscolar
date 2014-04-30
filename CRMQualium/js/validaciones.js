@@ -27,7 +27,7 @@ function validarNumero(id){
     if(!(/^\d{10}$/.test(valor))) {
         document.getElementById(id).value="";
         document.getElementById(id).focus();
-        alert("Escriba su numero telefónico de 10 digitos, sin espacios ni guiones");
+        document.getElementById(id).placeholder="Escriba su numero telefónico de 10 digitos, sin espacios ni guiones";
         return false;
     }
     return true;

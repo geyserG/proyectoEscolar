@@ -5,7 +5,7 @@ app.ModeloCliente = Backbone.Model.extend({
 	urlRoot	:'http://crmqualium.com/api_cliente',
 
 	defaults	: {
-			 //   nombreComercial : '', // [1,quialium]
+			   // nombreComercial : '',
 			 //      nombreFiscal : '',
 			 //             email : '',
 			 //               rfc : '',
@@ -13,7 +13,7 @@ app.ModeloCliente = Backbone.Model.extend({
 			 //              giro : '',
 			 // comentarioCliente : '',
 			 //         direccion : '',
-			 //       tipoCliente : '',
+			       // tipoCliente : '',
 			 //  telefonosCliente : '',
 			 //  serviciosInteres : '',
 			 //   serviciosCuenta : '',
@@ -25,14 +25,16 @@ app.ModeloCliente = Backbone.Model.extend({
 		this.save({
 			visibilidad: !this.get('visibilidad')
 		});
-	}
+	},
 
-	// validate: function (atributos, opciones) {
-	// 	if (atributos.end < atributos.start) {
-	// 		console.log(atributos);
-	// 		console.log(opciones);
-	// 	}
-	// }
+	validate: function (atributos) {
+		if (atributos.nombreComercial == "") {
+			alert('especifique el un nombre para el cliente');
+		}
+		if (atributos.tipoCliente == "") {
+			alert('especifique el tipo de cliente');
+		}
+	}
 });
 
 // app.clienteDefault = new app.ModeloClente();
