@@ -694,8 +694,8 @@
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionRepresentantes.js"></script>
   <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
   <!-- <script type="text/javascript" src="js/backbone/colecciones/ColeccionArchivos.js"></script> -->
-  <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
-  <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
+  <!-- <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script> -->
+  <!-- <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script> -->
   <!--<script type="text/javascript" src="js/backbone/vistas/VistaTelefono.js"></script>-->
   <!-- <script type="text/javascript" src="js/backbone/vistas/VistaArchivo.js"></script> -->
     <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>

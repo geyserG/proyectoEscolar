@@ -546,7 +546,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----validarCorreo-----------------------------
 	validarCorreo	: function () {
-		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($email.val().trim())) ) {
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) ) {
 	      alert('No es un correo valido!');
 	      return false;
 	    }
@@ -558,7 +558,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	        alert('Escriba un número correcto');
 	        return false;
 	    }
-	}
+	},
+
+	validarPaginaWeb	: function () {
+		// this.$paginaWeb.val().trim()
+	},
 });
 
 app.vistaNuevoCliente = new app.VistaNuevoCliente();
