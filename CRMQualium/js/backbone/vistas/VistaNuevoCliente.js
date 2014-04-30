@@ -23,6 +23,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// validaciones
 		'blur #email'			: 'validarCorreo',
 		'blur .telefonoCliente'	: 'validarTelefono',
+		'blur #paginaCliente' 	: 'validarPaginaWeb',
+
+		'blur #contactoEmail'		: 'validarCorreo',
+		'blur .telefonoContacto'	: 'validarTelefono',
+
+		'blur #emailRepresentante' 			: 'validarCorreo',
+		'blur .telefonoRepresentante' : 'validarTelefono' 
 
 	},
 
@@ -54,6 +61,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// this.arrTelefonosContac   = new Array();
 		this.$listaInteres        = $('#listaInteres');
 		this.$listaCuenta         = $('#listaCuenta');
+		// var idCliente = "1";
 	
 		// this.direccionFoto = '';
 	//Variables de temporales, COMENTAR PARA NOS VER DATOS AL FONDO DE LA PÁGINA;
@@ -185,6 +193,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
+		console.log(this.idCliente);
 		this.otroContacto();
 		// if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
 		// 	if (this.arregloDeContactos.length > 0) {
@@ -219,21 +228,39 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// 	}
 		// }
 
+		
+
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
+		// console.log(this.arregloDeContactos);
+		// return;
 		if (this.arregloDeContactos.length > 0) {
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
-				var idContacto;
+				// var idContacto;
 				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, success:function(exito){
 					// idContacto = exito.get('nombreContacto');
 					// console.log(this.arrTelefonosContac[i]);
 				}});
 				// this.nuevoTelefono(this.recursividadTelefonos(idContacto,this.arrTelefonosContac[i][0],this.arrTelefonosContac[i][1]));
-			};
+			}
 		}
+		// else{
+		// 	numero = document.getElementsByName('telefonoContacto');
+		// 	tipo   = document.getElementsByName('tipoTelefonoContacto');
+		// 	this.arregloDeContactos[0] = this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(numero,tipo));//, 
+		// 	// var idContacto = '';
+		// 	for (var i = 0; i < this.arregloDeContactos.length; i++) {
+		// 		app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, success:function(exito){ }});
+		// 	};
+		// }
+
+		var numero;
+		var tipo;
 
 		if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
-			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante'))));
+			numero = document.getElementsByName('telefonoRepresentante');
+			tipo   = document.getElementsByName('tipoTelefonoRepresentante');
+			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(numero,tipo)));
 		}
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
@@ -241,7 +268,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
-
 		// Backbone.emulateHTTP = true;
 		// Backbone.emulateJSON = true;
 		// app.coleccionClientes.create(this.nuevosAtributosCliente(),{wait: true, success: function (respuesta) {
@@ -288,12 +314,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		Backbone.emulateJSON = true;
 		app.coleccionClientes.create(json,{wait:true, success:function(exito){
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
+			alert('se creo el cliente');
 			// idCliente = exito.get('id');
-			this.$('.visibleR').toggleClass('ocultoR');
-		}});
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
-
+			this.$('.visibleR').toggleClass('ocultoR');
+		}});
+		// console.log(idCliente);
 		////////////borrar//////////////////////////////7
 		// this.nuevoTelefono();
 		// this.otroContacto();
@@ -301,7 +328,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
 		////////////borrar//////////////////////////////7
 	},
-// -----nuevoTelefono------------------------------
+// -----nuevoTelefono----------------------------- 
 	// nuevoTelefono	: function (objsTelefonos) {
 	// 	if (objsTelefonos != undefined) {
 	// 		Backbone.emulateHTTP = true;
@@ -347,6 +374,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// },
 // -----nuevosAtributosContacto------------------- 
 	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {/*tipo,*/
+		// console.log(this.idCliente);this.idCliente
 		return {
 			idCliente : app.coleccionClientes.obtenerUltimoId(),
 				 // tipo : tipo,
@@ -444,17 +472,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// },
 //------otroContacto------------------------------ 
 	otroContacto 	: function (contacto) {
+		var numero = document.getElementsByName('telefonoContacto');
+		var tipo   = document.getElementsByName('tipoTelefonoContacto');
+		return;
 		if (this.$nombreContacto.val().trim() && this.$correoContacto.val().trim() && this.$cargoContacto.val().trim()) {
 			if (this.arregloDeContactos.length > 0) {
 				if (this.arregloDeContactos > 1) {
-					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));
 					// this.arrTelefonosContac[this.arrTelefonosContac.length + 1] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 				} else {
-					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));
 					// this.arrTelefonosContac[this.arrTelefonosContac.length] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 				};
 			} else {
-				this.arregloDeContactos[0] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto')));//
+				this.arregloDeContactos[0] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));//
 				// this.arrTelefonosContac[0] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
 			};
 
@@ -485,17 +516,16 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----recursividadTelefonos--------------------- 
 	recursividadTelefonos	: function (telefono,tipo) {
-		if (telefono.length > 1) {
+		if (telefono.length > 1 && tipo.length > 1) {
 			var arreglo = new Array();
 			for (var i = 0; i < telefono.length; i++) {
-				if ($(telefono[i]).val() != "") {
+				if ($(telefono[i]).val() != "" && $(tipo[i]).val() != "") {
 					// console.log('fue en el if');
 					arreglo[i] = this.recursividadTelefonos(telefono[i],tipo[i]);
 				};
 			};
-
 			return arreglo;
-		} else if($(telefono).val() != "") {
+		} else if($(telefono).val() != "" && $(tipo).val() != "") {
 			// console.log('fue en el else');
 			var objetoTelefono = {};
 			objetoTelefono.numero = $(telefono).val().trim();
@@ -544,24 +574,28 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		};
 	},
-// -----validarCorreo-----------------------------
+// -----validarCorreo----------------------------- 
 	validarCorreo	: function () {
-		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) ) {
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) && this.$email.val().trim() != '' ) {
 	      alert('No es un correo valido!');
 	      return false;
-	    }
+	    };
 	},
-//------validarTelefono---------------------------
+//------validarTelefono--------------------------- 
 	validarTelefono	: function (elemento) {
 		// alert($(elemento.currentTarget).val());
-		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim()))) {
+		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
 	        alert('Escriba un número correcto');
 	        return false;
-	    }
+	    };
 	},
 
 	validarPaginaWeb	: function () {
-		// this.$paginaWeb.val().trim()
+		if (!(this.$paginaWeb.val().trim().match(/^[a-z0-9\.-]+\.[a-z]{2,4}/gi)) && this.$paginaWeb.val().trim() != '' ) {
+		//   /\.[a-z0-9\.-]+\.[a-z]{2,4}/gi
+		//   /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi
+			alert('Escriba una url correcta');
+		}; 
 	},
 });
 

@@ -1,5 +1,5 @@
 var app = app || {};
-
+var f = new Date();
 app.ModeloCliente = Backbone.Model.extend({
 
 	urlRoot	:'http://crmqualium.com/api_cliente',
@@ -18,7 +18,8 @@ app.ModeloCliente = Backbone.Model.extend({
 			 //  serviciosInteres : '',
 			 //   serviciosCuenta : '',
 			 //              logo : '',
-			 visibilidad : true
+					  visibilidad : true,
+					fechaCreacion : f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate()
 	},
 
 	cambiarVisibilidad: function () {
@@ -27,14 +28,19 @@ app.ModeloCliente = Backbone.Model.extend({
 		});
 	},
 
-	validate: function (atributos) {
-		if (atributos.nombreComercial == "") {
-			alert('especifique el un nombre para el cliente');
-		}
-		if (atributos.tipoCliente == "") {
-			alert('especifique el tipo de cliente');
-		}
-	}
+	// validate: function (atributos) {
+	// 	if (atributos.nombreComercial == "") {
+	// 		alert('especifique el un nombre para el cliente');
+	// 	}
+	// 	if (atributos.tipoCliente == "") {
+	// 		alert('especifique el tipo de cliente');
+	// 	}
+	// },
+
+	// fechaCreacion : function () {
+	 	
+	//  	return '' + f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + '';
+	// }
 });
 
 // app.clienteDefault = new app.ModeloClente();

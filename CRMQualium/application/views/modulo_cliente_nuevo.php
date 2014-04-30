@@ -57,7 +57,7 @@
                     <div class="input-group">
                         <div class="btn-group">
                             <form>
-                              <input type="text" class="form-control telefonoCliente" name="telefonoCliente" placeholder="Teléfono" maxlength="10"  onchange="validarNumero(this.class)"><!---->
+                              <input type="text" class="form-control telefonoCliente" name="telefonoCliente" placeholder="Teléfono" maxlength="10"><!---->
                             </form>
                         </div>
                         <div class="btn-group">
@@ -436,7 +436,7 @@
                     <div class="input-group">
                         <div class="btn-group">
                           <form>
-                            <input type="text"  class="form-control" name="telefonoRepresentante" placeholder="Teléfono">
+                            <input type="text"  class="form-control telefonoRepresentante" name="telefonoRepresentante" placeholder="Teléfono">
                           </form>
                         </div>
                         <div class="btn-group">
@@ -471,7 +471,7 @@
                     <div class="input-group">
                         <div class="btn-group">
                           <form>
-                            <input type="text"  class="form-control" name="telefonoContacto" placeholder="Teléfono">
+                            <input type="text"  class="form-control telefonoContacto" name="telefonoContacto" placeholder="Teléfono">
                           </form>
                         </div>
                         <div class="btn-group">
@@ -673,7 +673,6 @@
     var app = app || {};
     
     app.coleccionDeClientes = <?= json_encode($clientes) ?>;
-    console.log(app.coleccionDeClientes);
 </script>
 
 <!-- Utilerias -->
