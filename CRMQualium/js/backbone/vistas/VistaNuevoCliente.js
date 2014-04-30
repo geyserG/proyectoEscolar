@@ -219,17 +219,15 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// 	}
 		// }
 
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
 		if (this.arregloDeContactos.length > 0) {
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
 				var idContacto;
-				Backbone.emulateHTTP = true;
-		  		Backbone.emulateJSON = true;
 				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true, success:function(exito){
 					// idContacto = exito.get('nombreContacto');
 					// console.log(this.arrTelefonosContac[i]);
 				}});
-				Backbone.emulateHTTP = false;
-		  		Backbone.emulateJSON = false;
 				// this.nuevoTelefono(this.recursividadTelefonos(idContacto,this.arrTelefonosContac[i][0],this.arrTelefonosContac[i][1]));
 			};
 		}
@@ -237,6 +235,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
 			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(document.getElementsByName('telefonoRepresentante'),document.getElementsByName('tipoTelefonoRepresentante'))));
 		}
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
 
 	},
 // -----nuevoCliente------------------------------ 
