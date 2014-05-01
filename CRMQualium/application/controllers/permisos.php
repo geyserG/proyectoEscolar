@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  Usuarios extends Api {
+class  Permisos extends Api {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('Modelo_usuarios', 'user');             
+        $this->load->model('Modelo_permisos', 'perm');             
     }
 
     public function api() {
@@ -16,16 +16,16 @@ class  Usuarios extends Api {
 
         switch ($this->metodo()) {
             case 'post':
-                $this->insert_usuarios();
+                $this->insert_permisos();
                 break;
             case 'get':
-                $this->get_usuarios($id);
+                $this->get_permisos($id);
                 break;  
             case 'put':
-                 $this->update_usuarios($id);
+                 $this->update_permisos($id);
                 break;  
             case 'delete':
-                $this->delete_usuarios($id);
+                $this->delete_permisos($id);
                 break;
             default:
                 $this->response('',405);
@@ -34,32 +34,32 @@ class  Usuarios extends Api {
 
     }
     
-    private function insert_usuarios(){
+    private function insert_permisos(){
 
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
         $post = $this->ipost(); 
-        $query = $this->user->insert_user($post);
+        $query = $this->perm->insert_perm($post);
         # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
         ($query) ? $this->response($query, 201) : $this->response($query, 406);
     }
 
-    private function get_usuarios($id){
+    private function get_permisos($id){
 
-        $query = $this->user->get_user($id);                        
+        $query = $this->perm->get_perm($id);                        
         ($query) ? $this->response($query, 200) : $this->response($query, 404);
         
     }
 
-    private function update_usuarios($id){
+    private function update_permisos($id){
 
         $put = $this->put();
-        $query = $this->user->update_user($id, $put);
+        $query = $this->perm->update_perm($id, $put);
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
-    private function delete_usuarios($id){
+    private function delete_permisos($id){
 
-        $query = $this->user->delete_user($id);        
+        $query = $this->perm->delete_perm($id);        
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
     }
 

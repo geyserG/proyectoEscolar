@@ -38,8 +38,7 @@ class  Api extends CI_Controller {
         $status_message = $this->requestStatus($status);
         echo $this->set_headers($status); 
         $response['status'] = $status;
-        $response['status_message'] = $status_message;
-        
+        $response['status_message'] = $status_message;        
         (is_numeric($data)) ? $response['id'] = $data : $response['data'] = $data;
         $resp = json_encode($response); 
         echo $resp;

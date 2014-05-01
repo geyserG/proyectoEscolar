@@ -12,13 +12,13 @@
             return $obj;
         }
 
-        function insert_mcontact($post){
+        function insert_mcontact($contactos){
             
-            $contactos = array(
-                                'nombre' => $post['nombre'],
-                                'correo' => $post['correo'],
-        						'cargo'	 => $post['cargo']
-        					  );
+            // $contactos = array(
+            //                     'nombre' => $post['nombre'],
+            //                     'correo' => $post['correo'],
+        				// 		'cargo'	 => $post['cargo']
+        				// 	  );
 
             $query = $this->db->insert('contacto',$contactos);
             $id    = $this->db->insert_id();
