@@ -193,7 +193,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
-		console.log(this.idCliente);
 		this.otroContacto();
 		// if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
 		// 	if (this.arregloDeContactos.length > 0) {
@@ -312,17 +311,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
-		app.coleccionClientes.create(json,{wait:true, success:function(exito){
+		app.coleccionClientes.create(json,{success:function(exito){
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
-			// alert('se creo el cliente');
-			idCliente = exito.get('id');
-			console.log(exito.get('id'));
-			console.log(exito);
 			this.$('.visibleR').toggleClass('ocultoR');
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
-		console.log(idCliente);
-		console.log(app.coleccionClientes.obtenerUltimoId());
 		}});
 		// console.log(idCliente);
 		////////////borrar//////////////////////////////7
@@ -380,7 +373,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {/*tipo,*/
 		// console.log(this.idCliente);this.idCliente
 		return {
-			idCliente : app.coleccionClientes.obtenerUltimoId(),
+			idCliente : app.coleccionClientes.obtenerUltimo().get('id'),
 				 // tipo : tipo,
 			   nombre : nombre,
 			   correo : correo,
@@ -478,7 +471,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	otroContacto 	: function (contacto) {
 		var numero = document.getElementsByName('telefonoContacto');
 		var tipo   = document.getElementsByName('tipoTelefonoContacto');
-		return;
+		// return;
 		if (this.$nombreContacto.val().trim() && this.$correoContacto.val().trim() && this.$cargoContacto.val().trim()) {
 			if (this.arregloDeContactos.length > 0) {
 				if (this.arregloDeContactos > 1) {

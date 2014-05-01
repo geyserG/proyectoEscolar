@@ -4,7 +4,7 @@ app.ModeloCliente = Backbone.Model.extend({
 
 	urlRoot	:'http://crmqualium.com/api_cliente',
 
-	idAttribute: 'idCliente',
+	// idAttribute: 'idCliente',
 	
 	defaults	: {
 			   // nombreComercial : '',

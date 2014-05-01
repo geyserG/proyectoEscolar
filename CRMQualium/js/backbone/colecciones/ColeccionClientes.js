@@ -34,5 +34,5 @@ var ColeccionClientes = Backbone.Collection.extend({
 
 app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
 
-console.log(app.coleccionClientes.toJSON());
+// console.log(app.coleccionClientes.toJSON());
 
