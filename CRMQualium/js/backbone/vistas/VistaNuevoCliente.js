@@ -308,17 +308,21 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// 	console.log('id econtrado');
 		// };
 		///////////borrar///////////////////////////////
-		// var idCliente;
+		var idCliente;
 
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
 		app.coleccionClientes.create(json,{wait:true, success:function(exito){
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
-			alert('se creo el cliente');
-			// idCliente = exito.get('id');
+			// alert('se creo el cliente');
+			idCliente = exito.get('id');
+			console.log(exito.get('id'));
+			console.log(exito);
+			this.$('.visibleR').toggleClass('ocultoR');
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
-			this.$('.visibleR').toggleClass('ocultoR');
+		console.log(idCliente);
+		console.log(app.coleccionClientes.obtenerUltimoId());
 		}});
 		// console.log(idCliente);
 		////////////borrar//////////////////////////////7

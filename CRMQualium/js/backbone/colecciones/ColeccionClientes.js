@@ -8,7 +8,7 @@ var ColeccionClientes = Backbone.Collection.extend({
 
 	obtenerTodos : function () {
 		return this.filter( function (cliente){
-			return cliente.get('id');
+			return cliente.get('idCliente');
 		});
 	},
 
@@ -20,7 +20,7 @@ var ColeccionClientes = Backbone.Collection.extend({
 	},*/
 
 	obtenerUltimoId	: function () {
-		return this.last().get('id');
+		return this.last().get('idCliente');
 	},
 
 	parse	: function (response) {
@@ -34,5 +34,5 @@ var ColeccionClientes = Backbone.Collection.extend({
 
 app.coleccionClientes = new ColeccionClientes(app.coleccionDeClientes);
 
-// console.log(app.coleccionClientes.toJSON());
+console.log(app.coleccionClientes.toJSON());
 
