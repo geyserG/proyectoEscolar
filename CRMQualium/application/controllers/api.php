@@ -5,6 +5,7 @@ class  Api extends CI_Controller {
      public function __construct() {
          parent::__construct();
          $this->load->library('My_functions');
+
         
      }
     public function metodo(){
@@ -34,13 +35,12 @@ class  Api extends CI_Controller {
     protected function response($data, $status)
     {
         # $status es el codigo de respuesta que regresa la consulta
-        $this->set_headers($status); 
         $status_message = $this->requestStatus($status);
-
-        header("HTTP/1.1 $status $status_message");                    
+        echo $this->set_headers($status); 
         $response['status'] = $status;
         $response['status_message'] = $status_message;
-        $response['data'] = $data;
+        
+        (is_numeric($data)) ? $response['id'] = $data : $response['data'] = $data;
         $resp = json_encode($response); 
         echo $resp;
         exit;
@@ -73,8 +73,8 @@ class  Api extends CI_Controller {
     # Establece la cabecera de respuesta.
     private function set_headers($status){
         # Cabeceras de respuesta
-        
         $status_message = $this->requestStatus($status); 
+        header("HTTP/1.1 $status $status_message"); 
         header("Access-Control-Allow-Methods: *");            
         header("Access-Control-Allow-Orgin: *");
         header("Content-Type: application/json");
