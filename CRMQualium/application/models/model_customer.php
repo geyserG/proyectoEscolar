@@ -77,7 +77,7 @@
              }
 
 
-		return true;
+		return $id_cliente;
 			
 
 			
