@@ -2,59 +2,36 @@
     /**
     * Operaciones en la base de datos con los contactos
     */
-    include 'model_phone.php';
+    include 'modelo_rit.php';
     class Model_contact extends CI_Model
     {          
 
-        function set_tel()
+        function insert_mcontact($post)
         {
-            $obj = new model_phone();
-            return $obj;
-        }
-
-        function insert_mcontact($contactos){
-            
-            // $contactos = array(
-            //                     'nombre' => $post['nombre'],
-            //                     'correo' => $post['correo'],
-        				// 		'cargo'	 => $post['cargo']
-        				// 	  );
-
-            $query = $this->db->insert('contacto',$contactos);
+            #  $contactos = array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']);
+           
+            $query = $this->db->insert('contacto',array('nombre'=>$post['nombre'], 
+                                                        'correo'=>$post['correo'],
+                                                        'cargo' =>$post['cargo']));
+            # Recuperamos el id del contacto...
             $id    = $this->db->insert_id();
 
-            
-            $data = array('cliente_id'=> $post['idCliente'], 'contacto_id'=>$id);
+            # Aquí recuperamos el id cliente y del contacto y lo relacionamos en la bd.
+            $data = array('idcliente'=> $post['idCliente'], 'idcontacto'=>$id);
             $this->db->insert('contacto_cliente', $data);
 
-            # Existe algún telefono?
+            # ¿Existe algún en el post la variable telefonos?
             if(array_key_exists('telefonos', $post)){
-                
-                # Crea un objeto de tipo telefono...
-                $tel = $this->set_tel();
-                # Envia la variable $post['telefono'] al modelo telefonos...
-                $id_tel = $tel->insert_p($post['telefonos']);
 
+               $obj = new modelo_rit();      # Instanciamos un objeto del modelo relacion id´s con telefonos...
+                                              # tabla                columna     idContacto    datos      
+               $resp = $obj->relacionTelefonos('telefonos_contactos','idcontacto', $id, $post['telefonos']);
+             
+            } # Fin del post['telefonos']...
 
-                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
-                if(is_array($id_tel)){
-                        
-                    # ahora envía el id contacto y telefono para relacionar contacto y telefono...
-                    for ($i=0; $i<count($id_tel); $i++) { 
-                       $var[$i] = array('contacto_id'=> $id, 'telefono_id'=>$id_tel[$i]);                        
-                    } 
-                     $this->db->insert_batch('telefonos_contactos', $var);
-                                                       
-                }else{
-                       $this->db->insert('telefonos_contactos', array('contacto_id'=> $id, 'telefono_id'=>$id_tel));
-                }
-                 
-             }
+            return $query;   
 
-
-            return true;
-            
-        }
+        } # Fin del metodo insert_mcontact()...
 
         function get_mcontact(){
 

@@ -2,54 +2,31 @@
     /**
     * Operaciones en la base de datos con los contactos
     */
-    include 'model_phone.php';
+    include 'modelo_rit.php';
     class Modelo_representante extends CI_Model
     {          
 
-        function set_tel()
+        function insert_r($post)
         {
-            $obj = new model_phone();
-            return $obj;
-        }
-
-        function insert_r($post){
+            #array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']
             
-            $representante = array(
-                                'nombre' => $post['nombre'],
-                                'correo' => $post['correo'],
-        						'cargo'	 => $post['cargo']
-        					  );//Verificar si es un arreglo
-
-            $query = $this->db->insert('representante',$representante);
+            $query = $this->db->insert('representante', array('nombre'=>$post['nombre'], 
+                                                              'correo'=>$post['correo'], 
+                                                              'cargo' =>$post['cargo']));
             $id    = $this->db->insert_id();
-
             
             $data = array('idcliente'=> $post['idCliente'], 'idrepresentante'=>$id);
             $this->db->insert('representante_cliente', $data);
 
-
-            # Existe algún telefono?
+            # ¿Existe algún en el post la variable telefonos?
             if(array_key_exists('telefonos', $post)){
-                
-                # Crea un objeto de tipo telefono...
-                $tel = $this->set_tel();
-                # Envia la variable $post['telefono'] al modelo telefonos...
-                $id_tel = $tel->insert_p($post['telefonos']);
 
-                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
-                if(is_array($id_tel)){
-                     # ahora envía el id contacto y telefono para relacionar contacto y telefono...
-                    for ($i=0; $i<count($id_tel); $i++) { 
-                        #$this->db->insert('telefonos_representante', array('idrepresentante'=> $id, 'idtelefono'=>$id_tel[$i]));
-                        $var[$i] = array('idrepresentante'=> $id, 'idtelefono'=>$id_tel[$i]);
-                    } 
-                       $this->db->insert_batch('telefonos_representante', $var);             
-                                   
-                }else{
-                    $this->db->insert('telefonos_representante', array('idrepresentante'=> $id, 'idtelefono'=>$id_tel));
-                }
-                 
-             } # Fin del post telefonos          
+               $obj = new modelo_rit();      # Instanciamos un objeto del modelo relacion id´s con telefonos...
+               $resp = $obj->relacionTelefonos('telefonos_representante', 'idrepresentante', $id, $post['telefonos']);
+             
+            } # Fin del post['telefonos']...  
+
+             return $query;        
                      
         } # Fin del insert_representante();
 

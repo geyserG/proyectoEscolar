@@ -2,7 +2,9 @@
 	/**
 	* Operaciones en la base de datos con los clientes
 	*/
-	include 'model_phone.php';
+  # Modelo Relación de Id´s cliente, representante o contacto con Id´s de telefonos
+	include 'modelo_rit.php';
+
 	class Model_customer extends CI_Model
 	{
 		
@@ -11,19 +13,13 @@
 			$this->load->database();			
 		}
 
-		function set_tel(){
-			$obj = new model_phone();
-			return $obj;
-		}
-
-		function insert_customer($post){	
-
+		function insert_customer($post)
+		{				
 			$x=0; # Este es un contador para mi array de inserción...	
-
 			# Se almacena al cliente en la base de datos... 						
-			$this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 'tipoCliente'=>$post['tipoCliente']));
+			$query = $this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 'tipoCliente'=>$post['tipoCliente']));
 			# devolvemos su id_cliente para registrar sus atributos...
-			$id_cliente = $this->db->insert_id();
+			$idcliente = $this->db->insert_id();
 
 			# Traemos la tabla de atributos
 			$this->db->select('*');
@@ -41,8 +37,8 @@
 						if($key2==$value->atributo){
 							# Si son identicos entonces ya conocemos con certeza a que clave pertenece cada valor...
 							# Rellenamos el array con todos los datos no nulos del post...
-							$data[$x] = array(  'cliente_id' => $id_cliente,
-							   			   		'atributo_id' => $value->id,
+							$data[$x] = array(  'idcliente' => $idcliente,
+							   			   		'idatributo' => $value->id,
 						    			   		'dato' => $value2
 		                         		 	 );	
 							#incrementamos nuestro contador para cambiar la posición de data
@@ -52,62 +48,32 @@
 				} # Fin del foreach $post...
 			}# Fin del foreach $atributos...
 
-			# Ahora una vez validado los registros que contienen valores procedemos a la inserción en la bd...
+			# Ahora una vez armado el array con los atributos del cliente hacemos una inserción en la bd...
 			$query = $this->db->insert_batch('cliente_atributo', $data);
 
-			 if(array_key_exists('telefonos', $post)){
-                
-                # Crea un objeto de tipo telefono...
-                $tel = $this->set_tel();
-                # Envia la variable $post['telefono'] al modelo telefonos...
-                $id_tel = $tel->insert_p($post['telefonos']);
+			if(array_key_exists('telefonos', $post)){
+			 	$obj = new modelo_rit();
+			 	$resp = $obj->relacionTelefonos('telefonos_cliente', 'idcliente', $idcliente, $post['telefonos']);
+  		  	}	
+	
+			# Aquí se inserta los servicios que le interesa al cliente o prospecto...			
+			if(array_key_exists('serviciosInteres', $post)){
 
-
-                if(is_array($id_tel)){
-                	
-	                # ahora envía el id contacto y telefono para relacionar contacto y telefono...
-	                for ($i=0; $i<count($id_tel); $i++) { 
-	                	$var[$i] = array('cliente_id'=> $id_cliente, 'telefono_id'=>$id_tel[$i]);
-	                }
-	                $this->db->insert_batch('telefonos_cliente',$var);
-	                               
-            	}else{
-            	   	$this->db->insert('telefonos_cliente', array('cliente_id'=> $id_cliente, 'telefono_id'=>$id_tel));
-            	}
-             }
-
-
-		return $id_cliente;
-			
-
-			
-			// # Llama al metodo insert_phones y le manda la variable de telefonos para que se encargue
-			// # de registralos en la bd y devuelve "el id" o "los id´s" para posteriores operaciones... 
-			// $id_tel = $this->insert_phones($post);
+				$tabla='servicios_interes';
+				$this->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	
+			}
+  		    	if(array_key_exists('serviciosCuneta',$post)){
+  		       	$tabla='servicios_cliente';
+				$this->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	
+			}	
 		
-				 		
-	 	// 	# El metodo insert_phones_customer asocia el id de cliente con "el id" o "id´s" de los telefonos
-	 	// 	# si se realizo devuelve un booleano
-	 	// 	$respT = $this->insert_phones_customer($id_tel, $id_cliente);
-
-			// # Aquí se inserta los servicios que le interesa al cliente o prospecto...
-			// if($post->serviciosInteres===true){
-			// 	$respSI = $this->insert_servicios_interes($post->serviciosInteres, $id_cliente);	
-			// }
-			
-			// return $post; 	
-			  //   	$archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
-
+  	    # $archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
+			return $idcliente;
 
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
-			// # Armamos el arreglo para la inserción de la relación de los id´s
-			// $phone_customer = array('cliente_id'=>$post['cliente_id'],
-			// 						'telefono_id' =>$phone_id);
-			// # Aquí relcionamos los id´s del telefono y de la persona a quien pertenece
-			// $query2 = $this->db->insert('telefonos_cliente', $phone_customer);
-
-		 function get_customers_model()
+	
+		public function get_customers_model()
 		{
 			$cont=0;
 			$conts=0;
@@ -119,154 +85,119 @@
 			$cliente = $this->db->get('clientes');
 			###############################################
 			
-			$this->db->select('cliente_atributo.cliente_id, atributo_cliente.atributo, cliente_atributo.dato');
+			$this->db->select('cliente_atributo.idcliente, atributo_cliente.atributo, cliente_atributo.dato');
 			$this->db->from('cliente_atributo'); # de la tabla cliente_atributo
-			$this->db->join('atributo_cliente', 'atributo_cliente.id = cliente_atributo.atributo_id');
+			$this->db->join('atributo_cliente', 'atributo_cliente.id = cliente_atributo.idatributo');
 			$atributos = $this->db->get();	
 			################################################
 
-			$this->db->select('servicios.nombre, servicios_interes.cliente_id');
+			$this->db->select('servicios.nombre, servicios_interes.idcliente');
 			$this->db->from('servicios'); # de la tabla cliente_atributo
-			$this->db->join('servicios_interes', 'servicios_interes.servicio_id = servicios.id');
-			$serviciosI = $this->db->get();	
-			
+			$this->db->join('servicios_interes', 'servicios_interes.idservicio = servicios.id');
+			$serviciosI = $this->db->get();				
+			################################################
+			$this->db->select('servicios.nombre, servicios_cliente.idcliente');
+			$this->db->from('servicios'); # de la tabla cliente_atributo
+			$this->db->join('servicios_interes', 'servicios_cliente.idservicio = servicios.id');
+			$serviciosI = $this->db->get();				
 			################################################
 
-			$this->db->select('telefonos.id, telefonos.numero, telefonos.tipo, telefonos_cliente.cliente_id, telefonos_cliente.telefono_id');
+			$this->db->select('telefonos.id, telefonos.numero, telefonos.tipo, telefonos_cliente.idcliente, telefonos_cliente.idtelefono');
 			$this->db->from('telefonos'); # de la tabla cliente_atributo
-			$this->db->join('telefonos_cliente', 'telefonos_cliente.telefono_id = telefonos.id');
-			$telefonos = $this->db->get();	
-			
+			$this->db->join('telefonos_cliente', 'telefonos_cliente.idtelefono = telefonos.id');
+			$telefonos = $this->db->get();				
 			################################################
-			if($cliente->result()){
-			foreach ($cliente->result() as $key) {				
 
-			 	foreach ($atributos->result() as $key2=>$value) {
-			 		
-			 		if($key->id==$value->cliente_id){
 
-			 			$datos[$cont]['id'] = $key->id;
-			 			$datos[$cont]['nombreComercial'] = $key->nombreComercial;
-			 			$datos[$cont]['tipoCliente'] = $key->tipoCliente;
-			 			$datos[$cont][$value->atributo] = $value->dato;
-			 					 			
-			 		} # Fin del If
+			if($cliente->result())
+			{
+			    foreach ($cliente->result() as $key) 
+			    {				
 
-			 	} # Fin del foreach() $atributos
-			 	foreach ($serviciosI->result() as $serv=>$value) {
-			 				if($value->cliente_id==$key->id){
-			 					$datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
-			 					 $conts++;
-			 				}
-			 			
-			 		}
-			 	foreach ($telefonos->result() as $tele=>$vals) {
-			 				if($vals->cliente_id==$key->id){
-			 					$datos[$cont]['telefonosCliente'][$contz]= array('telefono'=>$vals->numero, 'tipo'=>$vals->tipo);#[$contz] = $vals->numero;
-			 					$contz++;
-			 					
-			 				}
-			 	}	
-			 	$cont++;
-			}# Fin del foreach() $clientes
-			return $datos;	
-		}else{
-			return false;			
+			 		foreach ($atributos->result() as $key2=>$value)
+			 		{ 
+			 			if($key->id==$value->idcliente)
+				 		{
+				 			$datos[$cont]['id'] = $key->id;
+				 			$datos[$cont]['nombreComercial'] = $key->nombreComercial;
+				 			$datos[$cont]['tipoCliente'] = $key->tipoCliente;
+				 			$datos[$cont][$value->atributo] = $value->dato;
+				 					 			
+				 		} # Fin del If
+
+				 	} # Fin del foreach() $atributos
+
+				 	foreach ($serviciosI->result() as $serv=>$value) 
+				 	{
+		 				if($value->idcliente==$key->id)
+		 				{
+	 					   $datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
+	                	   $conts++;
+				 		}
+				 			
+				 	}
+				 	foreach ($telefonos->result() as $tele=>$vals) 
+				 	{
+				 		if($vals->idcliente==$key->id)
+				 		{
+				 			$datos[$cont]['telefonosCliente'][$contz]= array('telefono'=>$vals->numero, 'tipo'=>$vals->tipo);
+				 			$contz++;			 				
+				 		}
+				 	}
+				 	 	
+			 		$cont++;
+			    }# Fin del foreach() $clientes
+					return $datos;	
 			}
+			else{
+				
+				return false;			
+			}
+
 		} # Fin de la función get_customers_model()
 
 		
-		public function update_customer($id, $put){
+		// public function update_customer($id, $put){
 
-			# La propiedad visible archiva al cliente como si estuviera eliminado a la vista de un usuario normal...
-			# Solo el superusuario podrá eliminar al cliente...
-			if(key($put)=='visible'){
+		// 	# La propiedad visible archiva al cliente como si estuviera eliminado a la vista de un usuario normal...
+		// 	# Solo el superusuario podrá eliminar al cliente...
+		// 	if(key($put)=='visible'){
 
-				$this->db->where('id', $id);
-       			$query = $this->db->update('clientes', $put);
-			}else{
+		// 		$this->db->where('id', $id);
+  		//      $query = $this->db->update('clientes', $put);
+		// 	}else{
 
-			}
+		// 	}
 		
-			return $query;			
+		// 	return $query;			
 
-		}
+		// }
 
-		public function delete_customer($id){
+		// public function delete_customer($id){
 
-			$query = $this->db->delete('clientes', array('id' => $id));
-        	return $query;
-		}
+		// 	$query = $this->db->delete('clientes', array('id' => $id));
+  		//    	return $query;
+		// }
 
-
-		public function insert_servicios_interes($servicios, $id_cliente)
+		# Esta funcion establece la relacion cliente servicio...
+		public function insert_sic($servicios, $idc, $tabla)
 		{
 			if(is_array($servicios))
 			{
 				for ($i=0; $i < count($servicios); $i++) { 
-					$this->db->insert('servicios_interes', array('cliente_id' => $id_cliente, 
-																 'servicio_id'=> $servicios[$i])
-									 );
+					$query = $this->db->insert($tabla,['idcliente' => $idc, 'idservicio'=> $servicios[$i]]);					
 				} # Fin del for
 			} # Fin del if
 			else{
-
-				$this->db->insert('servicios_interes', array('cliente_id' => $id_cliente, 
-															 'servicio_id'=> $servicios)
-								 );
+				$query = $this->db->insert($tabla, ['idcliente' => $idc, 'idservicio'=> $servicios]);
 			} # Fin del else
+			
+			return $query;
 		}# Fin del metodo insertar servicios...
 
-	    public function insert_phones($post){
 
-	    	if($post->telefonosCliente){
 
-				if(is_array($post->telefonosCliente))
-				{
 
-					for ($i=0; $i < count($post->telefonosCliente); $i++) { 
-
-						$this->db->insert('telefonos', array( 'numero'=>$post->telefonosCliente[$i]->telefono,
-															  'tipo'=>$post->telefonosCliente[$i]->tipo)
-										  );
-						$id[$i] = $this->db->insert_id();
-					}
-					return $id;
-				}
-				else
-				{
-					$this->db->insert('telefonos', array( 'numero'=>$post->telefonosCliente->telefono,
-														  'tipo'=>$post->telefonosCliente->tipo)
-									 );
-					return $this->db->insert_id();
-				}
-			} # If telefonosCliente...
-			else{
-
-				$this->db->insert('telefonos', array( 'numero'=>$post->numero,
-					 									  'tipo'=>$post->tipo)
-									 );
-					return $this->db->insert_id();
-				
-
-			} #Fin del if telefonosCliente...
-
-		} # Fin del metodo insert_phones();
-
-		public function insert_phones_customer($id_tel, $id_cliente)
-		{
-			if(is_array($id_tel))
-	 		{
-	 			for ($t=0; $t < count($id_tel) ; $t++) { 
-	 				$this->db->insert('telefonos_cliente', array('cliente_id'=>$id_cliente, 'telefono_id'=>$id_tel[$t]));
-	 			}
-	 			return true;
-	 		}
-	 		else{
-	 			$this->db->insert('telefonos_cliente', array('cliente_id'=>$id_cliente, 'telefono_id'=>$id_tel));
-	 			return true;
-	 		}
-		} # Fin de la función insert_phones_customer()
-
+		
 	}//Fin de la clase Model_Customer		
 

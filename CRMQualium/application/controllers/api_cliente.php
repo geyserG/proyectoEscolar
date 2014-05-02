@@ -61,11 +61,7 @@ class  Api_cliente extends Api {
 
         }else{
             $data['clientes'] = $this->response($query, 404);
-        } 
-        $this->area_Estatica();
-        $this->load->view('modulo_Clientes');
-        $this->load->view('pruebas', $data);
-        
+        }                 
     }
 
     private function update_c($id){
