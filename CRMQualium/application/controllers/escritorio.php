@@ -6,7 +6,7 @@ class Escritorio extends Api {
         parent::__construct();
 
         $this->load->model('model_customer', 'customer');
-
+        $this->load->model('modelo_servicios', 'serv');
     }  
 
 	//Vista inicial
@@ -17,12 +17,11 @@ class Escritorio extends Api {
 		
 	}
 
-	//Toma la uri del modulo y la devuelve
-	
 	public function clientes(){
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes');
+		$data['servicios'] = $this->serv->get_s(NULL);
 		$data['clientes'] = $this->customer->get_customers_model();
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
