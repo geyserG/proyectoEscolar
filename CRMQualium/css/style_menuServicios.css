@@ -139,19 +139,11 @@
  margin: -16px 0px 0px 328px;
 }
 
-/*.scroll{
-        max-height: 193px;
-        overflow-y: auto;
-        overflow-x: hidden;
-}*/
 
-/*#contenedor_menus{
--webkit-margin-top: -320px;
 
- }*/
-
- 
-
- /*web service devolver el valor como json o xhml  ,,,  es una forma de comunicarse entre las aplicaciones ,bd , servidor*/
-
- /*appi rest es una forma de estructurar */
+/* Scroll para la lista */
+#serviciosInteres, #serviciosCuenta{
+    height: 250px;
+    overflow: auto;
+  }
+/* Scroll para la lista */

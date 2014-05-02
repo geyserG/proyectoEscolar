@@ -3,8 +3,6 @@ var f = new Date();
 app.ModeloCliente = Backbone.Model.extend({
 
 	urlRoot	:'http://crmqualium.com/api_cliente',
-
-	// idAttribute: 'idCliente',
 	
 	defaults	: {
 			   // nombreComercial : '',
