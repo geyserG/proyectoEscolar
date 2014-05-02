@@ -99,7 +99,7 @@
 
 			$this->db->select('servicios.nombre, servicios_cliente.idcliente');
 			$this->db->from('servicios'); # de la tabla cliente_atributo
-			$this->db->join('servicios_clientes', 'servicios_cliente.idservicio = servicios.id');
+			$this->db->join('servicios_cliente', 'servicios_cliente.idservicio = servicios.id');
 			$serviciosC = $this->db->get();				
 			################################################
 
@@ -141,7 +141,7 @@
 				 	{
 		 				if($valueC->idcliente==$key->id)
 		 				{
-	 					   $datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
+	 					   $datos[$cont]['serviciosCuenta'][$conts] = $value->nombre;
 	                	   $conts++;
 				 		}				 			
 				 	}
