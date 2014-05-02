@@ -62,7 +62,7 @@
 				$tabla='servicios_interes';
 				$this->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	
 			}
-  		    	if(array_key_exists('serviciosCuneta',$post)){
+  		    	if(array_key_exists('serviciosCuenta',$post)){
   		       	$tabla='servicios_cliente';
 				$this->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	
 			}	
@@ -96,10 +96,11 @@
 			$this->db->join('servicios_interes', 'servicios_interes.idservicio = servicios.id');
 			$serviciosI = $this->db->get();				
 			################################################
+
 			$this->db->select('servicios.nombre, servicios_cliente.idcliente');
 			$this->db->from('servicios'); # de la tabla cliente_atributo
-			$this->db->join('servicios_interes', 'servicios_cliente.idservicio = servicios.id');
-			$serviciosI = $this->db->get();				
+			$this->db->join('servicios_clientes', 'servicios_cliente.idservicio = servicios.id');
+			$serviciosC = $this->db->get();				
 			################################################
 
 			$this->db->select('telefonos.id, telefonos.numero, telefonos.tipo, telefonos_cliente.idcliente, telefonos_cliente.idtelefono');
@@ -133,9 +134,18 @@
 		 				{
 	 					   $datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
 	                	   $conts++;
-				 		}
-				 			
+				 		}				 			
 				 	}
+
+				 	foreach ($serviciosC->result() as $servC=>$valueC) 
+				 	{
+		 				if($valueC->idcliente==$key->id)
+		 				{
+	 					   $datos[$cont]['serviciosInteres'][$conts] = $value->nombre;
+	                	   $conts++;
+				 		}				 			
+				 	}
+
 				 	foreach ($telefonos->result() as $tele=>$vals) 
 				 	{
 				 		if($vals->idcliente==$key->id)
@@ -185,11 +195,11 @@
 			if(is_array($servicios))
 			{
 				for ($i=0; $i < count($servicios); $i++) { 
-					$query = $this->db->insert($tabla,['idcliente' => $idc, 'idservicio'=> $servicios[$i]]);					
+					$query = $this->db->insert($tabla,array('idcliente' => $idc, 'idservicio'=> $servicios[$i]));					
 				} # Fin del for
 			} # Fin del if
 			else{
-				$query = $this->db->insert($tabla, ['idcliente' => $idc, 'idservicio'=> $servicios]);
+				$query = $this->db->insert($tabla, array('idcliente' => $idc, 'idservicio'=> $servicios));
 			} # Fin del else
 			
 			return $query;
