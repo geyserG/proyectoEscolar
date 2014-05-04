@@ -12,28 +12,37 @@ var ColeccionServicios = Backbone.Collection.extend({
 		});
 	},
 
-	/*establecerIdSiguiente	: function () {
-		if(!this.length){
-			return 1;
-		}
-		return this.last().get('id') + 1;
-	}*/
+	// establecerIdSiguiente	: function () {
+	// 	if(!this.length){
+	// 		return 1;
+	// 	}
+	// 	return this.last().get('id') + 1;
+	// }
 
 	obtenerUltimoId	: function () {
 		return this.last().get('id');
 	},
 
-	parse	: function (response) {
-		return response.data;
-	},
+	// parse	: function (response) {
+	// 	return response.data;
+	// },
 
 	obtenerUltimo	: function () {
 		return this.last();
+	},
+
+	sync	: function (method, model, options) {
+		// console.log(options);
+		if (method === 'read') {
+			app.busqueda.servicio.buscarPorNombre(options.data.nombre).done(function (data) {
+				// console.log(data); //Debuelbe el objeto [Object]
+				options.success(data);
+			});
+		};
 	}
 });
 
 app.coleccionServicios = new ColeccionServicios(app.coleccionDeServicios);
-
 
 
 
