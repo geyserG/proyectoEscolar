@@ -62,8 +62,8 @@ $route['modulo_proyectos_consulta'] = 'escritorio/proyectos/';
 
 //Rutas para la contratos...
 $route['modulo_contratos'] = 'escritorio/contratos/$1';
-// $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
-// $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
+$route['modulo_contratos_nuevo'] = 'escritorio/contratos/$1';
+$route['modulo_contratos_historial'] = 'escritorio/contratos/$1';
 
 //Rutas para la cotizacion
 $route['modulo_cotizaciones'] = 'escritorio/cotizacion/$1';

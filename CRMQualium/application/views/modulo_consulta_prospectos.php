@@ -209,7 +209,7 @@
                </div>
                <div id="contenido_cliente" class="panel-body">
               
-      <!--  --------------------Informacion del representante y contactos---------------- -->
+                      <!--  --------------------Informacion del representante y contactos---------------- -->
               <div id="div1" class="divoculto">
                 <div  class="contactos">
                   <label><h2><b>Representante</b></h2></label><br>
