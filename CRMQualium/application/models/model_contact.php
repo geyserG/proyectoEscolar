@@ -2,29 +2,37 @@
     /**
     * Operaciones en la base de datos con los contactos
     */
+    include 'modelo_rit.php';
     class Model_contact extends CI_Model
-    {  
+    {          
 
-        function insert_contact(){
+        function insert_mcontact($post)
+        {
+            #  $contactos = array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']);
+           
+            $query = $this->db->insert('contacto',array('nombre'=>$post['nombre'], 
+                                                        'correo'=>$post['correo'],
+                                                        'cargo' =>$post['cargo']));
+            # Recuperamos el id del contacto...
+            $id    = $this->db->insert_id();
 
-            //TELEFONOS DEL CONTACTO.
+            # Aquí recuperamos el id cliente y del contacto y lo relacionamos en la bd.
+            $data = array('idcliente'=> $post['idCliente'], 'idcontacto'=>$id);
+            $this->db->insert('contacto_cliente', $data);
 
-            
-            $telefonos = json_encode($this->input->post('telefonosContacto'));
-            $id_tel = $this->db->insert_id($telefonos);
+            # ¿Existe algún en el post la variable telefonos?
+            if(array_key_exists('telefonos', $post)){
 
-            //DATOS DE CONTACTOS        
-        	$contactos = array(
-        						'nombre_completo'	=> $this->input->post('nombreContacto'),
-                                'telefono_id'       => $id_tel,
-        						'correo'			=> $this->input->post('correoContacto'),
-        						'cargo'				=> $this->input->post('cargoContacto')
-        					  );//Verificar si es un arreglo
+               $obj = new modelo_rit();      # Instanciamos un objeto del modelo relacion id´s con telefonos...
+                                              # tabla                columna     idContacto    datos      
+               $resp = $obj->relacionTelefonos('telefonos_contactos','idcontacto', $id, $post['telefonos']);
+             
+            } # Fin del post['telefonos']...
 
-            //Verificar si es un arreglo           
-            
-            $this->db->insert_id($contactos);
-        }
+            return $query;   
+
+        } # Fin del metodo insert_mcontact()...
+
         function get_mcontact(){
 
                      $this->db->Select('nombre_completo, cargo, correo, telefonos.numero, telefonos.tipo');
@@ -38,19 +46,20 @@
         function update_mcontact(){
         	
           $contactos = array(
-                                'nombre_completo'   => $this->input->post('nombreContacto'),
-                                'telefono_id'       => $id_tel,
-                                'correo'            => $this->input->post('correoContacto'),
-                                'cargo'             => $this->input->post('cargoContacto')
+                                'nombre_completo' => $this->input->post('nombreContacto'),
+                                'correo'          => $this->input->post('correoContacto'),
+                                'cargo'           => $this->input->post('cargoContacto')
                               );//Verificar si es un arreglo
 
             $this->db->where('id', $id);
             $this->db->update('contacto', $contactos); 
 
         }
-        function delete_mcontact(){
+        private function delete_mcontacto($id){
 
-            $id = $this->input->post('id');
-        	
+            $query = $this->db->delete('contactos', array('id' => $id));
+            return $query;
+            
         }
-    }
+
+}

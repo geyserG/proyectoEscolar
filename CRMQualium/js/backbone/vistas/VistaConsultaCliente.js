@@ -2,18 +2,22 @@ var app = app || {};
 
 app.VistaConsultaCliente = Backbone.View.extend({
 	el	: '#tbla_cliente',
-	events		: {},
+	events		: {
+		'click #obtenerEliminados'	: 'obtenerEliminados'
+	},
 	initialize	: function () {
 		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
 		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
-		app.coleccionClientes.fetch();
+		this.listenTo(app.coleccionClientes, 'reset', this.obtenerClientes);
+		// this.listenTo(app.coleccionClientes, 'change:visibilidad', this.obtenerClientes);
+		// app.coleccionClientes.fetch();
 		this.obtenerClientes();
 		// this.agregarCliente();
 
 		
 		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
 		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
-		app.coleccionContactos.fetch();
+		// app.coleccionContactos.fetch();
 	},
 	render		: function () {
 		return this;
@@ -28,7 +32,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 	},
 
 	agregarContacto	: function (contacto, esDe) {
-		console.log(esDe);
+		// console.log(esDe);
 		var vistaContacto = new app.VistaContacto({model:contacto});
 		// console.log(vistaContacto.render().el);//----------Si lo carga
 		$(esDe).children().children().children().children( ".oculto" ).append(vistaContacto.render().el);
@@ -39,27 +43,37 @@ app.VistaConsultaCliente = Backbone.View.extend({
 	funcionRecursivaCP	: function (cp) {//---------------------"cp" es un arreglo de clientes o prospectos
 		// console.log(cliente.toJSON());
 		// app.coleccionClientes.each(this.agregarCliente, this);
-		if (cp.length) {
-			for (var i = 0; i < cp.length; i++) {
-				this.funcionRecursivaCP(cp[i]);
-			};
-		} else {
-			this.agregarCliente(cp);
-			// var idCliente = cp.get('id');
-			// console.log('"'+cp.get('id')+'"');
-			// var json = {};
-			// json.idCliente = cp.get('id');
-			// console.log(JSON.stringify(json));
-			app.coleccionContactos.fetch();
-			var contactos = app.coleccionContactos.where( {idCliente:cp.get('id')} );
-			// console.log(contactos);
-			this.funcionRecursivaContactos(contactos);
+		// console.log(cp!=="null" && cp!==null && cp!=="" && typeof cp !== "undefined");
+		if (cp!="null" && cp!=null && cp!="" && typeof cp != "undefined") {
+			if (cp.length) {
+				for (var i = 0; i < cp.length; i++) {
+					this.funcionRecursivaCP(cp[i]);
+				};
+			} else {
+				this.agregarCliente(cp);
+				// var idCliente = cp.get('id');
+				// console.log('"'+cp.get('id')+'"');
+				// var json = {};
+				// json.idCliente = cp.get('id');
+				// console.log(JSON.stringify(json));
+				app.coleccionContactos.fetch();
+				var contactos = app.coleccionContactos.where( {idCliente:cp.get('id')} );
+				// console.log(contactos);
+				this.funcionRecursivaContactos(contactos);
 
+			};
 		};
 	},
 
 	obtenerClientes	: function () {
-		var clientes = app.coleccionClientes.where({tipoCliente:'cliente'});
+		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:true});
+		this.funcionRecursivaCP(clientes);
+	},
+
+	obtenerEliminados	: function () {
+		// alert('Quieres ver clientes eliminados');
+		this.$el.html('');
+		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:false});
 		this.funcionRecursivaCP(clientes);
 	},
 
@@ -74,7 +88,11 @@ app.VistaConsultaCliente = Backbone.View.extend({
 				this.agregarContacto(contacto, "#"+contacto.get('idCliente'));
 			};
 		};
-	}
+	},
+
+	// eliminarCliente	: function (cliente) {
+	// 	cliente.eliminarDelDOM();
+	// }
 });
 
 app.vistaConsultaCliente = new app.VistaConsultaCliente();
