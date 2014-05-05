@@ -11,22 +11,9 @@
 		# Crea un objeto de tipo telefono...
 		public function relacionTelefonos($tabla, $columna, $idc, $post)
 		{
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
-		  # Instanciamos al modelo_phone	
-			$tel = new model_phone();
-		  # Envia la variable $post['telefono'] al modelo telefonos...
-		    $id_tel = $tel->insert_p($post);
-<<<<<<< HEAD
-=======
-=======
 		  # Instanciamos al modelo_phone	 # Envia la variable $post['telefono'] al modelo telefonos...
 			$tel = new model_phone();		 $id_tel = $tel->insert_p($post);
 		    
->>>>>>> 69bee47f25d8e7501c8956f878199173004af441
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 		  # ¿$id_tel es un array? 
 		    if(is_array($id_tel))
 		    {	             	
@@ -44,10 +31,6 @@
 		        return $query;
 	    } # Fin del metodo relacionTelefonos...
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 	    function joinDinamico($id, $idp, $idx, $tabla1, $tabla2)
 		{
 			$cont=0; $array=array();			
@@ -90,6 +73,4 @@
 			return $query;
 		}# Fin del metodo insertar servicios...
 
->>>>>>> 69bee47f25d8e7501c8956f878199173004af441
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 	} # Fin de la clase modez.php

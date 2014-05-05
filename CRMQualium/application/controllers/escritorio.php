@@ -41,45 +41,12 @@ class Escritorio extends Api {
 
 	public function proyectos(){
 		$this->area_Estatica();
-<<<<<<< HEAD
-		$this->load->view('modulo_proyectos');
-		if($this->ruta() == 'modulo_proyectos_nuevo')
-=======
 	}
 
 	public function contratos(){
 		$this->area_Estatica();
-		$this->load->view('modulo_contratos');
-
-		if($this->ruta() == 'modulo_contratos_nuevo')
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
-		{
-			$this->load->view($this->ruta());
-		}
-		if($this->ruta() == 'modulo_contratos_historial')
-		{
-			$this->load->view($this->ruta());
-		}
-
 	}
 
-<<<<<<< HEAD
-	public function contratos(){
-		$this->area_Estatica();
-		$this->load->view('modulo_contratos');
-
-		if($this->ruta() == 'modulo_contratos_nuevo')
-		{
-			$this->load->view($this->ruta());
-		}
-		if($this->ruta() == 'modulo_contratos_historial')
-		{
-			$this->load->view($this->ruta());
-		}
-	}
-
-=======
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 	public function cotizacion(){
 		$this->area_Estatica();
 		$this->load->view('modulo_cotizaciones');
