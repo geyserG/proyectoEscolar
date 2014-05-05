@@ -14,17 +14,17 @@
 	    <option selected disabled>Servicio</option>
     </select><br>
     <h5><b>Especifique la fecha de inicio y entrega del proyecto</b></h5><br>
-    <div id="divfech" >	    	
-	    <h5><b>Inicio</b></h5>
-	    <input class="fecha" type="date" min="1" max="10">
+    <div id="divfech">	    	
+	    <h5><b>Inicio</b></h5>	    
+	    <input class="form-control datepicker " type="text" id="fechaInicio">	    
 	</div>
 	<div class="divfech1">
 		<h5><b>Entrega</b></h5>
-		<input class="fecha" type="date" min="1" max="10">
+		<input class="form-control datepicker fecha" type="text" id="fechaEntrega">	
     </div>
 	<div class="divfech1">
 		<h5><b>Duración</b></h5>
-		<span class="badge pull-center">3 Meses</span>	
+		<span class="badge pull-center" id="duracion">6 Meses</span>	
 	</div>
 	<div class="desborde"></div><br><br>
 	<div class="form-group">
@@ -159,5 +159,12 @@
    </div><!-- /.modal -->	
 </div>
 
-
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  });
+  </script>
 

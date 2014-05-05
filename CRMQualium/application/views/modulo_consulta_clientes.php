@@ -431,7 +431,7 @@
 <script type="text/javascript" src="js/backbone/app.js"></script>
 <script type="text/javascript">
     var app = app || {};
-    app.coleccionDeClientes = <?=json_encode($clientes) ?>;
+    app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
     console.log(app.coleccionDeClientes);
     var ENTER_KEY = 13;
  </script>

@@ -3,22 +3,21 @@ var app = app || {};
 app.VistaNuevoCliente = Backbone.View.extend({
 	el		: '.contenedor_modulo',
 
-	// plantillaServicioI : _.template($('#serviciosI').html()),
-	// plantillaServicioC : _.template($('#serviciosC').html()),
-
 	events	: {
 	 'click	#btn_agregarContacto'	: 'agregarContactoLista',
-		'click .serviciosInteres'	: 'agregarIntereces',
-		'click .serviciosCuenta'	: 'agregarCuentas',
 		'click #btn_cancelar'		: 'deshacerRegistro',
 		'click	#btn_eliminar'	    : 'eliminarTodos_Prueba',
 		'click  .eliminarCopia'	    : 'eliminarCopia',
 		'click  .icon-uniF477'	    : 'eliminarContacto', // Evento para el icono (boton) eliminar contacto.
 
 		//  eventos para servicios de interes y actuales
-		'click	.interes'		: 'eliminarServicioInteres',
-		'click	.cuenta'		: 'eliminarServicioCuenta',
-		'keyup #ancho_inputI'	: 'buscarServicioI',
+			'click	.icon-uniF470'		: 'quitarDeLista',
+		   'keyup #inputBusquedaI'	: 'buscarServicioI',
+		   'keyup #inputBusquedaC'	: 'buscarServicioC',
+		   'keypress #inputBusquedaI': 'agregarNuevoServ',
+		   'click	#btn_agregarI'	: 'agregarNuevoServBoton',
+		   'keypress #inputBusquedaC': 'agregarNuevoServ',
+		   'click	#btn_agregarC'	: 'agregarNuevoServBoton',
 		//  eventos para servicios de interes y actuales
 
 		// 'click  .otroArchivo'  	    : 'otroArchivo',
@@ -39,7 +38,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		'blur .telefonoContacto'	: 'validarTelefono',
 
 	  'blur #emailRepresentante' 	: 'validarCorreo',
-	  'blur .telefonoRepresentante' : 'validarTelefono' 
+	  'blur .telefonoRepresentante' : 'validarTelefono',
+
+	  'blur #otroContactoEmail'		: 'validarCorreo' 
 
 	},
 
@@ -68,22 +69,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.$cargoContacto       = $('#contactoCargo');
 	// Dinámica de formulario
 		this.arregloDeContactos   = new Array();
-		// this.arrTelefonosContac   = new Array();
-		this.$listaInteres        = $('#listaInteres');
-		this.$listaCuenta         = $('#listaCuenta');
 
-		this.$serviciosInteres	  = $('#serviciosInteres');
-		this.$serviciosCuenta	  = $('#serviciosCuenta');
-		// var idCliente = "1";
-	
-		// this.direccionFoto = '';
+		// {{{{{{{{{{{{{variables para servicios de interes y actuales}}}}}}}}}}}}}
+		this.$menuServiciosInteres	  = $('#menuServiciosInteres');
+		this.$menuServiciosCuenta	  = $('#menuServiciosCuenta');
+		// this.$#inputBusquedaI		  = $('#inputBusquedaI');
+		// this.$#inputBusquedaC		  = $('#inputBusquedaC');
+		// {{{{{{{{{{{{{variables para servicios de interes y actuales}}}}}}}}}}}}}
+
 	//Variables de temporales, COMENTAR PARA NOS VER DATOS AL FONDO DE LA PÁGINA;
-		this.$divClientes         = $('#divClientes');
-		this.$divContactos        = $('#divContactos');
+		// this.$divClientes         = $('#divClientes');
+		// this.$divContactos        = $('#divContactos');
 		// this.$visibilidad	      = this.$('.visible');
 		// this.$divArchivos		  = $('#divArchivos');
 	
-
 	// Eventos de la coleccion
 		// this.listenTo(app.coleccionArchivos, 'add', this.agregarArchivo);
 		// this.listenTo(app.coleccionArchivos, 'reset', this.agregarTodosLosArchivos);
@@ -107,11 +106,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		
 		// this.cargarServicios(); //PARA SERVICIOS DE INTERES Y ACTUALES
 		// this.listenTo(app.coleccionServicios, 'add', this.cargarServicio);
-		this.listenTo(app.coleccionContactos, 'reset', this.cargarServicios);
-		this.cargarServicios();
+		// this.listenTo(app.coleccionContactos, 'reset', this.cargarServicios);
+		this.cargarServiciosC();
+		this.cargarServiciosI();
 		// app.coleccionServicios.fetch();
 		
-
 	// app.coleccionServicios.reset();
 		// this.arrayNombresServicios = app.coleccionServicios.pluck('nombre');
 	},
@@ -127,63 +126,58 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		$('#contactosLista').html('');
 		this.otroContacto();
 	},
-// -----agregarIntereces-------------------------- 
-	agregarIntereces	: function () {
-		var intereses = document.getElementsByName('serviciosInteres');
-		this.$listaInteres.html('');
-		this.$listaInteres.append('<li class="list-group-item list-group-item-info">Servicios de interes</li>');
-		for (var i = 0; i < intereses.length; i++) {
-			if ($(intereses[i]).is(':checked')) {
-				this.$listaInteres.append('<li class="list-group-item">'+$(intereses[i]).parent().parent().first().text()+'<label class="" id="'+$(intereses[i]).attr('id')+'" style="float: right;"><span class="icon-uniF470 interes"></span></label></li>');
-			};
-		};
-	},
-	eliminarServicioInteres	: function (elemento) {
-		var arrayServicios = document.getElementsByName('serviciosInteres');
+// -----buscarServicioI--&--buscarServicioC------- 
 
-		var servicio = $(elemento.currentTarget).parent().attr('id');
-
-		for (var i = 0; i < arrayServicios.length; i++) {
-			if ($(arrayServicios[i]).attr('id') == servicio) {
-				$(arrayServicios[i]).prop('checked', false);
-				break;
-			};
-		};
-		$(elemento.currentTarget).parent().parent().remove();
-	},
 	buscarServicioI	: function (elemento) {
+		
 		var buscando = $(elemento.currentTarget).val();
-		app.coleccionServicios.fetch({reset:true, data:{concepto: buscando}});
-		console.log('jiji');
-		// for (var i = 0; i < this.arrayNombresServicios.length; i++) {
-		// 	console.log(this.arrayNombresServicios[i].search($(elemento.currentTarget).val().trim()));
-		// };
-	},
-// -----agregar servicios con los que cuenta------ 
-	agregarCuentas	: function () {
-		var cuenta = document.getElementsByName('serviciosCuenta');
-		this.$listaCuenta.html('');
-		this.$listaCuenta.append('<li class="list-group-item list-group-item-info">Servicios con los que cuenta</li>');
-		for (var i = 0; i < cuenta.length; i++) {
-			if ($(cuenta[i]).is(':checked')) {
-				this.$listaCuenta.append('<li class="list-group-item">'+$(cuenta[i]).parent().parent().first().text()+'<label class="" id="'+$(cuenta[i]).attr('id')+'" style="float: right;"><span class="icon-uniF470 cuenta"></span></label></li>');
-			};
-		};
-	},
-	eliminarServicioCuenta	: function (elemento) {
-		var arrayServicios = document.getElementsByName('serviciosCuenta');
+		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
 
-		var servicio = $(elemento.currentTarget).parent().attr('id');
+		this.$menuServiciosInteres.html('');
+		this.cargarServiciosI();
+	}, 
 
-		for (var i = 0; i < arrayServicios.length; i++) {
-			if ($(arrayServicios[i]).attr('id') == servicio) {
-				$(arrayServicios[i]).prop('checked', false);
-				break;
-			};
-		};
-		$(elemento.currentTarget).parent().parent().remove();
+	buscarServicioC	: function (elemento) {
+		
+		var buscando = $(elemento.currentTarget).val();
+		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
+
+		this.$menuServiciosCuenta.html('');
+		this.cargarServiciosC();
 	},
 
+	agregarNuevoServ	: function (event) {
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {//
+
+        	if ($(event.currentTarget).val() != '') {
+
+        		$('#listaInteres').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
+			
+			}
+            event.preventDefault();
+        } 
+
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {//
+
+        	if ($(event.currentTarget).val() != '') {
+
+        		$('#listaCuenta').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
+			
+			}
+            event.preventDefault();
+        }
+    },
+
+    agregarNuevoServBoton	: function (event) {
+    	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
+    		$('#listaInteres').append('<li class="list-group-item">'+ $('#inputBusquedaI').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
+    		$('#inputBusquedaI').val('');
+    	};
+    	if ($(event.currentTarget).attr('id') == 'btn_agregarC') {
+    		$('#listaCuenta').append('<li class="list-group-item">'+ $('#inputBusquedaC').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
+    		$('#inputBusquedaC').val('');
+    	};
+    },
 // -----agregarArchivo---------------------------- 
 	// agregarArchivo	: function (archivo) {
 	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
@@ -207,14 +201,32 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// dameClienteNuevo	: function (cliente) {
 	// },
 // -----cargarServicios--------------------------- 
-	cargarServicio	: function (servicio) {
+	cargarServicioI	: function (servicio) {
 		var vistaServicioI = new app.VistaServicioInteres({model:servicio});
-		var vistaServicioC = new app.VistaServicioCuenta({model:servicio});
-		this.$serviciosInteres.append(vistaServicioI.render().el);
-		this.$serviciosCuenta.append(vistaServicioC.render().el);
+		this.$menuServiciosInteres.append(vistaServicioI.render().el);
 	},
-	cargarServicios	: function () {
-		app.coleccionServicios.each(this.cargarServicio, this);
+	cargarServiciosI	: function () {
+		app.coleccionServicios.each(this.cargarServicioI, this);
+	},
+	cargarServicioC	: function (servicio) {
+		var vistaServicioC = new app.VistaServicioCuenta({model:servicio});
+		this.$menuServiciosCuenta.append(vistaServicioC.render().el);
+	},
+	cargarServiciosC	: function () {
+		app.coleccionServicios.each(this.cargarServicioC, this);
+	},
+	quitarDeLista	: function (elemento) {
+		var arrayServicios = document.getElementsByName($(elemento.currentTarget).attr('name'));
+
+		var servicio = $(elemento.currentTarget).parent().attr('id');
+
+		for (var i = 0; i < arrayServicios.length; i++) {
+			if ($(arrayServicios[i]).attr('id') == servicio) {
+				$(arrayServicios[i]).prop('checked', false);
+				break;
+			};
+		};
+		$(elemento.currentTarget).parent().remove();
 	},
 // -----deshacerRegistro-------------------------- 
 	deshacerRegistro	: function () {
@@ -555,8 +567,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 
 // -----validarCorreo----------------------------- 
-	validarCorreo	: function () {
-		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$email.val().trim())) && this.$email.val().trim() != '' ) {
+	validarCorreo	: function (elemento) {
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$(elemento.currentTarget).val().trim())) && this.$(elemento.currentTarget).val().trim() != '' ) {
 	      alert('No es un correo valido!');
 	      return false;
 	    };

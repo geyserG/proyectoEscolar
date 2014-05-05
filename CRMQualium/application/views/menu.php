@@ -22,7 +22,7 @@
 		</li>
 		<li class="">
 			<label class="icono" for="4"><span class="icon-uniF5E2"></span></label>
-			<a id="4" class="anclaMenu" href="#">
+			<a id="4" class="anclaMenu" href="modulo_contratos">
 				Contratos
 			</a>
 		</li>
