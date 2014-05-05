@@ -91,6 +91,13 @@ $route['api_perfil/(:num)'] = 'perfil/api/$1';
 $route['api_permisos'] = 'permisos/api';
 $route['api_permisos/(:num)'] = 'permisos/api/$1';
 
+# Ruta para la api de Servicios de Interes...
+$route['api_serviciosInteres'] = 'serviciosInteres/api';
+$route['api_serviciosInteres/(:num)'] = 'serviciosInteres/api/$1';
+
+# Ruta para la api de Servicios de Interes...
+$route['api_serviciosCliente'] = 'serviciosCliente/api';
+$route['api_serviciosCliente/(:num)'] = 'serviciosCliente/api/$1';
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING

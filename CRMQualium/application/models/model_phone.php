@@ -2,7 +2,6 @@
 	/**
 	* Operaciones en la tabla phones de la bd...
 	*/
-
 	class Model_phone extends CI_Model
 	{
 		
@@ -47,9 +46,9 @@
 
 		public function get_p($id)
 		{
+			$obj = new modelo_rit();
 			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('telefonos') : $this->db->where('id', $id); $query = $this->db->get('telefonos');
-
+			($id==NULL) ? $query = $this->db->get('telefonos') : $this->db->where('id', $id); $query = $this->db->get('telefonos');			
 			return $query->result();	
 		}
 		public function update_p($id, $put)
@@ -65,5 +64,31 @@
 			$query = $this->db->delete('telefonos', array('id' => $id));
 			return $query;
 		}
+
+		function joinDinamico($id, $idp, $idx, $tabla1, $tabla2)
+		{
+			$cont=0; $array=array();			
+			# Traer todos los campos.
+			$this->db->select('*');	 $this->db->from($tabla1); $this->db->join($tabla2, $tabla2.'.'.$idx.' = '.$tabla1.'.id');
+			$query = $this->db->get();	
+			
+			if($id==='noid'){  	return $query;	}
+			else
+			{ 
+				foreach ($query->result() as $key => $value) 
+				{					
+					if($value->$idp==$id)
+					{
+						if($idx == 'idtelefono'){
+						$array['numero'.$cont]= $value->numero;
+						$array['tipo'.$cont]= $value->tipo;
+						$cont++;
+						}
+						else{	$array['servicio'.$cont] = $value->nombre;	$cont++;	}					
+					}				
+				}
+				return $array;	
+			}			
+		} # Fin de joinDinamico()...
 
 	} # Fin de la clase Model_phones

@@ -46,8 +46,7 @@
 					if($value->$idp==$id)
 					{
 						if($idx == 'idtelefono'){
-						$array['numero'.$cont]= $value->numero;
-						$array['tipo'.$cont]= $value->tipo;
+						$array[$cont]= $value->idtelefono;
 						$cont++;
 						}
 						else{	$array['servicio'.$cont] = $value->nombre;	$cont++;	}					

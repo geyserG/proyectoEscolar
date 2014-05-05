@@ -19,7 +19,7 @@ class Representante extends Api {
     			$this->insert_representante();
     			break;
     		case 'get':
-    			$this->get_representantes($id);
+    			$this->get_representante($id);
     			break;	
     		case 'put':
                  $this->update_representante($id);
