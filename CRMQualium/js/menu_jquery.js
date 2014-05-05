@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     $('.cssmenu > #I > li > a').click(function() {
       $('#I li').removeClass('active');
-      $(this).closest('li').addClass('active');	
+      $(this).closest('li').addClass('active'); 
       var checkElement = $(this).next();
       if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
         $(this).closest('li').removeClass('active');
@@ -14,8 +14,8 @@ $( document ).ready(function() {
       if($(this).closest('li').find('ul').children().length == 0) {
         return true;
       } else {
-        return false;	
-      }		
+        return false; 
+      }   
     });
     $('.cssmenu > #C > li > a').click(function() {
       $('#C li').removeClass('active');

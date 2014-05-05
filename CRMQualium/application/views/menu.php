@@ -3,62 +3,62 @@
 <nav id="menu" role="navigation">
 	<ul id="menu-lista">
 		<li class="">
-			<label class="icono" for="1"><span class="icon-uniF006"></span></label>
-			<a id="1" class="anclaMenu" href="escritorio">
+			<label class="icono"><a class="icono" href="escritorio"><span class="icon-uniF006"></span></a></label>
+			<a class="anclaMenu" href="escritorio">
 				Escritorio
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="2"><span class="icon-phpbb"></span></label>
-			<a id="2" class="anclaMenu" href="modulo_Clientes">
+			<label class="icono"><a class="icono" href="modulo_Clientes"><span class="icon-phpbb"></span></a></label>
+			<a class="anclaMenu" href="modulo_Clientes">
 				Clientes
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="3"><span class="icon-uniF53D"></span></label>
-			<a id="3" class="anclaMenu" href="modulo_proyectos">
+			<label class="icono"><a class="icono" href="modulo_proyectos"><span class="icon-uniF53D"></span></a></label>
+			<a class="anclaMenu" href="modulo_proyectos">
 				Proyectos
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="4"><span class="icon-uniF5E2"></span></label>
-			<a id="4" class="anclaMenu" href="modulo_contratos">
+			<label class="icono"><a class="icono" href="modulo_contratos"><span class="icon-uniF5E2"></span></a></label>
+			<a class="anclaMenu" href="modulo_contratos">
 				Contratos
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="5"><span class="icon-calculator"></span></label>
-			<a id="5" class="anclaMenu" href="modulo_cotizaciones">
+			<label class="icono"><a class="icono" href="modulo_cotizaciones"><span class="icon-calculator"></span></a></label>
+			<a class="anclaMenu" href="modulo_cotizaciones">
 				Cotización
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="6"><span class="icon-spreadsheet"></span></label>
-			<a id="6" class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="#"><span class="icon-spreadsheet"></span></a></label>
+			<a class="anclaMenu" href="#">
 				Facturas
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="7"><span class="icon-calendar2"></span></label>
-			<a id="7" class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="#"><span class="icon-calendar2"></span></a></label>
+			<a class="anclaMenu" href="#">
 				Actividades
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="8"><span class="icon-book"></span></label>
-			<a id="8" class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="#"><span class="icon-book"></span></a></label>
+			<a class="anclaMenu" href="#">
 				Catálogos
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="9"><span class="icon-user"></span></label>
-			<a id="9" class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="#"><span class="icon-user"></span></a></label>
+			<a class="anclaMenu" href="#">
 				Usuarios
 			</a>
 		</li>
 		<li class="">
-			<label class="icono" for="1"><span class="icon-uniF00F"></span></label>
-			<a id="1" class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="#"><span class="icon-uniF00F"></span></a></label>
+			<a class="anclaMenu" href="#">
 				Configuración
 			</a>
 		</li>

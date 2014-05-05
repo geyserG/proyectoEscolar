@@ -22,7 +22,7 @@
         <br>
 
         <div class="input_info">
-            <input type="text" id="nombreComercial"  class="form-control" placeholder="Nombre comercial/Persona">
+            <input type="text" id="nombreComercial"  class="form-control" placeholder="Nombre comercial / Persona">
             <input type="text" id="nombreFiscal" class="form-control" placeholder="Nombre fiscal">
             <input type="email" id="email" class="form-control" placeholder="Email">
 
