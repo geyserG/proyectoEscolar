@@ -162,8 +162,12 @@ li{
 .icono{
 	color: @colorTextoMenu;
 	cursor: pointer;
-	padding-right: 10px;
+	padding-right: 30px;
 	font-size: 20px;
+	display: inline;
+}
+.icono:hover{
+	color: @colorTextoMenu;
 }
 
 #btn_menu{
@@ -191,9 +195,10 @@ li{
 	-webkit-transition: 0.4s;
 }
 #btn_menu:checked ~ #menu .anclaMenu{
-	-webkit-transition: 0.2s;
+	-webkit-transition: 0.2s, transform 1s;
 	opacity: 0;
 	visibility: collapse;
+	transform: translateX(-160px);
 }
 
 #btn_menu:checked ~ #menu #btn{

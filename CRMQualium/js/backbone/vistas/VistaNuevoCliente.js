@@ -118,6 +118,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	render			: function () {
 		return this;
 	},
+	
 // -----agregarContactoLista---------------------- 
 	agregarContactoLista	: function () {
 		this.$nombreContacto = $('#otroContactoNombre');
@@ -126,6 +127,29 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		$('#contactosLista').html('');
 		this.otroContacto();
 	},
+// -----agregarArchivo---------------------------- 
+	// agregarArchivo	: function (archivo) {
+	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
+
+	// 	this.$divArchivos.append(vistaArchivo.render().el);
+	// },
+// -----agregarTodosLosArchivos------------------- 
+	// agregarTodosLosArchivos	: function () {
+	// 	app.coleccionArchivos.each(this.agregarArchivo, this);
+	// },
+// -----agregarContacto--------------------------- 
+	// agregarContacto	: function (contacto) {
+	// 	var vistaContacto = new app.VistaContacto({model:contacto});
+
+	// 	this.$divContactos.append(vistaContacto.render().el);
+	// },
+// -----agregarTodosLosContactos------------------ 
+	// agregarTodosLosContactos	: function () {
+	// 	app.coleccionClientes.each(this.agregarContacto, this);
+	// },
+	// dameClienteNuevo	: function (cliente) {
+	// },
+
 // -----buscarServicioI--&--buscarServicioC------- 
 
 	buscarServicioI	: function (elemento) {
@@ -178,28 +202,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
     		$('#inputBusquedaC').val('');
     	};
     },
-// -----agregarArchivo---------------------------- 
-	// agregarArchivo	: function (archivo) {
-	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
-
-	// 	this.$divArchivos.append(vistaArchivo.render().el);
-	// },
-// -----agregarTodosLosArchivos------------------- 
-	// agregarTodosLosArchivos	: function () {
-	// 	app.coleccionArchivos.each(this.agregarArchivo, this);
-	// },
-// -----agregarContacto--------------------------- 
-	// agregarContacto	: function (contacto) {
-	// 	var vistaContacto = new app.VistaContacto({model:contacto});
-
-	// 	this.$divContactos.append(vistaContacto.render().el);
-	// },
-// -----agregarTodosLosContactos------------------ 
-	// agregarTodosLosContactos	: function () {
-	// 	app.coleccionClientes.each(this.agregarContacto, this);
-	// },
-	// dameClienteNuevo	: function (cliente) {
-	// },
 // -----cargarServicios--------------------------- 
 	cargarServicioI	: function (servicio) {
 		var vistaServicioI = new app.VistaServicioInteres({model:servicio});
@@ -233,6 +235,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// _.invoke(new Array(app.coleccionClientes.obtenerUltimo()),'destroy');
 		this.$('.visibleR').toggleClass('ocultoR');
 	},
+
 // -----eliminarCopia----------------------------- 
 	eliminarCopia	: function (elemento) {
 		$(elemento.currentTarget).parents('.copia').remove();
@@ -266,6 +269,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		$(contacto.currentTarget).parent().parent().parent().remove();
 
 	},
+
 // -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
 		this.otroContacto();
@@ -295,7 +299,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
-
 		var json = this.nuevosAtributosCliente();
 		
 		var valorJson;
@@ -409,6 +412,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
                         foto : this.urlFoto()
 		}
 	},
+
 // -----obtenerTipoCliente------------------------ 
 	obtenerTipoCliente	: function (elemento) {
 		/*currentTarget obtiene el elemento html,
@@ -507,6 +511,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			this.$cargoContacto.val('');
 		}
 	},
+
 // -----recursividadTelefonos--------------------- 
 	recursividadTelefonos	: function (telefono,tipo) {
 		if (telefono.length > 1 && tipo.length > 1) {
@@ -568,8 +573,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 // -----validarCorreo----------------------------- 
 	validarCorreo	: function (elemento) {
-		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.$(elemento.currentTarget).val().trim())) && this.$(elemento.currentTarget).val().trim() != '' ) {
-	      alert('No es un correo valido!');
+		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
+	      alert('[ERROR:Email]\n\nNo es un correo valido');
+	      $(elemento.currentTarget).focus();
 	      return false;
 	    };
 	},
@@ -577,16 +583,19 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	validarTelefono	: function (elemento) {
 		// if(isNaN($(elemento.currentTarget).val().trim()) && $(elemento.currentTarget).val().trim() != '' ) {
 		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
-	        alert('[ERROR]\n\nEscriba 10 números\nNo ingrese letras\nEstablesca un tipo');
+	        alert('[ERROR:Teléfono]\n\nNo ingrese letras u otros símbolos\nEscriba 10 números\nEstablesca un tipo');
+	        $(elemento.currentTarget).focus();
 	        return false;
 	    };
 	},
 //------validarPaginaWeb-------------------------- 
 	validarPaginaWeb	: function () {
 		if (!(this.$paginaWeb.val().trim().match(/^[a-z0-9\.-]+\.[a-z]{2,4}/gi)) && this.$paginaWeb.val().trim() != '' ) {
+			this.$paginaWeb.focus();
 		//   /\.[a-z0-9\.-]+\.[a-z]{2,4}/gi
 		//   /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi
-			alert('Escriba una url correcta');
+			alert('[ERROR:Página web]\n\nEscriba una url correcta');
+			return false;
 		}; 
 	},
 });
@@ -600,14 +609,14 @@ function showMessage (message) {
 }
 //comprobamos si el archivo a subir es una imagen
 //para visualizarla una vez haya subido
-function isImage (extension) {
-    switch(extension.toLowerCase()) 
-    {
-        case 'jpg': case 'gif': case 'png': case 'jpeg':
-            return true;
-        break;
-        default:
-            return false;
-        break;
-    }
-}
+// function isImage (extension) {
+//     switch(extension.toLowerCase()) 
+//     {
+//         case 'jpg': case 'gif': case 'png': case 'jpeg':
+//             return true;
+//         break;
+//         default:
+//             return false;
+//         break;
+//     }
+// }
