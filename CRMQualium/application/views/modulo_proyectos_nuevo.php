@@ -1,3 +1,4 @@
+	
 	<script src="js/jquery-ui-1.10.4.custom.js"></script>
    	<h3>Nuevo Proyecto</h3>
 	<hr><br>
@@ -166,7 +167,7 @@
       changeYear: true
     });
   });
-<<<<<<< HEAD
+
 </script>
   </script>
 
