@@ -16,8 +16,13 @@ $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
+<<<<<<< HEAD
 $route['modulo_proyectos_consulta'] = 'escritorio/proyectos/$1';
 $route['modulo_proyectos_nuevo'] = 'escritorio/proyectos/$1';
+=======
+// $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
+// $route['modulo_proyectos'] = 'escritorio/cotizacion/$1';
+>>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 
 //Rutas para la contratos...
 $route['modulo_contratos'] = 'escritorio/contratos/$1';
@@ -63,10 +68,17 @@ $route['api_contactos'] = 'api_contacto/api';
 $route['api_contactos/(:num)'] = 'api_contacto/api/$1';
 
 # Rutas para la api de clientes...
+<<<<<<< HEAD
 
 $route['api_cliente'] = 'api_cliente/api';
 $route['api_cliente/(:num)'] = 'api_cliente/api';
 
+=======
+
+$route['api_cliente'] = 'api_cliente/api';
+$route['api_cliente/(:num)'] = 'api_cliente/api';
+
+>>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 # Ruta para la api de representantes...
 $route['api_representante'] = 'representante/api';
 $route['api_representante/(:num)'] = 'representante/api/$1';
