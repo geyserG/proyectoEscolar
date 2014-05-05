@@ -11,10 +11,16 @@
 		# Crea un objeto de tipo telefono...
 		public function relacionTelefonos($tabla, $columna, $idc, $post)
 		{
+<<<<<<< HEAD
 		  # Instanciamos al modelo_phone	
 			$tel = new model_phone();
 		  # Envia la variable $post['telefono'] al modelo telefonos...
 		    $id_tel = $tel->insert_p($post);
+=======
+		  # Instanciamos al modelo_phone	 # Envia la variable $post['telefono'] al modelo telefonos...
+			$tel = new model_phone();		 $id_tel = $tel->insert_p($post);
+		    
+>>>>>>> 69bee47f25d8e7501c8956f878199173004af441
 		  # ¿$id_tel es un array? 
 		    if(is_array($id_tel))
 		    {	             	
@@ -32,4 +38,49 @@
 		        return $query;
 	    } # Fin del metodo relacionTelefonos...
 
+<<<<<<< HEAD
+=======
+	    function joinDinamico($id, $idp, $idx, $tabla1, $tabla2)
+		{
+			$cont=0; $array=array();			
+			# Traer todos los campos.
+			$this->db->select('*');	 $this->db->from($tabla1); $this->db->join($tabla2, $tabla2.'.'.$idx.' = '.$tabla1.'.id');
+			$query = $this->db->get();	
+			
+			if($id==='noid'){  	return $query;	}
+			else
+			{ 
+				foreach ($query->result() as $key => $value) 
+				{					
+					if($value->$idp==$id)
+					{
+						if($idx == 'idtelefono'){
+						$array['numero'.$cont]= $value->numero;
+						$array['tipo'.$cont]= $value->tipo;
+						$cont++;
+						}
+						else{	$array['servicio'.$cont] = $value->nombre;	$cont++;	}					
+					}				
+				}
+				return $array;	
+			}			
+		} # Fin de joinDinamico()...
+
+		# Esta funcion establece la relacion cliente servicio...
+		public function insert_sic($servicios, $idc, $tabla)
+		{
+			if(is_array($servicios))
+			{
+				for ($i=0; $i < count($servicios); $i++) { 
+					$query = $this->db->insert($tabla,array('idcliente' => $idc, 'idservicio'=> $servicios[$i]));					
+				} # Fin del for
+			} # Fin del if
+			else{
+				$query = $this->db->insert($tabla, array('idcliente' => $idc, 'idservicio'=> $servicios));
+			} # Fin del else
+			
+			return $query;
+		}# Fin del metodo insertar servicios...
+
+>>>>>>> 69bee47f25d8e7501c8956f878199173004af441
 	} # Fin de la clase modez.php

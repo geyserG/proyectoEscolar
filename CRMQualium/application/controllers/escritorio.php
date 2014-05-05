@@ -4,6 +4,9 @@ class Escritorio extends Api {
 
 	public function __construct() {
         parent::__construct();
+
+        $this->load->model('model_customer', 'customer');
+        $this->load->model('modelo_servicios', 'serv');
     }  
 
 	//Vista inicial
@@ -18,16 +21,17 @@ class Escritorio extends Api {
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes');
-		
+		$data['servicios'] = $this->serv->get_s(NULL);
+		$data['clientes'] = $this->customer->get_customers_model();
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
-			$this->load->view($this->ruta());
+			$this->load->view($this->ruta(), $data);
 		}
-		// if($this->ruta() == 'modulo_consulta_clientes')
-		// {
-		// 	$this->load->view($this->ruta());
-		// }
+		if($this->ruta() == 'modulo_consulta_clientes')
+		{
+			$this->load->view($this->ruta(), $data);
+		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
 			$this->load->view($this->ruta());
@@ -37,21 +41,20 @@ class Escritorio extends Api {
 
 	public function proyectos(){
 		$this->area_Estatica();
-		$this->load->view('modulo_proyectos');
-		
-
-		if($this->ruta() == 'modulo_proyectos_nuevo')
-		{
-			$this->load->view($this->ruta());
-		}
-		if($this->ruta() == 'modulo_proyectos_consulta')
-		{
-			$this->load->view($this->ruta());
-		}
 	}
 
 	public function contratos(){
 		$this->area_Estatica();
+		$this->load->view('modulo_contratos');
+
+		if($this->ruta() == 'modulo_contratos_nuevo')
+		{
+			$this->load->view($this->ruta());
+		}
+		if($this->ruta() == 'modulo_contratos_historial')
+		{
+			$this->load->view($this->ruta());
+		}
 	}
 
 	public function cotizacion(){

@@ -4,7 +4,7 @@
 include 'api.php';
 class  Api_cliente extends Api {
 
-	public function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->load->model('Model_customer', 'Customer');
         $this->load->helper('url');
@@ -13,79 +13,80 @@ class  Api_cliente extends Api {
 
     public function api() {
 
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert();
-    			break;
-    		case 'get':
-    			$this->get_customers();
-    			break;	
-    		case 'update':
-    			$this->update();
-    			break;	
-    		case 'delete':
-    			$this->delete();
-    			break;
-    		default:
-    			# code...
-    			break;
-    	}
+        $id = $this->uri->segment(2);   
+
+        switch ($this->metodo()) {
+            case 'post':
+                $this->insert_c();
+                break;
+            case 'get':
+                $this->get_customers();
+                break;  
+            case 'put':
+                 $this->update_c($this->put_id());
+                break;  
+            case 'delete':
+                $this->delete();
+                break;
+            default:
+                $this->response('405');
+                break;
+        }
 
     }
 
-    private function insert(){
 
-    	$query = $this->Customer->insert_customer();
-    	$data = $this->response($query);
-    	$this->load->view('',$data);
 
+    private function insert_c(){
+
+        $post = $this->ipost();   
+                
+        $query = $this->Customer->insert_customer($post);
+
+        if($query){
+
+             $this->response($query, 201);        
+
+        }else{
+             $this->response($query, 404);
+        }         
     }
 
     private function get_customers(){
 
-    	$query = $this->Customer->get_customers_model();
-                        
-    	if($query){
+        $query = $this->Customer->get_customers_model();                        
+        if($query){
 
-    		$data['json'] = $this->response(200, $query);
+            $data['clientes'] = $this->response($query, 200);
 
-    	}else{
-    		$data['json'] = $this->response(404, $query);
-    	} 
-        $this->area_Estatica();
-    	$this->load->view('modulo_Clientes');
-    	$this->load->view('pruebas', $data);
-    	
+        }else{
+            $data['clientes'] = $this->response($query, 404);
+        }                 
     }
 
-    private function update(){
+    private function update_c($id){
+        
+        # La función put(); Devuelve el array con los campos espicificos para actualizar
+        $put = $this->put();
+        
+        $query = $this->Customer->update_customer($id, $put);
+             
+         if($query){
 
-    	// $query = $this->Model_customer->update_customer();
-    	// $data = $this->response('',$query);
-    	// $this->load->view('', $data);
-    	
+             $this->response($query, 200);        
 
-
+        }else{
+             $this->response($query, 304);
+        } 
     }
 
     private function delete(){
 
-    	$query = $this->Model_customer->delete_customer();
-    	$data = $this->response('',$query);
-    	$this->load->view('', $data);
+        // $query = $this->Model_customer->delete_customer();
+        // $data = $this->response('',$query);
+        // $this->load->view('', $data);
 
     }
 
-
-
-    // POSIBLES ARREGLOS DE OBJETOS
-    // TELEFONOS PUEDE LLEGAR UN OBJETO O UN ARREGLO DE OBJETOS
-    // SERIVICIOS INTERES Y SERVICIOS CON LOS QUE CUENTA LLEGAN COMO ARREGLOS O NULOS
-    // LOS  ARCHIVOS ARREGLO DE OBJETOS O SOLO UN OBJETO
-    // TELEFONOS DEL REPRESENTANTE
-    // UN ARREGLO DE CONTACTOS
-
-
-
-}
+} # Fin de la Clase Api_cliente
 
