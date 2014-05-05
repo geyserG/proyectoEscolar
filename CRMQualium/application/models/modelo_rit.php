@@ -49,7 +49,7 @@
 						$array[$cont]= $value->idtelefono;
 						$cont++;
 						}
-						else{	$array['servicio'.$cont] = $value->nombre;	$cont++;	}					
+						else{	$array[$cont] = $value->nombre;	$cont++;	}					
 					}				
 				}
 				return $array;	

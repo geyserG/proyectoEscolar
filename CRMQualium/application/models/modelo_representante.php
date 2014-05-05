@@ -10,11 +10,7 @@
 
       function insert_r($post)
       {
-        #array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']
-            
-        $query = $this->db->insert('representante', array('nombre'=>$post['nombre'], 
-                                                         'correo'=>$post['correo'], 
-                                                         'cargo' =>$post['cargo']));
+        $query = $this->db->insert('representante',$post);
         $id = $this->db->insert_id();
             
         $data = array('idcliente'=> $post['idCliente'], 'idrepresentante'=>$id);

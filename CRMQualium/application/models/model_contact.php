@@ -10,12 +10,6 @@
         }
         function insert_C($post)
         {
-             // $contactos = array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']);
-           
-            // $query = $this->db->insert('contacto',array('nombre'=>$post['nombre'], 
-            //                                             'correo'=>$post['correo'],
-            //                                             'cargo' =>$post['cargo']));
-            # Recuperamos el id del contacto...
             $query = $this->db->insert('contacto',$post);
             $id    = $this->db->insert_id();
 
