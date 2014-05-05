@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 	<script src="js/jquery-ui-1.10.4.custom.js"></script>
-    <h3>Nuevo Proyecto</h3>
-=======
-	<h3>Nuevo Proyecto</h3>
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
+   	<h3>Nuevo Proyecto</h3>
 	<hr><br>
 	<input type="text" class="form-control" placeholder="Nombre del proyecto">
 	<select id="" class= "form-control" > 
@@ -163,10 +159,6 @@
 	   </div><!-- /.modal-dialog -->
    </div><!-- /.modal -->	
 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
 <script>
   $(function() {
     $( ".datepicker" ).datepicker({
@@ -176,7 +168,6 @@
   });
 <<<<<<< HEAD
 </script>
-=======
   </script>
->>>>>>> 79d0511b0d7b05a40e6f4b5d51674abb33c1fdae
+
 
