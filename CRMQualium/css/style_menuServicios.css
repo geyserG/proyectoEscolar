@@ -81,17 +81,19 @@
   border: 1px solid #03649d;
   border-top: none;
   text-shadow: 0 -1px 1px #013452;
+  z-index: 2;
 }
-.cssmenu > ul > li > a > span {
+.cssmenu > ul > li > div > label {
   display: block;
   padding: 12px 10px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  z-index: 1;
 }
-.cssmenu > ul > li > a:hover {
+/*.cssmenu > ul > li > a:hover {
   text-decoration: none;
-}
+}*/
 .cssmenu > ul > li.active {
   border-bottom: none;
 }
@@ -117,41 +119,41 @@
   
 }
 
-.cssmenu ul ul a {
+.cssmenu ul ul div {
   padding: 10px 10px 10px 25px;
-  display: block;
+  /*display: block;*/
   color: #000000;
   font-size: 12px;
-  font-weight: normal;
+  /*font-weight: normal;*/
 }
-.cssmenu ul ul a:before {
+.cssmenu ul ul div:before {
   content: '»';
   position: absolute;
   left: 10px;
   color: #0494e8;
 }
-.cssmenu ul ul a:hover {
+.cssmenu ul ul div:hover {
   color: #0494e8;
 }
 
-#check_posicion{
 
- margin: -16px 0px 0px 328px;
+
+
+
+
+
+
+.check_posicion{
+  display: none;
 }
-
-/*.scroll{
-        max-height: 193px;
-        overflow-y: auto;
-        overflow-x: hidden;
-}*/
-
-/*#contenedor_menus{
--webkit-margin-top: -320px;
-
- }*/
-
- 
-
- /*web service devolver el valor como json o xhml  ,,,  es una forma de comunicarse entre las aplicaciones ,bd , servidor*/
-
- /*appi rest es una forma de estructurar */
+.concepto{
+  float: right;
+  display: inline-block;
+  font-size: 9px;
+}
+/* Scroll para la lista */
+#menuServiciosInteres, #menuServiciosCuenta{
+    height: 250px;
+    overflow: auto;
+  }
+/* Scroll para la lista */

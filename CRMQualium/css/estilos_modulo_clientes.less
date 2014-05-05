@@ -15,19 +15,17 @@ margin-right: 100px;
 margin-left: 323px;
 margin-top: -26px;
 }
-#btn_agregar2{
+#btn_agregarI, #btn_agregarC{
 margin-left: 322px;
 margin-top: -26px;
 }
-#ancho_input1{
-width: 320px;
-margin-bottom: -13px;
-}
-#ancho_input2{
+
+#inputBusquedaI, #inputBusquedaC{
 width: 320px;
 margin-bottom: -13px;
 margin-left: -1px;
 }
+
 .dato_contacto{
 float: left;
 display:inline;
@@ -53,6 +51,11 @@ margin-right: 100px;
 }
 .input_info .btn-group-justified{
 	width: 400px;
+}
+.input_info{
+	display: inline-block;
+	padding-right: 100px;
+	float: left;
 }
 /*----------Css tabla de cosulta---*/
 .contenedor_principal_modulos #tbla_cliente{
@@ -105,7 +108,7 @@ margin-right: 100px;
 
 }
 
-.icon-operaciones .eliminar_cliente span:hover{
+.icon-operaciones .icon-trash:hover{ //ES EL ICONO DE ELIMINAR CLIENTE
 		
 		background: red;
 		border-radius: 3px;
@@ -311,6 +314,13 @@ margin-right: 100px;
 	/*padding: 20px;*/
 }
 
+.editar{
+	display: none;
+}
+.editando{
+	display: block;
+}
+
 /*#divcomentarios{
 	 float: left;
 	 margin-left:20px;
@@ -336,3 +346,7 @@ margin-right: 100px;
 
 
 
+.foto{
+	width: 40px;
+	height: 40px;
+}
