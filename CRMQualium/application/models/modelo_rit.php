@@ -49,7 +49,8 @@
 						$array[$cont]= $value->idtelefono;
 						$cont++;
 						}
-						else{	$array[$cont] = $value->nombre;	$cont++;	}					
+						else{	$array[$cont]['idrelacion'] = $value->id;	
+								$array[$cont]['nombre'] = $value->nombre;	$cont++;}					
 					}				
 				}
 				return $array;	
