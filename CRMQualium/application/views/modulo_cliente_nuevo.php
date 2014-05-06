@@ -85,8 +85,14 @@
                 <form>
                     <div class='cssmenu'>
                         <h5><b>Servicios que le interesa</b> </h5>
-                        <input type="text" id="inputBusquedaI" class="form-control" placeholder="Buscar servicio">
-                        <button type="button" id="btn_agregarI" class="btn btn-default">Agregar</button>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="text" id="inputBusquedaI" class="form-control" placeholder="Buscar servicio">
+                                <span class="input-group-btn">
+                                    <button type="button" id="btn_agregarI" class="btn btn-default">Agregar</button>
+                                </span>
+                            </div>
+                        </div>
                         <ul id="I">
                             <li class='has-sub'><a href='#'><span>Servicios</span></a>
                                 <ul id="menuServiciosInteres">
@@ -103,8 +109,14 @@
                 <form>
                     <div class='cssmenu'>
                         <h5><b>Servicios con los que cuenta</b> </h5>
-                        <input type="text" id="inputBusquedaC" class="form-control" placeholder="Buscar servicio">
-                        <button type="button" id="btn_agregarC" class="btn btn-default">Agregar</button>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="text" id="inputBusquedaC" class="form-control" placeholder="Buscar servicio">
+                                <span class="input-group-btn">
+                                    <button type="button" id="btn_agregarC" class="btn btn-default">Agregar</button>
+                                </span>
+                            </div>
+                        </div>
                         <ul id="C">
                             <li class='has-sub'><a href='#'><span>Servicios</span></a>
                                 <ul id="menuServiciosCuenta">
@@ -300,8 +312,6 @@
             buscarPorNombre: buscarPorNombre
         };
     }());
-
-
 </script>
 
 <!-- Plantillas -->

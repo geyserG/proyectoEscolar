@@ -157,3 +157,10 @@
     overflow: auto;
   }
 /* Scroll para la lista */
+
+
+.col-lg-6{ /*CLASE DE BOOTSTRAP, MODIFICADO PARA LA BUSQUEDA DE SERVICIOS*/
+  padding-left: 0px; 
+  padding-right: 0px;
+  float: none;
+}

@@ -36,8 +36,6 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		var vistaContacto = new app.VistaContacto({model:contacto});
 		// console.log(vistaContacto.render().el);//----------Si lo carga
 		$(esDe).children().children().children().children( ".oculto" ).append(vistaContacto.render().el);
-
-
 	},
 
 	funcionRecursivaCP	: function (cp) {//---------------------"cp" es un arreglo de clientes o prospectos
@@ -57,7 +55,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 				// json.idCliente = cp.get('id');
 				// console.log(JSON.stringify(json));
 				app.coleccionContactos.fetch();
-				var contactos = app.coleccionContactos.where( {idCliente:cp.get('id')} );
+				var contactos = app.coleccionContactos.where( {idcliente:cp.get('idcliente')} );
 				// console.log(contactos);
 				this.funcionRecursivaContactos(contactos);
 
@@ -85,7 +83,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		} else{
 			if (contacto != '') {
 				// console.log(contacto, "#"+contacto.get('id'));
-				this.agregarContacto(contacto, "#"+contacto.get('idCliente'));
+				this.agregarContacto(contacto, "#"+contacto.get('idcliente'));
 			};
 		};
 	},

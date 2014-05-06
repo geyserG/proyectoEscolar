@@ -17,7 +17,11 @@ var ColeccionContactos = Backbone.Collection.extend({
 			return 1;
 		}
 		return this.last().get('idContacto') + 1;
-	}*/
+	},*/
+
+	parse	: function (response) {
+		return response.data;
+	},
 });
 
-app.coleccionContactos = new ColeccionContactos();
+app.coleccionContactos = new ColeccionContactos(app.coleccionDeContactos);

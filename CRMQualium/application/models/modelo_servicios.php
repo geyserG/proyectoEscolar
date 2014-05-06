@@ -2,10 +2,9 @@
 	/**
 	* Operaciones en la tabla Servicios de la bd...
 	*/
+	require_once 'modelo_rit.php';
 	class Modelo_servicios extends CI_Model
-	{
-	
-		
+	{		
 		function __construct()
 		{
 			

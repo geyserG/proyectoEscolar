@@ -178,60 +178,78 @@
                                             <td class="atributo"><b>Telefono:</b></td>
                                             <td>
                                                 <% if (typeof telefonosCliente != "undefined") { %>
-                                                    <% if (telefonosCliente.length > 1) {
-                                                        for (var i = 0; i < telefonosCliente.length; i++) { %>
-                                                            <div>
-                                                                <label class="editar editando"><%-telefonosCliente[i].telefono%></label>
-                                                                <input type="text" class="form-control editar" value="<%-telefonosCliente[i].telefono%>">
-                                                                <label class="editar editando"><%-telefonosCliente[i].tipo%></label>
-                                                                <select class="form-control editar" multiple>
-                                                                    <option>x</option>
-                                                                    <option>xx</option>
-                                                                    <option>xxx</option>
-                                                                    <option>xxxx</option>
-                                                                </select>
+                                                    <% if (telefonosCliente.length > 1) { %>
+                                                        <% for (var i = 0; i < telefonosCliente.length; i++) { %>
+                                                            <label class="editar editando"><%-telefonosCliente[i].telefono%></label>
+                                                            <label class="editar editando"><%-telefonosCliente[i].tipo%></label>
+                                                            <div class="editar">
+                                                                <div class="col-lg-6">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control telefonosCliente" value="<%-telefonosCliente[i].telefono%>" placeholder="<%-telefonosCliente[i].telefono%>">
+                                                                            <div class="input-group-btn">
+                                                                                <select class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                                    <option value="Casa">Casa</option>
+                                                                                    <option value="Fax">Fax</option>
+                                                                                    <option value="Movil" selected>Movil</option>
+                                                                                    <option value="Oficina">Oficina</option>
+                                                                                    <option value="Personal">Personal</option>
+                                                                                    <option value="Trabajo">Trabajo</option>
+                                                                                    <option value="Otro">Otro</option>
+                                                                                    <option selected disabled>Actual: <%-telefonosCliente[i].tipo%></option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                    <% };
-                                                    } else { %>
-                                                            <div>
-                                                                <label class="editar editando"><%-telefonosCliente.telefono%></label>
-                                                                <input type="text" class="form-control editar" value="<%-telefonosCliente.telefono%>">
-                                                                <label class="editar editando"><%-telefonosCliente.tipo%></label>
-                                                                <select class="form-control editar" multiple>
-                                                                    <option>x</option>
-                                                                    <option>xx</option>
-                                                                    <option>xxx</option>
-                                                                    <option>xxxx</option>
-                                                                </select>
-                                                            </div>
-                                                    <% }; %>
+                                                        <% } %>
                                                     <% } else{ %>
-                                                        <label class="editar editando">No especificado</label>
+                                                        <label class="editar editando"><%-telefonosCliente.telefono%></label>
+                                                        <label class="editar editando"><%-telefonosCliente.tipo%></label>
                                                         <div class="editar">
-                                                            <div class="input-group">
-                                                                <div class="btn-group">
-                                                                    <form>
-                                                                      <input type="text" class="form-control" name="telefonoCliente" placeholder="Teléfono">
-                                                                    </form>
-                                                                </div>
-                                                                <div class="btn-group">
-                                                                    <select class="form-control" name="tipoTelefonoCliente">
-                                                                        <option value="Casa">Casa</option>
-                                                                        <option value="Fax">Fax</option>
-                                                                        <option value="Movil" selected>Movil</option>
-                                                                        <option value="Oficina">Oficina</option>
-                                                                        <option value="Personal">Personal</option>
-                                                                        <option value="Trabajo">Trabajo</option>
-                                                                        <option value="Otro">Otro</option>
-                                                                        <option selected disabled>Tipo</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="btn-group">
-                                                                    <div class="otroTelefono"><button type="button" class="btn btn-default"><span class="icon-uniF476"></span></button></div>
+                                                            <div class="col-lg-6">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control telefonosCliente" value="<%-telefonosCliente.telefono%>" placeholder="<%-telefonosCliente.telefono%>">
+                                                                        <div class="input-group-btn">
+                                                                            <select class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                                <option value="Casa">Casa</option>
+                                                                                <option value="Fax">Fax</option>
+                                                                                <option value="Movil" selected>Movil</option>
+                                                                                <option value="Oficina">Oficina</option>
+                                                                                <option value="Personal">Personal</option>
+                                                                                <option value="Trabajo">Trabajo</option>
+                                                                                <option value="Otro">Otro</option>
+                                                                                <option selected disabled>Actual: <%-telefonosCliente.tipo%></option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    <% }; %> 
+                                                    <% } %>
+                                                <% } else{ %>
+                                                    <label class="editar editando">No especificado</label>
+                                                    <div class="editar">
+                                                        <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control telefonosCliente" placeholder="Nuevo teléfono">
+                                                                    <div class="input-group-btn">
+                                                                        <select class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                            <option value="Casa">Casa</option>
+                                                                            <option value="Fax">Fax</option>
+                                                                            <option value="Movil" selected>Movil</option>
+                                                                            <option value="Oficina">Oficina</option>
+                                                                            <option value="Personal">Personal</option>
+                                                                            <option value="Trabajo">Trabajo</option>
+                                                                            <option value="Otro">Otro</option>
+                                                                            <option selected disabled>Tipo</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% } %>
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -267,22 +285,36 @@
                                                 <% if (typeof serviciosInteres != "undefined") { %>
                                                     <% if (serviciosInteres.length) { %>
                                                     <label class="editar editando"><%- serviciosInteres %></label>
-                                                    <select class="form-control editar" multiple>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
                                                     <% } %>
                                                 <% } else { %>
                                                     <label class="editar editando">Ninguno.</label>
-                                                    <select class="form-control editar" multiple>
-                                                        <option>11</option>
-                                                        <option>12</option>
-                                                        <option>13</option>
-                                                        <option>14</option>
-                                                    </select>
-                                                <% }; %></td>
+                                                <% }; %>
+                                                <div id='contenedor_menus' class="editar">
+                                                    <div class="menusServicios">
+                                                        <form>
+                                                            <div class='cssmenu' style="margin-right: 0px;">
+                                                                <div class="col-lg-6">
+                                                                    <div class="input-group">
+                                                                        <input type="text" id="inputBusquedaI" class="form-control" placeholder="Buscar servicio">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" id="btn_agregarI" class="btn btn-default">Agregar</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="I">
+                                                                    <li class='has-sub'><a href='#'><span>Servicios</span></a>
+                                                                        <ul id="menuServiciosInteres">
+                                                                        </ul>
+                                                                    </li>   
+                                                                </ul>
+                                                            </div>
+                                                        </form>
+                                                        <div class="desborde"></div>
+                                                        <br>
+                                                        <ol id="listaInteres" class="list-group"></ol>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr class="trCliente">
                                             <td class="atributo">
@@ -293,22 +325,36 @@
                                                 <% if (typeof serviciosCuenta != "undefined") { %>
                                                     <% if (serviciosCuenta.length) { %>
                                                     <label class="editar editando"><%- serviciosCuenta %></label>
-                                                    <select class="form-control editar" multiple>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
                                                     <% } %>
                                                 <% } else { %>
                                                     <label class="editar editando">Ninguno.</label>
-                                                    <select class="form-control editar" multiple>
-                                                        <option>11</option>
-                                                        <option>12</option>
-                                                        <option>13</option>
-                                                        <option>14</option>
-                                                    </select>
-                                                <% }; %></td>
+                                                <% }; %>
+                                                <div id='contenedor_menus' class="editar">
+                                                    <div class="menusServicios">
+                                                        <form>
+                                                            <div class='cssmenu' style="margin-right: 0px;">
+                                                                <div class="col-lg-6">
+                                                                    <div class="input-group">
+                                                                        <input type="text" id="inputBusquedaC" class="form-control" placeholder="Buscar servicio">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" id="btn_agregarC" class="btn btn-default">Agregar</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <ul id="C">
+                                                                    <li class='has-sub'><a href='#'><span>Servicios</span></a>
+                                                                        <ul id="menuServiciosCuenta">
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </form>
+                                                        <div class="desborde"></div>
+                                                        <br>
+                                                        <ol id="listaCuenta" class="list-group"></ol>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
 
@@ -415,11 +461,7 @@
 
 
 <script type="text/javascript">
-    // var app = app  || {};
-    // app.coleccionClientesCodeIgniter = <?php json_encode($clientes) ?>;
-    // app.coleccionContactosCodeIgniter = <?php json_encode($contactos) ?>;
-    // app.coleccionArchivosCodeIgniter = <?php json_encode($archivos) ?>;
-    // app.coleccionTelefonosCodeIgniter = <?php json_encode($telefonos) ?>;
+   
 </script>
 
 <!-- Librerias Backbone -->
@@ -430,19 +472,24 @@
 
 <script type="text/javascript" src="js/backbone/app.js"></script>
 <script type="text/javascript">
-    var app = app || {};
+    // var app = app || {};
     app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
-    console.log(app.coleccionDeClientes);
-    var ENTER_KEY = 13;
+    app.coleccionDeContactos = <?php echo json_encode($contactos) ?>;
+    app.coleccionDeRepresentantes = <?php echo json_encode($representantes) ?>;
+    app.coleccionDeTelefonos = <?php echo json_encode($telefonos) ?>;
  </script>
     <!-- modelos -->
     <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
+    <script type="text/javascript" src="js/backbone/modelos/ModeloTelefono.js"></script>
     <!-- colecciones -->
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
+    <script type="text/javascript" src="js/backbone/colecciones/ColeccionTelefonos.js"></script>
     <!-- vistas -->
     <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
     <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
+    <!-- // <script type="text/javascript" src="js/backbone/vistas/VistaTelefono.js"></script> -->
     <!-- vista general -->
     <script type="text/javascript" src="js/backbone/vistas/VistaConsultaCliente.js"></script>
+    <!-- // <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script> -->

@@ -7,6 +7,9 @@ class Escritorio extends Api {
 
         $this->load->model('model_customer', 'customer');
         $this->load->model('modelo_servicios', 'serv');
+        $this->load->model('model_contact', 'contacto');
+        $this->load->model('modelo_representante', 'representa');
+        $this->load->model('model_phone', 'telefono');
     }  
 
 	//Vista inicial
@@ -21,20 +24,26 @@ class Escritorio extends Api {
 	
 		$this->area_Estatica();
 		$this->load->view('modulo_Clientes');
-		$data['servicios'] = $this->serv->get_s(NULL);
 		$data['clientes'] = $this->customer->get_customers_model();
+		$data['telefonos'] = $this->telefono->get_p(NULL);
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
+			$data['servicios'] = $this->serv->get_s(NULL);
 			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
+			$data['servicios'] = $this->serv->get_s(NULL);
+			$data['contactos'] = $this->contacto->get_C(False);
+			$data['representantes']=$this->representa->get_r(False);
 			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_consulta_prospectos')
 		{
-			$this->load->view($this->ruta());
+			$data['contactos'] = $this->contacto->get_C(False);
+			$data['representantes'] = $this->representa->get_r(False);
+			$this->load->view($this->ruta(),$data);
 		}
 		
 	}

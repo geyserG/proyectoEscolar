@@ -2,7 +2,7 @@
     /**
     * Operaciones en la base de datos con los contactos
     */
-    include 'modelo_rit.php';
+    require_once 'modelo_rit.php';
     class Model_contact extends CI_Model
     {          
         function obj(){

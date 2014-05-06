@@ -44,7 +44,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 	},
 
-// -----initialize-------------------------------- 
+ // -----initialize-------------------------------- 
 	initialize		: function () {
 	// Datos básicos
 		this.tipoCliente          = '';
@@ -114,12 +114,12 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// app.coleccionServicios.reset();
 		// this.arrayNombresServicios = app.coleccionServicios.pluck('nombre');
 	},
-// -----render------------------------------------ 
+ // -----render------------------------------------ 
 	render			: function () {
 		return this;
 	},
 	
-// -----agregarContactoLista---------------------- 
+ // -----agregarContactoLista---------------------- 
 	agregarContactoLista	: function () {
 		this.$nombreContacto = $('#otroContactoNombre');
 		this.$correoContacto = $('#otroContactoEmail');
@@ -127,30 +127,30 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		$('#contactosLista').html('');
 		this.otroContacto();
 	},
-// -----agregarArchivo---------------------------- 
+ // -----agregarArchivo---------------------------- 
 	// agregarArchivo	: function (archivo) {
 	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
 
 	// 	this.$divArchivos.append(vistaArchivo.render().el);
 	// },
-// -----agregarTodosLosArchivos------------------- 
+ // -----agregarTodosLosArchivos------------------- 
 	// agregarTodosLosArchivos	: function () {
 	// 	app.coleccionArchivos.each(this.agregarArchivo, this);
 	// },
-// -----agregarContacto--------------------------- 
+ // -----agregarContacto--------------------------- 
 	// agregarContacto	: function (contacto) {
 	// 	var vistaContacto = new app.VistaContacto({model:contacto});
 
 	// 	this.$divContactos.append(vistaContacto.render().el);
 	// },
-// -----agregarTodosLosContactos------------------ 
+ // -----agregarTodosLosContactos------------------ 
 	// agregarTodosLosContactos	: function () {
 	// 	app.coleccionClientes.each(this.agregarContacto, this);
 	// },
 	// dameClienteNuevo	: function (cliente) {
 	// },
 
-// -----buscarServicioI--&--buscarServicioC------- 
+ // -----buscarServicioI--&--buscarServicioC------- 
 
 	buscarServicioI	: function (elemento) {
 		
@@ -202,7 +202,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
     		$('#inputBusquedaC').val('');
     	};
     },
-// -----cargarServicios--------------------------- 
+ // -----cargarServicios--------------------------- 
 	cargarServicioI	: function (servicio) {
 		var vistaServicioI = new app.VistaServicioInteres({model:servicio});
 		this.$menuServiciosInteres.append(vistaServicioI.render().el);
@@ -230,17 +230,17 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		};
 		$(elemento.currentTarget).parent().remove();
 	},
-// -----deshacerRegistro-------------------------- 
+ // -----deshacerRegistro-------------------------- 
 	deshacerRegistro	: function () {
 		// _.invoke(new Array(app.coleccionClientes.obtenerUltimo()),'destroy');
 		this.$('.visibleR').toggleClass('ocultoR');
 	},
 
-// -----eliminarCopia----------------------------- 
+ // -----eliminarCopia----------------------------- 
 	eliminarCopia	: function (elemento) {
 		$(elemento.currentTarget).parents('.copia').remove();
 	},
-// -----eliminarColeccionPrueba------------------- 
+ // -----eliminarColeccionPrueba------------------- 
 	eliminarTodos_Prueba	: function () {
 		_.invoke(app.coleccionClientes.obtenerTodos(),'destroy');
 		_.invoke(app.coleccionContactos.obtenerTodos(),'destroy');
@@ -249,7 +249,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.arrTelefonosContac = new Array();
 		// _.invoke(app.coleccionArchivos.obtenerTodos(),'destroy'); NO SIRVE EN ESTE MODULO
 	},
-// -----eliminarContacto-------------------------- 
+ // -----eliminarContacto-------------------------- 
 	eliminarContacto	: function (contacto) {
 		for (var i = 0; i < this.arregloDeContactos.length; i++) {
 			if (i == $(contacto.currentTarget).parent().parent().parent().attr('id')) {
@@ -270,7 +270,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 	},
 
-// -----nuevoContacto----------------------------- 
+ // -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
 		this.otroContacto();
 
@@ -297,7 +297,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		Backbone.emulateJSON = false;
 
 	},
-// -----nuevoCliente------------------------------ 
+ // -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
 		var json = this.nuevosAtributosCliente();
 		
@@ -339,7 +339,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
 		////////////borrar//////////////////////////////7
 	},
-// -----nuevoTelefono----------------------------- 
+ // -----nuevoTelefono----------------------------- 
 	// nuevoTelefono	: function (objsTelefonos) {
 	// 	if (objsTelefonos != undefined) {
 	// 		Backbone.emulateHTTP = true;
@@ -355,7 +355,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	//   		Backbone.emulateJSON = false;
 	// 	};
 	// },
-// -----nuevoArchivo---------------No sirve aquí-- 
+ // -----nuevoArchivo---------------No sirve aquí-- 
 	// nuevoArchivo	: function () {
 	// 	var arreglo = new Array();
 	// 	var archivo = document.getElementsByName('archivo');
@@ -375,7 +375,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// 		};
 	// 	};
 	// },
-// -----nuevosAtributosArchivo-----No sirve aquí-- 
+ // -----nuevosAtributosArchivo-----No sirve aquí-- 
 	// nuevosAtributosArchivo	: function (nombre,tipo,comentario) {
 	// 	return {
 	// 		 nombre : nombre,
@@ -383,7 +383,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// 	 comentario : comentario
 	// 	}
 	// },
-// -----nuevosAtributosContacto------------------- 
+ // -----nuevosAtributosContacto------------------- 
 	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {/*tipo,*/
 		return {
 			idCliente : app.coleccionClientes.obtenerUltimo().get('id'),
@@ -394,7 +394,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			telefonos : telefonos
 		}
 	},
-// -----nuevosAtributosCliente-------------------- 
+ // -----nuevosAtributosCliente-------------------- 
 	nuevosAtributosCliente	: function () {
 		return {
              nombreComercial : this.$nombreFiscal.val().trim(),
@@ -413,7 +413,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		}
 	},
 
-// -----obtenerTipoCliente------------------------ 
+ // -----obtenerTipoCliente------------------------ 
 	obtenerTipoCliente	: function (elemento) {
 		/*currentTarget obtiene el elemento html,
 		  este se utiliza como selector para obtener
@@ -422,7 +422,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 		this.tipoCliente = $(elemento.currentTarget).val();
 	},
-// -----obtenerFoto------------------------------- 
+ // -----obtenerFoto------------------------------- 
 	obtenerFoto	: function () {
 	    $("#mensajeFoto").hide();
 	    //queremos que esta variable sea global
@@ -458,19 +458,19 @@ app.VistaNuevoCliente = Backbone.View.extend({
         });
         if (resp.responseText != "") return 'img/fotosClientes/'+resp.responseText+'';
 	},
-// -----otroTelefono------------------------------ 
+ // -----otroTelefono------------------------------ 
 	otroTelefono	: function (elemento) {
 		this.$(elemento.currentTarget).parent().parent().parent().parent().append('<div class="copia">'+this.$(elemento.currentTarget).parent().parent().parent().html()+'</div>');
 		$('.copia .icon-uniF476').addClass('icon-uniF477');
 		$('.copia .otroTelefono').removeClass().addClass('eliminarCopia');
 	},
-// -----otroArchivo----------------No sirve aquí-- 
+ // -----otroArchivo----------------No sirve aquí-- 
 	// otroArchivo	: function (elemento) {
 	// 	this.$(elemento.currentTarget).parent().parent().parent().parent().append('<div class="copia"><hr>'+this.$(elemento.currentTarget).parent().parent().parent().html()+'</div>');
 	// 	$('.copia .icon-uniF476').addClass('icon-uniF477');
 	// 	$('.copia .otroArchivo').removeClass().addClass('eliminarCopia');
 	// },
-//------otroContacto------------------------------ 
+ //------otroContacto------------------------------ 
 	otroContacto 	: function (contacto) {
 		var numero = document.getElementsByName('telefonoContacto');
 		var tipo   = document.getElementsByName('tipoTelefonoContacto');
@@ -512,7 +512,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		}
 	},
 
-// -----recursividadTelefonos--------------------- 
+ // -----recursividadTelefonos--------------------- 
 	recursividadTelefonos	: function (telefono,tipo) {
 		if (telefono.length > 1 && tipo.length > 1) {
 			var arreglo = new Array();
@@ -531,7 +531,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			return jQuery.parseJSON(JSON.stringify(objetoTelefono));
 		};
 	},
-// -----recursividadServicios--------------------- 
+ // -----recursividadServicios--------------------- 
 	recursividadServicios	: function (servicio) {
 			var arreglo = new Array();
 			var cont = 0;
@@ -551,7 +551,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				return arreglo;
 			};
 	},
-// -----recursividadArchivos---------------------- 
+ // -----recursividadArchivos---------------------- 
 	recursividadArchivos	: function (archivo,tipo,comentario) {
 		if (comentario.length > 1) {
 			var arreglo = new Array();
@@ -571,7 +571,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		};
 	},
 
-// -----validarCorreo----------------------------- 
+ // -----validarCorreo----------------------------- 
 	validarCorreo	: function (elemento) {
 		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
 	      alert('[ERROR:Email]\n\nNo es un correo valido');
@@ -579,7 +579,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	      return false;
 	    };
 	},
-//------validarTelefono--------------------------- 
+ //------validarTelefono--------------------------- 
 	validarTelefono	: function (elemento) {
 		// if(isNaN($(elemento.currentTarget).val().trim()) && $(elemento.currentTarget).val().trim() != '' ) {
 		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
@@ -588,7 +588,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	        return false;
 	    };
 	},
-//------validarPaginaWeb-------------------------- 
+ //------validarPaginaWeb-------------------------- 
 	validarPaginaWeb	: function () {
 		if (!(this.$paginaWeb.val().trim().match(/^[a-z0-9\.-]+\.[a-z]{2,4}/gi)) && this.$paginaWeb.val().trim() != '' ) {
 			this.$paginaWeb.focus();
@@ -601,7 +601,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 });
 
 app.vistaNuevoCliente = new app.VistaNuevoCliente();
-
 
 function showMessage (message) {
     $("#mensajeFoto").html("").show();

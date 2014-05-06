@@ -35,4 +35,11 @@ $( document ).ready(function() {
         return false; 
       }   
     });
+
+    $('#inputBusquedaI').on('focus',function(){
+      $('.cssmenu > #I > li > a').click();
+    });
+    $('#inputBusquedaC').on('focus',function(){
+      $('.cssmenu > #C > li > a').click();
+    });
 });
