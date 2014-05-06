@@ -29,12 +29,12 @@ class Escritorio extends Api {
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
-			$data['servicios'] = $this->serv->get_s(NULL);
+			$data['servicios'] = $this->serv->get_sNuevoCliente();
 			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
-			$data['servicios'] = $this->serv->get_s(NULL);
+			$data['servicios'] = $this->serv->get_sNuevoCliente();
 			$data['contactos'] = $this->contacto->get_C(False);
 			$data['representantes']=$this->representa->get_r(False);
 			$this->load->view($this->ruta(), $data);

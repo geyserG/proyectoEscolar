@@ -22,7 +22,15 @@
 			$this->db->where('id', $id); $query = $this->db->get('servicios');
 
 			if($query){ return $query->result(); }else{ return false;}
-		#return $query->result();			
+		}
+		# Esta funcion le sirve a la interfaz de modulo cliente_nuevo y consulta_cliente
+		public function get_sNuevoCliente()
+		{
+			$this->db->select('id, nombre, concepto');
+			$this->db->order_by('nombre', 'asc');
+			$query = $this->db->get('servicios');
+			if($query){ return $query->result(); }else{ return false;}
+		
 		}
 		public function update_s($id, $put)
 		{

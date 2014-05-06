@@ -26,7 +26,7 @@ class  Api_cliente extends Api {
                  $this->update_c($this->put_id());
                 break;  
             case 'delete':
-                $this->delete();
+                $this->delete_c($id);
                 break;
             default:
                 $this->response('405');
@@ -35,57 +35,35 @@ class  Api_cliente extends Api {
 
     }
 
-
-
     private function insert_c(){
 
-        $post = $this->ipost();   
-                
-        $query = $this->Customer->insert_customer($post);
+        # La función ipost()... Recupera todos los post que viene desde la petición        
+        $query = $this->Customer->insert_customer($this->ipost());
 
-        if($query){
-
-             $this->response($query, 201);        
-
-        }else{
-             $this->response($query, 404);
-        }         
+        ($query) ? $this->response($query, 201) : $this->response($query, 404);
+                 
     }
 
     private function get_customers(){
 
-        $query = $this->Customer->get_customers_model();                        
-        if($query){
+       $query = $this->Customer->get_customers_model(); 
 
-            $data['clientes'] = $this->response($query, 200);
-
-        }else{
-            $data['clientes'] = $this->response($query, 404);
-        }                 
+       ($query) ? $data['clientes'] = $this->response($query, 200) : $data['clientes'] = $this->response($query, 404);
     }
 
     private function update_c($id){
         
-        # La función put(); Devuelve el array con los campos espicificos para actualizar
-        $put = $this->put();
-        
-        $query = $this->Customer->update_customer($id, $put);
+        # La función put(); Devuelve el array con los campos espicificos para actualizar              
+        $query = $this->Customer->update_customer($id, $this->put());
              
-         if($query){
-
-             $this->response($query, 200);        
-
-        }else{
-             $this->response($query, 304);
-        } 
+        ($query) ? $this->response($query, 200) : $this->response($query, 304);
+        
     }
 
-    private function delete(){
+    private function delete_c($id){
 
-        // $query = $this->Model_customer->delete_customer();
-        // $data = $this->response('',$query);
-        // $this->load->view('', $data);
-
+        $query = $this->Customer->delete_customer($id);
+        ($query) ? $this->response($query, 200) : $this->response($query, 304);
     }
 
 } # Fin de la Clase Api_cliente

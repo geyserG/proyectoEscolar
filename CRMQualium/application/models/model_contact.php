@@ -10,12 +10,18 @@
         }
         function insert_C($post)
         {
-            $query = $this->db->insert('contacto',$post);
+            $contacto = array(
+                            'idcliente'=> $post['idCliente'],
+                            'nombre'   => $post['nombre'],
+                            'correo'   => $post['correo'],
+                            'cargo'    => $post['cargo'],
+                            );
+            $query = $this->db->insert('contacto',$contacto);
             $id    = $this->db->insert_id();
 
             # Aquí recuperamos el id cliente y del contacto y lo relacionamos en la bd.
-            $data = array('idcliente'=> $post['idCliente'], 'idcontacto'=>$id);
-            $this->db->insert('contacto_cliente', $data);
+            // $data = array('idcliente'=> $post['idCliente'], 'idcontacto'=>$id);
+            // $this->db->insert('contacto_cliente', $data);
 
             # ¿Existe algún en el post la variable telefonos?
             if(array_key_exists('telefonos', $post)){
@@ -32,7 +38,7 @@
 
         function get_C($id){
 
-            $obj = $this->obj(); $cont=0;
+            $obj = $this->obj(); $cont=0; $resp = False;
                      
             ($id===False) ? $query = $this->db->get('contacto') :
                             $query = $this->db->get_where('contacto', array('id'=>$id));
@@ -51,14 +57,8 @@
 
         function update_C(){
         	
-          $contactos = array(
-                                'nombre_completo' => $this->input->post('nombreContacto'),
-                                'correo'          => $this->input->post('correoContacto'),
-                                'cargo'           => $this->input->post('cargoContacto')
-                              );//Verificar si es un arreglo
-
             $this->db->where('id', $id);
-            $this->db->update('contacto', $contactos); 
+            $this->db->update('contacto', $put); 
 
         }
         private function delete_C($id){

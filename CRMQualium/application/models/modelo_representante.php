@@ -10,11 +10,14 @@
 
       function insert_r($post)
       {
-        $query = $this->db->insert('representante',$post);
+        $representante = array(
+                            'idcliente'=> $post['idCliente'],
+                            'nombre'   => $post['nombre'],
+                            'correo'   => $post['correo'],
+                            'cargo'    => $post['cargo'],
+                    );
+        $query = $this->db->insert('representante',$representante);
         $id = $this->db->insert_id();
-            
-        $data = array('idcliente'=> $post['idCliente'], 'idrepresentante'=>$id);
-        $this->db->insert('representante_cliente', $data);
 
         # ¿Existe algún en el post la variable telefonos?
         if(array_key_exists('telefonos', $post)){
@@ -29,7 +32,7 @@
 
       function get_r($id)
       {
-        $obj = $this->obj(); $cont=0;                     
+        $obj = $this->obj(); $cont=0;  $resp = False;                   
         ($id===False) ? $query = $this->db->get('representante') :
                         $query = $this->db->get_where('representante', array('id'=>$id));
 
@@ -47,21 +50,15 @@
           return $resp;        	
       }
 
-      function update_representante(){
-        	
-        $contactos = array(
-                           'nombre_completo' => $this->input->post('nombre'),
-                           'correo'          => $this->input->post('correo'),
-                           'cargo'           => $this->input->post('cargo')
-                              );//Verificar si es un arreglo
+      function update_representante($id, $put){
 
         $this->db->where('id', $id);
-        $this->db->update('contacto', $contactos); 
+        $this->db->update('representante', $put); 
 
       }
       function delete_representante($id){
 
-        $query = $this->db->delete('contactos', array('id' => $id));
+        $query = $this->db->delete('representante', array('id' => $id));
        return $query;
             
       }
