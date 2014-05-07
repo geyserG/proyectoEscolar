@@ -11,7 +11,7 @@ app.VistaCliente = Backbone.View.extend({
 	initialize	: function () {
 		// this.listenTo(this.model, 'destroy', this.remove);
 		// this.listenTo(this.model, 'change', this.render);
-		// this.listenTo(this.model, 'change', this.eliminarDelDOM);
+		this.listenTo(this.model, 'change', this.eliminarDelDOM);
 
 		// this.vistasTelefono = new Array();
 	},
@@ -129,7 +129,7 @@ app.VistaCliente = Backbone.View.extend({
 	},
 	visibilidad	: function() {
 		if (confirm('Deseas eliminarlo?')) {
-			this.$el.html('');
+			// this.$el.html('');
 			this.model.cambiarVisibilidad();
 		};
 	},

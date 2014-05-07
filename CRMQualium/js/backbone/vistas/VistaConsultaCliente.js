@@ -37,12 +37,13 @@ app.VistaConsultaCliente = Backbone.View.extend({
 	// 	console.log(arregloInputs);
 	// },
 	obtenerClientes	: function () {
-		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:true});
+		this.$el.html('');
+		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:1});
 		this.recursividadCP(clientes);
 	},
 	obtenerEliminados	: function () {
 		this.$el.html('');
-		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:false});
+		var clientes = app.coleccionClientes.where({tipoCliente:'cliente', visibilidad:0});
 		this.recursividadCP(clientes);
 	},
 	recursividadCP	: function (cp) {//---------------------"cp" es un arreglo de clientes o prospectos

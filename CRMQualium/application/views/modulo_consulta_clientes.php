@@ -299,22 +299,22 @@
             <tbody>
                 <tr class="trContacto">
                     <td class="atributo"><b>Nombre:</b></td>
-                    <td class="divDatoContacto"><%- nombre %></td>
+                    <td class="divDatoContacto"><label class="editar editando"><%- nombre %></label></td>
                 </tr>
                 <tr class="trContacto">
                     <td class="atributo"><b>Correo:</b></td>
-                    <td class="divDatoContacto"><a href="<%- email %>"><%- email %></a></td>
+                    <td class="divDatoContacto"><a class="editar editando" href="<%- email %>"><%- email %></a></td>
                 </tr>
                 <tr class="trContacto">
                     <td class="atributo"><b>Cargo:</b></td>
-                    <td class="divDatoContacto"><%- cargo %></td>
+                    <td class="divDatoContacto"><label class="editar editando"><%- cargo %></label></td>
                 </tr>
-                <!--<tr class="trContacto">
+                <tr class="trContacto">
                     <td class="atributo"><b>Teléfonos:</b></td>
                     <td class="divDatoContacto" id="telefonos">
                         
                     </td>
-                </tr>-->
+                </tr>
             </tbody>
         </table class="table">
     </script>
