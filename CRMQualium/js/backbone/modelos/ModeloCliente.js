@@ -23,9 +23,7 @@ app.ModeloCliente = Backbone.Model.extend({
 	},
 
 	cambiarVisibilidad: function () {
-		this.save({
-			visibilidad: !this.get('visibilidad')
-		});
+		this.save({visibilidad: !this.get('visibilidad')});
 	},
 
 	// validate: function (atributos) {

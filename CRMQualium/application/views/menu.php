@@ -1,5 +1,5 @@
 <div id="contenedor">
-<input type="checkbox" id="btn_menu">
+<input type="checkbox" id="btn_menu" checked>
 <nav id="menu" role="navigation">
 	<ul id="menu-lista">
 		<li class="">
