@@ -8,10 +8,7 @@
 	class Model_customer extends CI_Model
 	{
 		
-		public function __construct()
-		{
-			$this->load->database();			
-		}
+		public function __construct(){}
 
 		function insert_customer($post)
 		{	$obj = new modelo_rit();			
@@ -63,7 +60,7 @@
   		    if(array_key_exists('serviciosCuenta',$post))
   		    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
 		
-  	    # $archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
+  	    	# $archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
 			return $idcliente;
 
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
@@ -77,7 +74,7 @@
 			$cont=0;	$contrep=0;		$contCont=0; $contTCont=0;
 			#############################TRAEMOS A TODOS LOS CLIENTES#######################################
 			$this->db->select('*');
-			$this->db->where('visibilidad', 0);
+			$this->db->where('visibilidad', 1);
 			$cliente = $this->db->get('clientes');
 			#################################################ATRIBUTOS DEL CLIENTE##################################
 			$this->db->select('cliente_atributo.idcliente, atributo_cliente.atributo, cliente_atributo.dato');

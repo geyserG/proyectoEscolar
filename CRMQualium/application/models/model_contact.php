@@ -19,10 +19,6 @@
             $query = $this->db->insert('contacto',$contacto);
             $id    = $this->db->insert_id();
 
-            # Aquí recuperamos el id cliente y del contacto y lo relacionamos en la bd.
-            // $data = array('idcliente'=> $post['idCliente'], 'idcontacto'=>$id);
-            // $this->db->insert('contacto_cliente', $data);
-
             # ¿Existe algún en el post la variable telefonos?
             if(array_key_exists('telefonos', $post)){
 

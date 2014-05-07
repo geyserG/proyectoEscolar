@@ -11,28 +11,16 @@ class  Api_cliente extends Api {
        
     }
 
-    public function api() {
-
-        $id = $this->uri->segment(2);   
-
-        switch ($this->metodo()) {
-            case 'post':
-                $this->insert_c();
-                break;
-            case 'get':
-                $this->get_customers();
-                break;  
-            case 'put':
-                 $this->update_c($this->put_id());
-                break;  
-            case 'delete':
-                $this->delete_c($id);
-                break;
-            default:
-                $this->response('405');
-                break;
+    public function api() 
+    {
+        switch ($this->metodo()) 
+        {
+            case    'post':   $this->insert_c();            break; # POST
+            case    'get':    $this->get_customers();       break; # GET 
+            case    'put':    $this->update_c($this->id()); break; # PUT 
+            case    'delete': $this->delete_c($this->id()); break; # DELETE
+            default:          $this->response('405');       break; # Metodo no definido...
         }
-
     }
 
     private function insert_c(){
@@ -48,7 +36,7 @@ class  Api_cliente extends Api {
 
        $query = $this->Customer->get_customers_model(); 
 
-       ($query) ? $data['clientes'] = $this->response($query, 200) : $data['clientes'] = $this->response($query, 404);
+       ($query) ? $this->response($query, 200) : $this->response($query, 404);
     }
 
     private function update_c($id){

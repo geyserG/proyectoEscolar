@@ -8,30 +8,16 @@ class Representante extends Api {
         $this->load->model('Modelo_representante', 'representante');             
     }
 
-    public function api() {
+    public function api() {    
 
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_representante();
-    			break;
-    		case 'get':
-    			$this->get_representante($id);
-    			break;	
-    		case 'put':
-                 $this->update_representante($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_representante($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
+    	switch ($this->metodo()) 
+        {
+    		case     'post':   $this->insert_representante();             break; # POST
+    		case     'get':    $this->get_representante($this->id());     break; # GET
+    		case     'put':    $this->update_representante($this->id());  break; # PUT	
+    		case     'delete': $this->delete_representante($this->id());  break; # DELETE
+    		default:  	       $this->response('',405);   		          break; # METODO NO DEFINIDO...
     	}
-
     }
     
     private function insert_representante(){

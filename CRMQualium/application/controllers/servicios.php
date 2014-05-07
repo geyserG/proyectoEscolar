@@ -8,30 +8,16 @@ class  Servicios extends Api {
         $this->load->model('Modelo_servicios', 'serv');             
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_serv();
-    			break;
-    		case 'get':
-    			$this->get_servs($id);
-    			break;	
-    		case 'put':
-                 $this->update_serv($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_serv($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
+    public function api() 
+    {     
+    	switch ($this->metodo()) 
+        {
+    		case     'post':	$this->insert_serv();  			   break; # POST
+    		case     'get':   	$this->get_servs($this->id());     break; # GET	
+    		case     'put':     $this->update_serv($this->id());   break; # PUT	
+    		case     'delete':	$this->delete_serv($this->id());   break; # DELETE
+    		default:           	$this->response('',405);  		   break; # METODO NO DEFINIDO...
     	}
-
     }
     
     private function insert_serv(){

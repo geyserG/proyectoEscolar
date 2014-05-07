@@ -8,30 +8,16 @@ class  Api_contacto extends Api {
         $this->load->model('Model_contact', 'contacto');             
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_contacto();
-    			break;
-    		case 'get':
-    			$this->get_contactos($id);
-    			break;	
-    		case 'put':
-                 $this->update_contacto($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_contacto($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
+    public function api() 
+    {   # La funcion id(), obtiene el id de la petición, get(), update(), delete()        
+    	switch ($this->metodo()) 
+        {
+    		case    'post':   $this->insert_contacto();      	    break; # POST
+    		case    'get':	  $this->get_contactos($this->id());    break; # GET
+    		case    'put':    $this->update_contacto($this->id());  break; # PUT
+    		case    'delete': $this->delete_contacto($this->id());  break; # DELETE
+    		default:      	  $this->response('',405);    		    break; # METODO NO DEFINIDO...
     	}
-
     }
     
     private function insert_contacto(){

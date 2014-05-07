@@ -8,31 +8,17 @@ class  Api_telefono extends Api {
         $this->load->model('Model_phone', 'phone');             
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_phone();
-    			break;
-    		case 'get':
-    			$this->get_phones($id);
-    			break;	
-    		case 'put':
-                 $this->update_phone($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_phone($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
-    	}
-
-    }
+    public function api() 
+    {
+    	switch ($this->metodo()) 
+        {
+    		case     'post':   $this->insert_phone(); 	          break; # POST
+    		case     'get':    $this->get_phones($this->id());    break; # GET
+    		case     'put':    $this->update_phone($this->id());  break; # PUT
+    		case     'delete': $this->delete_phone($this->id());  break; # DELETE
+    		default:           $this->response('',405);           break; # METODO NO DEFINIDO
+    	} # switch
+    } # Fin del metodo api()
     
     private function insert_phone(){
 

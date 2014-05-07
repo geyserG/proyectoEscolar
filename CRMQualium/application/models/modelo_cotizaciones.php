@@ -3,42 +3,87 @@
     * Operaciones en la base de datos con los contactos
     */
     include 'modelo_rit.php';
-    class Model_contact extends CI_Model
+    class Modelo_cotizaciones extends CI_Model
     {          
+        function obj(){  return $obj = new modelo_rit();  }
 
-        function insert_mcontact($post)
+        function insert_cotizacion($post)
         {
-            #  $contactos = array('nombre'=>$post['nombre'], 'correo'=>$post['correo'], 'cargo'=>$post['cargo']);
-           
-            $query = $this->db->insert('contacto',array('fecha'        =>$post['fecha'], 
-                                                        'cliente'      =>$post['cliente'],
-                                                        'representante'=>$post['representante'],
-                                                        'duracion'     =>$post['duracion']
-                                                        'cantidad'     =>$post['cantidad']
-                                                        'descuento'    =>$post['descuento']
-                                                        'precio'       =>$post['precio']));
+            $query = $this->db->insert('cotizacion',array( 
+                                                        'idcliente'      =>$post['idcliente'],
+                                                        'idrepresentante'=>$post['idrepresentante'],
+                                                        'fecha'          =>$post['fecha'],
+                                                        'comentario'     =>$post['comentario']
+                                                        ));
             # Recuperamos el id del contacto...
-            $id    = $this->db->insert_id();
+            $id = $this->db->insert_id();
 
-            # Aquí recuperamos el id cliente y del contacto y lo relacionamos en la bd.
-            $data = array('idcliente'=> $post['idCliente'], 'idcotización'=>$id);
-            $this->db->insert('cotizacion_cliente', $data);
+            $query = $this->db->insert('cotizacion_servicios',array('idcotizacion'=>$id, 
+                                                        'idservicio'  =>$post['idservicio'],
+                                                        'duracion'    =>$post['duracion'],
+                                                        'cantidad'    =>$post['cantidad'],
+                                                        'precio'      =>$post['precio'],
+                                                        'descuento'   =>$post['descuento'],
+                                                        ));
 
             return $query;   
 
         } # Fin del metodo insert_mcontact()...
 
-        function get_mcontact(){
+        function get_cotizacion($id){
+           
+            $cont=0; $cont2=0;  $obj = $this->obj();        
+            # Consulto los clientes junto con sus representantes...
+            $clienteRep = $obj->joinDinamico('noid', 'idcliente', 'id', 'representante', 'clientes');
+            # Consulto a todas las cotizaciones...
+                          $this->db->Select('*');
+            $cotizacion = $this->db->get('cotizacion');
+            
+            # Consulto los servicios y la cotizacion_servicios para asignarle nombre a los id´s de servicios...
+            $this->db->select('cotizacion_servicios.idcotizacion, cotizacion_servicios.idservicio, servicios.nombre, 
+                               cotizacion_servicios.duracion, cotizacion_servicios.cantidad, 
+                               cotizacion_servicios.precio, cotizacion_servicios.descuento');
+            $this->db->from('servicios');
+            $this->db->join('cotizacion_servicios', 'cotizacion_servicios.idservicio=servicios.id');
+            $serv = $this->db->get();
+            # Recorro a los clientes                         
+            foreach ($clienteRep->result() as $key => $value) 
+            {   # El id que nos proporcionaron le pertenece a algun cliente...
+                if($value->idcliente==$id)
+                {
+                    # Recorro las cotizaciones...
+                    foreach ($cotizacion->result() as $key2 => $value2) 
+                    {   # El id de cliente es igual al idCliente de alguna cotización?...
+                        if($value->idcliente==$value2->idcliente)
+                        {   # Relleno un arreglo con los datos especificos de la cotización...
+                            $array[$cont]['idcotizacion'] = $value2->id;
+                            $array[$cont]['nombreComercial'] = $value->nombreComercial;
+                            $array[$cont]['representante'] = $value->nombre;
+                            $array[$cont]['fecha'] = $value2->fecha;
+                            $array[$cont]['comentario'] = $value2->comentario;
+                            # Recorro los servicios...
+                            foreach ($serv->result_array() as $key3 => $value3) 
+                            {   # El id de la cotización es igual al id de cotización_servicios?
+                                if($value2->id==$value3['idcotizacion'])
+                                {  # Si es cierto relleno este arreglo con los nombres correspondientes de los servicios
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3;
+                                   $cont2++;                                
+                                } # if
+                            } # foreach
+                            $cont++;
+                        } # if
+                    } # Foreach
+                return $array; 
+                }else{ return false; }# Si el cliente no tiene ninguna cotización retorno un false 
+            }# foreach
+                   	
+        } # Fin del metodo get_cotizacion()...
 
-                     $this->db->Select('nombre_completo, cargo, correo, telefonos.numero, telefonos.tipo');
-                     $this->db->from('contacto');
-                     $this->db->join('telefonos', 'telefonos.id= contacto.telefono_id');
-            $query = $this->db->get();
-
-            return $query->result_array();        	
-        }
-
-        function update_mcontact(){
+        function update_cotizacion(){
         	
           $contactos = array(
                                 'nombre_completo' => $this->input->post('nombreContacto'),
@@ -50,7 +95,7 @@
             $this->db->update('contacto', $contactos); 
 
         }
-        private function delete_mcontacto($id){
+        private function delete_cotizacion($id){
 
             $query = $this->db->delete('contactos', array('id' => $id));
             return $query;

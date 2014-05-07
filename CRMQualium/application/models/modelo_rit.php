@@ -13,7 +13,7 @@
 		{
 		  # Instanciamos al modelo_phone	 # Envia la variable $post['telefono'] al modelo telefonos...
 			$tel = new model_phone();		 $id_tel = $tel->insert_p($post);
-		    
+					    
 		  # ¿$id_tel es un array? 
 		    if(is_array($id_tel))
 		    {	             	

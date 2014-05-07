@@ -19,7 +19,7 @@ class  Api extends CI_Controller {
         return $this->uri->segment(1);      
     }
 
-    public function put_id()
+    public function id()
     {   
         # Captura el primer segmento de la URL para cargar la vista...
         return $this->uri->segment(2);      

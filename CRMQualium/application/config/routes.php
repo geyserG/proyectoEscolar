@@ -98,6 +98,10 @@ $route['api_serviciosInteres/(:num)'] = 'serviciosInteres/api/$1';
 # Ruta para la api de Servicios de Interes...
 $route['api_serviciosCliente'] = 'serviciosCliente/api';
 $route['api_serviciosCliente/(:num)'] = 'serviciosCliente/api/$1';
+
+# Ruta para la api de Servicios de Interes...
+$route['api_cotizaciones'] = 'cotizaciones/api';
+$route['api_cotizaciones/(:num)'] = 'cotizaciones/api/$1';
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
