@@ -23,33 +23,31 @@ class  Api_cliente extends Api {
         }
     }
 
-    private function insert_c(){
-
+    private function insert_c()
+    {
         # La función ipost()... Recupera todos los post que viene desde la petición        
         $query = $this->Customer->insert_customer($this->ipost());
 
-        ($query) ? $this->response($query, 201) : $this->response($query, 404);
-                 
+        ($query) ? $this->response($query, 201) : $this->response($query, 404);                 
     }
 
-    private function get_customers(){
-
+    private function get_customers()
+    {
        $query = $this->Customer->get_customers_model(); 
 
        ($query) ? $this->response($query, 200) : $this->response($query, 404);
     }
 
-    private function update_c($id){
-        
+    private function update_c($id)
+    {        
         # La función put(); Devuelve el array con los campos espicificos para actualizar              
         $query = $this->Customer->update_customer($id, $this->put());
              
-        ($query) ? $this->response($query, 200) : $this->response($query, 304);
-        
+        ($query) ? $this->response($query, 200) : $this->response($query, 304);        
     }
 
-    private function delete_c($id){
-
+    private function delete_c($id)
+    {
         $query = $this->Customer->delete_customer($id);
         ($query) ? $this->response($query, 200) : $this->response($query, 304);
     }

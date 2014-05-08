@@ -118,18 +118,18 @@
 
 		} # Fin de la función get_customers_model()
 
-		public function update_customer($id, $put){
+		public function update_customer($id, $iput){
+
 			$x=0; $cliente = array();  $cont=0;
 			$this->db->select('*');			
 			$atr = $this->db->get('atributo_cliente'); # Consulto la lista de atributos...
-
+            $put = (array)$iput;
 			# La propiedad visible ya no muestra al cliente a un usuario normal simula una eliminación...
 			# Solo el superusuario podrá eliminar al cliente...
-
-			if(key($put)==='visibilidad'){
-
-				$this->db->where('id', $id);
-  		        $query = $this->db->update('clientes', array('visibilidad'=>$put['visibilidad']));
+			if(array_key_exists('visibilidad', $put)){
+ 				
+						 $this->db->where('id', $id);
+  		        $query = $this->db->update('clientes', array('visibilidad'=> $put['visibilidad']));
 			}
 			else
 			{

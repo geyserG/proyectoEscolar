@@ -70,10 +70,10 @@
                                    $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
                                    $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
                                    $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3; 
-                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3;
+                                   $array[$cont]['ServiciosCotizados'][$cont2][$key]=$value3;                                  
                                    $cont2++;                                
                                 } # if
-                            } # foreach
+                            }  $cont2++; # foreach
                             $cont++;
                         } # if
                     } # Foreach
