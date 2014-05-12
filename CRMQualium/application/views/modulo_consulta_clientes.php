@@ -265,9 +265,9 @@
                                                             <div class='cssmenu' style="margin-right: 0px;">
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
-                                                                        <input type="text" id="inputBusquedaI" class="form-control editando" name="serviciosInteres" placeholder="Buscar servicio">
+                                                                        <input type="text" id="inputBusquedaI" class="form-control" name="serviciosInteres" placeholder="Buscar servicio">
                                                                         <span class="input-group-btn">
-                                                                            <button type="button" id="btn_agregarI" class="btn btn-default">Agregar</button>
+                                                                            <button type="button" id="btn_agregarI" class="btn btn-default editando">Agregar</button>
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -301,9 +301,9 @@
                                                             <div class='cssmenu' style="margin-right: 0px;">
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
-                                                                        <input type="text" id="inputBusquedaC" class="form-control editando" name="serviciosCuenta" placeholder="Buscar servicio">
+                                                                        <input type="text" id="inputBusquedaC" class="form-control" name="serviciosCuenta" placeholder="Buscar servicio">
                                                                         <span class="input-group-btn">
-                                                                            <button type="button" id="btn_agregarC" class="btn btn-default">Agregar</button>
+                                                                            <button type="button" id="btn_agregarC" class="btn btn-default editando">Agregar</button>
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -484,9 +484,9 @@
     app.coleccionDeRepresentantes = <?php echo json_encode($representantes) ?>;
     // {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
     app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
-    
-    app.coleccionDeServiciosI = <?php echo json_encode($serviciosInteres) ?>;
-    app.coleccionDeServiciosC = <?php echo json_encode($serviciosCliente) ?>;
+
+    // app.coleccionDeServiciosI = <?php /*echo json_encode($serviciosInteres)*/ ?>;
+    // app.coleccionDeServiciosC = <?php /*echo json_encode($serviciosCliente)*/ ?>;
  </script>
  <!-- Utilerias -->
     <script type="text/javascript" src="js/funcionescrm.js"></script>
