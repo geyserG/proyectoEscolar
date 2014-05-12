@@ -153,13 +153,23 @@
                                                     <label class="editar editando">
                                                         <%- giro %>
                                                     </label>
-                                                    <input type="text" class="form-control editar" name="giro" value="<%- giro %>">
                                                 <% } else{ %>
                                                     <label class="editar editando">
                                                         No especificado
                                                     </label>
-                                                    <input type="text" class="form-control editar" name="giro">
                                                 <% }; %>
+                                                <select class="form-control editar" name="giro"> 
+                                                    <option> Manufacturera </option> 
+                                                    <option> Agropecuaria </option> 
+                                                    <option> Comercial </option> 
+                                                    <option> Transporte </option> 
+                                                    <option> Educación </option> 
+                                                    <option> Servicios públicos </option>
+                                                    <option> Salud </option> 
+                                                    <option> Comunicación </option> 
+                                                    <option selected disabled>Giro</option>
+                                                    <option value="" disabled style='display:none;'>Giro</option> 
+                                                </select>
                                             </td>
                                             <td class="respuesta">
                                                 <label class="icon-uniF479 editar"></label>
@@ -255,7 +265,7 @@
                                                             <div class='cssmenu' style="margin-right: 0px;">
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
-                                                                        <input type="text" id="inputBusquedaI" class="form-control" placeholder="Buscar servicio">
+                                                                        <input type="text" id="inputBusquedaI" class="form-control editando" name="serviciosInteres" placeholder="Buscar servicio">
                                                                         <span class="input-group-btn">
                                                                             <button type="button" id="btn_agregarI" class="btn btn-default">Agregar</button>
                                                                         </span>
@@ -291,7 +301,7 @@
                                                             <div class='cssmenu' style="margin-right: 0px;">
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group">
-                                                                        <input type="text" id="inputBusquedaC" class="form-control" placeholder="Buscar servicio">
+                                                                        <input type="text" id="inputBusquedaC" class="form-control editando" name="serviciosCuenta" placeholder="Buscar servicio">
                                                                         <span class="input-group-btn">
                                                                             <button type="button" id="btn_agregarC" class="btn btn-default">Agregar</button>
                                                                         </span>
@@ -444,6 +454,25 @@
         </div>
     </script>
 
+    <script type="text/template" id="serviciosI">
+        <div>
+            <label for="<%- id %>"><%- nombre %></label>
+            <!--<label for="<%- id %>" class="concepto"><%- concepto %></label>-->
+            <div class='check_posicion'>
+                <input type="checkbox" class="serviciosInteres" name="nameServiciosInteres" id="<%- id %>">
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="serviciosC">
+        <div>
+            <label for="<%- 1+id %>"><%- nombre %></label>
+            <!--<label for="<%- 1+id %>" class="concepto"><%- concepto %></label>-->
+            <div class='check_posicion'>
+                <input type="checkbox" class="serviciosCuenta" name="nameServiciosCuenta" id="<%- 1+id %>">
+            </div>
+        </div>
+    </script>
+
 <script type="text/javascript" src="js/backbone/app.js"></script>
 <script type="text/javascript">
     app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
@@ -455,6 +484,9 @@
     app.coleccionDeRepresentantes = <?php echo json_encode($representantes) ?>;
     // {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
     app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
+    
+    app.coleccionDeServiciosI = <?php echo json_encode($serviciosInteres) ?>;
+    app.coleccionDeServiciosC = <?php echo json_encode($serviciosCliente) ?>;
  </script>
  <!-- Utilerias -->
     <script type="text/javascript" src="js/funcionescrm.js"></script>
