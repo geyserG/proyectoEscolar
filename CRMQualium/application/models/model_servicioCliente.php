@@ -15,12 +15,23 @@
 			$query = $this->db->insert('servicios_cliente', $post);
 			return $query; 
 		}
-		public function get_servCliente($id)
+		// public function get_servCliente($id)
+		// {
+		// 	($id===False) ? $query = $this->db->get('servicios_cliente') :
+  //                           $query = $this->db->get_where('servicios_cliente', array('id'=>$id));
+		// 	return $query->result();			
+		// }
+
+		public function get_servCliente() 
 		{
-			($id===False) ? $query = $this->db->get('servicios_cliente') :
-                            $query = $this->db->get_where('servicios_cliente', array('id'=>$id));
+			
+		    $this->db->select('servicios_cliente.id, servicios_cliente.idcliente, servicios_cliente.idservicio, servicios.nombre, servicios_cliente.status');
+			$this->db->from('servicios');
+			$this->db->join('servicios_cliente', 'servicios_cliente.idservicio = servicios.id');
+			$query = $this->db->get();
 			return $query->result();			
 		}
+
 		public function update_servCliente($id, $put)
 		{
 			$this->db->where('id', $id);

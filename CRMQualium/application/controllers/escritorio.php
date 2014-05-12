@@ -10,6 +10,8 @@ class Escritorio extends Api {
         $this->load->model('model_contact', 'contacto');
         $this->load->model('modelo_representante', 'representa');
         $this->load->model('model_phone', 'telefono');
+        $this->load->model('model_serviciosInteres', 'servInteres');
+        $this->load->model('model_servicioCliente', 'servCliente');
     }  
 
 	//Vista inicial
@@ -35,6 +37,8 @@ class Escritorio extends Api {
 		if($this->ruta() == 'modulo_consulta_clientes')
 		{
 			$data['servicios'] = $this->serv->get_sNuevoCliente();
+			$data['serviciosInteres'] = $this->servInteres->get_servInteres();
+			$data['serviciosCliente'] = $this->servCliente->get_servCliente();
 			$data['contactos'] = $this->contacto->get_C(False);
 			$data['representantes']=$this->representa->get_r(False);
 			$this->load->view($this->ruta(), $data);
