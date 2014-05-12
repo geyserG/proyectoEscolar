@@ -32,9 +32,8 @@ var ColeccionServicios = Backbone.Collection.extend({
 	},
 
 	sync	: function (method, model, options) {
-		// console.log(options);
 		if (method === 'read') {
-			app.busqueda.servicio.buscarPorNombre(options.data.nombre).done(function (data) {
+			app.busquedaServicio.servicio.buscarPorNombre(options.data.nombre).done(function (data) {
 				// console.log(data); //Debuelbe el objeto [Object]
 				options.success(data);
 			});

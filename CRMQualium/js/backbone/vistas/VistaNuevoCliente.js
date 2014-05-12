@@ -3,48 +3,47 @@ var app = app || {};
 app.VistaNuevoCliente = Backbone.View.extend({
 	el		: '.contenedor_modulo',
 
-	events	: {
-	 'click	#btn_agregarContacto'	: 'agregarContactoLista',
-		'click #btn_cancelar'		: 'deshacerRegistro',
-		'click	#btn_eliminar'	    : 'eliminarTodos_Prueba',
-		'click  .eliminarCopia'	    : 'eliminarCopia',
-		'click  .icon-uniF477'	    : 'eliminarContacto', // Evento para el icono (boton) eliminar contacto.
+	events	: 
+		{
+					//Eventos de consulta
+					'keyup #inputBusquedaI'	: 'buscarServicioI',
+			        'keyup #inputBusquedaC'	: 'buscarServicioC',
+			         'change .tipo_cliente'	: 'obtenerTipoCliente',
 
-		//  eventos para servicios de interes y actuales
-			'click	.icon-uniF470'		: 'quitarDeLista',
-		   'keyup #inputBusquedaI'	: 'buscarServicioI',
-		   'keyup #inputBusquedaC'	: 'buscarServicioC',
-		   'keypress #inputBusquedaI': 'agregarNuevoServ',
-		   'click	#btn_agregarI'	: 'agregarNuevoServBoton',
-		   'keypress #inputBusquedaC': 'agregarNuevoServ',
-		   'click	#btn_agregarC'	: 'agregarNuevoServBoton',
-		//  eventos para servicios de interes y actuales
+					//Eventos de eliminación
+					'click	#btn_eliminar'	: 'eliminarTodos_Prueba',
+			     'click  .eliminarCopia'	: 'eliminarCopia', //Para eliminar los telefonos que se van listando
+					'click  .icon-uniF477'	: 'eliminarContacto', // Evento para el icono (boton) eliminar contacto.
+					'click .icon-uniF470'	: 'quitarDeLista',
 
-		// 'click  .otroArchivo'  	    : 'otroArchivo',
-		'click	#btn_crear'	        : 'nuevoCliente',
-		'click	#btn_nuevoContacto' : 'nuevoContacto',
-		'change .tipo_cliente'	    : 'obtenerTipoCliente',
-		'click	.otroTelefono'	    : 'otroTelefono',
-		'click 	#btn_otroContacto'  : 'otroContacto',
-		'change #fotoCliente'		: 'obtenerFoto',
-		'click  #ir'				: 'deshacerRegistro',
+					//eventos para mostrar informacion
+				'keypress #inputBusquedaI'	: 'agregarNuevoServ',
+					 'click	#btn_agregarI'	: 'agregarNuevoServBoton',
+				'keypress #inputBusquedaC'	: 'agregarNuevoServ',
+					 'click	#btn_agregarC'	: 'agregarNuevoServBoton',
+			'click	#btn_agregarContacto'	: 'agregarContactoLista',
+					
+					// Eventos para registro de clientes y contactos
+				'click	#btn_crear'	        : 'nuevoCliente',
+				'click	#btn_nuevoContacto' : 'nuevoContacto',
+				'click	.otroTelefono'	    : 'otroTelefono',
+				'click 	#btn_otroContacto'  : 'otroContacto',
+				'change #fotoCliente'		: 'obtenerFoto',
 
-		// validaciones
-		   'blur #email'			: 'validarCorreo',
-		  'blur .telefonoCliente'	: 'validarTelefono',
-		  'blur #paginaCliente' 	: 'validarPaginaWeb',
+					/*Las funciones para validar se ejecutan cuando 
+					se hace blur a los elementos html con el id o class 
+					especificados*/
+					  'blur #email'			: 'validarCorreo',
+					'blur .telefonoCliente'	: 'validarTelefono',
+					 'blur #paginaCliente' 	: 'validarPaginaWeb',
+				'blur #contactoEmail'		: 'validarCorreo',
+				'blur .telefonoContacto'	: 'validarTelefono',
+				'blur #emailRepresentante' 	: 'validarCorreo',
+			'blur .telefonoRepresentante'	: 'validarTelefono',
+			'blur #otroContactoEmail'		: 'validarCorreo' 
+		},
 
-		'blur #contactoEmail'		: 'validarCorreo',
-		'blur .telefonoContacto'	: 'validarTelefono',
-
-	  'blur #emailRepresentante' 	: 'validarCorreo',
-	  'blur .telefonoRepresentante' : 'validarTelefono',
-
-	  'blur #otroContactoEmail'		: 'validarCorreo' 
-
-	},
-
- // -----initialize-------------------------------- 
+// -----initialize-------------------------------- 
 	initialize		: function () {
 	// Datos básicos
 		this.tipoCliente          = '';
@@ -70,56 +69,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	// Dinámica de formulario
 		this.arregloDeContactos   = new Array();
 
-		// {{{{{{{{{{{{{variables para servicios de interes y actuales}}}}}}}}}}}}}
+		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
 		this.$menuServiciosInteres	  = $('#menuServiciosInteres');
 		this.$menuServiciosCuenta	  = $('#menuServiciosCuenta');
-		// this.$#inputBusquedaI		  = $('#inputBusquedaI');
-		// this.$#inputBusquedaC		  = $('#inputBusquedaC');
-		// {{{{{{{{{{{{{variables para servicios de interes y actuales}}}}}}}}}}}}}
-
-	//Variables de temporales, COMENTAR PARA NOS VER DATOS AL FONDO DE LA PÁGINA;
-		// this.$divClientes         = $('#divClientes');
-		// this.$divContactos        = $('#divContactos');
-		// this.$visibilidad	      = this.$('.visible');
-		// this.$divArchivos		  = $('#divArchivos');
-	
-	// Eventos de la coleccion
-		// this.listenTo(app.coleccionArchivos, 'add', this.agregarArchivo);
-		// this.listenTo(app.coleccionArchivos, 'reset', this.agregarTodosLosArchivos);
-		// app.coleccionArchivos.fetch();
+		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
 
 
-		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
-		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
-		app.coleccionClientes.fetch();
-
-		
-		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
-		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
-		// app.coleccionContactos.fetch();
-
-		// app.coleccionTelefonos.fetch();
-
-
-
-		
-		
-		// this.cargarServicios(); //PARA SERVICIOS DE INTERES Y ACTUALES
-		// this.listenTo(app.coleccionServicios, 'add', this.cargarServicio);
-		// this.listenTo(app.coleccionContactos, 'reset', this.cargarServicios);
 		this.cargarServiciosC();
 		this.cargarServiciosI();
-		// app.coleccionServicios.fetch();
-		
-	// app.coleccionServicios.reset();
-		// this.arrayNombresServicios = app.coleccionServicios.pluck('nombre');
 	},
- // -----render------------------------------------ 
+// -----render------------------------------------ 
 	render			: function () {
 		return this;
-	},
-	
- // -----agregarContactoLista---------------------- 
+	},	
+// -----agregarContactoLista---------------------- 
 	agregarContactoLista	: function () {
 		this.$nombreContacto = $('#otroContactoNombre');
 		this.$correoContacto = $('#otroContactoEmail');
@@ -127,30 +90,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		$('#contactosLista').html('');
 		this.otroContacto();
 	},
- // -----agregarArchivo---------------------------- 
-	// agregarArchivo	: function (archivo) {
-	// 	var vistaArchivo = new app.VistaArchivo({model:archivo});
-
-	// 	this.$divArchivos.append(vistaArchivo.render().el);
-	// },
- // -----agregarTodosLosArchivos------------------- 
-	// agregarTodosLosArchivos	: function () {
-	// 	app.coleccionArchivos.each(this.agregarArchivo, this);
-	// },
- // -----agregarContacto--------------------------- 
-	// agregarContacto	: function (contacto) {
-	// 	var vistaContacto = new app.VistaContacto({model:contacto});
-
-	// 	this.$divContactos.append(vistaContacto.render().el);
-	// },
- // -----agregarTodosLosContactos------------------ 
-	// agregarTodosLosContactos	: function () {
-	// 	app.coleccionClientes.each(this.agregarContacto, this);
-	// },
-	// dameClienteNuevo	: function (cliente) {
-	// },
-
- // -----buscarServicioI--&--buscarServicioC------- 
+// -----buscarServicioI--&--buscarServicioC------- 
 
 	buscarServicioI	: function (elemento) {
 		
@@ -171,7 +111,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	},
 
 	agregarNuevoServ	: function (event) {
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {//
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {
 
         	if ($(event.currentTarget).val() != '') {
 
@@ -181,7 +121,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
             event.preventDefault();
         } 
 
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {//
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {
 
         	if ($(event.currentTarget).val() != '') {
 
@@ -202,84 +142,129 @@ app.VistaNuevoCliente = Backbone.View.extend({
     		$('#inputBusquedaC').val('');
     	};
     },
- // -----cargarServicios--------------------------- 
+// -----cargarServicios--------------------------- 
+	/*Las funciones cargarServicioI y cargarServicioC agregar los servicios 
+	dentro de menus desplegables especificados por los selectores
+	menuServiciosInteres y menuServiciosCuenta. Se realizan una sola vez;
+	para que se agreguenTodos los servicios se necesitan las las dos 
+	funciones que seguien a estas. para cada funcion se instancia un nuevo
+	objeto de la clase VistaServicioIteres y VistaServicioCuenta ejecutando
+	tras ello las funciones render() pasando la devolucion de render() al
+	elemento contenido en la propiedad el de dicha clase instanciada*/
 	cargarServicioI	: function (servicio) {
 		var vistaServicioI = new app.VistaServicioInteres({model:servicio});
 		this.$menuServiciosInteres.append(vistaServicioI.render().el);
-	},
-	cargarServiciosI	: function () {
-		app.coleccionServicios.each(this.cargarServicioI, this);
 	},
 	cargarServicioC	: function (servicio) {
 		var vistaServicioC = new app.VistaServicioCuenta({model:servicio});
 		this.$menuServiciosCuenta.append(vistaServicioC.render().el);
 	},
+	/*Las funciones carcarServiciosI y cargarServiciosC recorren la colección
+	de servicios ejecutando las funciones especificadas como parametros un 
+	número de veces definido por la misma longitud de modelos que contiene 
+	establecida por el parametro this. El resultado puede verse en el menú
+	desplegable en el archivo modulo_cliente_nuevo.php.*/
+	cargarServiciosI	: function () {
+		app.coleccionServicios.each(this.cargarServicioI, this);
+	},
 	cargarServiciosC	: function () {
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
 	quitarDeLista	: function (elemento) {
+		/*Esta funcion recibe un parametro al y se ejecuta al momento de ejecutarse
+		el evento para quitar de la lista uno de los servicios. El parametro
+		es un objeto del DOM.
+
+		En la variable arrayServicios se almacenan los objetos que coincidan
+		con el mismo atributo name.*/
 		var arrayServicios = document.getElementsByName($(elemento.currentTarget).attr('name'));
 
+		/*En la variable servicio almacenamos el id del elemento que se quiere
+		quitar de la lista.*/
 		var servicio = $(elemento.currentTarget).parent().attr('id');
 
+		/*Mediante el ciclo for se itera sobre los elementos del arreglo
+		arrayServicios hasta encontrar una coincidencia de id espeficicada
+		en la condición if. se establece como falso y se rompe el ciclo.
+		Esto se hace para no desactivar todos los alementos de la lista
+		que se han agregado para el cliente. Hay un checkbox oculto con 
+		cada elemento de la lista*/
 		for (var i = 0; i < arrayServicios.length; i++) {
 			if ($(arrayServicios[i]).attr('id') == servicio) {
 				$(arrayServicios[i]).prop('checked', false);
 				break;
 			};
 		};
+
+		// Finalmente se remueve del DOM el servicio que ya no se quiera ver en ella
 		$(elemento.currentTarget).parent().remove();
 	},
- // -----deshacerRegistro-------------------------- 
-	deshacerRegistro	: function () {
-		// _.invoke(new Array(app.coleccionClientes.obtenerUltimo()),'destroy');
-		this.$('.visibleR').toggleClass('ocultoR');
-	},
-
- // -----eliminarCopia----------------------------- 
+// -----eliminarCopia----------------------------- 
 	eliminarCopia	: function (elemento) {
+		/*Función para eliminar telefonos. Recibe como parametro un objeto del DOM
+		pasado como parametro por el evento que descencadena la ejecución de
+		esta función. este objeto se utiliza como referencia para encontrar al elemento
+		más cercano con el atributo class "copia" para luego removerlo del DOM.*/
 		$(elemento.currentTarget).parents('.copia').remove();
 	},
- // -----eliminarColeccionPrueba------------------- 
-	eliminarTodos_Prueba	: function () {
-		_.invoke(app.coleccionClientes.obtenerTodos(),'destroy');
-		_.invoke(app.coleccionContactos.obtenerTodos(),'destroy');
-		_.invoke(app.coleccionTelefonos.obtenerTodos(),'destroy');
-		this.arregloDeContactos = new Array();
-		this.arrTelefonosContac = new Array();
-		// _.invoke(app.coleccionArchivos.obtenerTodos(),'destroy'); NO SIRVE EN ESTE MODULO
-	},
- // -----eliminarContacto-------------------------- 
+// -----eliminarContacto-------------------------- 
 	eliminarContacto	: function (contacto) {
+		/*Recibe como parametro un objeto del DOM que apunta a uno de los contactos
+		listados en el proceso de registro de contactos. 
+
+		Se itera sobre el arreglo que contiene a todos los objetos contacto hasta
+		encontrar una coincidencia y para sustituir al objeto por null en su posición*/
 		for (var i = 0; i < this.arregloDeContactos.length; i++) {
 			if (i == $(contacto.currentTarget).parent().parent().parent().attr('id')) {
 				this.arregloDeContactos[i] = null;
 			}
 		};
 
-
+		/*En un nuevo arreglo se iran introduciendo objetos del arregloDeContactos excepto
+		los que sean null.*/
 		var newArray = new Array();
 		for( var i = 0; i < this.arregloDeContactos.length; i++ ){
 			if ( this.arregloDeContactos[i] ){
 				newArray.push( this.arregloDeContactos[i] );
 			}
 		}
+
+		/*Pasamos el arregli nuevo añ arregloDeContactos para tener todas sus posiciones 
+		ocupadas.*/
 		this.arregloDeContactos = newArray;
 
+		// Finalmente se remueve definitivamente del DOM el con contacto.
 		$(contacto.currentTarget).parent().parent().parent().remove();
 
 	},
-
- // -----nuevoContacto----------------------------- 
+// -----nuevoContacto----------------------------- 
 	nuevoContacto	: function () {
+		// Esta fucncion almacena los contactos en la base de datos
+
+		/*Se ejecuta la función otroContacto() para pasar al arreglo
+		de contactos los datos del ultimo o unico contacto en forna
+		de objeto. Si unicamente hay un contacto se creará un
+		arreglo de objetos de una sola posición.*/
 		this.otroContacto();
 
+		/*Se activan las dos variables globales de Backbone para
+		mandar de manera correcta el POST de contactos. Antes de finalizar
+		esta función se desactivarán estas dos variables globales
+		para que no afecte otras funciónes.*/
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
-		// return;
+		
+		/*La condicion if siempre se va a cumplir, sin embargo,
+		no especificarla causaria el error de quiera guardar
+		un objeto contacto cuando el usuario no especifico
+		ningún dato en el formulario de contacto permaneciendo
+		un arreglo vacio.*/
 		if (this.arregloDeContactos.length > 0) {
+			/*Segun sea la longitud del arreglo de contactos se
+			ejecutara la funcion create de la colección de
+			contactos pasando como parametro cada objeto contacto
+			y esperando a que se almacenen debido al parametro wait:true.*/
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
-				// var idContacto;
 				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true});
 			}
 		}
@@ -287,104 +272,90 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		var numero;
 		var tipo;
 
-		if (this.$nombreRepresentante.val().trim() && this.$correoRepresentante.val().trim() && this.$cargoRepresentante.val().trim()){
+		/*Para registrar a un representante debe cumplirse quelo
+		elementosdel html que apuntan los selectores no esten vacios*/
+		if (this.$nombreRepresentante.val().trim()
+			&& this.$correoRepresentante.val().trim()
+			&& this.$cargoRepresentante.val().trim()
+		){
+			/*Se genera un arreglo o una variable que almacene el valor
+			de telefonos y el tipo de telefono segun sea el caso. Antes de
+			almacenar al representante los valores de las variables telefono
+			y tipo se pasan como parametro a la funcion recursividadTelefonos
+			para recuperarlos como objeto u objetos json.*/
 			numero = document.getElementsByName('telefonoRepresentante');
 			tipo   = document.getElementsByName('tipoTelefonoRepresentante');
-			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(this.$nombreRepresentante.val().trim(), this.$correoRepresentante.val().trim(), this.$cargoRepresentante.val().trim(), this.recursividadTelefonos(numero,tipo)));
+
+			/*Se ejecuta la función create de la coleccion de representantes
+			pasando como parametro los datos y los telefonos en formato json
+			para enviarlos al servido y ser almacenados.*/
+			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(
+				this.$nombreRepresentante.val().trim(),
+				this.$correoRepresentante.val().trim(),
+				this.$cargoRepresentante.val().trim(),
+				this.recursividadTelefonos(numero,tipo))
+			);
 		}
 
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 
+		// window.location.href = "modulo_consulta_clientes";
+
 	},
- // -----nuevoCliente------------------------------ 
+// -----nuevoCliente------------------------------ 
 	nuevoCliente	: function () {
-		var json = this.nuevosAtributosCliente();
+		/*Se ejecuta la funcion nuevosAtributosCliente que
+		tras terminar devuelve un json el cual es
+		almacenado en la variable objetoCliente*/
+		var objetoCliente = this.nuevosAtributosCliente();
 		
+		/*La variable valorJson y el ciclo for eliminan los
+		valores nulos o vacios de la variable objetoCliente*/
 		var valorJson;
-		for (var x in json) {
-		    if ( Object.prototype.hasOwnProperty.call(json,x)) {
-		        valorJson = json[x];
+		for (var x in objetoCliente) {
+		    if ( Object.prototype.hasOwnProperty.call(objetoCliente,x)) {
+		        valorJson = objetoCliente[x];
 		        if (valorJson==="null" || valorJson===null || valorJson==="" || typeof valorJson === "undefined") {
-		            delete json[x];
+		            delete objetoCliente[x];
 		        }
 
 		    }
 		}
 
-		if (!json.nombreComercial || !json.tipoCliente){
+		/*Nos aseguramos de que las propiedades nombreComercial y tipoCliente
+		del objeto esten definidas. De lo contrario se alerta al usuario y
+		la creación del cliente no procede*/
+		if (!objetoCliente.nombreComercial || !objetoCliente.tipoCliente){
 			alert('Registre el tipo de cliente y un nombre de cliente');
 			return;
 		}
 
-		/////////borrar///////////////////////////////
-		// if (app.coleccionClientes.findWhere({id:})) {
-		// 	console.log('id econtrado');
-		// };
-		///////////borrar///////////////////////////////
-		var idCliente;
-
+		/*Se activan las dos variables globales de Backbone para
+		mandar de manera correcta el POST de contactos. Antes de finalizar
+		esta función se desactivarán estas dos variables globales
+		para que no afecte otras funciónes.*/
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
-		app.coleccionClientes.create(json,{success:function(exito){
+
+		/*Se pasa la variable objetoCliente como primer parametro en la función
+		create de la colección de clientes. La propiedad success del segundo
+		parametro espera la respuesta del servidos tras almacenar los datos
+		del cliente de manera exitos, de lo contrario la funcion de de la
+		propiedad success no procedera para mostrar el formulario para el
+		registro de contactos y representante.*/
+		app.coleccionClientes.create(objetoCliente,{success:function(exito){
+			// Muestra el nombre comercial del cliente el el siguente formulario
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
 			this.$('.visibleR').toggleClass('ocultoR');
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 		}});
-		////////////borrar//////////////////////////////7
-		// this.nuevoTelefono();
-		// this.otroContacto();
-		// this.nuevoContacto();
-		// this.nuevoArchivo(); NO SIRVE EN ESTE MODULO
-		////////////borrar//////////////////////////////7
 	},
- // -----nuevoTelefono----------------------------- 
-	// nuevoTelefono	: function (objsTelefonos) {
-	// 	if (objsTelefonos != undefined) {
-	// 		Backbone.emulateHTTP = true;
- //  			Backbone.emulateJSON = true;
-	// 		if (objsTelefonos.length) {
-	// 			for (var i = 0; i < objsTelefonos.length; i++) {
-	// 				app.coleccionTelefonos.create(objsTelefonos[i]);
-	// 			};
-	// 		} else{
-	// 			app.coleccionTelefonos.create(objsTelefonos);
-	// 		};
-	//  		Backbone.emulateHTTP = false;
-	//   		Backbone.emulateJSON = false;
-	// 	};
-	// },
- // -----nuevoArchivo---------------No sirve aquí-- 
-	// nuevoArchivo	: function () {
-	// 	var arreglo = new Array();
-	// 	var archivo = document.getElementsByName('archivo');
-	// 	var tipoArchivo = document.getElementsByName('tipoArchivo');
-	// 	var comentarioArchivo = document.getElementsByName('comentarioArchivo');
-
-	// 	var arreglo = this.recursividadArchivos(archivo,tipoArchivo,comentarioArchivo);
-	// 	if (comentarioArchivo.length > 1) {
-	// 		for (var i = 0; i < comentarioArchivo.length; i++) {
-	// 			if ($(comentarioArchivo[i]).val() != '') {
-	// 				app.coleccionArchivos.create(arreglo[i]);
-	// 			};
-	// 		};
-	// 	} else {
-	// 		if ($(comentarioArchivo).val() != '') {
-	// 			app.coleccionArchivos.create(arreglo);
-	// 		};
-	// 	};
-	// },
- // -----nuevosAtributosArchivo-----No sirve aquí-- 
-	// nuevosAtributosArchivo	: function (nombre,tipo,comentario) {
-	// 	return {
-	// 		 nombre : nombre,
-	// 		   tipo : tipo,
-	// 	 comentario : comentario
-	// 	}
-	// },
- // -----nuevosAtributosContacto------------------- 
-	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {/*tipo,*/
+// -----nuevosAtributosContacto------------------- 
+	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {
+		/*Los valores de los parametros se especifican en el lugar en 
+		donde es ejecutada esta función*/
 		return {
 			idCliente : app.coleccionClientes.obtenerUltimo().get('id'),
 				 // tipo : tipo,
@@ -394,8 +365,10 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			telefonos : telefonos
 		}
 	},
- // -----nuevosAtributosCliente-------------------- 
+// -----nuevosAtributosCliente-------------------- 
 	nuevosAtributosCliente	: function () {
+		/*Los valores de cada propiedad se obtienen directamente
+		de los campos del html donde los selectores apuntan.*/
 		return {
              nombreComercial : this.$nombreFiscal.val().trim(),
                 nombreFiscal : this.$nombreComercial.val().trim(),
@@ -407,22 +380,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
                    direccion : this.$direccion.val().trim(),
                  tipoCliente : this.tipoCliente,
             	   telefonos : this.recursividadTelefonos(document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')),
-            serviciosInteres : this.recursividadServicios(document.getElementsByName('serviciosInteres')),
-             serviciosCuenta : this.recursividadServicios(document.getElementsByName('serviciosCuenta')),
+            serviciosInteres : this.obtenerServicios(document.getElementsByName('serviciosInteres')),
+             serviciosCuenta : this.obtenerServicios(document.getElementsByName('serviciosCuenta')),
                         foto : this.urlFoto()
 		}
 	},
-
- // -----obtenerTipoCliente------------------------ 
+// -----obtenerTipoCliente------------------------ 
 	obtenerTipoCliente	: function (elemento) {
 		/*currentTarget obtiene el elemento html,
 		  este se utiliza como selector para obtener
 		  el valor del elemento seleccionado; en este
 		  caso el TIPO de cliente a registrar*/
-
 		this.tipoCliente = $(elemento.currentTarget).val();
 	},
- // -----obtenerFoto------------------------------- 
+// -----obtenerFoto------------------------------- 
 	obtenerFoto	: function () {
 	    $("#mensajeFoto").hide();
 	    //queremos que esta variable sea global
@@ -458,46 +429,71 @@ app.VistaNuevoCliente = Backbone.View.extend({
         });
         if (resp.responseText != "") return 'img/fotosClientes/'+resp.responseText+'';
 	},
- // -----otroTelefono------------------------------ 
+// -----otroTelefono------------------------------ 
 	otroTelefono	: function (elemento) {
+		/*Esta función se ejecuta su evento asociado
+		pasandole como parametro un objeto del DOM.
+		Este elemento DOM sirve como referencia para
+		obtener html y encajarla en nuevo html. Al final
+		el nuevo html se imprime el una lista de teléfonos.*/
 		this.$(elemento.currentTarget).parent().parent().parent().parent().append('<div class="copia">'+this.$(elemento.currentTarget).parent().parent().parent().html()+'</div>');
-		$('.copia .icon-uniF476').addClass('icon-uniF477');
-		$('.copia .otroTelefono').removeClass().addClass('eliminarCopia');
+		/*Se añade en el atributo class un nuevo nombre donde 
+		apunta el selector*/
+		$('.copia .icon-uniF476').addClass('icon-uniF477'); 
+		/*Primero se elimina y luego se añade un nuevo nombere 
+		en el atributo class del elemento donde apunta el selector*/
+		$('.copia .otroTelefono').removeClass().addClass('eliminarCopia'); 
 	},
- // -----otroArchivo----------------No sirve aquí-- 
-	// otroArchivo	: function (elemento) {
-	// 	this.$(elemento.currentTarget).parent().parent().parent().parent().append('<div class="copia"><hr>'+this.$(elemento.currentTarget).parent().parent().parent().html()+'</div>');
-	// 	$('.copia .icon-uniF476').addClass('icon-uniF477');
-	// 	$('.copia .otroArchivo').removeClass().addClass('eliminarCopia');
-	// },
- //------otroContacto------------------------------ 
+//------otroContacto------------------------------ 
 	otroContacto 	: function (contacto) {
-		var numero = document.getElementsByName('telefonoContacto');
-		var tipo   = document.getElementsByName('tipoTelefonoContacto');
-		// return;
-		if (this.$nombreContacto.val().trim() && this.$correoContacto.val().trim() && this.$cargoContacto.val().trim()) {
+		/*Se obtienen los objetos DOM en donde los atributos name coincidan
+		y se almacenan en las variables correspondientes*/
+		var numero;
+		var tipo;
+		
+		/*Se evalua que los campos hacia donde apuntan los selectores no esten vacios
+		de lo contrario el arregloDeContactos no guardara objetos de contactos*/
+		if (this.$nombreContacto.val().trim() 
+			&& this.$correoContacto.val().trim() 
+			&& this.$cargoContacto.val().trim()
+		) {
+			numero = document.getElementsByName('telefonoContacto');
+			tipo   = document.getElementsByName('tipoTelefonoContacto');
+			/*Se evalua si el arregloDeContactos tiene datos para almacenar
+			en la posición diguiente el nuevo json de contacto*/
 			if (this.arregloDeContactos.length > 0) {
-				if (this.arregloDeContactos > 1) {
-					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));
-					// this.arrTelefonosContac[this.arrTelefonosContac.length + 1] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
+				// Si la longitud no pasa de 1 se ejecuta lo que la condición contenga
+				if (this.arregloDeContactos.length > 1) {
+					this.arregloDeContactos[this.arregloDeContactos.length + 1] = this.nuevosAtributosContacto(	this.$nombreContacto.val().trim(),
+																												this.$correoContacto.val().trim(),
+																												this.$cargoContacto.val().trim(),
+																												this.recursividadTelefonos(numero,tipo));
 				} else {
-					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));
-					// this.arrTelefonosContac[this.arrTelefonosContac.length] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
+					// De lo contrario los datos se almacenan en la posicion especificada por la longitud del arreglo
+					this.arregloDeContactos[this.arregloDeContactos.length] = this.nuevosAtributosContacto(	this.$nombreContacto.val().trim(),
+																											this.$correoContacto.val().trim(),
+																											this.$cargoContacto.val().trim(),
+																											this.recursividadTelefonos(numero,tipo));
 				};
 			} else {
-				this.arregloDeContactos[0] = this.nuevosAtributosContacto(this.$nombreContacto.val().trim(),this.$correoContacto.val().trim(),this.$cargoContacto.val().trim(),this.recursividadTelefonos(numero,tipo));//
-				// this.arrTelefonosContac[0] = this.recursividadTelefonos(document.getElementsByName('telefonoContacto'),document.getElementsByName('tipoTelefonoContacto'));
+				// de lo contrario se almacena en la primera posición del arreglo
+				this.arregloDeContactos[0] = this.nuevosAtributosContacto(	this.$nombreContacto.val().trim(),
+																			this.$correoContacto.val().trim(),
+																			this.$cargoContacto.val().trim(),
+																			this.recursividadTelefonos(numero,tipo));
 			};
 
-
+			// Si en el lugar donde se ejecuta esta función se a pasado un paranetro procede la condición
 			if (contacto) {
+				// Se crea nuevo html en el div del formulario de contacto reemplazando los anteriores
 				$(contacto.currentTarget).parent().parent().html('<div id="listaContactosCliente"><h3>Datos de contacto</h3><br><button id="btn_formularioContacto" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="icon-uniF476"></span></button></div><div class="desborde"></div><hr><table id="contactosLista" class="table"></table>');
-
+				// Del nuevo html creado se crean nuevos selectores debido a que los a se eliminaron
 				this.$nombreContacto      = $('#contactosLista #contactoNombre');
 				this.$correoContacto      = $('#contactosLista #contactoEmail');
 				this.$cargoContacto       = $('#contactosLista #contactoCargo');
 			};
 
+			// Se imprime en pantalla lo que el arreglo de contactos contenga formateado con nuevo html
 			if (this.arregloDeContactos.length > 1) {
 				for (var i = 0; i < this.arregloDeContactos.length; i++) {
 					$('#contactosLista').append('<tr id="'+i+'"><td><h4 style="width:300px;">'+this.arregloDeContactos[i].nombre+'</h4></td></td><td><div class="iconos-operaciones-contacto"><span class="icon-uniF477"></span></div></td></table>');/*</span><span class="icon-edit2">*/
@@ -506,13 +502,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				$('#contactosLista').append('<tr id="'+0+'"><td><h4 style="width:300px;">'+this.arregloDeContactos[0].nombre+'</h4></td></td><td><div class="iconos-operaciones-contacto"><span class="icon-uniF477"></span></div></td></table>');/*</span><span class="icon-edit2">*/
 			};
 
+			// En todo caso se limpian los campos tras respaldar lo datos
 			this.$nombreContacto.val('');
 			this.$correoContacto.val('');
 			this.$cargoContacto.val('');
 		}
 	},
-
- // -----recursividadTelefonos--------------------- 
+// -----recursividadTelefonos--------------------- 
 	recursividadTelefonos	: function (telefono,tipo) {
 		if (telefono.length > 1 && tipo.length > 1) {
 			var arreglo = new Array();
@@ -526,13 +522,12 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			var objetoTelefono = {};
 			objetoTelefono.numero = $(telefono).val().trim();
 			objetoTelefono.tipo = $(tipo).val();
-			// objetoTelefono.esDe = esDe;
 
 			return jQuery.parseJSON(JSON.stringify(objetoTelefono));
 		};
 	},
- // -----recursividadServicios--------------------- 
-	recursividadServicios	: function (servicio) {
+// -----obtenerServicios-------------------------- 
+	obtenerServicios	: function (servicio) {
 			var arreglo = new Array();
 			var cont = 0;
 
@@ -551,7 +546,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				return arreglo;
 			};
 	},
- // -----recursividadArchivos---------------------- 
+// -----recursividadArchivos---------------------- 
 	recursividadArchivos	: function (archivo,tipo,comentario) {
 		if (comentario.length > 1) {
 			var arreglo = new Array();
@@ -567,11 +562,10 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			objetoArchivo.tipo = $(tipo).val();
 			objetoArchivo.comentario = $(comentario).val().trim();
 			return jQuery.parseJSON(JSON.stringify(objetoArchivo));
-
 		};
 	},
 
- // -----validarCorreo----------------------------- 
+// -----validarCorreo----------------------------- 
 	validarCorreo	: function (elemento) {
 		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
 	      alert('[ERROR:Email]\n\nNo es un correo valido');
@@ -579,7 +573,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	      return false;
 	    };
 	},
- //------validarTelefono--------------------------- 
+//------validarTelefono--------------------------- 
 	validarTelefono	: function (elemento) {
 		// if(isNaN($(elemento.currentTarget).val().trim()) && $(elemento.currentTarget).val().trim() != '' ) {
 		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
@@ -588,7 +582,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	        return false;
 	    };
 	},
- //------validarPaginaWeb-------------------------- 
+//------validarPaginaWeb-------------------------- 
 	validarPaginaWeb	: function () {
 		if (!(this.$paginaWeb.val().trim().match(/^[a-z0-9\.-]+\.[a-z]{2,4}/gi)) && this.$paginaWeb.val().trim() != '' ) {
 			this.$paginaWeb.focus();

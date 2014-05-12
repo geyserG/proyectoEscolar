@@ -124,8 +124,9 @@ li{
 	padding: 0px 5px 0px 5px;
 	/*position: absolute;*/
 	width: 160px;
-	margin-left: -160px;
-	-webkit-transition: 0.2s;
+	/*margin-left: -160px;*/
+	-webkit-transform: translateX(-160px);
+	-webkit-transition: width 0.4s;
 	bottom: 0px;
 	position: fixed;
 	top: 50px;
@@ -155,6 +156,7 @@ li{
 	position: absolute;
 	-webkit-transition: .4s;
 	opacity: 1;
+	margin-left: 10px;
 }
 .anclaMenu:hover{
 	color: @colorTextoMenu;
@@ -162,7 +164,8 @@ li{
 .icono{
 	color: @colorTextoMenu;
 	cursor: pointer;
-	padding-right: 30px;
+	padding-right: 25px;
+	padding-left: 2px;
 	font-size: 20px;
 	display: inline;
 }
@@ -179,26 +182,27 @@ li{
 }
 #btn_menu:checked ~ #menu{
 	width: 50px;
-	-webkit-transition: 0.4s;
+	-webkit-transition: width 0.4s;
 }
 /*#btn_menu:checked ~ .contenedor{
 	margin-left: 50px;
 	-webkit-transition: 0.4s;
 }*/
 #btn_menu:checked ~ #contenedor_dashboard{
-	width: 96.7%;
-	-webkit-transition: 0.4s;
+	/*width: 96.7%;*/
+	/*-webkit-transition: 0.4s;*/
 }
 #btn_menu:checked ~ .contenedor_modulo{
-	width: 110%;
+	/*width: 110%;*/
+	/*margin-right: -110px;*/
+	/*-webkit-transform: translateX(-110px);*/
 	margin-left: -110px;
-	-webkit-transition: 0.4s;
+	-webkit-transition: margin 0.4s;
 }
 #btn_menu:checked ~ #menu .anclaMenu{
-	-webkit-transition: 0.2s, transform 1s;
 	opacity: 0;
 	visibility: collapse;
-	transform: translateX(-160px);
+	-webkit-transform: translateX(-160px);
 }
 
 #btn_menu:checked ~ #menu #btn{

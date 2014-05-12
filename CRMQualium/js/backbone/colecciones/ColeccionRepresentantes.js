@@ -20,4 +20,4 @@ var ColeccionRepresentantes = Backbone.Collection.extend({
 	}*/
 });
 
-app.coleccionRepresentantes = new ColeccionRepresentantes();
+app.coleccionRepresentantes = new ColeccionRepresentantes(app.coleccionDeRepresentantes);

@@ -151,7 +151,7 @@
 
         <br><br>
 
-        <button type="button" id="btn_cancelar" class="btn btn-default">Cancelar</button>
+        <a href="modulo_consulta_clientes" class="btn btn-default">Cancelar</a>
         <button type="button" id="btn_crear" class="btn btn-primary">Aceptar</button>
         <br>
         <br>
@@ -229,12 +229,10 @@
         </div>
         <div class="desborde"></div>
         <br>
-        <!-- <a href="modulo_consulta_clientes" id="btn_nuevoContacto" class="btn btn-primary" role="button">Registrar Contactos</a> -->
         <a href="modulo_consulta_clientes" class="btn btn-default">Cancelar</a>
+        <!-- <a href="modulo_consulta_clientes" id="btn_nuevoContacto" class="btn btn-primary" role="button">Registrar Contactos</a> -->
         <button id="btn_nuevoContacto" class="btn btn-primary">Registrar Contactos</button> 
     </div>
-
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -281,38 +279,13 @@
 </div>
 
 
+<script type="text/javascript" src="js/backbone/app.js"></script>
 <script type="text/javascript">
-    var app = app || {
-        //Array de objetos de servicio que se 
-        //resetea cada vez que se hace una búsqueda
-        busqueda:{} 
-    };
     app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
     app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
-
-    //Funcion auto ejecutable. para renderizar la colección
-    //de servicios cada vez que se haga una búsqueda en el
-    //en este modulo de clientes.
-    app.busqueda.servicio = (function () {
-        buscarPorNombre = function (searchKey) {
-            var deferred = $.Deferred();
-            var results = servicios.filter(function (element) {
-                var nombre = element.nombre;
-                // console.log(nombre);
-                // console.log(searchKey);
-                return nombre.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
-            });
-            deferred.resolve(results);
-            return deferred.promise();
-        },
-        servicios = app.coleccionDeServicios;
-
-        // The public API
-        return {
-            buscarPorNombre: buscarPorNombre
-        };
-    }());
 </script>
+<!-- Utilerias -->
+    <script type="text/javascript" src="js/funcionescrm.js"></script>
 
 <!-- Plantillas -->
     <script type="text/template" id="serviciosI">
@@ -333,8 +306,6 @@
             </div>
         </div>
     </script>
-<!-- Utilerias -->
-    <script type="text/javascript" src="js/validaciones.js"></script>
 <!-- Librerias Backbone -->
     <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
     <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
@@ -359,4 +330,3 @@
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaArchivo.js"></script> -->
     <script type="text/javascript" src="js/backbone/vistas/VistaServicio.js"></script>
     <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
-    <script type="text/javascript" src="js/backbone/app.js"></script>
