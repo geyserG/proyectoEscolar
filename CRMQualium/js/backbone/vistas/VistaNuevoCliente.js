@@ -416,7 +416,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
         var mensaje = "";    
         //hacemos la petición ajax  
         var resp = $.ajax({
-            url: 'js/backbone/vistas/subirFotoCliente.php',  
+            url: 'http://crmqualium.com/api_archivos',  
             type: 'POST',
             async:false,
             // Form data
@@ -427,6 +427,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
             contentType: false,
             processData: false
         });
+        console.log(resp);
         if (resp.responseText != "") return 'img/fotosClientes/'+resp.responseText+'';
 	},
 // -----otroTelefono------------------------------ 
