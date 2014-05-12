@@ -23,7 +23,7 @@ app.ModeloCliente = Backbone.Model.extend({
 	},
 
 	cambiarVisibilidad: function () {
-		this.save({ visibilidad: !this.get('visibilidad') },{wait:true});
+		this.save({ visibilidad: !this.get('visibilidad') },{wait:true, patch:true});
 	},
 	
 	// conmutar	: function () {
