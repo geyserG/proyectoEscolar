@@ -60,21 +60,13 @@ app.VistaCliente = Backbone.View.extend({
 
 		this.$serviciosInteres = this.$('#serviciosInteres');
 		this.$serviciosCuenta = this.$('#serviciosCuenta');
-		var servicios;
-		servicios = this.model.get('serviciosInteres');
-		if (servicios != undefined) {
-			this.agregarServciciosCliente(
-				servicios,
-				this.$serviciosInteres
-			);
-		};
-		servicios = this.model.get('serviciosCuenta');
-		if (servicios != undefined) {
-			this.agregarServciciosCliente(
-				servicios,
-				this.$serviciosCuenta
-			);
-		};
+		// var servicios;
+		/*servicios = this.model.get('serviciosInteres');
+		console.log(servicios);*/
+		this.agregarServciciosClienteI(this.$serviciosInteres);
+		/*servicios = this.model.get('serviciosCuenta');
+		console.log(servicios);*/
+		this.agregarServciciosClienteC(this.$serviciosCuenta);
 
 		//Obtener lo telefonos (modelos) del cliente
 		this.agregarTelefono(this.model.get('telefonosCliente'));
@@ -105,7 +97,7 @@ app.VistaCliente = Backbone.View.extend({
 
 			if (valorJson.length > 0) {
 				if (this.$(elemento.currentTarget).attr('class') == 'serviciosInteres editando' || this.$(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
-					this.actualizarServicios(valorJson, this.$(elemento.currentTarget).attr('class'));
+					this.actualizarServicios(valorJson,elemento);
 	            	return;
 				};
 	        };
@@ -130,9 +122,7 @@ app.VistaCliente = Backbone.View.extend({
 							//Buscamos al hijo con la clase especificada
 							.children('.respuesta')
 							//Removemos su atributo class
-							.removeClass()
-							//Nuevo atributo class
-							.addClass('exito');
+							.html('<label class="icon-uniF479 exito"></label>')
 					},
 					error	: function (error) {//En caso de error
 						this.$(elemento.currentTarget)//Selector
@@ -143,46 +133,79 @@ app.VistaCliente = Backbone.View.extend({
 							//Buscamos al hijo con la clase especificada
 							.children('.respuesta')
 							//Sustituimos html por uno nuevo
-							.html('<span class="label label-danger">Error</span>');
+							.html('<span class="icon-uniF478 error"></span>')
 					}
 				}
 			);
 		};
 	},
-	actualizarServicios	: function (servicio, attrClass) {
+	actualizarServicios	: function (servicio, elemento) {
 		var json = pasarAJson(servicio);
 		var modeloServicio = {};
 		modeloServicio.idcliente = this.model.get('id');
-Backbone.emulateHTTP = true;
-Backbone.emulateJSON = true;
+		
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
 
-		if (attrClass == 'serviciosInteres editando') {
+		if ($(elemento.currentTarget).attr('class') == 'serviciosInteres editando') {
 			modeloServicio.idservicio = json.nameServiciosInteres;
 			app.coleccionServiciosClientesI.create(modeloServicio,{
 				wait	:true,
 				success	: function (exito) {
-					console.log('Exito al amnacenar Interes: ',exito);
+					this.$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Removemos su atributo class
+						.html('<label class="icon-uniF479 exito"></label>')
 				},
 				error 	: function (error) {
-					console.log('Error al almacenar Interes: ',error);
+					this.$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Sustituimos html por uno nuevo
+						.html('<span class="icon-uniF478 error"></span>')
 				}
 			});
 		};
-		if (attrClass == 'serviciosCuenta editando') {
+		if ($(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
 			modeloServicio.idservicio = json.nameServiciosCuenta;
 			app.coleccionServiciosClientesC.create(modeloServicio,{
 				wait	:true,
 				success	: function (exito) {
-					console.log('Exito al amnacenar Cuenta: ',exito);
+					this.$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Removemos su atributo class
+						.html('<label class="icon-uniF479 exito"></label>')
 				},
 				error 	: function (error) {
-					console.log('Error al almacenar Cuenta: ',error);
+					this.$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Sustituimos html por uno nuevo
+						.html('<span class="icon-uniF478 error"></span>')
 				}
 			});
 		};
-Backbone.emulateHTTP = false;
-		Backbone.emulateJSON = false;
 		
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
 	},
 	agregarTelefono	: function (idTelefono) {
 		this.vistasTelefono = new Array();
@@ -217,24 +240,36 @@ Backbone.emulateHTTP = false;
 			
 		};
 	},
-	agregarServciciosCliente	: function (servicios,id) {
-		if (servicios.length > 1) {
-			for (var i = 0; i < servicios.length; i++) {
-				if (typeof servicios[i] != "undefined") {
-					$(id).append(
-						'<small class=""><span class="icon-uniF470 editar"></span>'+
-						servicios[i].nombre+
-						', <br></small>'
-					);
+	agregarServciciosClienteI	: function (id) {
+		var sI = app.coleccionServiciosClientesI.where({idcliente:this.model.get('id')});
+		if (sI.length > 1) {
+			for (var i = 0; i < sI.length; i++) {
+				if (typeof sI[i] != "undefined") {
+					var vSC = new app.VistaServicioCliente({model:sI[i]});
+					$(id).append(vSC.render().el);
 				}
 			};
 		} else{
-			if (typeof servicios[0] != "undefined") {
-				$(id).append(
-					'<small class=""><span class="icon-uniF470 editar"></span>'+
-					servicios.nombre+
-					', <br></small>'
-				);
+			if (typeof sI[0] != "undefined") {
+				var vSC = new app.VistaServicioCliente({model:sI[0]});
+				$(id).append(vSC.render().el);
+			}
+		};
+		this.$editarAtributo = this.$('.editar');
+	},
+	agregarServciciosClienteC	: function (id) {
+		var sC = app.coleccionServiciosClientesC.where({idcliente:this.model.get('id')});
+		if (sC.length > 1) {
+			for (var i = 0; i < sC.length; i++) {
+				if (typeof sC[i] != "undefined") {
+					var vSC = new app.VistaServicioCliente({model:sC[i]});
+					$(id).append(vSC.render().el);
+				}
+			};
+		} else{
+			if (typeof sC[0] != "undefined") {
+				var vSC = new app.VistaServicioCliente({model:sC[0]});
+				$(id).append(vSC.render().el);
 			}
 		};
 		this.$editarAtributo = this.$('.editar');
@@ -311,7 +346,10 @@ Backbone.emulateHTTP = false;
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
 	agregarNuevoServ	: function (event) {
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {
+        if (
+        	event.keyCode === 13 
+        	&& $(event.currentTarget).attr('id') == 'inputBusquedaI'
+        	) {
 
         	if ($(event.currentTarget).val() != '') {
 
@@ -320,7 +358,10 @@ Backbone.emulateHTTP = false;
 			event.preventDefault();
         };
 
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {
+        if (
+        	event.keyCode === 13 
+        	&& $(event.currentTarget).attr('id') == 'inputBusquedaC'
+        	) {
 
         	if ($(event.currentTarget).val() != '') {
 
