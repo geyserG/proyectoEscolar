@@ -59,8 +59,7 @@
 
   		    if(array_key_exists('serviciosCuenta',$post))
   		    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
-		
-  	    	# $archivos 			= $this->input->post('archivos');//Pendiente de como pasarlo 	
+			
 			return $idcliente;
 
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
@@ -120,6 +119,7 @@
 
 		public function patch_customer($id, $put)
 		{
+			$put = array($put);
 			$query = false;
 			$columna = $this->db->field_data('clientes');				             
 			foreach ($columna as $key)
