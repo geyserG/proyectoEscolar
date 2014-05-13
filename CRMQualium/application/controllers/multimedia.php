@@ -5,7 +5,7 @@ class  Multimedia extends Api {
 
 	public function __construct() {
         parent::__construct();
-        // $this->load->model('Model_archivos', 'archivos');             
+        $this->load->model('Modelo_archivos', 'archivos');             
     }
 
     public function api() 
@@ -25,7 +25,6 @@ class  Multimedia extends Api {
     private function insert_mult(){
 
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        // $post = $this->ipost();         
         $query = $this->archivos->insert_mult();
         # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
         ($query) ? $this->response($query, 201) : $this->response($query, 406);

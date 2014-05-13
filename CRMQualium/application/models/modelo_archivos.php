@@ -6,32 +6,53 @@
     {          
         function obj(){  return $obj = new modelo_rit();  }
 
-        function insert_cotizacion()
+        function insert_mult()
         {
-            if(!is_dir("../../../img/fotosClientes/")) 
-            mkdir("../../../img/fotosClientes/", 0777);
-         
-             // comprobamos si el archivo ha subido
-            if ($file && move_uploaded_file($_FILES['fotoCliente']['tmp_name'],"../../../img/fotosClientes/".$file))
+            if(array_key_exists('fotoCliente', $_FILES))
             {
-                // sleep(3);//retrasamos la petición 3 segundos
-                 // echo $file;//devolvemos el nombre del archivo para pintar la imagen
-                 return true;
-            } 
-
+                $carpeta="img/fotosClientes/";
+                opendir($carpeta);
+                $destino=$carpeta.$_FILES['fotoCliente']['name'];  
+                if(copy($_FILES['fotoCliente']['tmp_name'], $destino))
+                {
+                    return $_FILES['fotoCliente']['name'];
+                } 
+            }
+            elseif(array_key_exists('fotoUsuario', $_FILES))
+            {
+                $carpeta="img/fotosUsuarios/";
+                opendir($carpeta);
+                $destino=$carpeta.$_FILES['fotoUsuario']['name'];  
+                if(copy($_FILES['fotoUsuario']['tmp_name'], $destino))
+                {
+                    return $_FILES['fotoUsuario']['name'];
+                }  
+            }
+            else
+            {
+                $carpeta="img/archivos/";
+                opendir($carpeta);
+                $destino=$carpeta.$_FILES['archivos']['name'];  
+                if(copy($_FILES['archivos']['tmp_name'], $destino))
+                {
+                    return $_FILES['fotoCliente']['name'];
+                }
+            }
+          
         } # Fin del metodo insert_mcontact()...
 
-        function get_cotizacion($id){
+        function get_mult($id)
+        {
            
         
                    	
         } # Fin del metodo get_cotizacion()...
 
-        function update_cotizacion()
+        function update_mult()
         {
         	
         }
-        private function delete_cotizacion($id)
+        private function delete_mult($id)
         {
 
         }
