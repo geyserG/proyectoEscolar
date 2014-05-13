@@ -8,7 +8,8 @@ class  Api extends CI_Controller {
 
         
      }
-    public function metodo(){
+    public function metodo()
+    {
         # Recupera el nombre del metodo y lo convierte a minusculas...
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
@@ -42,12 +43,12 @@ class  Api extends CI_Controller {
         (is_numeric($data)) ? $response['id'] = $data : $response['data'] = $data;
         $resp = json_encode($response); 
         echo $resp;
-        exit;
-        
+        exit;        
     }   
     
     # Codigo de Respuesta despues de una petición...
-    protected function requestStatus($code) {
+    protected function requestStatus($code) 
+    {
         $status = array(  
             200 => 'OK',
             201 => 'Created',
@@ -60,13 +61,7 @@ class  Api extends CI_Controller {
             500 => 'Internal Server Error',
         ); 
         # Regresa el nombre del codigo de status...
-        foreach ($status as $key => $value) {
-             
-             if($key==$code)
-             {
-                return $value;
-             }
-         } 
+        foreach ($status as $key => $value) { if($key==$code){ return $value; } } # foreach
     }  
 
     # Establece la cabecera de respuesta.
@@ -79,45 +74,68 @@ class  Api extends CI_Controller {
         header("Content-Type: application/json");
             
     }
-
-    protected function ipost(){
-
+       // return (object)$this->input->post();
+    protected function ipost()
+    {
         # Esta funcion verifica si llegaron las variables post de la manera normal $_POST['nombre']
         # Si llega como un arreglo de objetos en formato JSON lo decodifica...       
         if(!($this->input->post('model')))
-        {
-            // return (object)$this->input->post();
+        {     
             return $this->input->post();
-        }else{
-            
+        }
+        else
+        {            
             $resp = json_decode($this->input->post('model'));
             return (array)$resp;
         }
-    }
-      protected function put(){
+    } # Fin del metodo ipost()...
 
-        $obj = file_get_contents("php://input");
-        
+    protected function put()
+    {
+        $obj = file_get_contents("php://input");        
         # Si la petición put llega como json
         # entonces lo decodifico   
         $obj2 = json_decode($obj);
-
         # pregunta si es un objetos retorna la ejecución del metdo get_put()
         # Este prepara un arreglo asociativo.
-         if(is_object($obj2)){
-            return $obj2;
+        if(is_object($obj2))
+        {
+           return $obj2;         
+        }
+        else
+        {
+           # Si no es un objeto y es una cadena lo convierte a un array...
+           parse_str($obj, $var);
+           return $var;
+        }              
+    } # Fin de la función put()...
+
+} # Fin de la clase
+
+    // protected function put(){
+
+    //     $obj = file_get_contents("php://input");
+        
+    //     # Si la petición put llega como json
+    //     # entonces lo decodifico   
+    //     $obj2 = json_decode($obj);
+
+    //     # pregunta si es un objetos retorna la ejecución del metdo get_put()
+    //     # Este prepara un arreglo asociativo.
+    //      if(is_object($obj2)){
+    //         return $obj2;
             
-            // foreach ($put as $key => $value) {
+    //         // foreach ($put as $key => $value) {
             
-            //         $array[$key] = $value;
-            // }
-         }else{
-            # Si no es un objeto y es una cadena lo convierte a un array...
-            parse_str($obj, $var);
-            return $var;
-         }       
+    //         //         $array[$key] = $value;
+    //         // }
+    //      }else{
+    //         # Si no es un objeto y es una cadena lo convierte a un array...
+    //         parse_str($obj, $var);
+    //         return $var;
+    //      }       
        
-    }
+    // }
 
 
     // protected function put(){
@@ -144,4 +162,3 @@ class  Api extends CI_Controller {
     
 
 
-}

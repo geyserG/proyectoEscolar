@@ -17,14 +17,24 @@
                                                         ));
             # Recuperamos el id del contacto...
             $id = $this->db->insert_id();
-
-            $query = $this->db->insert('cotizacion_servicios',array('idcotizacion'=>$id, 
-                                                        'idservicio'  =>$post['idservicio'],
-                                                        'duracion'    =>$post['duracion'],
-                                                        'cantidad'    =>$post['cantidad'],
-                                                        'precio'      =>$post['precio'],
-                                                        'descuento'   =>$post['descuento'],
-                                                        ));
+            // $query = $this->db->insert('cotizacion_servicios',array('idcotizacion'=>$id, 
+            //                                             'idservicio'  =>$post['idservicio'],
+            //                                             'duracion'    =>$post['duracion'],
+            //                                             'cantidad'    =>$post['cantidad'],
+            //                                             'precio'      =>$post['precio'],
+            //                                             'descuento'   =>$post['descuento'],
+            //                                             ));
+            foreach ($post as $key => $value)
+            {
+                $data[$key] = array('idcotizacion'=>$id, 
+                                    'idservicio'  =>$post['idservicio'][$key],
+                                    'duracion'    =>$post['duracion'][$key],
+                                    'cantidad'    =>$post['cantidad'][$key],
+                                    'precio'      =>$post['precio'][$key],
+                                    'descuento'   =>$post['descuento'][$key]);                
+            }
+            # Enviamos a la inserción varias filas.
+            $query = $this->insert_batch('cotizacion_servicios', $data);
 
             return $query;   
 
@@ -89,7 +99,7 @@
                                 'nombre_completo' => $this->input->post('nombreContacto'),
                                 'correo'          => $this->input->post('correoContacto'),
                                 'cargo'           => $this->input->post('cargoContacto')
-                              );//Verificar si es un arreglo
+                             );//Verificar si es un arreglo
 
             $this->db->where('id', $id);
             $this->db->update('contacto', $contactos); 

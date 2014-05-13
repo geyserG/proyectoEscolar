@@ -50,6 +50,16 @@
 			($id==NULL) ? $query = $this->db->get('telefonos') : $this->db->where('id', $id); $query = $this->db->get('telefonos');			
 			return $query->result();	
 		}
+
+		// public function patch_p()
+		// {
+		// 	$cont=0;
+		// 	$columna = $this->db->field_data('telefonos');
+		// 	foreach ($columna as $key) {
+		// 		 $col[$cont] = $key->name; $cont++;
+		// 	}
+		// 	var_dump($col); die();
+		// }
 		public function update_p($id, $put)
 		{
 			$this->db->where('id', $id);

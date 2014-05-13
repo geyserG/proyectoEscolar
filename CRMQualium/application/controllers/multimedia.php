@@ -5,40 +5,28 @@ class  Multimedia extends Api {
 
 	public function __construct() {
         parent::__construct();
-        $this->load->model('Model_multimedia', 'mult');             
+        // $this->load->model('Model_archivos', 'archivos');             
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
+    public function api() 
+    {   # Con esta funcion obtnemos el id de la petición.
         # get(), update(), delete()
         $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_mult();
-    			break;
-    		case 'get':
-    			$this->get_mults($id);
-    			break;	
-    		case 'put':
-                 $this->update_mult($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_mult($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
+        switch ($this->metodo())
+        {
+    		case     'post':   $this->insert_mult();        break;
+    		case     'get':    $this->get_mults($id);	    break;	
+    		case     'put':    $this->update_mult($id);     break;	
+    		case     'delete': $this->delete_mult($id);     break;
+    		default:           $this->response('',405); 	break;
     	}
-
     }
     
-    private function insert_phone(){
+    private function insert_mult(){
 
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost();         
-        $query = $this->mult->insert_mult();
+        // $post = $this->ipost();         
+        $query = $this->archivos->insert_mult();
         # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
         ($query) ? $this->response($query, 201) : $this->response($query, 406);
     }

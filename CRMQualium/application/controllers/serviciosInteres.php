@@ -8,34 +8,23 @@ class  ServiciosInteres extends Api {
         $this->load->model('Model_serviciosInteres', 'servint');             
     }
 
-    public function api() {
-
+    public function api() 
+    {
         # Con esta funcion obtnemos el id de la petición.
         # get(), update(), delete()
-        $id = $this->uri->segment(2);      
-
-    	switch ($this->metodo()) {
-    		case 'post':
-    			$this->insert_si();
-    			break;
-    		case 'get':
-    			$this->get_si($id);
-    			break;	
-    		case 'put':
-                 $this->update_si($id);
-    			break;	
-    		case 'delete':
-    			$this->delete_si($id);
-    			break;
-    		default:
-    			$this->response('',405);
-    			break;
+        $id = $this->uri->segment(2);  
+    	switch ($this->metodo()) 
+        {
+    		case      'post':	$this->insert_si();		   break;
+    		case      'get':	$this->get_si($id);		   break;	
+    		case      'put':    $this->update_si($id);	   break;	
+    		case      'delete':	$this->delete_si($id);	   break;
+    		default:		    $this->response('',405);   break;
     	}
-
     }
     
-    private function insert_si(){
-
+    private function insert_si()
+    {
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
         $post = $this->ipost();         
         $query = $this->servint->insert_servInteres($post);

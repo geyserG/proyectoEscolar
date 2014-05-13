@@ -118,6 +118,33 @@
 
 		} # Fin de la función get_customers_model()
 
+		public function patch_customer($id, $put)
+		{
+			$query = false;
+			$columna = $this->db->field_data('clientes');				             
+			foreach ($columna as $key)
+			{ 
+				if(array_key_exists($key->name, $put))
+				{
+						     $this->db->where('id', $id);
+  		       		$query = $this->db->update('clientes', array($key->name => $put[$key->name]));  		        		
+				}
+			} # Foreach
+			if(!$query)
+			{
+				$this->db->select('id');
+				$query = $this->db->get_where('atributo_cliente', array('atributo'=>key($put)));
+				$dato = $query->result();
+
+				$datos = array('idatributo' => $dato[0]->id, 'dato' => $put[key($put)]);	
+				$where = array('idcliente'=>$id, 'idatributo'=>$dato[0]->id);
+				$this->db->where($where);
+				$query = $this->db->update('cliente_atributo', $datos);
+			}
+			
+			return $query;
+		} # Fin de pacth customer
+
 		public function update_customer($id, $iput){
 
 			$x=0; $cliente = array();  $cont=0;

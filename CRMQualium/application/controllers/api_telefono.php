@@ -15,6 +15,7 @@ class  Api_telefono extends Api {
     		case     'post':   $this->insert_phone(); 	          break; # POST
     		case     'get':    $this->get_phones($this->id());    break; # GET
     		case     'put':    $this->update_phone($this->id());  break; # PUT
+            case     'patch':  $this->patch_phone($this->id());   break; # PATCH
     		case     'delete': $this->delete_phone($this->id());  break; # DELETE
     		default:           $this->response('',405);           break; # METODO NO DEFINIDO
     	} # switch
@@ -46,6 +47,12 @@ class  Api_telefono extends Api {
     private function delete_phone($id){
 
     	$query = $this->phone->delete_p($id);    	
+        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+    }
+
+    private function patch_phone($id)
+    {   
+        $query = $this->phone->patch_p($id);       
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
     }
 
