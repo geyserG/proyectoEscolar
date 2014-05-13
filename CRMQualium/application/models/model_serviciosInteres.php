@@ -36,7 +36,7 @@
 		{
 			$this->db->where('id', $id);
 			# la variable $put devuelve los campos especificando que datos se actualizaron.
-			$query = $this->db->update('servicios_interes', $put);
+			$query = $this->db->update('servicios_interes', array('status'=>$put['status']));
 			# Regresa true o false dependiendo de la consulta.
 			return $query;
 		}
