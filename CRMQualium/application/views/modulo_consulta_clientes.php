@@ -62,10 +62,10 @@
         </td>
         <td class="icon-operaciones">
             
-            <span id="tr_btn_eliminar" class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-            <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
-            <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
-            <span class="icon-eye"  data-toggle="modal" data-target="#<%- id %>" title="Ver información"></span>
+            <span class="icon-trash" id="tr_btn_eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+            <span class="icon-edit2" data-toggle="modal" data-target="#<%- id %>" title="Editar"></span>
+            <span class="icon-email" data-toggle="tooltip" data-placement="top" title="Enviar"></span>
+            <span class="icon-eye" data-toggle="modal" data-target="#<%- id %>" title="Ver información"></span>
             
             <div class="modal fade" id="<%- id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -459,7 +459,7 @@
             <label for="<%- id %>"><%- nombre %></label>
             <!--<label for="<%- id %>" class="concepto"><%- concepto %></label>-->
             <div class='check_posicion'>
-                <input type="checkbox" class="serviciosInteres" name="nameServiciosInteres" id="<%- id %>">
+                <input type="checkbox" class="serviciosInteres editando" name="nameServiciosInteres" value="<%- id %>" id="<%- id %>">
             </div>
         </div>
     </script>
@@ -468,7 +468,7 @@
             <label for="<%- 1+id %>"><%- nombre %></label>
             <!--<label for="<%- 1+id %>" class="concepto"><%- concepto %></label>-->
             <div class='check_posicion'>
-                <input type="checkbox" class="serviciosCuenta" name="nameServiciosCuenta" id="<%- 1+id %>">
+                <input type="checkbox" class="serviciosCuenta editando" name="nameServiciosCuenta" value="<%- 1+id %>" id="<%- 1+id %>">
             </div>
         </div>
     </script>
@@ -485,8 +485,8 @@
     // {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
     app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
 
-    // app.coleccionDeServiciosI = <?php /*echo json_encode($serviciosInteres)*/ ?>;
-    // app.coleccionDeServiciosC = <?php /*echo json_encode($serviciosCliente)*/ ?>;
+    app.coleccionDeServiciosI = <?php echo json_encode($serviciosInteres) ?>;
+    app.coleccionDeServiciosC = <?php echo json_encode($serviciosCliente) ?>;
  </script>
  <!-- Utilerias -->
     <script type="text/javascript" src="js/funcionescrm.js"></script>
@@ -503,6 +503,7 @@
     <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloTelefono.js"></script>
+    <script type="text/javascript" src="js/backbone/modelos/ModeloServicioCliente.js"></script>
     <!-- colecciones -->
 
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionServicios.js"></script>
@@ -510,6 +511,7 @@
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionTelefonos.js"></script>
+    <script type="text/javascript" src="js/backbone/colecciones/ColeccionServiciosClientes.js"></script>
 
     <!-- vistas -->
     <script type="text/javascript" src="js/backbone/vistas/VistaServicio.js"></script>

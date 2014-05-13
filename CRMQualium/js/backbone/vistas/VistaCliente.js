@@ -12,9 +12,18 @@ app.VistaCliente = Backbone.View.extend({
 		'click #modal_btn_eliminar'		: 'visibilidad',
 		//Es el boton para editar CLIENTE en el MODAL
 		'click #editar'	: 'editando',
+		//Boton para accesar rapidamente a la edición del cliente
+		'click .icon-edit2'	: 'editando',
 
-		/**/
-		'keypress .editando'	: 'actualizar'
+		/*Eventos de servicios*/
+		'keypress .editando'	: 'actualizarAtributoCliente',
+		'change .editando'	: 'actualizarAtributoCliente',
+		'keypress #inputBusquedaI'	: 'agregarNuevoServ',
+		'click	#btn_agregarI'	: 'agregarNuevoServBoton',
+		'keypress #inputBusquedaC'	: 'agregarNuevoServ',
+		'click	#btn_agregarC'	: 'agregarNuevoServBoton',
+		// 'click .serviciosInteres'	: 'actualizarServicios',
+		// 'click .serviciosCuenta'	: 'actualizarServicios',
 	},
 	initialize	: function () {
 		/*Listener para capturar los CAMBIOS en cada uno de
@@ -42,7 +51,7 @@ app.VistaCliente = Backbone.View.extend({
 		cliente*/
 
 
-		this.$editarAtributo = this.$('.editar');
+		// this.$editarAtributo = this.$('.editar');
 		// this.$btn_iconoEditar = this.$('#editar');
 		this.$btn_contactos = this.$('#contactos');
 		this.$panelBody = this.$('.panel-body');
@@ -74,8 +83,8 @@ app.VistaCliente = Backbone.View.extend({
 		// this.$respuesta = this.$('.respuesta'); es el tr de la palomota, no hizo falta
 
 		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
-		this.$menuServiciosInteres	  = $('#menuServiciosInteres');
-		this.$menuServiciosCuenta	  = $('#menuServiciosCuenta');
+		this.$menuServiciosInteres	  = this.$('#menuServiciosInteres');
+		this.$menuServiciosCuenta	  = this.$('#menuServiciosCuenta');
 		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
 
 		return this;
@@ -83,11 +92,24 @@ app.VistaCliente = Backbone.View.extend({
 
 	//---------------------------------------------
 
-	actualizar	: function (elemento) {
+	actualizarAtributoCliente	: function (elemento) {
 		/*Cada vez que ocurre el evento keypress este metoso se 
 		ejecuta; solo cuando el valos de la propiedad es igual 13 
 		equivalente a precionar la tecla enter*/
-		if (elemento.keyCode === 13) {
+		if ((elemento.keyCode === 13 || elemento.type === 'change')) {
+
+			var valorJson = this.$(elemento.currentTarget).serializeArray();
+			if (valorJson.length == 0) {
+				return;
+			};
+
+			if (valorJson.length > 0) {
+				if (this.$(elemento.currentTarget).attr('class') == 'serviciosInteres editando' || this.$(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
+					this.actualizarServicios(valorJson, this.$(elemento.currentTarget).attr('class'));
+	            	return;
+				};
+	        };
+
 			/*Enviamos la propiedad que deseamos actualizar mediante
 			la funcion save de modelo (cliente) actual.*/
 			this.model.save(
@@ -95,9 +117,7 @@ app.VistaCliente = Backbone.View.extend({
 				propiedad que queremos actualizar en formato json,
 				pero antes los datos en el htmo se serializan para
 				obtener un array con las propiedades name y value.*/
-				pasarAJson(
-					this.$(elemento.currentTarget).serializeArray()
-				),
+				pasarAJson(valorJson),
 				{
 					wait	: true,//Esperamos respuesta del server
 					patch	: true,//Evitamos enviar todo el modelo
@@ -125,9 +145,44 @@ app.VistaCliente = Backbone.View.extend({
 							//Sustituimos html por uno nuevo
 							.html('<span class="label label-danger">Error</span>');
 					}
-				});
+				}
+			);
 		};
+	},
+	actualizarServicios	: function (servicio, attrClass) {
+		var json = pasarAJson(servicio);
+		var modeloServicio = {};
+		modeloServicio.idcliente = this.model.get('id');
+Backbone.emulateHTTP = true;
+Backbone.emulateJSON = true;
 
+		if (attrClass == 'serviciosInteres editando') {
+			modeloServicio.idservicio = json.nameServiciosInteres;
+			app.coleccionServiciosClientesI.create(modeloServicio,{
+				wait	:true,
+				success	: function (exito) {
+					console.log('Exito al amnacenar Interes: ',exito);
+				},
+				error 	: function (error) {
+					console.log('Error al almacenar Interes: ',error);
+				}
+			});
+		};
+		if (attrClass == 'serviciosCuenta editando') {
+			modeloServicio.idservicio = json.nameServiciosCuenta;
+			app.coleccionServiciosClientesC.create(modeloServicio,{
+				wait	:true,
+				success	: function (exito) {
+					console.log('Exito al amnacenar Cuenta: ',exito);
+				},
+				error 	: function (error) {
+					console.log('Error al almacenar Cuenta: ',error);
+				}
+			});
+		};
+Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
+		
 	},
 	agregarTelefono	: function (idTelefono) {
 		this.vistasTelefono = new Array();
@@ -163,28 +218,26 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 	agregarServciciosCliente	: function (servicios,id) {
-		// if (servicios != undefined) {
-			// $(id).html('');
-			if (servicios.length > 1) {
-				for (var i = 0; i < servicios.length; i++) {
-					if (typeof servicios[i] != "undefined") {
-						$(id).append(
-							'<small class="editar editando">'+
-							servicios[i].nombre+
-							', </small>'
-						);
-					}
-				};
-			} else{
-				if (typeof servicios[0] != "undefined") {
-					$(id).append('<small class="editar editando">'+
-						servicios.nombre+
-						', </small>'
+		if (servicios.length > 1) {
+			for (var i = 0; i < servicios.length; i++) {
+				if (typeof servicios[i] != "undefined") {
+					$(id).append(
+						'<small class=""><span class="icon-uniF470 editar"></span>'+
+						servicios[i].nombre+
+						', <br></small>'
 					);
 				}
-				
 			};
-		// };
+		} else{
+			if (typeof servicios[0] != "undefined") {
+				$(id).append(
+					'<small class=""><span class="icon-uniF470 editar"></span>'+
+					servicios.nombre+
+					', <br></small>'
+				);
+			}
+		};
+		this.$editarAtributo = this.$('.editar');
 	},	
 	agregarContacto	: function (tipo, esDe, etiqueta) {
 		var vista = new app.VistaContacto({model:tipo});
@@ -229,21 +282,26 @@ app.VistaCliente = Backbone.View.extend({
 		//Activar visibilidad de contenedor de contactos
 		// this.$panelBody.children().toggleClass('oculto');
 	},
-	/*Las funciones cargarServicioI y cargarServicioC agregar los servicios 
-	  dentro de menus desplegables especificados por los selectores
-	  menuServiciosInteres y menuServiciosCuenta. Se realizan una sola vez;
-	  para que se agreguenTodos los servicios se necesitan las las dos 
-	  funciones que seguien a estas. para cada funcion se instancia un nuevo
-	  objeto de la clase VistaServicioIteres y VistaServicioCuenta ejecutando
-	  tras ello las funciones render() pasando la devolucion de render() al
+	/*Las funciones cargarServicioI y cargarServicioC agregar los
+	  servicios dentro de menus desplegables especificados por los 
+	  selectores menuServiciosInteres y menuServiciosCuenta. Se 
+	  realizan una sola vez; para que se agreguenTodos los servicios 
+	  se necesitan las las dos funciones que seguien a estas. para 
+	  cada funcion se instancia un nuevo objeto de la clase 
+	  VistaServicioIteres y VistaServicioCuenta ejecutando tras ello 
+	  las funciones render() pasando la devolucion de render() al 
 	  elemento contenido en la propiedad el de dicha clase instanciada
 	*/
 	cargarServicioI	: function (servicio) {
-		var vistaServicioI = new app.VistaServicioInteres({model:servicio});
+		var vistaServicioI = new app.VistaServicioInteres({
+			model:servicio
+		});
 		this.$menuServiciosInteres.append(vistaServicioI.render().el);
 	},
 	cargarServicioC	: function (servicio) {
-		var vistaServicioC = new app.VistaServicioCuenta({model:servicio});
+		var vistaServicioC = new app.VistaServicioCuenta({
+			model:servicio
+		});
 		this.$menuServiciosCuenta.append(vistaServicioC.render().el);
 	},
 	cargarServiciosI	: function () {
@@ -252,6 +310,35 @@ app.VistaCliente = Backbone.View.extend({
 	cargarServiciosC	: function () {
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
+	agregarNuevoServ	: function (event) {
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {
+
+        	if ($(event.currentTarget).val() != '') {
+
+        		$('#listaInteres').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
+			}
+			event.preventDefault();
+        };
+
+        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {
+
+        	if ($(event.currentTarget).val() != '') {
+
+        		$('#listaCuenta').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
+			}
+			event.preventDefault();
+        };
+    },
+    agregarNuevoServBoton	: function (event) {
+    	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
+    		$('#listaInteres').append('<li class="list-group-item">'+ $('#inputBusquedaI').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
+    		$('#inputBusquedaI').val('');
+    	};
+    	if ($(event.currentTarget).attr('id') == 'btn_agregarC') {
+    		$('#listaCuenta').append('<li class="list-group-item">'+ $('#inputBusquedaC').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
+    		$('#inputBusquedaC').val('');
+    	};
+    },
 
 	editando	: function () {
 

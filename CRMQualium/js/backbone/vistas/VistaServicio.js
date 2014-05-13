@@ -29,6 +29,7 @@ app.VistaServicioInteres = app.VistaServicio.extend({
 			if ($(intereses[i]).is(':checked')) {
 				this.$listaInteres.append('<li class="list-group-item">'+$(intereses[i]).parent().parent().parent().first().text()+'<label id="'+$(intereses[i]).attr('id')+'" class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+$(intereses[i]).attr('id')+'" checked></li>');
 				$(intereses[i]).attr('checked',false);
+				break;
 			};
 		};
 	}	
@@ -51,6 +52,7 @@ app.VistaServicioCuenta = app.VistaServicio.extend({
 			if ($(cuenta[i]).is(':checked')) {
 				this.$listaCuenta.append('<li class="list-group-item">'+$(cuenta[i]).parent().parent().parent().first().text()+'<label id="'+$(cuenta[i]).attr('id')+'" class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+ (parseInt($(cuenta[i]).attr('id'))-100) +'" checked></li>');
 				$(cuenta[i]).attr('checked',false);
+				break;
 			};
 		};
 	}	
