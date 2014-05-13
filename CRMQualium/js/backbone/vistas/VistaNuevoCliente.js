@@ -427,9 +427,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
             contentType: false,
             processData: false
         });
-        console.log(resp.responseText);
+        // console.log(resp.responseText);
         var nombreFoto = jQuery.parseJSON(resp.responseText);
-        if (resp.responseText != "") return 'img/fotosClientes/'+nombreFoto.data+'';
+        if (resp.responseText != "") return ''+nombreFoto.data+'';
 	},
 // -----otroTelefono------------------------------ 
 	otroTelefono	: function (elemento) {
