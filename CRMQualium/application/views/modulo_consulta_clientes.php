@@ -124,7 +124,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -143,7 +143,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -172,7 +172,7 @@
                                                 </select>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -191,7 +191,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -219,7 +219,7 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -236,7 +236,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -253,7 +253,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -286,7 +286,7 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
@@ -322,7 +322,7 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
-                                                <label class="icon-uniF479 editar"></label>
+                                                <!--RESPUESTA-->
                                             </td>
                                         </tr>
                                     </table>
@@ -472,6 +472,11 @@
             </div>
         </div>
     </script>
+    <script type="text/template" id="servicioCliente">
+        <label id="<%- idservicio %>" class="eliminarSC">x</label>
+        <%- nombre %>
+        <br>
+    </script>
 
 <script type="text/javascript" src="js/backbone/app.js"></script>
 <script type="text/javascript">
@@ -515,6 +520,7 @@
 
     <!-- vistas -->
     <script type="text/javascript" src="js/backbone/vistas/VistaServicio.js"></script>
+    <script type="text/javascript" src="js/backbone/vistas/VistaServicioCliente.js"></script>
     <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script>
     <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script>
     <script type="text/javascript" src="js/backbone/vistas/VistaTelefono.js"></script>
