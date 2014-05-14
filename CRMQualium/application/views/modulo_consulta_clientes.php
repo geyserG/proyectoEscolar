@@ -458,9 +458,9 @@
         <div class="editar">
             <div class="col-lg-6">
                 <div class="input-group">
-                    <input type="text" class="form-control telefonosCliente" value="<%-numero%>" placeholder="<%-numero%>">
+                    <input type="text" class="form-control telefonosCliente" name="numero" value="<%-numero%>" placeholder="<%-numero%>" maxlength="10">
                     <div class="input-group-btn">
-                        <select class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <select class="btn btn-default dropdown-toggle editando" name="tipo" data-toggle="dropdown">
                             <option value="Casa">Casa</option>
                             <option value="Fax">Fax</option>
                             <option value="Movil" selected>Movil</option>
