@@ -81,12 +81,19 @@
                             <p class="panel-title"><h4>Información</h4></p>
                             <span id="cerrar_consulta" class="glyphicon glyphicon-remove close" data-dismiss="modal" aria-hidden="true"></span>
                         </div>
-                        <div style="margin-left:15px; margin-top:15px;">
-                            <img class="" id="logo_empresa_info" src="<%- foto %>" alt="Imagen-Cliente">
-                            <div class="info_cliente1">
-                                <h3 class="editar editando"><b><%- nombreComercial %></b></h3>
-                                <input type="text" class="form-control editar" name="nombreComercial" value="<%- nombreComercial %>">
-                                <div>
+                        <table style="margin-left:15px; margin-top:15px;">
+                            <tr>
+                                <td rowspan="3">
+                                    <img class="" id="logo_empresa_info" src="<%- foto %>" alt="Imagen-Cliente">
+                                </td>
+                                <td style="padding:0px 10px 0px 10px; vertical-align: bottom;">
+                                    <h3 class="editar editando"><b><%- nombreComercial %></b></h3>
+                                    <input type="text" class="form-control editar" name="nombreComercial" value="<%- nombreComercial %>">
+                                </td>
+                                <td class="respuesta" style="vertical-align: bottom;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0px 10px 0px 10px;">
                                     Cliente desde
                                     <label>
                                         <% var Año_Mes_dia = fechaCreacion.split('-'); %>
@@ -99,10 +106,16 @@
                                         <% }; %>
                                         <%- Año_Mes_dia[0] %>
                                     </label>
-                                </div>
-                                <a href="#">Ir a proyecto</a>
-                            </div>
-                        </div>
+                                </td>
+                                <td class="respuesta"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0px 10px 0px 10px; vertical-align: top;">
+                                    <a href="#">Ir a proyecto</a>
+                                </td>
+                                <td class="respuesta" style="vertical-align: top;"></td>
+                            </tr>
+                        </table>
                         <div class="panel-body">
                             <!-- -------PRIMERA PAGINA DE INFORMACION DEL CLIENTE------- -->
                             <div class="visible">
@@ -124,6 +137,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -143,6 +157,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -172,6 +187,7 @@
                                                 </select>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -191,6 +207,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -219,6 +236,7 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -236,6 +254,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -253,6 +272,7 @@
                                                 <% }; %>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -286,6 +306,7 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
@@ -322,22 +343,24 @@
                                                 </div>
                                             </td>
                                             <td class="respuesta">
+                                                 <span class="icon-uniF55C" style="visibility: hidden;"></span>
                                                 <!--RESPUESTA-->
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="atributo">Comentarios</td>
+                                            <td>
+                                                <% if (typeof comentarioCliente != "undefined") { %>
+                                                    <p class="editar editando"><%- comentarioCliente %></p>
+                                                    <textarea id="comentario" class="form-control editar" name="comentarioCliente" rows="3"><%- comentarioCliente %></textarea>
+                                                <% } else { %>
+                                                    <p class="editar editando">No especificado.</p>
+                                                    <textarea id="comentario" class="form-control editar" name="comentarioCliente" rows="3"></textarea>
+                                                <% }; %>
+                                            </td>
+                                            <td class="respuesta"><span class="icon-uniF55C" style="visibility: hidden;"></span></td>
+                                        </tr>
                                     </table>
-
-                                    <div class="modal-footer">
-                                        <b>Comentarios:</b>
-                                            <% if (typeof comentarioCliente != "undefined") { %>
-                                                <p class="editar editando"><%- comentarioCliente %></p>
-                                                <textarea class="form-control editar" name="comentarioCliente" rows="3"><%- comentarioCliente %></textarea>
-                                            <% } else { %>
-                                                <p class="editar editando">No especificado.</p>
-                                                <textarea class="form-control editar" name="comentarioCliente" rows="3"></textarea>
-                                            <% }; %>
-                                        </label>
-                                    </div>
                                     <!--<button type="button" id="actualizar" class="btn btn-primary editar">Actualizar</button>-->
                                 </form>
                             </div>
@@ -473,7 +496,7 @@
         </div>
     </script>
     <script type="text/template" id="servicioCliente">
-        <label id="<%- idservicio %>" class="eliminarSC">x</label>
+        <label id="<%- idservicio %>" class="icon-uniF470 eliminarSC"></label>
         <%- nombre %>
         <br>
     </script>

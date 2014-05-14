@@ -15,9 +15,12 @@ app.VistaCliente = Backbone.View.extend({
 		//Boton para accesar rapidamente a la edición del cliente
 		'click .icon-edit2'	: 'editando',
 
+		/*Eventos de atributos*/
+		'keypress .editando'	: 'actualizarAtributo',
+		'change .editando'	: 'actualizarAtributo',
+		'keydown #comentario'	: 'actualizarComentario',
+		// 'keyup #comentario'	: 'actualizarComentario',
 		/*Eventos de servicios*/
-		'keypress .editando'	: 'actualizarAtributoCliente',
-		'change .editando'	: 'actualizarAtributoCliente',
 		'keypress #inputBusquedaI'	: 'agregarNuevoServ',
 		'click	#btn_agregarI'	: 'agregarNuevoServBoton',
 		'keypress #inputBusquedaC'	: 'agregarNuevoServ',
@@ -30,6 +33,9 @@ app.VistaCliente = Backbone.View.extend({
 		los ATRIBUTOS de los modelos*/
 		this.listenTo(this.model, 'change:visibilidad', this.eliminarDelDOM);
 		// this.listenTo(this.model, 'change', this.render);
+
+
+		this.espera;
 
 
 	},
@@ -84,7 +90,7 @@ app.VistaCliente = Backbone.View.extend({
 
 	//---------------------------------------------
 
-	actualizarAtributoCliente	: function (elemento) {
+	actualizarAtributo	: function (elemento) {
 		/*Cada vez que ocurre el evento keypress este metoso se 
 		ejecuta; solo cuando el valos de la propiedad es igual 13 
 		equivalente a precionar la tecla enter*/
@@ -133,7 +139,7 @@ app.VistaCliente = Backbone.View.extend({
 							//Buscamos al hijo con la clase especificada
 							.children('.respuesta')
 							//Sustituimos html por uno nuevo
-							.html('<span class="icon-uniF478 error"></span>')
+							.html('<label class="icon-uniF478 error"></label>')
 					}
 				}
 			);
@@ -171,7 +177,7 @@ app.VistaCliente = Backbone.View.extend({
 						//Buscamos al hijo con la clase especificada
 						.children('.respuesta')
 						//Sustituimos html por uno nuevo
-						.html('<span class="icon-uniF478 error"></span>')
+						.html('<label class="icon-uniF478 error"></label>')
 				}
 			});
 		};
@@ -199,7 +205,7 @@ app.VistaCliente = Backbone.View.extend({
 						//Buscamos al hijo con la clase especificada
 						.children('.respuesta')
 						//Sustituimos html por uno nuevo
-						.html('<span class="icon-uniF478 error"></span>')
+						.html('<label class="icon-uniF478 error"></label>')
 				}
 			});
 		};
@@ -207,6 +213,48 @@ app.VistaCliente = Backbone.View.extend({
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 	},
+
+	actualizarComentario	: function (elemento) {
+		clearTimeout(this.espera);
+		var modelo = this.model;
+		this.espera = setTimeout(
+			function () {
+				var valorJson = this.$(elemento.currentTarget).serializeArray();
+				console.log(valorJson);
+				modelo.save(
+					/*La función pasarAJson obtiene el nuevo valor y la
+					propiedad que queremos actualizar en formato json,
+					pero antes los datos en el htmo se serializan para
+					obtener un array con las propiedades name y value.*/
+					pasarAJson(valorJson),
+					{
+						wait	: true,//Esperamos respuesta del server
+						patch	: true,//Evitamos enviar todo el modelo
+						success	: function (exito) {//Encaso del exito
+							this.$(elemento.currentTarget)//Selector
+								//Nos hubicamos en el padre del selector
+								.parents('tr')
+								//Buscamos al hijo con la clase especificada
+								.children('.respuesta')
+								//Removemos su atributo class
+								.html('<label class="icon-uniF479 exito"></label>')
+						},
+						error	: function (error) {//En caso de error
+							this.$(elemento.currentTarget)//Selector
+								//Nos hubicamos en el padre del selector
+								.parents('tr')
+								//Buscamos al hijo con la clase especificada
+								.children('.respuesta')
+								//Sustituimos html por uno nuevo
+								.html('<label class="icon-uniF478 error"></label>')
+						}
+					}
+				);
+			},
+			3000
+		);
+	},
+
 	agregarTelefono	: function (idTelefono) {
 		this.vistasTelefono = new Array();
 		if (idTelefono.length > 1) {
@@ -241,7 +289,7 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 	agregarServciciosClienteI	: function (id) {
-		var sI = app.coleccionServiciosClientesI.where({idcliente:this.model.get('id')});
+		var sI = app.coleccionServiciosClientesI.where({idcliente:this.model.get('id'), status:'1'});
 		if (sI.length > 1) {
 			for (var i = 0; i < sI.length; i++) {
 				if (typeof sI[i] != "undefined") {
@@ -258,7 +306,7 @@ app.VistaCliente = Backbone.View.extend({
 		this.$editarAtributo = this.$('.editar');
 	},
 	agregarServciciosClienteC	: function (id) {
-		var sC = app.coleccionServiciosClientesC.where({idcliente:this.model.get('id')});
+		var sC = app.coleccionServiciosClientesC.where({idcliente:this.model.get('id'), status:'1'});
 		if (sC.length > 1) {
 			for (var i = 0; i < sC.length; i++) {
 				if (typeof sC[i] != "undefined") {
