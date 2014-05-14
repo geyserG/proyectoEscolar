@@ -400,7 +400,7 @@ app.VistaCliente = Backbone.View.extend({
         	) {
 
         	if ($(event.currentTarget).val() != '') {
-
+        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() });
         		$('#listaInteres').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
 			}
 			event.preventDefault();
@@ -412,7 +412,7 @@ app.VistaCliente = Backbone.View.extend({
         	) {
 
         	if ($(event.currentTarget).val() != '') {
-
+        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() });
         		$('#listaCuenta').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
 			}
 			event.preventDefault();
