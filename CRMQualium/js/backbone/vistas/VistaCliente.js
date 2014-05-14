@@ -394,6 +394,8 @@ app.VistaCliente = Backbone.View.extend({
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
 	agregarNuevoServ	: function (event) {
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
         if (
         	event.keyCode === 13 
         	&& $(event.currentTarget).attr('id') == 'inputBusquedaI'
@@ -417,6 +419,8 @@ app.VistaCliente = Backbone.View.extend({
 			}
 			event.preventDefault();
         };
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;      
     },
     agregarNuevoServBoton	: function (event) {
     	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
