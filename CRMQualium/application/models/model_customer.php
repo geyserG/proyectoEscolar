@@ -4,14 +4,14 @@
 	*/
   # Modelo Relación de Id´s cliente, representante o contacto con Id´s de telefonos
 	include 'modelo_rit.php';
-
 	class Model_customer extends CI_Model
 	{
 		
 		public function __construct(){}
 
 		function insert_customer($post)
-		{	$obj = new modelo_rit();			
+		{
+			$obj = new modelo_rit();			
 			$x=0; # Este es un contador para mi array de inserción...	
 			# Se almacena al cliente en la base de datos... 						
 			$query = $this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 
@@ -50,17 +50,43 @@
 			# Ahora una vez armado el array con los atributos del cliente hacemos una inserción en la bd...
 			$query = $this->db->insert_batch('cliente_atributo', $data);
 
-			if(array_key_exists('telefonos', $post)){ 	
-			 	$resp = $obj->relacionTelefonos('telefonos_cliente', 'idcliente', $idcliente, $post['telefonos']); 	}	
-	
-			# Aquí se inserta los servicios que le interesa al cliente o prospecto...			
-			if(array_key_exists('serviciosInteres', $post))
-			{	 $tabla='servicios_interes';	$obj->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	}
+			if(array_key_exists('telefonos', $post))
+			{
+				$post['telefonos'] = (array)$post['telefonos'];
+				$var = $obj->registro_tel($post['telefonos'], 'clientes');
+				var_dump($var); die();
+			} 	
 
-  		    if(array_key_exists('serviciosCuenta',$post))
-  		    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
+			// if(array_key_exists('telefonos', $post)){ 	
+			// 							    # Tabla destino y origen
+			//  	// $resp = $obj->relacionTelefonos('telefonos', 'clientes', $idcliente, $post['telefonos']); 	
+			//  	if(array_key_exists(0, $post['telefonos']))
+			//  	{
+			//  		// var_dump($post['telefonos'][0]->tipo); die();
+			//  		for ($i=0; $i < count($post['telefonos']); $i++) 
+			//  		{ 
+			 			
+			//  			$phone[$i] = array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
+			//  		}
+			//  		$query = $this->db->insert_batch('telefonos', $phone);
+			//  	}
+			//  	else
+			//  	{
+			//  		$phone =  array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+			//  		$query = $this->db->insert('telefonos', $phone);
+			 		
+			//  	}
+			// }	
+	
+			// # Aquí se inserta los servicios que le interesa al cliente o prospecto...			
+			// if(array_key_exists('serviciosInteres', $post))
+			// {	 $tabla='servicios_interes';	$obj->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	}
+
+  	// 	    if(array_key_exists('serviciosCuenta',$post))
+  	// 	    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
 			
-			return $idcliente;
+			// return $idcliente;
+			
 
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
@@ -119,83 +145,100 @@
 
 		public function patch_customer($id, $put)
 		{
-			$put = array($put);
+			$put = (array)$put[0];
 			$query = false;
-			$columna = $this->db->field_data('clientes');				             
+			# Consulta las cabeceras de la tabla clientes
+			$columna = $this->db->field_data('clientes');
+			# La query que contiene este foreach afecta solo a la tabla clientes....				             
 			foreach ($columna as $key)
 			{ 
-				if(array_key_exists($key->name, $put))
+				if(array_key_exists($key->name, $put)) # Existe la cabecera en el array $put?
 				{
-						     $this->db->where('id', $id);
+						     $this->db->where('id', $id); 
   		       		$query = $this->db->update('clientes', array($key->name => $put[$key->name]));  		        		
 				}
 			} # Foreach
+			# El query sigue siendo falso...
 			if(!$query)
 			{
-				$this->db->select('id');
+				$this->db->select('id'); 
+				# extraemos la clave del $put y le decimos que nos devuelva su id...
 				$query = $this->db->get_where('atributo_cliente', array('atributo'=>key($put)));
-				$dato = $query->result();
+				$dato = $query->result(); 
 
-				$datos = array('idatributo' => $dato[0]->id, 'dato' => $put[key($put)]);	
+				# Armamos el arreglo para almacenar los Datos...
+				$datos = array('idatributo' => $dato[0]->id, 'dato' => $put[key($put)]);
+
+				# Armamos un Where AND para hacer una consulta... 
 				$where = array('idcliente'=>$id, 'idatributo'=>$dato[0]->id);
-				$this->db->where($where);
-				$query = $this->db->update('cliente_atributo', $datos);
+
+				$query = $this->db->get_where('cliente_atributo', $where);				
+
+				if(empty($query->result())) # El resultado de la query esta vacía?...
+				{   # Si la query esta vacía, entonces ese atributo para ese cliente no existe y lo creamos...
+					$query = $this->db->insert('cliente_atributo',  array('idcliente'=>$id,'idatributo' => $dato[0]->id, 'dato' => $put[key($put)]));						
+			    }
+			    else
+			    {	# Si existe pues simplemente actualizamos...
+			    	$this->db->where($where);
+					$query = $this->db->update('cliente_atributo', $datos);
+			    }
 			}
 			
 			return $query;
 		} # Fin de pacth customer
 
-		public function update_customer($id, $iput){
+		// public function update_customer($id, $iput){
 
-			$x=0; $cliente = array();  $cont=0;
-			$this->db->select('*');			
-			$atr = $this->db->get('atributo_cliente'); # Consulto la lista de atributos...
-            $put = (array)$iput;
-			# La propiedad visible ya no muestra al cliente a un usuario normal simula una eliminación...
-			# Solo el superusuario podrá eliminar al cliente...
-			if(array_key_exists('visibilidad', $put)){
- 				
-						 $this->db->where('id', $id);
-  		        $query = $this->db->update('clientes', array('visibilidad'=> $put['visibilidad']));
-			}
-			else
-			{
-				foreach ($put as $key => $value) 
-				{					
-					if($key=='nombreComercial'||$key=='tipoCliente'||$key=='fechaCreacion')
-					{
-						$cliente[$key] = $value; # Relleno un array para la tabla de clientes
-					} #IF
-					else
-					{
-						foreach ($atr->result() as $keya => $valuea) 
-						{
-							if($valuea->atributo===$key) # $Key Coincide con algun dato de la lista atributos?
-							{	
-								# Consulto si existe el idcliente y el id del $key en la tabla de cliente_atributo
-								$where=array('idcliente'=>$id, 'idatributo'=>$valuea->id);
-								$query = $this->db->get_where('cliente_atributo',$where);
+		// 	$x=0; $cliente = array();  $cont=0;
+		// 	$this->db->select('*');			
+		// 	$atr = $this->db->get('atributo_cliente'); # Consulto la lista de atributos...
+  		//  $put = (array)$iput;
+		// 	# La propiedad visible ya no muestra al cliente a un usuario normal simula una eliminación...
+		// 	# Solo el superusuario podrá eliminar al cliente...
+		// 	if(array_key_exists('visibilidad', $put))
+		//  { 				
+		//		 $this->db->where('id', $id);
+  		//       $query = $this->db->update('clientes', array('visibilidad'=> $put['visibilidad']));
+		// 	}
+		// 	else
+		// 	{
+		// 		foreach ($put as $key => $value) 
+		// 		{					
+		// 			if($key=='nombreComercial'||$key=='tipoCliente'||$key=='fechaCreacion')
+		// 			{
+		// 				$cliente[$key] = $value; # Relleno un array para la tabla de clientes
+		// 			} #IF
+		// 			else
+		// 			{
+		// 				foreach ($atr->result() as $keya => $valuea) 
+		// 				{
+		// 					if($valuea->atributo===$key) # $Key Coincide con algun dato de la lista atributos?
+		// 					{	
+		// 						# Consulto si existe el idcliente y el id del $key en la tabla de cliente_atributo
+		// 						$where=array('idcliente'=>$id, 'idatributo'=>$valuea->id);
+		// 						$query = $this->db->get_where('cliente_atributo',$where);
 
-								if($query->result()){  # Si existe actualizalo
+		// 						if($query->result()){  # Si existe actualizalo
 
-									$this->db->where($where);
-				  		       		$queryA = $this->db->update('cliente_atributo', array('dato'=>$value));
-								} # if
-								else # Si no Existe crealo...
-								{
-									$queryA = $this->db->insert('cliente_atributo', array('idcliente'=>$id, 'idatributo'=>$valuea->id, 'dato'=>$value));
-								} # else
-							} #IF
+		// 							$this->db->where($where);
+		// 		  		       		$queryA = $this->db->update('cliente_atributo', array('dato'=>$value));
+		// 						} # if
+		// 						else # Si no Existe crealo...
+		// 						{
+		// 							$queryA = $this->db->insert('cliente_atributo', array('idcliente'=>$id, 'idatributo'=>$valuea->id, 'dato'=>$value));
+		// 						} # else
+		// 					} #IF
 
-						} #Foreach											
-					} # Else
-				}#Foreach		
-				$this->db->where('id', $id);	
-				$query = $this->db->update('clientes', $cliente); # Aquí Actualizamos los datos de la tabla cliente...
-			}# else
+		// 				} #Foreach											
+		// 			} # Else
+		// 		}#Foreach		
+		// 		$this->db->where('id', $id);	
+		// 		$query = $this->db->update('clientes', $cliente); # Aquí Actualizamos los datos de la tabla cliente...
+		// 	}# else
 			
-		 return $query;			
-		} # Fin del update_customer....
+		//  return $query;			
+		// } # Fin del update_customer....
 
 		public function delete_customer($id){
 

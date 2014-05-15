@@ -68,7 +68,7 @@ class  Api extends CI_Controller {
     private function set_headers($status){
         # Cabeceras de respuesta
         $status_message = $this->requestStatus($status); 
-        header("HTTP/1.1 $status $status_message"); 
+        // header("HTTP/1.1 $status $status_message"); 
         header("Access-Control-Allow-Methods: *");            
         header("Access-Control-Allow-Orgin: *");
         header("Content-Type: application/json");
@@ -100,7 +100,7 @@ class  Api extends CI_Controller {
         # Este prepara un arreglo asociativo.
         if(is_object($obj2))
         {
-           return $obj2;         
+           return array($obj2);         
         }
         else
         {

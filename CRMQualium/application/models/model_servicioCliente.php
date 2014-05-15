@@ -23,8 +23,7 @@
 		// }
 
 		public function get_servCliente() 
-		{
-			
+		{			
 		    $this->db->select('servicios_cliente.id, servicios_cliente.idcliente, servicios_cliente.idservicio, servicios.nombre, servicios_cliente.status');
 			$this->db->from('servicios');
 			$this->db->join('servicios_cliente', 'servicios_cliente.idservicio = servicios.id');

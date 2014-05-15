@@ -20,13 +20,21 @@
         $id = $this->db->insert_id();
 
         # ¿Existe algún en el post la variable telefonos?
-        if(array_key_exists('telefonos', $post)){
-          $obj = new modelo_rit();      # Instanciamos un objeto del modelo relacion id´s con telefonos...
-          $resp = $obj->relacionTelefonos('telefonos_representante', 'idrepresentante', $id, $post['telefonos']);
-           
-        } # Fin del post['telefonos']...  
+        if(array_key_exists('telefonos', $post)&&array_key_exists(0, $post['telefonos']))
+        {
+          for ($i=0; $i < count($post['telefonos']); $i++) 
+          { 
+            
+            $phone[$i] = array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
+          }
+          $query = $this->db->insert_batch('telefonos', $phone);   return $query;   
 
-          return $query;        
+        } # Fin del post['telefonos']...  
+       if(array_key_exists('telefonos', $post))
+        {
+          $phone =  array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+          $query = $this->db->insert('telefonos', $phone);         return $query;   
+        }               
                      
       } # Fin del insert_representante();
 
@@ -43,7 +51,10 @@
           $resp[$cont]['nombre'] = $value->nombre;
           $resp[$cont]['email'] = $value->correo;
           $resp[$cont]['cargo'] = $value->cargo;                
-          $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idrepresentante', 'idtelefono', 'telefonos', 'telefonos_representante'); 
+          // $phone = $this->db->get_where('telefonos',array('idpropietario'=>$id, 'tabla'=>'representante'));
+          // $phone = $phone->result();
+          // $resp[$cont]['telefonos'] = $phone;
+          // $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idrepresentante', 'idtelefono', 'telefonos', 'telefonos_representante'); 
           $cont++;
         }
 

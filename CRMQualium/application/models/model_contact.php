@@ -10,25 +10,35 @@
         }
         function insert_C($post)
         {
+
             $contacto = array(
                             'idcliente'=> $post['idCliente'],
                             'nombre'   => $post['nombre'],
                             'correo'   => $post['correo'],
                             'cargo'    => $post['cargo'],
                             );
-            $query = $this->db->insert('contacto',$contacto);
+
+            $query = $this->db->insert('contactos',$contacto);
             $id    = $this->db->insert_id();
 
-            # ¿Existe algún en el post la variable telefonos?
-            if(array_key_exists('telefonos', $post)){
+             # ¿Existe algún en el post la variable telefonos?
+            if(array_key_exists('telefonos', $post)&&array_key_exists(0, $post['telefonos']))
+            {
+              for ($i=0; $i < count($post['telefonos']); $i++) 
+              { 
+                
+                $phone[$i] = array('idpropietario'=>$id, 'tabla'=>'contactos', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
+              }
+              $query = $this->db->insert_batch('telefonos', $phone);  
+              return $query; 
 
-               $obj = new modelo_rit();      # Instanciamos un objeto del modelo relacion id´s con telefonos...
-                                              # tabla                columna     idContacto    datos      
-               $resp = $obj->relacionTelefonos('telefonos_contactos','idcontacto', $id, $post['telefonos']);
-             
-            } # Fin del post['telefonos']...
-
-            return $query;   
+            } # Fin del post['telefonos']...  
+           if(array_key_exists('telefonos', $post))
+            {
+              $phone =  array('idpropietario'=>$id, 'tabla'=>'contactos', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+              $query = $this->db->insert('telefonos', $phone);
+              return $query; 
+            }
 
         } # Fin del metodo insert_mcontact()...
 
@@ -36,8 +46,8 @@
 
             $obj = $this->obj(); $cont=0; $resp = False;
                      
-            ($id===False) ? $query = $this->db->get('contacto') :
-                            $query = $this->db->get_where('contacto', array('id'=>$id));
+            ($id===False) ? $query = $this->db->get('contactos') :
+                            $query = $this->db->get_where('contactos', array('id'=>$id));
 
             foreach ($query->result() as $key => $value) {               
                 $resp[$cont]['id'] = $value->id; 
@@ -54,7 +64,7 @@
         function update_C(){
         	
             $this->db->where('id', $id);
-            $this->db->update('contacto', $put); 
+            $this->db->update('contactos', $put); 
 
         }
         private function delete_C($id){

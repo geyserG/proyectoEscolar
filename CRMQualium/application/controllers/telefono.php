@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  Api_telefono extends Api {
+class  Telefono extends Api {
 
 	public function __construct() {
         parent::__construct();
@@ -37,10 +37,15 @@ class  Api_telefono extends Api {
     	
     }
 
-    private function update_phone($id){
+    private function patch_phone($id)
+    {   
+        $query = $this->phone->patch_p($id, $this->put());       
+        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+    }
 
-        $put = $this->put();
-    	$query = $this->phone->update_p($id, $put);
+    private function update_phone($id)
+    {
+        $query = $this->phone->update_p($id, $this->put());
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
@@ -50,10 +55,6 @@ class  Api_telefono extends Api {
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
     }
 
-    private function patch_phone($id)
-    {   
-        $query = $this->phone->patch_p($id);       
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
-    }
+   
 
 } # Fin de la Clase Api_cliente

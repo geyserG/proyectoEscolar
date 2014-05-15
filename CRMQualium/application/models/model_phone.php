@@ -51,17 +51,19 @@
 			return $query->result();	
 		}
 
-		// public function patch_p()
-		// {
-		// 	$cont=0;
-		// 	$columna = $this->db->field_data('telefonos');
-		// 	foreach ($columna as $key) {
-		// 		 $col[$cont] = $key->name; $cont++;
-		// 	}
-		// 	var_dump($col); die();
-		// }
+		public function patch_p($id, $put)
+		{
+			if(!$id)
+			{
+				$this->db->insert('telefonos',$put);
+			}
+			$this->db->where('id', $id);
+			$query = $this->db->update('telefonos', $put);
+			return $query;
+		}
 		public function update_p($id, $put)
 		{
+
 			$this->db->where('id', $id);
 			# la variable $put devuelve los campos especificando que datos se actualizaron.
 			$query = $this->db->update('telefonos', $put);

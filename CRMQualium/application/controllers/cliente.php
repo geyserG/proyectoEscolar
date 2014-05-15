@@ -2,7 +2,7 @@
 
 //class  Cliente extends CI_Controller {
 include 'api.php';
-class  Api_cliente extends Api {
+class  Cliente extends Api {
 
     public function __construct() {
         parent::__construct();

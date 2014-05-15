@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  Api_contacto extends Api {
+class  Contacto extends Api {
 
 	public function __construct() {
         parent::__construct();

@@ -12,11 +12,11 @@ class  ServiciosCliente extends Api {
     {     
     	switch ($this->metodo()) 
         {
-    		case      'post':	$this->insert_servCliente();    		break; # POST
-    		case      'get':	$this->get_servCliente($tis->id());    	break; # GET	
-    		case      'put':    $this->update_servCliente($tis->id());  break; # PUT	
-    		case      'delete':	$this->delete_servCliente($tis->id());  break; # DELETE
-    		default:		    $this->response('',405);    			break; # METODO NO DEFINIDO...
+    		case      'post':	$this->insert_servCliente();    		 break; # POST
+    		case      'get':	$this->get_servCliente($this->id());     break; # GET	
+    		case      'put':    $this->update_servCliente($this->id());  break; # PUT	
+    		case      'delete':	$this->delete_servCliente($this->id());  break; # DELETE
+    		default:		    $this->response('',405);    			 break; # METODO NO DEFINIDO...
     	}
 
     }

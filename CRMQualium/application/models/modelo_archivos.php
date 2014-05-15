@@ -35,7 +35,7 @@
                 $destino=$carpeta.$_FILES['archivos']['name'];  
                 if(copy($_FILES['archivos']['tmp_name'], $destino))
                 {
-                    return $_FILES['fotoCliente']['name'];
+                    return $_FILES['archivos']['name'];
                 }
             }
           
@@ -47,7 +47,10 @@
         
                    	
         } # Fin del metodo get_cotizacion()...
-
+        function patch_mult($id, $put)
+        {
+            
+        }
         function update_mult()
         {
         	

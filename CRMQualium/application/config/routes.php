@@ -55,17 +55,17 @@ $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 
 #################-----RUTAS PARA LAS APIS------######################
-$route['api_telefonos'] = 'api_telefono/api';
-$route['api_telefonos/(:num)'] = 'api_telefono/api/$1';
+$route['api_telefonos'] = 'telefono/api';
+$route['api_telefonos/(:num)'] = 'telefono/api/$1';
 
 
-$route['api_contactos'] = 'api_contacto/api';
-$route['api_contactos/(:num)'] = 'api_contacto/api/$1';
+$route['api_contactos'] = 'contacto/api';
+$route['api_contactos/(:num)'] = 'contacto/api/$1';
 
 # Rutas para la api de clientes...
 
-$route['api_cliente'] = 'api_cliente/api';
-$route['api_cliente/(:num)'] = 'api_cliente/api';
+$route['api_cliente'] = 'cliente/api';
+$route['api_cliente/(:num)'] = 'cliente/api';
 
 # Ruta para la api de representantes...
 $route['api_representante'] = 'representante/api';
@@ -106,6 +106,11 @@ $route['api_cotizaciones/(:num)'] = 'cotizaciones/api/$1';
 # Ruta para la api de Servicios de Interes...
 $route['api_archivos'] = 'multimedia/api';
 $route['api_archivos/(:num)'] = 'multimedia/api/$1';
+
+# Ruta para la api de Servicios de Interes...
+$route['api_personal'] = 'personal/api';
+$route['api_personal/(:num)'] = 'personal/api/$1';
+
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING

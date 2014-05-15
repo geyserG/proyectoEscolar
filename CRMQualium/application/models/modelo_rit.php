@@ -31,6 +31,29 @@
 		        return $query;
 	    } # Fin del metodo relacionTelefonos...
 
+	    public function registro_tel($post, $tabla)
+	    {
+	    	 // # ¿Existe algún en el post la variable telefonos?
+       //      if(array_key_exists(0, $post))
+       //      {
+       //        for ($i=0; $i < count($post); $i++) 
+       //        { 
+                
+       //          $phone[$i] = array('idpropietario'=>$id, 'tabla'=>'contactos', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
+       //        }
+       //        $query = $this->db->insert_batch('telefonos', $phone);  
+       //        return $query; 
+
+       //      } # Fin del post['telefonos']...  
+       //     if(array_key_exists('telefonos', $post))
+       //      {
+       //        $phone =  array('idpropietario'=>$id, 'tabla'=>'contactos', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+       //        $query = $this->db->insert('telefonos', $phone);
+       //        return $query; 
+       //      }
+	    	return $post;
+	    }
+
 	    function joinDinamico($id, $idp, $idx, $tabla1, $tabla2)
 		{
 			$cont=0; $array=array();			

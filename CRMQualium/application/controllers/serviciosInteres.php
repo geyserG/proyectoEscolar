@@ -15,11 +15,11 @@ class  ServiciosInteres extends Api {
         $id = $this->uri->segment(2);  
     	switch ($this->metodo()) 
         {
-    		case      'post':	$this->insert_si();		   break;
-    		case      'get':	$this->get_si($id);		   break;	
-    		case      'put':    $this->update_si($id);	   break;	
-    		case      'delete':	$this->delete_si($id);	   break;
-    		default:		    $this->response('',405);   break;
+    		case      'post':	$this->insert_si();		        break;
+    		case      'get':	$this->get_si($this->id());		break;	
+    		case      'put':    $this->update_si($this->id());	break;	
+    		case      'delete':	$this->delete_si($this->id());	break;
+    		default:		    $this->response('',405);        break;
     	}
     }
     
@@ -41,8 +41,8 @@ class  ServiciosInteres extends Api {
 
     private function update_si($id){
 
-        $put = $this->put();
-    	$query = $this->servint->update_servInteres($id, $put);
+        // $put = $this->put();
+    	$query = $this->servint->update_servInteres($id, $this->put());
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
