@@ -15,6 +15,7 @@ app.VistaServicioCliente = Backbone.View.extend({
 	},
 
 	cambiarStatus	: function () {
+		// console.log(el);
 		this.model.cambiarStatus();
 		this.$el.remove();
 	}

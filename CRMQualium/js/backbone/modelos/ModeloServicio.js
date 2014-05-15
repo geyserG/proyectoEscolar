@@ -6,7 +6,7 @@ app.ModeloServicio = Backbone.Model.extend({
 
 	// localStorage 	: new Backbone.LocalStorage('servicios-backbone'),
 	// defaults	: {
-	// 	id:'',
+		// id: app.coleccionServicios.obtenerUltimoId() + 1,
 	// 	nombre:'',
 	// 	concepto:'',
 	// 	precio:'',

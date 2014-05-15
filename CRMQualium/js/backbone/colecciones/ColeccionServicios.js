@@ -12,12 +12,12 @@ var ColeccionServicios = Backbone.Collection.extend({
 		});
 	},
 
-	// establecerIdSiguiente	: function () {
-	// 	if(!this.length){
-	// 		return 1;
-	// 	}
-	// 	return this.last().get('id') + 1;
-	// }
+	establecerIdSiguiente	: function () {
+		if(!this.length){
+			return 1;
+		}
+		return this.last().get('id') + 1;
+	},
 
 	obtenerUltimoId	: function () {
 		return this.last().get('id');

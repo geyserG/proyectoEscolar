@@ -154,6 +154,9 @@ app.VistaCliente = Backbone.View.extend({
 		Backbone.emulateJSON = true;
 
 		if ($(elemento.currentTarget).attr('class') == 'serviciosInteres editando') {
+			/*restarle 100 para guardar el id verdadero del servico.
+			En la listade servicios actuales se le aumenta 100 para
+			no generar conflictos en la otra lista de servicios*/
 			modeloServicio.idservicio = json.nameServiciosInteres;
 			app.coleccionServiciosClientesI.create(modeloServicio,{
 				wait	:true,
@@ -182,7 +185,11 @@ app.VistaCliente = Backbone.View.extend({
 			});
 		};
 		if ($(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
-			modeloServicio.idservicio = json.nameServiciosCuenta;
+			/*restarle 100 para guardar el id verdadero del servico.
+			En la listade servicios actuales se le aumenta 100 para
+			no generar conflictos en la otra lista de servicios*/
+			modeloServicio.idservicio = (parseInt(json.nameServiciosCuenta)-100);
+			console.log(modeloServicio);
 			app.coleccionServiciosClientesC.create(modeloServicio,{
 				wait	:true,
 				success	: function (exito) {
@@ -396,14 +403,23 @@ app.VistaCliente = Backbone.View.extend({
 	agregarNuevoServ	: function (event) {
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
+
         if (
         	event.keyCode === 13 
         	&& $(event.currentTarget).attr('id') == 'inputBusquedaI'
         	) {
 
         	if ($(event.currentTarget).val() != '') {
-        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() });
-        		$('#listaInteres').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
+        		var idCliente = this.model.get('id');
+        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() }, {wait:true, success : function (exito) {
+        			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
+        			$(event.currentTarget).val('');
+					Backbone.emulateHTTP = true;
+					Backbone.emulateJSON = true;
+        		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
+					Backbone.emulateHTTP = false;
+					Backbone.emulateJSON = false;
+        		} } );
 			}
 			event.preventDefault();
         };
@@ -414,23 +430,59 @@ app.VistaCliente = Backbone.View.extend({
         	) {
 
         	if ($(event.currentTarget).val() != '') {
-        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() });
-        		$('#listaCuenta').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
+        		var idCliente = this.model.get('id');
+        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() }, {wait:true, success : function (exito) {
+        			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
+        			$(event.currentTarget).val('');
+        			Backbone.emulateHTTP = true;
+					Backbone.emulateJSON = true;
+        		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
+					Backbone.emulateHTTP = false;
+					Backbone.emulateJSON = false;
+        		} } );
 			}
 			event.preventDefault();
         };
+        
 		Backbone.emulateHTTP = false;
-		Backbone.emulateJSON = false;      
+		Backbone.emulateJSON = false;
+    },
+    fun 	: function (d) {
+    	console.log(d);
     },
     agregarNuevoServBoton	: function (event) {
+    	Backbone.emulateHTTP = true;
+    	Backbone.emulateJSON = true;
+
     	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
-    		$('#listaInteres').append('<li class="list-group-item">'+ $('#inputBusquedaI').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
-    		$('#inputBusquedaI').val('');
+    		var idCliente = this.model.get('id');
+    		var idServicio;
+    		app.coleccionServicios.create({ nombre : $('#inputBusquedaI').val() }, {wait:true, success : function (exito) {
+    			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
+    			$(event.currentTarget).val('');
+    			Backbone.emulateHTTP = true;
+				Backbone.emulateJSON = true;
+    		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
+				Backbone.emulateHTTP = false;
+				Backbone.emulateJSON = false;
+    		} } );
     	};
     	if ($(event.currentTarget).attr('id') == 'btn_agregarC') {
-    		$('#listaCuenta').append('<li class="list-group-item">'+ $('#inputBusquedaC').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
-    		$('#inputBusquedaC').val('');
+    		var idCliente = this.model.get('id');
+    		var idServicio;
+    		app.coleccionServicios.create({ nombre : $('#inputBusquedaC').val() }, {wait:true, success : function (exito) {
+    			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
+    			$(event.currentTarget).val('');
+    			Backbone.emulateHTTP = true;
+				Backbone.emulateJSON = true;
+    		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
+				Backbone.emulateHTTP = false;
+				Backbone.emulateJSON = false;
+    		} } );
     	};
+
+    	Backbone.emulateHTTP = false;
+    	Backbone.emulateJSON = false;
     },
 
 	editando	: function () {

@@ -2,7 +2,7 @@ var app = app || {};
 
 app.ModeloServicioCliente = Backbone.Model.extend({
 
-	// urlRoot	:'http://crmqualium.com/api_servicios',
+	// urlRoot	:'http://crmqualium.com/',
 	defaults	: {
 		status	: true
 	},
