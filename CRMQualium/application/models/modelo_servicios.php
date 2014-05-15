@@ -13,7 +13,8 @@
 		public function insert_s($post)
 		{
 			$query = $this->db->insert('servicios', $post);
-			return $query; 
+			$id    = $this->db->insert_id();
+			return $id; 
 		}
 		public function get_s($id)
 		{
