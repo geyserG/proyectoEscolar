@@ -12,37 +12,13 @@
 
 		public function insert_p($post)
 		{
-			# $post es true?
-			if($post){
-
-				# Es un array?...existe la posición 0?
-				if(is_array($post)&&array_key_exists(0, $post))
-				{
-
-					for ($i=0; $i < count($post); $i++) 
-					{ 
-						$this->db->insert('telefonos', array( 'numero'=>$post[$i]->numero,
-															  'tipo'  =>$post[$i]->tipo));
-						$id[$i] = $this->db->insert_id();
-					}
-					return $id;
-				} # Fin del if $post igual a array y existe la posición 0
-				else
-				{
-					if(is_object($post)){ $post = (array)$post; }
-
-					$this->db->insert('telefonos', array( 'numero'=>$post['numero'],
-														  'tipo'  =>$post['tipo']));
-					return $this->db->insert_id();
-				} # Fin del else
-
-			} #Fin if si $post es verdadero...		
-			else{
-				# Si no tiene telefono...
-				return false;
-			}
-
-	}# Fin del metodo insertar telefono.
+			// if(is_object($post)){ $post = (array)$post; }
+		    $phone =  array('idpropietario'=>$post['idpropietario'], 'tabla'=>$post['tabla'], 
+			   				'numero'	   =>$post['numero'],        'tipo' =>$post['tipo']);
+			return $this->db->insert('telefonos', $phone);
+		}
+			
+	
 
 		public function get_p($id)
 		{
@@ -77,3 +53,46 @@
 		}
 
 	} # Fin de la clase Model_phones
+
+	// if($post){
+
+	// 			# Es un array?...existe la posición 0?
+	// 			if(is_array($post)&&array_key_exists(0, $post))
+	// 			{
+
+	// 				for ($i=0; $i < count($post); $i++) 
+	// 				{ 
+	// 					$this->db->insert('telefonos', array( 'numero'=>$post[$i]->numero,
+	// 														  'tipo'  =>$post[$i]->tipo));
+	// 					$id[$i] = $this->db->insert_id();
+	// 				}
+	// 				return $id;
+	// 			} # Fin del if $post igual a array y existe la posición 0
+	// 			else
+	// 			{
+	// 				if(is_object($post)){ $post = (array)$post; }
+
+	// 				$this->db->insert('telefonos', array( 'numero'=>$post['numero'],
+	// 													  'tipo'  =>$post['tipo']));
+	// 				return $this->db->insert_id();
+	// 			} # Fin del else
+
+	// 		} #Fin if si $post es verdadero...		
+	// 		else{
+	// 			# Si no tiene telefono...
+	// 			return false;
+	// 		}
+	// if(array_key_exists(0, $post['telefonos']))
+	// 		{
+	// 			for ($i=0; $i < count($post['telefonos']); $i++) 
+	// 			{ 
+	// 				$phone[$i] = array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos'][$i]->numero, 
+	// 									'tipo'=>$post['telefonos'][$i]->tipo);
+	// 			}
+	// 			$query = $this->db->insert_batch('telefonos', $phone);
+	// 		}
+	// 		else
+	// 		{
+	// 			$phone =  array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+	// 			$query = $this->db->insert('telefonos', $phone);
+	// 		}
