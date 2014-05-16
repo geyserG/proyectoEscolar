@@ -111,6 +111,9 @@ $route['api_archivos/(:num)'] = 'multimedia/api/$1';
 $route['api_personal'] = 'personal/api';
 $route['api_personal/(:num)'] = 'personal/api/$1';
 
+# Ruta para la api de Servicios de Interes...
+$route['api_proyectos'] = 'proyectos/api';
+$route['api_proyectos/(:num)'] = 'proyectos/api/$1';
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING

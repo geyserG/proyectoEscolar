@@ -17,24 +17,24 @@
                             'cargo'    => $post['cargo'],
                     );
         $query = $this->db->insert('representante',$representante);
-        $id = $this->db->insert_id();
+       return $this->db->insert_id();
 
-        # ¿Existe algún en el post la variable telefonos?
-        if(array_key_exists('telefonos', $post)&&array_key_exists(0, $post['telefonos']))
-        {
-          for ($i=0; $i < count($post['telefonos']); $i++) 
-          { 
+       //  # ¿Existe algún en el post la variable telefonos?
+       //  if(array_key_exists('telefonos', $post)&&array_key_exists(0, $post['telefonos']))
+       //  {
+       //    for ($i=0; $i < count($post['telefonos']); $i++) 
+       //    { 
             
-            $phone[$i] = array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
-          }
-          $query = $this->db->insert_batch('telefonos', $phone);   return $query;   
+       //      $phone[$i] = array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
+       //    }
+       //    $query = $this->db->insert_batch('telefonos', $phone);   return $query;   
 
-        } # Fin del post['telefonos']...  
-       if(array_key_exists('telefonos', $post))
-        {
-          $phone =  array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
-          $query = $this->db->insert('telefonos', $phone);         return $query;   
-        }               
+       //  } # Fin del post['telefonos']...  
+       // if(array_key_exists('telefonos', $post))
+       //  {
+       //    $phone =  array('idpropietario'=>$id, 'tabla'=>'representante', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
+       //    $query = $this->db->insert('telefonos', $phone);         return $query;   
+       //  }               
                      
       } # Fin del insert_representante();
 
