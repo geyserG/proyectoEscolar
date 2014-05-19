@@ -7,6 +7,8 @@ $route['default_controller'] = "escritorio";
 //$route['(:any)'] = 'escritorio/index/$1';
 $route['escritorio'] = 'escritorio/index/$1';
 
+$route['pruebas'] = 'escritorio/login';
+
 # Rutas para el cliente
 $route['modulo_Clientes'] = 'escritorio/clientes';
 $route['modulo_cliente_nuevo'] = 'escritorio/clientes/$1';
@@ -55,17 +57,21 @@ $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 
 #################-----RUTAS PARA LAS APIS------######################
-$route['api_telefonos'] = 'telefono/api';
-$route['api_telefonos/(:num)'] = 'telefono/api/$1';
 
+# Rutas para la api de clientes...
+$route['api_cliente'] = 'cliente/api';
+$route['api_cliente/(:num)'] = 'cliente/api';
 
 $route['api_contactos'] = 'contacto/api';
 $route['api_contactos/(:num)'] = 'contacto/api/$1';
 
 # Rutas para la api de clientes...
-
 $route['api_cliente'] = 'cliente/api';
 $route['api_cliente/(:num)'] = 'cliente/api';
+
+# Rutas para la api de clientes...
+$route['api_prospecto'] = 'cliente/api';
+$route['api_prospecto/(:num)'] = 'cliente/api/$1';
 
 # Ruta para la api de representantes...
 $route['api_representante'] = 'representante/api';
@@ -114,6 +120,16 @@ $route['api_personal/(:num)'] = 'personal/api/$1';
 # Ruta para la api de Servicios de Interes...
 $route['api_proyectos'] = 'proyectos/api';
 $route['api_proyectos/(:num)'] = 'proyectos/api/$1';
+
+# Ruta para la api de Servicios de Interes...
+$route['api_proyectoRoles'] = 'proyectoRoles/api';
+$route['api_proyectoRoles/(:num)'] = 'proyectoRoles/api/$1';
+
+$route['api_telefonos'] = 'telefono/api';
+$route['api_telefonos/(:num)'] = 'telefono/api/$1';
+
+$route['api_roles'] = 'roles/api';
+$route['api_roles/(:num)'] = 'roles/api/$1';
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING

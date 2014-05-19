@@ -26,11 +26,15 @@ class  Api extends CI_Controller {
         return $this->uri->segment(2);      
     }
  
-    //...Funcion que carga la estructura inicial...//...cabecera..//menu...
-    public function area_Estatica(){
+    # Carga las vistas por default y la vista presente
+    public function area_Estatica($modulo, $var = FALSE){
         $this->load->view('cabecra_y_menu.html');
         $this->load->view('header');
         $this->load->view('menu');
+        if($var===FALSE)
+        {     $this->load->view($modulo); }else{
+            $this->load->view($modulo,$var);
+        }
     }
 
     protected function response($data, $status)

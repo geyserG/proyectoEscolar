@@ -4,7 +4,8 @@
 include 'api.php';
 class  Cliente extends Api {
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
         $this->load->model('Model_customer', 'Customer');
         $this->load->helper('url');
@@ -25,7 +26,7 @@ class  Cliente extends Api {
     }
 
     private function insert_c()
-    {
+    { 
         # La función ipost()... Recupera todos los post que viene desde la petición        
         $query = $this->Customer->insert_customer($this->ipost());
 
@@ -34,7 +35,7 @@ class  Cliente extends Api {
 
     private function get_customers()
     {
-       $query = $this->Customer->get_customers_model(); 
+       $query = $this->Customer->get_customers($this->ruta()); 
 
        ($query) ? $this->response($query, 200) : $this->response($query, 404);
     }
