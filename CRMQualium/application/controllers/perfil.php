@@ -8,31 +8,18 @@ class  Perfil extends Api {
         $this->load->model('Modelo_perfil', 'perfil');             
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);     
-
-        switch ($this->metodo()) {
-            case 'post':
-                $this->insert_perfil();
-                break;
-            case 'get':
-                $this->get_perfil($id);
-                break;  
-            case 'put':
-                 $this->update_perfil($id);
-                break;  
-            case 'delete':
-                $this->delete_perfil($id);
-                break;
-            default:
-                $this->response('',405);
-                break;
+    public function api() }
+    {
+        # Con esta funcion obtnemos el id de la petición, get(), update(), delete()
+        switch ($this->metodo()) 
+        {
+            case     'post':   $this->insert_perfil();           break;
+            case     'get':    $this->get_perfil($this->id);     break;  
+            case     'put':    $this->update_perfil($this->id);  break;  
+            case     'delete': $this->delete_perfil($this->id);  break;
+            default:           $this->response('',405);          break;
         }
-
-    }
+    } # Fin del método api()....
     
     private function insert_perfil(){
 
@@ -43,22 +30,21 @@ class  Perfil extends Api {
         ($query) ? $this->response($query, 201) : $this->response($query, 406);
     }
 
-    private function get_perfil($id){
-
+    private function get_perfil($id)
+    {
         $query = $this->perfil->get_perfil($id);                        
-        ($query) ? $this->response($query, 200) : $this->response($query, 404);
-        
+        ($query) ? $this->response($query, 200) : $this->response($query, 404);        
     }
 
-    private function update_perfil($id){
-
+    private function update_perfil($id)
+    {
         $put = $this->put();
         $query = $this->perfil->update_perfil($id, $put);
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
-    private function delete_perfil($id){
-
+    private function delete_perfil($id)
+    {
         $query = $this->perfil->delete_perfil($id);        
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
     }

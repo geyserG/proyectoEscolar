@@ -39,8 +39,7 @@
                     return $_FILES['archivos']['name'];
                 }
             }
-        }
-         return false; 
+        }else{  return false;    }
         } # Fin del metodo insert_mcontact()...
 
         function get_mult($id)

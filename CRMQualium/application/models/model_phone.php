@@ -12,7 +12,7 @@
 
 		public function insert_p($post)
 		{
-			// if(is_object($post)){ $post = (array)$post; }
+			if(is_object($post)){ $post = (array)$post; }
 		    $phone =  array('idpropietario'=>$post['idpropietario'], 'tabla'=>$post['tabla'], 
 			   				'numero'	   =>$post['numero'],        'tipo' =>$post['tipo']);
 			return $this->db->insert('telefonos', $phone);
@@ -27,6 +27,7 @@
 
 		public function patch_p($id, $put)
 		{
+			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
 			// if(!$id)
 			// {
 			// 	$this->db->insert('telefonos',$put);
