@@ -127,6 +127,8 @@ li{
 	/*margin-left: -160px;*/
 	-webkit-transform: translateX(-160px);
 	-webkit-transition: width 0.4s;
+	-moz-transform: translateX(-160px);
+	-moz-transition: width 0.4s;
 	bottom: 0px;
 	position: fixed;
 	top: 50px;
@@ -155,6 +157,7 @@ li{
 	color: @colorTextoMenu;
 	position: absolute;
 	-webkit-transition: .4s;
+	-moz-transition: .4s;
 	opacity: 1;
 	margin-left: 10px;
 }
@@ -179,14 +182,19 @@ li{
 #btn{
 	cursor: pointer;
 	-webkit-transition: 0.4s;
+	-moz-transition: 0.4s;
 }
 #btn_menu:checked ~ #menu{
 	width: 50px;
 	-webkit-transition: width 0.4s;
+	-moz-transition: width 0.4s;
+	
+
 }
 /*#btn_menu:checked ~ .contenedor{
 	margin-left: 50px;
 	-webkit-transition: 0.4s;
+	-moz-transition: 0.4s;
 }*/
 #btn_menu:checked ~ #contenedor_dashboard{
 	/*width: 96.7%;*/
@@ -198,21 +206,27 @@ li{
 	/*-webkit-transform: translateX(-110px);*/
 	margin-left: -110px;
 	-webkit-transition: margin 0.4s;
+	-moz-transition: margin 0.4s;
+
 }
 #btn_menu:checked ~ #menu .anclaMenu{
 	opacity: 0;
 	visibility: collapse;
 	-webkit-transform: translateX(-160px);
+	-moz-transform: translateX(-160px);
 }
 
 #btn_menu:checked ~ #menu #btn{
 	-webkit-transform:rotate(180deg);
 	-webkit-transition: 0.4s;
+	-moz-transform:rotate(180deg);
+	-moz-transition: 0.4s;
 }
 
 /*#btn_menu ~ #menu{
 	width: 160px;
 	-webkit-transition: 0.4s;
+	-moz-transition: 0.4s;
 	.anclaMenu{
 		display: inline;
 		opacity: 1;
