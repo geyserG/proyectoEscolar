@@ -16,10 +16,10 @@
 			$id    = $this->db->insert_id();
 			return $id; 
 		}
-		public function get_s($id)
+		public function get_s($id=FALSE)
 		{
 			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('servicios') : 
+			($id===FALSE) ? $query = $this->db->get('servicios') : 
 			$this->db->where('id', $id); $query = $this->db->get('servicios');
 
 			if($query){ return $query->result(); }else{ return false;}

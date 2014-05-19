@@ -17,22 +17,20 @@
 			   				'numero'	   =>$post['numero'],        'tipo' =>$post['tipo']);
 			return $this->db->insert('telefonos', $phone);
 		}
-			
-	
-
-		public function get_p($id)
+		
+		public function get_p($id=FALSE)
 		{
 			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('telefonos') : $this->db->where('id', $id); $query = $this->db->get('telefonos');			
+			($id===FALSE) ? $query = $this->db->get('telefonos') : $this->db->where('id', $id); $query = $this->db->get('telefonos');			
 			return $query->result();	
 		}
 
 		public function patch_p($id, $put)
 		{
-			if(!$id)
-			{
-				$this->db->insert('telefonos',$put);
-			}
+			// if(!$id)
+			// {
+			// 	$this->db->insert('telefonos',$put);
+			// }
 			$this->db->where('id', $id);
 			$query = $this->db->update('telefonos', $put);
 			return $query;

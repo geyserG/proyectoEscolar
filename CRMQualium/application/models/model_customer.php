@@ -3,7 +3,7 @@
 	* Operaciones en la base de datos con los clientes
 	*/
   # Modelo Relación de Id´s cliente, representante o contacto con Id´s de telefonos
-	include 'modelo_rit.php';
+	require_once 'modelo_rit.php';
 	class Model_customer extends CI_Model
 	{
 		
@@ -13,7 +13,7 @@
 		{
 			$obj = new modelo_rit();			
 			$x=0; # Este es un contador para mi array de inserción...	
-			# Se almacena al cliente en la base de datos... 						
+			# Se almacena campos obligatorios en la tabla de clientes... 						
 			$query = $this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 
 														 'tipoCliente'=>$post['tipoCliente'],
 														 'fechaCreacion'=>$post['fechaCreacion'],
@@ -36,11 +36,8 @@
 						if($key2==$value->atributo){
 							# Si son identicos entonces ya conocemos con certeza a que clave pertenece cada valor...
 							# Rellenamos el array con todos los datos no nulos del post...
-							$data[$x] = array(  'idcliente' => $idcliente,
-							   			   		'idatributo' => $value->id,
-						    			   		'dato' => $value2
-		                         		 	 );	
-							#incrementamos nuestro contador para cambiar la posición de data
+							$data[$x] = array('idcliente'=>$idcliente, 'idatributo'=>$value->id, 'dato'=>$value2);	
+							#incrementamos nuestro contador para acumular el siguiente atributo.
 							$x++;							
 						} # Fin del if($key2)
 					}# Fin del if($value2)
@@ -48,35 +45,7 @@
 			}# Fin del foreach $atributos...
 
 			# Ahora una vez armado el array con los atributos del cliente hacemos una inserción en la bd...
-			$query = $this->db->insert_batch('cliente_atributo', $data);
-
-			// if(array_key_exists('telefonos', $post))
-			// {
-			// 	$post['telefonos'] = (array)$post['telefonos'];
-			// 	$var = $obj->registro_tel($post['telefonos'], 'clientes');
-			// 	var_dump($var); die();
-			// } 	
-
-			// if(array_key_exists('telefonos', $post)){ 	
-			// 							    # Tabla destino y origen
-			//  	// $resp = $obj->relacionTelefonos('telefonos', 'clientes', $idcliente, $post['telefonos']); 	
-			//  	if(array_key_exists(0, $post['telefonos']))
-			//  	{
-			//  		// var_dump($post['telefonos'][0]->tipo); die();
-			//  		for ($i=0; $i < count($post['telefonos']); $i++) 
-			//  		{ 
-			 			
-			//  			$phone[$i] = array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos'][$i]->numero, 'tipo'=>$post['telefonos'][$i]->tipo);
-			//  		}
-			//  		$query = $this->db->insert_batch('telefonos', $phone);
-			//  	}
-			//  	else
-			//  	{
-			//  		$phone =  array('idpropietario'=>$idcliente, 'tabla'=>'clientes', 'numero'=>$post['telefonos']->numero, 'tipo'=>$post['telefonos']->tipo);
-			//  		$query = $this->db->insert('telefonos', $phone);
-			 		
-			//  	}
-			// }	
+			if(!empty($data)){	$query = $this->db->insert_batch('cliente_atributo', $data); }
 	
 			# Aquí se inserta los servicios que le interesa al cliente o prospecto...			
 			if(array_key_exists('serviciosInteres', $post))
@@ -89,15 +58,17 @@
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
 	
-		public function get_customers_model()
+		public function get_customers($ruta)
 		{
-			
+			($ruta=='modulo_consulta_clientes'||$ruta=='api_cliente') ?	$tipoCliente ='cliente' : $tipoCliente = 'prospecto';
+
 			$obj = new modelo_rit();
 			###$cont RELLENA EL ARREGLO DATOS, $contrep RELLENA EL ARRELGO DE REPRESENTANTES y $conCont CONTACTOS###
 			$cont=0;	$contrep=0;		$contCont=0; $contTCont=0;
 			#############################TRAEMOS A TODOS LOS CLIENTES#######################################
 			$this->db->select('*');
-			$this->db->where('visibilidad', 1);
+			$this->db->where(array('visibilidad'=>1, 'tipoCliente'=>$tipoCliente)); # Hacemos un AND en el where...
+			$this->db->order_by('fechaCreacion', 'desc'); # Los Ordenamos por fecha de Creación...
 			$cliente = $this->db->get('clientes');
 			#################################################ATRIBUTOS DEL CLIENTE##################################
 			$this->db->select('cliente_atributo.idcliente, atributo_cliente.atributo, cliente_atributo.dato');
@@ -115,10 +86,10 @@
 			 			# EL id del cliente es igual al idCliente de la tabla atributos????
 			 			if($key->id==$value->idcliente)
 				 		{
-				 			$datos[$cont]['id'] = $key->id;
+				 			$datos[$cont]['id'] 			 = $key->id;
 				 			$datos[$cont]['nombreComercial'] = $key->nombreComercial;
-				 			$datos[$cont]['tipoCliente'] = $key->tipoCliente;
-				 			$datos[$cont][$value->atributo] = $value->dato;
+				 			$datos[$cont]['tipoCliente'] 	 = $key->tipoCliente;
+				 			$datos[$cont][$value->atributo]  = $value->dato;
 											 					 			
 				 		} # Fin del If
 
@@ -143,7 +114,7 @@
 
 		public function patch_customer($id, $put)
 		{
-			$put = (array)$put[0];
+			(array_key_exists(0, $put)&&is_object($put[0])) ? (array)$put[0] : $put = $put;
 			$query = false;
 			# Consulta las cabeceras de la tabla clientes
 			$columna = $this->db->field_data('clientes');

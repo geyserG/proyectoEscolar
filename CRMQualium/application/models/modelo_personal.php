@@ -26,10 +26,10 @@
 
 		public function patchPersonal($id, $put)
 		{
-			if(!$id)
-			{
-				$this->db->insert('personal',$put);
-			}
+			// if(!$id)
+			// {
+			// 	$this->db->insert('personal',$put);
+			// }
 			$this->db->where('id', $id);
 			$query = $this->db->update('personal', $put);
 			return $query;
