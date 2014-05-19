@@ -10,10 +10,10 @@
 		public function insertProyRol($proyRol){ return $query = $this->db->insert('proyectoroles', $proyRol);	}
 		# Fin del metodo insertar telefono.
 
-		public function getProyRol($id)
+		public function getProyRol($id=FALSE)
 		{
 			($id===FALSE) ? $query = $this->db->get('proyectoroles') :
-						  $query = $this->db->get_where('proyectoroles', array('idproyecto'=>$id));			
+						    $query = $this->db->get_where('proyectoroles', array('idproyecto'=>$id));			
 			return $query->result();
 		}
 
