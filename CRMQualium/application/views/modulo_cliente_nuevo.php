@@ -316,6 +316,7 @@
     <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloTelefono.js"></script>
     <script type="text/javascript" src="js/backbone/modelos/ModeloServicio.js"></script>
+    <script type="text/javascript" src="js/backbone/modelos/ModeloServicioCliente.js"></script>
     <!-- <script type="text/javascript" src="js/backbone/modelos/ModeloArchivo.js"></script> -->
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionServicios.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionTelefonos.js"></script>
@@ -323,6 +324,7 @@
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionRepresentantes.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
     <script type="text/javascript" src="js/backbone/colecciones/ColeccionServicios.js"></script>
+    <script type="text/javascript" src="js/backbone/colecciones/ColeccionServiciosClientes.js"></script>
     <!-- <script type="text/javascript" src="js/backbone/colecciones/ColeccionArchivos.js"></script> -->
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script> -->
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script> -->

@@ -212,25 +212,27 @@
                                             </td>
                                         </tr>
                                         <tr class="trCliente">
-                                            <td class="atributo"><b>Telefono:</b></td>
+                                            <td class="atributo">
+                                                <b>Telefono:</b>
+                                                <!--<button type="button" id="btn_nuevoTelefono" class="btn btn-primary btn-xs editar">Nuevo</button>-->
+                                            </td>
                                             <td id="telefonos">
                                                 <label class="editar editando">No especificado</label>
                                                 <div class="editar">
-                                                    <div class="col-lg-6">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control telefonosCliente" name="numero" placeholder="Número de teléfono">
-                                                            <div class="input-group-btn">
-                                                                <select class="btn btn-default dropdown-toggle" name="tipo" data-toggle="dropdown">
-                                                                    <option value="Casa">Casa</option>
-                                                                    <option value="Fax">Fax</option>
-                                                                    <option value="Movil" selected>Movil</option>
-                                                                    <option value="Oficina">Oficina</option>
-                                                                    <option value="Personal">Personal</option>
-                                                                    <option value="Trabajo">Trabajo</option>
-                                                                    <option value="Otro">Otro</option>
-                                                                </select>
-                                                            </div>
-                                                            </div>
+                                                    <div class="input-group">
+                                                        <input type="text" id="numeroNuevo" class="form-control" name="numero" maxlength="10" placeholder="Nuevo Teléfono">
+                                                        <div class="input-group-btn">
+                                                            <select id="tipoNuevo" class="btn btn-default" name="tipo">
+                                                                <option value="Casa">Casa</option>
+                                                                <option value="Fax">Fax</option>
+                                                                <option value="Movil" selected>Movil</option>
+                                                                <option value="Oficina">Oficina</option>
+                                                                <option value="Personal">Personal</option>
+                                                                <option value="Trabajo">Trabajo</option>
+                                                                <option value="Otro">Otro</option>
+                                                                <option selected disabled>Tipo</option>
+                                                            </select>
+                                                            <button id="enviarTelefono" class="btn btn-default"><label class="glyphicon glyphicon-send"></label></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,25 +458,24 @@
         <b class="editar editando"><%-tipo%></b>
         <div class="editar editando"><%-numero%></div>
         <div class="editar">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" class="form-control telefonosCliente" name="numero" value="<%-numero%>" placeholder="<%-numero%>" maxlength="10">
-                    <div class="input-group-btn">
-                        <select class="btn btn-default dropdown-toggle editando" name="tipo" data-toggle="dropdown">
-                            <option value="Casa">Casa</option>
-                            <option value="Fax">Fax</option>
-                            <option value="Movil" selected>Movil</option>
-                            <option value="Oficina">Oficina</option>
-                            <option value="Personal">Personal</option>
-                            <option value="Trabajo">Trabajo</option>
-                            <option value="Otro">Otro</option>
-                            <option value="<%-tipo%>" selected disabled>Tipo</option>
-                        </select>
-                    </div>
-                    </div>
+            <div class="input-group">
+                <input type="text" id="numero" class="form-control" name="numero" value="<%-numero%>" placeholder="<%-numero%>" maxlength="10">
+                <div class="input-group-btn">
+                    <select id="tipo" class="btn btn-default" name="tipo">
+                        <option value="Casa">Casa</option>
+                        <option value="Fax">Fax</option>
+                        <option value="Movil" selected>Movil</option>
+                        <option value="Oficina">Oficina</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Trabajo">Trabajo</option>
+                        <option value="Otro">Otro</option>
+                        <option selected disabled>Tipo</option>
+                    </select>
+                    <button id="eliminar" class="btn btn-default"><label class="icon-uniF478"></label></button>
                 </div>
             </div>
         </div>
+        <br>
     </script>
 
     <script type="text/template" id="serviciosI">
@@ -496,7 +497,7 @@
         </div>
     </script>
     <script type="text/template" id="servicioCliente">
-        <label id="<%- idservicio %>" class="icon-uniF470 eliminarSC"></label>
+        <label id="<%- idservicio %>" class="icon-uniF478 eliminarSC"></label>
         <%- nombre %>
         <br>
     </script>
