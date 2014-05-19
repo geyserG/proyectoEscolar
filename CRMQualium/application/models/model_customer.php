@@ -114,7 +114,9 @@
 
 		public function patch_customer($id, $put)
 		{
-			(array_key_exists(0, $put)&&is_object($put[0])) ? (array)$put[0] : $put = $put;
+			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
+
+			var_dump($put); die();
 			$query = false;
 			# Consulta las cabeceras de la tabla clientes
 			$columna = $this->db->field_data('clientes');
