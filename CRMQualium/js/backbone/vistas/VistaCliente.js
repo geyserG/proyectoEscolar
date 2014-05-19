@@ -19,14 +19,19 @@ app.VistaCliente = Backbone.View.extend({
 		'keypress .editando'	: 'actualizarAtributo',
 		'change .editando'	: 'actualizarAtributo',
 		'keydown #comentario'	: 'actualizarComentario',
-		// 'keyup #comentario'	: 'actualizarComentario',
 		/*Eventos de servicios*/
 		'keypress #inputBusquedaI'	: 'agregarNuevoServ',
 		'click	#btn_agregarI'	: 'agregarNuevoServBoton',
 		'keypress #inputBusquedaC'	: 'agregarNuevoServ',
 		'click	#btn_agregarC'	: 'agregarNuevoServBoton',
-		// 'click .serviciosInteres'	: 'actualizarServicios',
-		// 'click .serviciosCuenta'	: 'actualizarServicios',
+		/*Evento para nuevo teléfono*/
+		'click #enviarTelefono'	: 'crearTelefono',
+		/*Evento para crear nuevo formulario de teléfono*/
+		// 'click #btn_nuevoTelefono'	: 'nuevoFormularioTelefono',
+
+		'keyup #inputBusquedaI'	: 'buscarServicioI',
+		'keyup #inputBusquedaC'	: 'buscarServicioC',
+		'click .icon-uniF470'	: 'quitarDeLista',
 	},
 	initialize	: function () {
 		/*Listener para capturar los CAMBIOS en cada uno de
@@ -35,9 +40,7 @@ app.VistaCliente = Backbone.View.extend({
 		// this.listenTo(this.model, 'change', this.render);
 
 
-		this.espera;
-
-
+		this.esperar;
 	},
 	render	: function () {
 		/*Cargar los datos del cliente en la plantilla de underscore
@@ -74,8 +77,14 @@ app.VistaCliente = Backbone.View.extend({
 		console.log(servicios);*/
 		this.agregarServciciosClienteC(this.$serviciosCuenta);
 
-		//Obtener lo telefonos (modelos) del cliente
-		this.agregarTelefono(this.model.get('telefonosCliente'));
+		/*Obtener lo telefonos (modelos) del cliente*/
+		this.agregarTelefono(this.model.get('id'),'clientes');
+		/*En caso de no haber teléfonos se hace referencia al
+		formulario que tiene la plantilla por default*/
+		this.$numeroNuevo = this.$('#numeroNuevo');
+		this.$tipoNuevo = this.$('#tipoNuevo');
+
+		this.$editarAtributo = this.$('.editar');
 
 		/*A final*/
 		// this.$respuesta = this.$('.respuesta'); es el tr de la palomota, no hizo falta
@@ -89,24 +98,78 @@ app.VistaCliente = Backbone.View.extend({
 	},
 
 	//---------------------------------------------
+	crearTelefono	: function (elemento) {
+		if (this.$numeroNuevo.val() != '' && this.$tipoNuevo.val() != '') {
+			var json1 = pasarAJson(this.$numeroNuevo.serializeArray());
+			var json2 = pasarAJson(this.$tipoNuevo.serializeArray());
+			json1.tipo = json2.tipo;
+			json1.idpropietario = this.model.get('id');
+			json1.tabla = 'clientes';
+			
+			var esto = this;
 
+			Backbone.emulateHTTP = true;
+			Backbone.emulateJSON = true;
+			app.coleccionTelefonos.create(
+				json1,
+				{
+					wait	: true,//Esperamos respuesta del server
+					patch	: true,//Evitamos enviar todo el modelo
+					success	: function (exito) {//Encaso del exito
+						$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Removemos su atributo class
+						.html('<label class="icon-uniF479 exito"></label>');
+						esto.$telefonos.html('<div class="editar"><div class="input-group"><input type="text" id="numeroNuevo" class="form-control" name="numero" maxlength="10" placeholder="Nuevo Teléfono"><div class="input-group-btn"><select id="tipoNuevo" class="btn btn-default" name="tipo"><option value="Casa">Casa</option><option value="Fax">Fax</option><option value="Movil" selected>Movil</option><option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Trabajo">Trabajo</option><option value="Otro">Otro</option><option selected disabled>Tipo</option></select><button id="enviarTelefono" class="btn btn-default"><label class="glyphicon glyphicon-send"></label></button></div></div></div>');
+						esto.agregarTelefono(esto.model.get('id'), 'clientes');
+						esto.$editarAtributo.toggleClass('editando');
+						esto.$editarAtributo = esto.$('.editar');
+						esto.$editarAtributo.toggleClass('editando');
+					},
+					error	: function (error) {//En caso de error
+						$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.focus()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Sustituimos html por uno nuevo
+						.html('<label class="icon-uniF478 error"></label>')
+					}
+				}
+			);
+			Backbone.emulateHTTP = false;
+			Backbone.emulateJSON = false;
+		} else{
+			alert('Escriba un telefono correcto y seleccione un tipo');
+		};
+		elemento.preventDefault();
+	},
 	actualizarAtributo	: function (elemento) {
 		/*Cada vez que ocurre el evento keypress este metoso se 
 		ejecuta; solo cuando el valos de la propiedad es igual 13 
 		equivalente a precionar la tecla enter*/
-		if ((elemento.keyCode === 13 || elemento.type === 'change')) {
+		if ((elemento.keyCode === 13 || elemento.type === 'change') && $(elemento.currentTarget).attr('id') != 'comentario') {
 
-			var valorJson = this.$(elemento.currentTarget).serializeArray();
+			var valorJson = $(elemento.currentTarget).serializeArray();
 			if (valorJson.length == 0) {
 				return;
 			};
 
 			if (valorJson.length > 0) {
-				if (this.$(elemento.currentTarget).attr('class') == 'serviciosInteres editando' || this.$(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
+				if ($(elemento.currentTarget).attr('class') == 'serviciosInteres editando' || $(elemento.currentTarget).attr('class') == 'serviciosCuenta editando') {
 					this.actualizarServicios(valorJson,elemento);
 	            	return;
 				};
 	        };
+
+	        var esto = this;
 
 			/*Enviamos la propiedad que deseamos actualizar mediante
 			la funcion save de modelo (cliente) actual.*/
@@ -120,32 +183,36 @@ app.VistaCliente = Backbone.View.extend({
 					wait	: true,//Esperamos respuesta del server
 					patch	: true,//Evitamos enviar todo el modelo
 					success	: function (exito) {//Encaso del exito
-						this.$(elemento.currentTarget)//Selector
-							//Salimos del elemento
-							.blur()
-							//Nos hubicamos en el padre del selector
-							.parents('tr')
-							//Buscamos al hijo con la clase especificada
-							.children('.respuesta')
-							//Removemos su atributo class
-							.html('<label class="icon-uniF479 exito"></label>')
+						$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.blur()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Removemos su atributo class
+						.html('<label class="icon-uniF479 exito"></label>');
 					},
 					error	: function (error) {//En caso de error
-						this.$(elemento.currentTarget)//Selector
-							//Salimos del elemento
-							.blur()
-							//Nos hubicamos en el padre del selector
-							.parents('tr')
-							//Buscamos al hijo con la clase especificada
-							.children('.respuesta')
-							//Sustituimos html por uno nuevo
-							.html('<label class="icon-uniF478 error"></label>')
+						$(elemento.currentTarget)//Selector
+						//Salimos del elemento
+						.focus()
+						//Nos hubicamos en el padre del selector
+						.parents('tr')
+						//Buscamos al hijo con la clase especificada
+						.children('.respuesta')
+						//Sustituimos html por uno nuevo
+						.html('<label class="icon-uniF478 error"></label>');
 					}
 				}
 			);
+			elemento.preventDefault();
 		};
 	},
 	actualizarServicios	: function (servicio, elemento) {
+		/*Esta función se ejecuta cuando se agregan servicios que
+		ya existen los cuales pueden interesarles al cliente o son
+		puede que cuente con ellos*/
 		var json = pasarAJson(servicio);
 		var modeloServicio = {};
 		modeloServicio.idcliente = this.model.get('id');
@@ -161,26 +228,22 @@ app.VistaCliente = Backbone.View.extend({
 			app.coleccionServiciosClientesI.create(modeloServicio,{
 				wait	:true,
 				success	: function (exito) {
-					this.$(elemento.currentTarget)//Selector
-						//Salimos del elemento
-						.blur()
-						//Nos hubicamos en el padre del selector
-						.parents('tr')
-						//Buscamos al hijo con la clase especificada
-						.children('.respuesta')
-						//Removemos su atributo class
-						.html('<label class="icon-uniF479 exito"></label>')
+					$(elemento.currentTarget)//Selector
+					//Nos hubicamos en el padre del selector
+					.parents('tr')
+					//Buscamos al hijo con la clase especificada
+					.children('.respuesta')
+					//Removemos su atributo class
+					.html('<label class="icon-uniF479 exito"></label>')
 				},
 				error 	: function (error) {
-					this.$(elemento.currentTarget)//Selector
-						//Salimos del elemento
-						.blur()
-						//Nos hubicamos en el padre del selector
-						.parents('tr')
-						//Buscamos al hijo con la clase especificada
-						.children('.respuesta')
-						//Sustituimos html por uno nuevo
-						.html('<label class="icon-uniF478 error"></label>')
+					$(elemento.currentTarget)//Selector
+					//Nos hubicamos en el padre del selector
+					.parents('tr')
+					//Buscamos al hijo con la clase especificada
+					.children('.respuesta')
+					//Sustituimos html por uno nuevo
+					.html('<label class="icon-uniF478 error"></label>')
 				}
 			});
 		};
@@ -189,30 +252,25 @@ app.VistaCliente = Backbone.View.extend({
 			En la listade servicios actuales se le aumenta 100 para
 			no generar conflictos en la otra lista de servicios*/
 			modeloServicio.idservicio = (parseInt(json.nameServiciosCuenta)-100);
-			console.log(modeloServicio);
 			app.coleccionServiciosClientesC.create(modeloServicio,{
 				wait	:true,
 				success	: function (exito) {
-					this.$(elemento.currentTarget)//Selector
-						//Salimos del elemento
-						.blur()
-						//Nos hubicamos en el padre del selector
-						.parents('tr')
-						//Buscamos al hijo con la clase especificada
-						.children('.respuesta')
-						//Removemos su atributo class
-						.html('<label class="icon-uniF479 exito"></label>')
+					$(elemento.currentTarget)//Selector
+					//Nos hubicamos en el padre del selector
+					.parents('tr')
+					//Buscamos al hijo con la clase especificada
+					.children('.respuesta')
+					//Removemos su atributo class
+					.html('<label class="icon-uniF479 exito"></label>')
 				},
 				error 	: function (error) {
-					this.$(elemento.currentTarget)//Selector
-						//Salimos del elemento
-						.blur()
-						//Nos hubicamos en el padre del selector
-						.parents('tr')
-						//Buscamos al hijo con la clase especificada
-						.children('.respuesta')
-						//Sustituimos html por uno nuevo
-						.html('<label class="icon-uniF478 error"></label>')
+					$(elemento.currentTarget)//Selector
+					//Nos hubicamos en el padre del selector
+					.parents('tr')
+					//Buscamos al hijo con la clase especificada
+					.children('.respuesta')
+					//Sustituimos html por uno nuevo
+					.html('<label class="icon-uniF478 error"></label>')
 				}
 			});
 		};
@@ -220,14 +278,13 @@ app.VistaCliente = Backbone.View.extend({
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 	},
-
 	actualizarComentario	: function (elemento) {
-		clearTimeout(this.espera);
+		clearTimeout(this.esperar);
 		var modelo = this.model;
-		this.espera = setTimeout(
+
+		this.esperar = setTimeout(
 			function () {
-				var valorJson = this.$(elemento.currentTarget).serializeArray();
-				console.log(valorJson);
+				var valorJson = $(elemento.currentTarget).serializeArray();
 				modelo.save(
 					/*La función pasarAJson obtiene el nuevo valor y la
 					propiedad que queremos actualizar en formato json,
@@ -238,7 +295,7 @@ app.VistaCliente = Backbone.View.extend({
 						wait	: true,//Esperamos respuesta del server
 						patch	: true,//Evitamos enviar todo el modelo
 						success	: function (exito) {//Encaso del exito
-							this.$(elemento.currentTarget)//Selector
+							$(elemento.currentTarget)//Selector
 								//Nos hubicamos en el padre del selector
 								.parents('tr')
 								//Buscamos al hijo con la clase especificada
@@ -247,7 +304,7 @@ app.VistaCliente = Backbone.View.extend({
 								.html('<label class="icon-uniF479 exito"></label>')
 						},
 						error	: function (error) {//En caso de error
-							this.$(elemento.currentTarget)//Selector
+							$(elemento.currentTarget)//Selector
 								//Nos hubicamos en el padre del selector
 								.parents('tr')
 								//Buscamos al hijo con la clase especificada
@@ -261,38 +318,22 @@ app.VistaCliente = Backbone.View.extend({
 			3000
 		);
 	},
-
-	agregarTelefono	: function (idTelefono) {
-		this.vistasTelefono = new Array();
-		if (idTelefono.length > 1) {
-			this.$telefonos.html('');
-			for (var i = 0; i < idTelefono.length; i++) {
-				if (idTelefono[i] != "undefined") {
-					this.vistasTelefono[idTelefono[i]] = 
-					new app.VistaTelefono({
-						model:app.coleccionTelefonos.findWhere({
-							id:idTelefono[i]
-						})
-					});
-					this.$telefonos.append(
-						this.vistasTelefono[idTelefono[i]].render().el
-					);
-				}
-			};
-		} else{
-			if (typeof idTelefono[0] != "undefined") {
-				this.$telefonos.html('');
-				this.vistasTelefono[idTelefono[0]] = 
-				new app.VistaTelefono({
-					model:app.coleccionTelefonos.findWhere({
-						id:idTelefono[0]
-					})
+	agregarTelefono	: function (idPropietario, tabla) {
+		var telefonos = app.coleccionTelefonos.where({idpropietario:idPropietario, tabla:tabla});
+		/*Pasa el filtro del if solo si el arreglo de telefonos
+		contiene por almenos un valor*/
+		if (telefonos.length > 0) {
+			/*Limpiamos el td de la tabla para los telefonos*/
+			this.$telefonos.children('label').remove();
+			for (var i = 0; i < telefonos.length; i++) {
+				/*Instanciar un objeto telefono*/
+				var vistaTelefono = new app.VistaTelefono({
+					model:telefonos[i]
 				});
-				this.$telefonos.append(
-					this.vistasTelefono[idTelefono[0]].render().el
-				);
-			}
-			
+				/*Agregar td que contentran los telefonos
+				de este cliente*/
+				this.$telefonos.prepend(vistaTelefono.render().el);
+			};
 		};
 	},
 	agregarServciciosClienteI	: function (id) {
@@ -372,6 +413,22 @@ app.VistaCliente = Backbone.View.extend({
 		//Activar visibilidad de contenedor de contactos
 		// this.$panelBody.children().toggleClass('oculto');
 	},
+	buscarServicioI	: function (elemento) {
+		
+		var buscando = $(elemento.currentTarget).val();
+		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
+
+		this.$menuServiciosInteres.html('');
+		this.cargarServiciosI();
+	}, 
+	buscarServicioC	: function (elemento) {
+		
+		var buscando = $(elemento.currentTarget).val();
+		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
+
+		this.$menuServiciosCuenta.html('');
+		this.cargarServiciosC();
+	},
 	/*Las funciones cargarServicioI y cargarServicioC agregar los
 	  servicios dentro de menus desplegables especificados por los 
 	  selectores menuServiciosInteres y menuServiciosCuenta. Se 
@@ -381,7 +438,7 @@ app.VistaCliente = Backbone.View.extend({
 	  VistaServicioIteres y VistaServicioCuenta ejecutando tras ello 
 	  las funciones render() pasando la devolucion de render() al 
 	  elemento contenido en la propiedad el de dicha clase instanciada
-	*/
+	*/	
 	cargarServicioI	: function (servicio) {
 		var vistaServicioI = new app.VistaServicioInteres({
 			model:servicio
@@ -394,115 +451,217 @@ app.VistaCliente = Backbone.View.extend({
 		});
 		this.$menuServiciosCuenta.append(vistaServicioC.render().el);
 	},
+
+
+
+
+
+
 	cargarServiciosI	: function () {
+		this.$menuServiciosInteres.html('');
 		app.coleccionServicios.each(this.cargarServicioI, this);
 	},
 	cargarServiciosC	: function () {
+		this.$menuServiciosCuenta.html('');
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
-	agregarNuevoServ	: function (event) {
+
+
+
+
+
+
+	quitarDeLista	: function (elemento) {
+		/*Esta funcion recibe un parametro al y se ejecuta al momento de ejecutarse
+		el evento para quitar de la lista uno de los servicios. El parametro
+		es un objeto del DOM.
+
+		En la variable arrayServicios se almacenan los objetos que coincidan
+		con el mismo atributo name.*/
+		var arrayServicios = document.getElementsByName($(elemento.currentTarget).attr('name'));
+
+		/*En la variable servicio almacenamos el id del elemento que se quiere
+		quitar de la lista.*/
+		var servicio = $(elemento.currentTarget).parent().attr('id');
+
+		/*Mediante el ciclo for se itera sobre los elementos del arreglo
+		arrayServicios hasta encontrar una coincidencia de id espeficicada
+		en la condición if. se establece como falso y se rompe el ciclo.
+		Esto se hace para no desactivar todos los alementos de la lista
+		que se han agregado para el cliente. Hay un checkbox oculto con 
+		cada elemento de la lista*/
+		for (var i = 0; i < arrayServicios.length; i++) {
+			if ($(arrayServicios[i]).attr('id') == servicio) {
+				$(arrayServicios[i]).prop('checked', false);
+				break;
+			};
+		};
+
+		// Finalmente se remueve del DOM el servicio que ya no se quiera ver en ella
+		$(elemento.currentTarget).parent().remove();
+	},
+	agregarNuevoServ	: function (elemento) {
+		var esto = this;
+
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
 
         if (
-        	event.keyCode === 13 
-        	&& $(event.currentTarget).attr('id') == 'inputBusquedaI'
-        	) {
-
-        	if ($(event.currentTarget).val() != '') {
+        	elemento.keyCode === 13 
+        	&& $(elemento.currentTarget).attr('id') == 'inputBusquedaI'
+        ) {
+        	if ($(elemento.currentTarget).val() != '') {
         		var idCliente = this.model.get('id');
-        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() }, {wait:true, success : function (exito) {
-        			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
-        			$(event.currentTarget).val('');
-					Backbone.emulateHTTP = true;
-					Backbone.emulateJSON = true;
-        		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
-					Backbone.emulateHTTP = false;
-					Backbone.emulateJSON = false;
-        		} } );
+        		app.coleccionServicios.create(
+        			{ nombre : $(elemento.currentTarget).val() },
+        			{
+        				wait:true,
+        				success : function (exito) {
+		        			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
+		        			$(elemento.currentTarget).val('');
+							Backbone.emulateHTTP = true;
+							Backbone.emulateJSON = true;
+		        		  	app.coleccionServiciosClientesI.create(
+		        		  		{idcliente:idCliente,idservicio:exito.get('id')},
+		        		  		{
+		        		  			wait:true,
+		        		  			success:function () {
+			        		  			$(elemento.currentTarget)
+			        		  			//Nos hubicamos en el padre del selector
+										.parents('tr')
+										//Buscamos al hijo con la clase especificada
+										.children('.respuesta')
+										//Removemos su atributo class
+										.html('<label class="icon-uniF479 exito"></label>');
+										esto.agregarServciciosClienteI(esto.$serviciosInteres);
+									},
+									error:function () {
+										$(elemento.currentTarget)
+										//Nos hubicamos en el padre del selector
+										.parents('tr')
+										//Buscamos al hijo con la clase especificada
+										.children('.respuesta')
+										//Sustituimos html por uno nuevo
+										.html('<label class="icon-uniF478 error"></label>')
+			        		  		}
+			        		  	}
+			        		);
+							Backbone.emulateHTTP = false;
+							Backbone.emulateJSON = false;
+        				}
+        			}
+        		);
 			}
-			event.preventDefault();
+			elemento.preventDefault();
         };
 
         if (
-        	event.keyCode === 13 
-        	&& $(event.currentTarget).attr('id') == 'inputBusquedaC'
-        	) {
-
-        	if ($(event.currentTarget).val() != '') {
+        	elemento.keyCode === 13 
+        	&& $(elemento.currentTarget).attr('id') == 'inputBusquedaC'
+        ) {
+        	if ($(elemento.currentTarget).val() != '') {
         		var idCliente = this.model.get('id');
-        		app.coleccionServicios.create({ nombre : $(event.currentTarget).val() }, {wait:true, success : function (exito) {
-        			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
-        			$(event.currentTarget).val('');
-        			Backbone.emulateHTTP = true;
-					Backbone.emulateJSON = true;
-        		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
-					Backbone.emulateHTTP = false;
-					Backbone.emulateJSON = false;
-        		} } );
+        		app.coleccionServicios.create(
+        			{ nombre : $(elemento.currentTarget).val() },
+        			{
+        				wait:true,
+        				success : function (exito) {
+		        			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
+		        			$(elemento.currentTarget).val('');
+		        			Backbone.emulateHTTP = true;
+							Backbone.emulateJSON = true;
+		        		  	app.coleccionServiciosClientesC.create(
+		        		  		{idcliente:idCliente,idservicio:exito.get('id')},
+		        		  		{
+		        		  			wait:true,
+		        		  			success:function () {
+			        		  			$(elemento.currentTarget)
+			        		  			//Nos hubicamos en el padre del selector
+										.parents('tr')
+										//Buscamos al hijo con la clase especificada
+										.children('.respuesta')
+										//Removemos su atributo class
+										.html('<label class="icon-uniF479 exito"></label>');
+										esto.agregarServciciosClienteC(esto.$serviciosCuenta);
+									},
+									error:function () {
+										$(elemento.currentTarget)
+										//Nos hubicamos en el padre del selector
+										.parents('tr')
+										//Buscamos al hijo con la clase especificada
+										.children('.respuesta')
+										//Sustituimos html por uno nuevo
+										.html('<label class="icon-uniF478 error"></label>')
+			        		  		}
+			        		  	}
+			        		);
+							Backbone.emulateHTTP = false;
+							Backbone.emulateJSON = false;
+        				}
+        			}
+        		);
 			}
-			event.preventDefault();
+			elemento.preventDefault();
         };
         
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
     },
-    fun 	: function (d) {
-    	console.log(d);
+    agregarNuevoServBoton	: function (elemento) {
+		if ($(elemento.currentTarget).attr('id') == 'btn_agregarI') {
+    		this.agregarNuevoServ(this.$('inputBusquedaI'));
+		};
+		if ($(elemento.currentTarget).attr('id') == 'btn_agregarC') {
+			this.agregarNuevoServ(this.$('inputBusquedaC'));
+		};
+    // 	Backbone.emulateHTTP = true;
+    // 	Backbone.emulateJSON = true;
+
+    // 	if ($(elemento.currentTarget).attr('id') == 'btn_agregarI') {
+    // 		var idCliente = this.model.get('id');
+    // 		var idServicio;
+    // 		app.coleccionServicios.create({ nombre : $('#inputBusquedaI').val() }, {wait:true, success : function (exito) {
+    // 			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
+    // 			$(elemento.currentTarget).val('');
+    // 			Backbone.emulateHTTP = true;
+				// Backbone.emulateJSON = true;
+    // 		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
+				// Backbone.emulateHTTP = false;
+				// Backbone.emulateJSON = false;
+    // 		} } );
+    // 	};
+    // 	if ($(elemento.currentTarget).attr('id') == 'btn_agregarC') {
+    // 		var idCliente = this.model.get('id');
+    // 		var idServicio;
+    // 		app.coleccionServicios.create({ nombre : $('#inputBusquedaC').val() }, {wait:true, success : function (exito) {
+    // 			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
+    // 			$(elemento.currentTarget).val('');
+    // 			Backbone.emulateHTTP = true;
+				// Backbone.emulateJSON = true;
+    // 		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
+				// Backbone.emulateHTTP = false;
+				// Backbone.emulateJSON = false;
+    // 		} } );
+    // 	};
+
+    // 	Backbone.emulateHTTP = false;
+    // 	Backbone.emulateJSON = false;
     },
-    agregarNuevoServBoton	: function (event) {
-    	Backbone.emulateHTTP = true;
-    	Backbone.emulateJSON = true;
-
-    	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
-    		var idCliente = this.model.get('id');
-    		var idServicio;
-    		app.coleccionServicios.create({ nombre : $('#inputBusquedaI').val() }, {wait:true, success : function (exito) {
-    			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
-    			$(event.currentTarget).val('');
-    			Backbone.emulateHTTP = true;
-				Backbone.emulateJSON = true;
-    		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
-				Backbone.emulateHTTP = false;
-				Backbone.emulateJSON = false;
-    		} } );
-    	};
-    	if ($(event.currentTarget).attr('id') == 'btn_agregarC') {
-    		var idCliente = this.model.get('id');
-    		var idServicio;
-    		app.coleccionServicios.create({ nombre : $('#inputBusquedaC').val() }, {wait:true, success : function (exito) {
-    			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
-    			$(event.currentTarget).val('');
-    			Backbone.emulateHTTP = true;
-				Backbone.emulateJSON = true;
-    		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
-				Backbone.emulateHTTP = false;
-				Backbone.emulateJSON = false;
-    		} } );
-    	};
-
-    	Backbone.emulateHTTP = false;
-    	Backbone.emulateJSON = false;
-    },
-
 	editando	: function () {
-
-		this.cargarServiciosI();
-		this.cargarServiciosC();
-		this.$editarAtributo.toggleClass('editando');
-		this.$btn_editar.children().toggleClass('MO icon-back');
-
-		var indiceTel = this.model.get('telefonosCliente');
-
-		if (indiceTel.length > 1) {
-			for (var i = 0; i < this.vistasTelefono.length; i++) {
-				//Genera un error pero no afecta el la visivilidad
-				//del formulario de edición.
-				this.vistasTelefono[indiceTel[i]].editando();
-			};
-		}
-		 else{
-			this.vistasTelefono[indiceTel[0]].editando();
+		if (this.$btn_editar.children().attr('class') == 'icon-edit2 MO icon-back') {
+			// this.$editarAtributo.toggleClass('editando');
+			// this.$btn_editar.click();
+			this.$editarAtributo.toggleClass('editando');
+			this.$btn_editar.children().toggleClass('MO icon-back');
+			this.$('#cerrar_consulta').click();
+			this.render();
+			this.$('.icon-eye').click();
+		} 
+		else{
+			this.cargarServiciosI();
+			this.cargarServiciosC();
+			this.$editarAtributo.toggleClass('editando');
+			this.$btn_editar.children().toggleClass('MO icon-back');
 		};
 	},
 	eliminarDelDOM	: function () {

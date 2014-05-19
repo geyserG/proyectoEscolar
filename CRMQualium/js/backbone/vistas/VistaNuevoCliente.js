@@ -68,6 +68,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.$cargoContacto       = $('#contactoCargo');
 	// Dinámica de formulario
 		this.arregloDeContactos   = new Array();
+		this.pasarFiltro = 0;
 
 		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
 		this.$menuServiciosInteres	  = $('#menuServiciosInteres');
@@ -110,36 +111,59 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.cargarServiciosC();
 	},
 
-	agregarNuevoServ	: function (event) {
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaI') {
+	agregarNuevoServ	: function (elemento) {
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
+        if ((this.pasarFiltro == 1 || elemento.keyCode === 13) && $(elemento.currentTarget).attr('id') == 'inputBusquedaI') {
 
-        	if ($(event.currentTarget).val() != '') {
+        	this.pasarFiltro = 0;
 
-        		$('#listaInteres').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
-			
+        	if ($(elemento.currentTarget).val() != '') {
+        		app.coleccionServicios.create(
+        			{ nombre : $(elemento.currentTarget).val() },
+        			{
+        				wait:true,
+        				success : function (exito) {
+		        			$('#listaInteres').append('<li class="list-group-item">'+ exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
+		        			$(elemento.currentTarget).val('');
+        				}
+        			}
+        		);
 			}
-            event.preventDefault();
-        } 
-
-        if (event.keyCode === 13 && $(event.currentTarget).attr('id') == 'inputBusquedaC') {
-
-        	if ($(event.currentTarget).val() != '') {
-
-        		$('#listaCuenta').append('<li class="list-group-item">'+ $(event.currentTarget).val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
-			
-			}
-            event.preventDefault();
+            elemento.preventDefault();
         }
+
+        if ((this.pasarFiltro == 1 || elemento.keyCode === 13) && $(elemento.currentTarget).attr('id') == 'inputBusquedaC') {
+
+        	this.pasarFiltro = 0;
+
+        	if ($(elemento.currentTarget).val() != '') {
+        		app.coleccionServicios.create(
+        			{ nombre : $(elemento.currentTarget).val() },
+        			{
+        				wait:true,
+        				success : function (exito) {
+		        			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
+		        			$(elemento.currentTarget).val('');
+        				}
+        			}
+        		);
+			}
+            elemento.preventDefault();
+        }
+
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
     },
 
-    agregarNuevoServBoton	: function (event) {
-    	if ($(event.currentTarget).attr('id') == 'btn_agregarI') {
-    		$('#listaInteres').append('<li class="list-group-item">'+ $('#inputBusquedaI').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosInteres"></li>');
-    		$('#inputBusquedaI').val('');
+    agregarNuevoServBoton	: function (elemento) {
+    	if ($(elemento.currentTarget).attr('id') == 'btn_agregarI') {
+    		this.pasarFiltro = 1;
+    		$('#inputBusquedaI').trigger('keypress');
     	};
-    	if ($(event.currentTarget).attr('id') == 'btn_agregarC') {
-    		$('#listaCuenta').append('<li class="list-group-item">'+ $('#inputBusquedaC').val() +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosNoClasificadosCuenta"></li>');
-    		$('#inputBusquedaC').val('');
+    	if ($(elemento.currentTarget).attr('id') == 'btn_agregarC') {
+    		this.pasarFiltro = 1;
+    		$('#inputBusquedaC').trigger('keypress');
     	};
     },
 // -----cargarServicios--------------------------- 
@@ -247,6 +271,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		arreglo de objetos de una sola posición.*/
 		this.otroContacto();
 
+		var esto = this;
+
 		/*Se activan las dos variables globales de Backbone para
 		mandar de manera correcta el POST de contactos. Antes de finalizar
 		esta función se desactivarán estas dos variables globales
@@ -265,12 +291,20 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			contactos pasando como parametro cada objeto contacto
 			y esperando a que se almacenen debido al parametro wait:true.*/
 			for (var i = 0; i < this.arregloDeContactos.length; i++) {
-				app.coleccionContactos.create(this.arregloDeContactos[i],{wait:true});
+				/*copiar los teléfonos del array de contactos*/
+				var telefonos = this.arregloDeContactos[i].telefonos;
+				/*Hacer nulo la propiedad telefonos para luego limpiar el json*/
+				this.arregloDeContactos[i].telefonos = null;
+				/*copiar en la misma posición el contacto*/
+				this.arregloDeContactos[i] = this.limpiarJSON(this.arregloDeContactos[i]);
+				/*crear el contacto*/
+				app.coleccionContactos.create(this.arregloDeContactos[i],{ wait:true, success: function (exito) {
+					/*si el registro del contacto es exitoso, registrar sus
+					teléfonos*/
+					esto.nuevoTelefono(exito.get('id'),'contactos',telefonos);
+				} });
 			}
 		}
-
-		var numero;
-		var tipo;
 
 		/*Para registrar a un representante debe cumplirse quelo
 		elementosdel html que apuntan los selectores no esten vacios*/
@@ -282,19 +316,35 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			de telefonos y el tipo de telefono segun sea el caso. Antes de
 			almacenar al representante los valores de las variables telefono
 			y tipo se pasan como parametro a la funcion recursividadTelefonos
-			para recuperarlos como objeto u objetos json.*/
-			numero = document.getElementsByName('telefonoRepresentante');
-			tipo   = document.getElementsByName('tipoTelefonoRepresentante');
+			para recuperarlos como objeto u objetos json.
+			Guardamos en una variable al representante*/
+			var representante = this.nuevosAtributosContacto(
+				this.$nombreRepresentante.val().trim(),
+				this.$correoRepresentante.val().trim(),
+				this.$cargoRepresentante.val().trim(),
+				this.recursividadTelefonos(
+					document.getElementsByName('telefonoRepresentante'),
+					document.getElementsByName('tipoTelefonoRepresentante')
+				)
+			);
+			console.log(representante);
+
+			/*copiar los teléfonos del array de representante*/
+			var telefonos = representante.telefonos;
+			console.log(telefonos);
+			/*Hacer nulo la propiedad telefonos para luego limpiar el json*/
+			representante.telefonos = null;
+			/*copiar en la misma posición el contacto*/
+			representante = this.limpiarJSON(representante);
+			console.log(representante);
+			/*crear el contacto*/
 
 			/*Se ejecuta la función create de la coleccion de representantes
 			pasando como parametro los datos y los telefonos en formato json
 			para enviarlos al servido y ser almacenados.*/
-			app.coleccionRepresentantes.create(this.nuevosAtributosContacto(
-				this.$nombreRepresentante.val().trim(),
-				this.$correoRepresentante.val().trim(),
-				this.$cargoRepresentante.val().trim(),
-				this.recursividadTelefonos(numero,tipo))
-			);
+			app.coleccionRepresentantes.create(representante, { wait:true, success:function (exito) {
+				esto.nuevoTelefono(exito.get('id'),'representantes',telefonos);
+			} });
 		}
 
 		Backbone.emulateHTTP = false;
@@ -304,24 +354,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 
 	},
 // -----nuevoCliente------------------------------ 
-	nuevoCliente	: function () {
+	nuevoCliente	: function (evento) {
 		/*Se ejecuta la funcion nuevosAtributosCliente que
 		tras terminar devuelve un json el cual es
 		almacenado en la variable objetoCliente*/
-		var objetoCliente = this.nuevosAtributosCliente();
-		
-		/*La variable valorJson y el ciclo for eliminan los
-		valores nulos o vacios de la variable objetoCliente*/
-		var valorJson;
-		for (var x in objetoCliente) {
-		    if ( Object.prototype.hasOwnProperty.call(objetoCliente,x)) {
-		        valorJson = objetoCliente[x];
-		        if (valorJson==="null" || valorJson===null || valorJson==="" || typeof valorJson === "undefined") {
-		            delete objetoCliente[x];
-		        }
-
-		    }
-		}
+		var objetoCliente = this.limpiarJSON(this.nuevosAtributosCliente());
 
 		/*Nos aseguramos de que las propiedades nombreComercial y tipoCliente
 		del objeto esten definidas. De lo contrario se alerta al usuario y
@@ -331,26 +368,100 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			return;
 		}
 
+		/*Guardamos la referencia a this para poder usarla en las
+		funciones dentro de esta función*/
+		var esto = this;
+		/**/
+		var telefonos = this.recursividadTelefonos(
+			document.getElementsByName('telefonoCliente'),
+			document.getElementsByName('tipoTelefonoCliente')
+		);
 		/*Se activan las dos variables globales de Backbone para
 		mandar de manera correcta el POST de contactos. Antes de finalizar
 		esta función se desactivarán estas dos variables globales
 		para que no afecte otras funciónes.*/
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
-
 		/*Se pasa la variable objetoCliente como primer parametro en la función
 		create de la colección de clientes. La propiedad success del segundo
 		parametro espera la respuesta del servidos tras almacenar los datos
 		del cliente de manera exitos, de lo contrario la funcion de de la
 		propiedad success no procedera para mostrar el formulario para el
 		registro de contactos y representante.*/
-		app.coleccionClientes.create(objetoCliente,{success:function(exito){
+		app.coleccionClientes.create(objetoCliente,{wait:true,success:function(exito){
 			// Muestra el nombre comercial del cliente el el siguente formulario
 			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
-			this.$('.visibleR').toggleClass('ocultoR');
+			
+			esto.guardarTelefono(exito.get('id'),'clientes',telefonos);
+			esto.guardarServiciosI(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosInteres')));
+			esto.guardarServiciosC(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosCuenta')));
+			esto.$('.visibleR').toggleClass('ocultoR');
+		}});
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
-		}});
+
+
+		// setTimeout(
+		// 	function (){
+		// 	},
+		// 	500
+		// );
+
+		evento.preventDefault();
+	},
+// -----guardarServiciosI------------------------- 
+	guardarServiciosI	: function (idcliente,idservicio) {
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
+		if (idservicio) {
+			if (idservicio.length > 0) {
+				for (var i = 0; i < idservicio.length; i++) {
+					app.coleccionServiciosClientesI.create({
+						idcliente:idcliente,
+						idservicio:idservicio[i]
+					},{wait:true});
+				};
+			}
+		}
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
+	},
+// -----guardarServiciosC------------------------- 
+	guardarServiciosC	: function (idcliente,idservicio) {
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
+		if (idservicio) {
+			if (idservicio.length > 0) {
+				for (var i = 0; i < idservicio.length; i++) {
+					app.coleccionServiciosClientesC.create({
+						idcliente:idcliente,
+						idservicio:idservicio[i]
+					},{wait:true});
+				};
+			}
+		}
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
+	},
+// -----guardarTelefono--------------------------- 
+	guardarTelefono	: function (idpropietario,tabla,telefono) {
+		if (telefono) {
+			if (telefono.length) {
+				for (var i = 0; i < telefono.length; i++) {
+					this.guardarTelefono(idpropietario,tabla,telefono[i]);
+				};
+			} else{
+				telefono.idpropietario = idpropietario;
+				telefono.tabla = tabla;
+				Backbone.emulateHTTP = true;
+				Backbone.emulateJSON = true;
+
+				app.coleccionTelefonos.create(telefono,{wait:true});
+
+				Backbone.emulateHTTP = false;
+				Backbone.emulateJSON = false;
+			};
+		}
 	},
 // -----nuevosAtributosContacto------------------- 
 	nuevosAtributosContacto	: function (nombre,correo,cargo,telefonos) {
@@ -379,9 +490,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
            comentarioCliente : this.$comentarioCliente.val().trim(),
                    direccion : this.$direccion.val().trim(),
                  tipoCliente : this.tipoCliente,
-            	   telefonos : this.recursividadTelefonos(document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')),
-            serviciosInteres : this.obtenerServicios(document.getElementsByName('serviciosInteres')),
-             serviciosCuenta : this.obtenerServicios(document.getElementsByName('serviciosCuenta')),
+            	   // telefonos : this.recursividadTelefonos(document.getElementsByName('telefonoCliente'),document.getElementsByName('tipoTelefonoCliente')),
+            // serviciosInteres : this.obtenerServicios(document.getElementsByName('serviciosInteres')),
+             // serviciosCuenta : this.obtenerServicios(document.getElementsByName('serviciosCuenta')),
                         foto : this.urlFoto()
 		}
 	},
@@ -427,9 +538,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
             contentType: false,
             processData: false
         });
-        // console.log(resp.responseText);
         var nombreFoto = jQuery.parseJSON(resp.responseText);
-        if (resp.responseText != "") return ''+nombreFoto.data+'';
+        console.log(nombreFoto);
+        if (nombreFoto.data != false){
+        	return ''+nombreFoto.data+'';	
+        } else{
+        	nombreFoto.data; //false
+        };
 	},
 // -----otroTelefono------------------------------ 
 	otroTelefono	: function (elemento) {
@@ -540,9 +655,9 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				}
 			};
 
-			if (arreglo.length == 1) {
+			/*if (arreglo.length == 1) {
 				return arreglo[0];
-			} else if (arreglo.length == 0) {
+			} else */if (arreglo.length == 0) {
 				return '';
 			} else {
 				return arreglo;
@@ -593,6 +708,22 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			alert('[ERROR:Página web]\n\nEscriba una url correcta');
 			return false;
 		}; 
+	},
+// -----limpiarJSON------------------------------- 
+	limpiarJSON	: function (objeto) {
+		/*La variable valorJson y el ciclo for eliminan los
+		valores nulos o vacios de la variable objetoCliente*/
+		var valorJson;
+		for (var x in objeto) {
+		    if ( Object.prototype.hasOwnProperty.call(objeto,x)) {
+		        valorJson = objeto[x];
+		        if (valorJson==="null" || valorJson===null || valorJson==="" || typeof valorJson === "undefined") {
+		            delete objeto[x];
+		        }
+
+		    }
+		}
+		return objeto;
 	},
 });
 

@@ -24,4 +24,5 @@ var ColeccionTelefonos = Backbone.Collection.extend({
 	// },
 });
 
+// app.coleccionTelefonos = new ColeccionTelefonos();
 app.coleccionTelefonos = new ColeccionTelefonos(app.coleccionDeTelefonos);
