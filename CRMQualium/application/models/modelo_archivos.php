@@ -8,6 +8,7 @@
 
         function insert_mult()
         {
+          if(empty($_FILES)){
             if(array_key_exists('fotoCliente', $_FILES))
             {
                 $carpeta="img/fotosClientes/";
@@ -38,7 +39,8 @@
                     return $_FILES['archivos']['name'];
                 }
             }
-          
+        }
+         return false; 
         } # Fin del metodo insert_mcontact()...
 
         function get_mult($id)
