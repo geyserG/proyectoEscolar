@@ -92,6 +92,12 @@
 				 			$datos[$cont][$value->atributo]  = $value->dato;
 											 					 			
 				 		} # Fin del If
+				 		else
+				 		{
+				 			$datos[$cont]['id'] 			 = $key->id;
+				 			$datos[$cont]['nombreComercial'] = $key->nombreComercial;
+				 			$datos[$cont]['tipoCliente'] 	 = $key->tipoCliente;
+				 		}
 
 				 	} # Fin del foreach() $atributos
 
@@ -103,7 +109,7 @@
 				 	$serviciosC = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_cliente');
 				 	foreach ($serviciosC as $servC=>$valueC) {	$datos[$cont]['serviciosCuenta'] = $serviciosC;	}
 				
-				 	$datos[$cont]['telefonosCliente'] = $obj->joinDinamico($key->id, 'idcliente', 'idtelefono', 'telefonos', 'telefonos_cliente');	 				 	 	
+				 	// $datos[$cont]['telefonosCliente'] = $obj->joinDinamico($key->id, 'idcliente', 'idtelefono', 'telefonos', 'telefonos_cliente');	 				 	 	
 			 		$cont++;
 			    }# Fin del foreach() $clientes
 				return $datos;	
