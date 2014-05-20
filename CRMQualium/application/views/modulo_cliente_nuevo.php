@@ -276,16 +276,17 @@
             </div>
         </div>
     </div>
+</section>
 </div>
 
 
-<script type="text/javascript" src="js/backbone/app.js"></script>
+<script type="text/javascript" src="<?=base_url().'js/backbone/app.js'?>"></script>
 <script type="text/javascript">
-    app.coleccionDeClientes = <?php echo json_encode($clientes) ?>;
+    app.coleccionDeClientes = <?=json_encode($clientes)?>;
     app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
 </script>
 <!-- Utilerias -->
-    <script type="text/javascript" src="js/funcionescrm.js"></script>
+    <script type="text/javascript" src="<?=base_url().'js/funcionescrm.js'?>"></script>
 
 <!-- Plantillas -->
     <script type="text/template" id="serviciosI">
@@ -307,28 +308,28 @@
         </div>
     </script>
 <!-- Librerias Backbone -->
-    <script type="text/javascript" src="js/backbone/lib/underscore.js"></script>
-    <script type="text/javascript" src="js/backbone/lib/backbone.js"></script>
-    <script type="text/javascript" src="js/backbone/lib/backbone.localStorage.js"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/lib/underscore.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/lib/backbone.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/lib/backbone.localStorage.js'?>"></script>
 <!--MV*-->
-    <script type="text/javascript" src="js/backbone/modelos/ModeloContacto.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloRepresentante.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloCliente.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloTelefono.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloServicio.js"></script>
-    <script type="text/javascript" src="js/backbone/modelos/ModeloServicioCliente.js"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloContacto.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloRepresentante.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloCliente.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloTelefono.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloServicio.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/modelos/ModeloServicioCliente.js'?>"></script>
     <!-- <script type="text/javascript" src="js/backbone/modelos/ModeloArchivo.js"></script> -->
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionServicios.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionTelefonos.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionContactos.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionRepresentantes.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionClientes.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionServicios.js"></script>
-    <script type="text/javascript" src="js/backbone/colecciones/ColeccionServiciosClientes.js"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionServicios.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionTelefonos.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionContactos.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionRepresentantes.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionClientes.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionServicios.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/colecciones/ColeccionServiciosClientes.js'?>"></script>
     <!-- <script type="text/javascript" src="js/backbone/colecciones/ColeccionArchivos.js"></script> -->
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaContacto.js"></script> -->
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaCliente.js"></script> -->
     <!--<script type="text/javascript" src="js/backbone/vistas/VistaTelefono.js"></script>-->
     <!-- <script type="text/javascript" src="js/backbone/vistas/VistaArchivo.js"></script> -->
-    <script type="text/javascript" src="js/backbone/vistas/VistaServicio.js"></script>
-    <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaServicio.js'?>"></script>
+    <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaNuevoCliente.js'?>"></script>

@@ -311,7 +311,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				app.coleccionContactos.create(this.arregloDeContactos[i],{ wait:true, success: function (exito) {
 					/*si el registro del contacto es exitoso, registrar sus
 					teléfonos*/
-					esto.nuevoTelefono(exito.get('id'),'contactos',telefonos);
+					esto.guardarTelefono(exito.get('id'),'contactos',telefonos);
 				} });
 			}
 		}
@@ -337,23 +337,23 @@ app.VistaNuevoCliente = Backbone.View.extend({
 					document.getElementsByName('tipoTelefonoRepresentante')
 				)
 			);
-			console.log(representante);
+			// console.log(representante);
 
 			/*copiar los teléfonos del array de representante*/
 			var telefonos = representante.telefonos;
-			console.log(telefonos);
+			// console.log(telefonos);
 			/*Hacer nulo la propiedad telefonos para luego limpiar el json*/
 			representante.telefonos = null;
 			/*copiar en la misma posición el contacto*/
 			representante = this.limpiarJSON(representante);
-			console.log(representante);
+			// console.log(representante);
 			/*crear el contacto*/
 
 			/*Se ejecuta la función create de la coleccion de representantes
 			pasando como parametro los datos y los telefonos en formato json
 			para enviarlos al servido y ser almacenados.*/
 			app.coleccionRepresentantes.create(representante, { wait:true, success:function (exito) {
-				esto.nuevoTelefono(exito.get('id'),'representantes',telefonos);
+				esto.guardarTelefono(exito.get('id'),'representantes',telefonos);
 			} });
 		}
 
@@ -386,7 +386,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			document.getElementsByName('telefonoCliente'),
 			document.getElementsByName('tipoTelefonoCliente')
 		);
-		console.log(telefonos);
+
 		/*Se activan las dos variables globales de Backbone para
 		mandar de manera correcta el POST de contactos. Antes de finalizar
 		esta función se desactivarán estas dos variables globales
