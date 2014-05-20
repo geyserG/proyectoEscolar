@@ -20,11 +20,10 @@ app.VistaTelefono = Backbone.View.extend({
 
 	//---------------------------------------------
 
-	editando	: function () {
-		console.log(this.model.get('numero'));
-		this.$editar.toggleClass('editando');
-		return false;
-	},
+	// editando	: function () {
+	// 	this.$editar.toggleClass('editando');
+	// 	return false;
+	// },
 
 	actualizarNumero	: function (elemento) {
 		if (elemento.keyCode === 13) {
@@ -57,7 +56,7 @@ app.VistaTelefono = Backbone.View.extend({
 					//Buscamos al hijo con la clase especificada
 					.children('.respuesta')
 					//Removemos su atributo class
-					.html('<label class="icon-uniF479 exito"></label>')
+					.html('<label class="icon-uniF479 exito"></label>');
 				},
 				error	: function (error) {//En caso de error
 					$(elemento.currentTarget)//Selector
@@ -66,7 +65,7 @@ app.VistaTelefono = Backbone.View.extend({
 					//Buscamos al hijo con la clase especificada
 					.children('.respuesta')
 					//Sustituimos html por uno nuevo
-					.html('<label class="icon-uniF478 error"></label>')
+					.html('<label class="icon-uniF478 error"></label>');
 				}
 			}
 		);

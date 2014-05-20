@@ -98,6 +98,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		var buscando = $(elemento.currentTarget).val();
 		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
 
+		this.sinCoincidencias();
+
 		this.$menuServiciosInteres.html('');
 		this.cargarServiciosI();
 	}, 
@@ -107,8 +109,16 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		var buscando = $(elemento.currentTarget).val();
 		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
 
+		this.sinCoincidencias();
+
 		this.$menuServiciosCuenta.html('');
 		this.cargarServiciosC();
+	},
+
+	sinCoincidencias	: function () {
+		if (app.coleccionServicios.length == 0) {
+			app.coleccionServicios.fetch({reset:true, data:{nombre: ''}});
+		};
 	},
 
 	agregarNuevoServ	: function (elemento) {
@@ -376,6 +386,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			document.getElementsByName('telefonoCliente'),
 			document.getElementsByName('tipoTelefonoCliente')
 		);
+		console.log(telefonos);
 		/*Se activan las dos variables globales de Backbone para
 		mandar de manera correcta el POST de contactos. Antes de finalizar
 		esta función se desactivarán estas dos variables globales

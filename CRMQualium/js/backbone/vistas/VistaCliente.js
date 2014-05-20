@@ -26,6 +26,8 @@ app.VistaCliente = Backbone.View.extend({
 		'click	#btn_agregarC'	: 'agregarNuevoServBoton',
 		/*Evento para nuevo teléfono*/
 		'click #enviarTelefono'	: 'crearTelefono',
+		'blur #numeroNuevo'	: 'validarTelefono',
+		// 'change #tipoNuevo'	: 'validarTipoTelefono',
 		/*Evento para crear nuevo formulario de teléfono*/
 		// 'click #btn_nuevoTelefono'	: 'nuevoFormularioTelefono',
 
@@ -39,7 +41,8 @@ app.VistaCliente = Backbone.View.extend({
 		this.listenTo(this.model, 'change:visibilidad', this.eliminarDelDOM);
 		// this.listenTo(this.model, 'change', this.render);
 
-
+		//Otras variables
+		this.pasarFiltro = 0;
 		this.esperar;
 	},
 	render	: function () {
@@ -125,8 +128,13 @@ app.VistaCliente = Backbone.View.extend({
 						.children('.respuesta')
 						//Removemos su atributo class
 						.html('<label class="icon-uniF479 exito"></label>');
+						//Borrar el contenido del td para telefonos
+						esto.$telefonos.html('');
+						//Imprimir el formulario para nuevo telefono
 						esto.$telefonos.html('<div class="editar"><div class="input-group"><input type="text" id="numeroNuevo" class="form-control" name="numero" maxlength="10" placeholder="Nuevo Teléfono"><div class="input-group-btn"><select id="tipoNuevo" class="btn btn-default" name="tipo"><option value="Casa">Casa</option><option value="Fax">Fax</option><option value="Movil" selected>Movil</option><option value="Oficina">Oficina</option><option value="Personal">Personal</option><option value="Trabajo">Trabajo</option><option value="Otro">Otro</option><option selected disabled>Tipo</option></select><button id="enviarTelefono" class="btn btn-default"><label class="glyphicon glyphicon-send"></label></button></div></div></div>');
+						//Obtener nuevamente los telefonos del cliente
 						esto.agregarTelefono(esto.model.get('id'), 'clientes');
+
 						esto.$editarAtributo.toggleClass('editando');
 						esto.$editarAtributo = esto.$('.editar');
 						esto.$editarAtributo.toggleClass('editando');
@@ -418,16 +426,26 @@ app.VistaCliente = Backbone.View.extend({
 		var buscando = $(elemento.currentTarget).val();
 		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
 
+		this.sinCoincidencias();
+
 		this.$menuServiciosInteres.html('');
 		this.cargarServiciosI();
-	}, 
+	},
 	buscarServicioC	: function (elemento) {
 		
 		var buscando = $(elemento.currentTarget).val();
 		app.coleccionServicios.fetch({reset:true, data:{nombre: buscando}});
 
+		this.sinCoincidencias();
+
 		this.$menuServiciosCuenta.html('');
 		this.cargarServiciosC();
+	},
+
+	sinCoincidencias	: function () {
+		if (app.coleccionServicios.length == 0) {
+			app.coleccionServicios.fetch({reset:true, data:{nombre: ''}});
+		};
 	},
 	/*Las funciones cargarServicioI y cargarServicioC agregar los
 	  servicios dentro de menus desplegables especificados por los 
@@ -451,12 +469,6 @@ app.VistaCliente = Backbone.View.extend({
 		});
 		this.$menuServiciosCuenta.append(vistaServicioC.render().el);
 	},
-
-
-
-
-
-
 	cargarServiciosI	: function () {
 		this.$menuServiciosInteres.html('');
 		app.coleccionServicios.each(this.cargarServicioI, this);
@@ -465,12 +477,6 @@ app.VistaCliente = Backbone.View.extend({
 		this.$menuServiciosCuenta.html('');
 		app.coleccionServicios.each(this.cargarServicioC, this);
 	},
-
-
-
-
-
-
 	quitarDeLista	: function (elemento) {
 		/*Esta funcion recibe un parametro al y se ejecuta al momento de ejecutarse
 		el evento para quitar de la lista uno de los servicios. El parametro
@@ -507,9 +513,10 @@ app.VistaCliente = Backbone.View.extend({
 		Backbone.emulateJSON = true;
 
         if (
-        	elemento.keyCode === 13 
+        	(this.pasarFiltro == 1 || elemento.keyCode === 13)
         	&& $(elemento.currentTarget).attr('id') == 'inputBusquedaI'
         ) {
+        	this.pasarFiltro = 0;
         	if ($(elemento.currentTarget).val() != '') {
         		var idCliente = this.model.get('id');
         		app.coleccionServicios.create(
@@ -533,7 +540,6 @@ app.VistaCliente = Backbone.View.extend({
 										.children('.respuesta')
 										//Removemos su atributo class
 										.html('<label class="icon-uniF479 exito"></label>');
-										esto.agregarServciciosClienteI(esto.$serviciosInteres);
 									},
 									error:function () {
 										$(elemento.currentTarget)
@@ -542,7 +548,7 @@ app.VistaCliente = Backbone.View.extend({
 										//Buscamos al hijo con la clase especificada
 										.children('.respuesta')
 										//Sustituimos html por uno nuevo
-										.html('<label class="icon-uniF478 error"></label>')
+										.html('<label class="icon-uniF478 error"></label>');
 			        		  		}
 			        		  	}
 			        		);
@@ -556,9 +562,10 @@ app.VistaCliente = Backbone.View.extend({
         };
 
         if (
-        	elemento.keyCode === 13 
+        	(this.pasarFiltro == 1 || elemento.keyCode === 13)
         	&& $(elemento.currentTarget).attr('id') == 'inputBusquedaC'
         ) {
+        	this.pasarFiltro = 0;
         	if ($(elemento.currentTarget).val() != '') {
         		var idCliente = this.model.get('id');
         		app.coleccionServicios.create(
@@ -582,7 +589,7 @@ app.VistaCliente = Backbone.View.extend({
 										.children('.respuesta')
 										//Removemos su atributo class
 										.html('<label class="icon-uniF479 exito"></label>');
-										esto.agregarServciciosClienteC(esto.$serviciosCuenta);
+										// esto.agregarServciciosClienteC(esto.$serviciosCuenta);
 									},
 									error:function () {
 										$(elemento.currentTarget)
@@ -609,43 +616,13 @@ app.VistaCliente = Backbone.View.extend({
     },
     agregarNuevoServBoton	: function (elemento) {
 		if ($(elemento.currentTarget).attr('id') == 'btn_agregarI') {
-    		this.agregarNuevoServ(this.$('inputBusquedaI'));
+    		this.pasarFiltro = 1;
+    		this.$('#inputBusquedaI').trigger('keypress');
 		};
 		if ($(elemento.currentTarget).attr('id') == 'btn_agregarC') {
-			this.agregarNuevoServ(this.$('inputBusquedaC'));
+			this.pasarFiltro = 1;
+			this.$('#inputBusquedaC').trigger('keypress');
 		};
-    // 	Backbone.emulateHTTP = true;
-    // 	Backbone.emulateJSON = true;
-
-    // 	if ($(elemento.currentTarget).attr('id') == 'btn_agregarI') {
-    // 		var idCliente = this.model.get('id');
-    // 		var idServicio;
-    // 		app.coleccionServicios.create({ nombre : $('#inputBusquedaI').val() }, {wait:true, success : function (exito) {
-    // 			$('#listaInteres').append('<li class="list-group-item">'+exito.get('nombre') +'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosInteres" value="'+exito.get('id')+'" checked></li>');
-    // 			$(elemento.currentTarget).val('');
-    // 			Backbone.emulateHTTP = true;
-				// Backbone.emulateJSON = true;
-    // 		  	app.coleccionServiciosClientesI.create({idcliente:idCliente,idservicio:exito.get('id')});
-				// Backbone.emulateHTTP = false;
-				// Backbone.emulateJSON = false;
-    // 		} } );
-    // 	};
-    // 	if ($(elemento.currentTarget).attr('id') == 'btn_agregarC') {
-    // 		var idCliente = this.model.get('id');
-    // 		var idServicio;
-    // 		app.coleccionServicios.create({ nombre : $('#inputBusquedaC').val() }, {wait:true, success : function (exito) {
-    // 			$('#listaCuenta').append('<li class="list-group-item">'+ exito.get('nombre')+'<label class="icon-uniF470" style="float: right;"><span></span></label><input type="checkbox" class="check_posicion" name="serviciosCuenta" value="'+exito.get('id')+'" checked></li>');
-    // 			$(elemento.currentTarget).val('');
-    // 			Backbone.emulateHTTP = true;
-				// Backbone.emulateJSON = true;
-    // 		  	app.coleccionServiciosClientesC.create({idcliente:idCliente,idservicio:exito.get('id')});
-				// Backbone.emulateHTTP = false;
-				// Backbone.emulateJSON = false;
-    // 		} } );
-    // 	};
-
-    // 	Backbone.emulateHTTP = false;
-    // 	Backbone.emulateJSON = false;
     },
 	editando	: function () {
 		if (this.$btn_editar.children().attr('class') == 'icon-edit2 MO icon-back') {
@@ -719,4 +696,14 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 
+	validarTelefono	: function (elemento) {
+		// if(isNaN($(elemento.currentTarget).val().trim()) && $(elemento.currentTarget).val().trim() != '' ) {
+		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
+	        alert('[ERROR:Teléfono]\n\nNo ingrese letras u otros símbolos\nEscriba 10 números\nEstablesca un tipo');
+	        $(elemento.currentTarget).focus();
+	    	return true;
+	    } else{
+	    	this.$tipoNuevo.focus();
+	    };
+	}
 });

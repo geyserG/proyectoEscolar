@@ -7,7 +7,19 @@ app.ModeloServicioCliente = Backbone.Model.extend({
 		status	: true
 	},
 
-	cambiarStatus	: function () {
-		this.save({ status: !this.get('status') },{wait:true});
+	cambiarStatus	: function (elemento) {
+		this.save({ status: !this.get('status') }, {
+			wait:true,
+			success:function () {
+	  			$(elemento.currentTarget)
+	  			.parent()
+	  			.html('<label class="exito">Eliminado </label>');
+			},
+			error:function (error) {
+				$(elemento.currentTarget)
+				.parent()
+				.html('<label class="error">No se elimino </label>');
+	  		}
+		});
 	}
 });
