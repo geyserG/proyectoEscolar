@@ -15,7 +15,8 @@
 			if(is_object($post)){ $post = (array)$post; }
 		    $phone =  array('idpropietario'=>$post['idpropietario'], 'tabla'=>$post['tabla'], 
 			   				'numero'	   =>$post['numero'],        'tipo' =>$post['tipo']);
-			return $this->db->insert('telefonos', $phone);
+			$this->db->insert('telefonos', $phone);
+			return $this->db->insert_id(); # Devolvemos el id
 		}
 		
 		public function get_p($id=FALSE)
