@@ -171,14 +171,14 @@
     <table id="tbla_roles" class="table table-striped table-curved">      
 		<thead>
 			<tr id="color_th">							                
-				<th  >Empleados</th>
+				<th>Empleados</th>
 				<th>Roles</th>
 				<th ></th>
 			</tr>
 	    </thead>
 	    <tbody>
 	    	<tr>
-			    <td>Geyser gallardo ramirez snachez</td>						                
+			    <td>Geyser gallardo ramirez snachez</td>		                
 			    <td>Programador SR</td>							                
 			    <td class="icon-eliminar">
 				    <div class="eliminar_cliente">
