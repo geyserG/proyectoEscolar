@@ -36,6 +36,12 @@ class Representante extends Api {
     	
     }
 
+    private function patch_representante($id){
+
+        $query = $this->representante->patch_r($id, $this->put());
+        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    }
+
     private function update_representante($id){
 
         $put = $this->put();

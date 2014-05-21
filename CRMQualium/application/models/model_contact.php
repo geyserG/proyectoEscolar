@@ -5,17 +5,16 @@
     require_once 'modelo_rit.php';
     class Model_contact extends CI_Model
     {          
-        function obj(){
+        public function obj(){
             return $obj = new modelo_rit();
         }
-        function insert_C($contacto)
+        public function insert_C($contacto)
         {
             $query = $this->db->insert('contactos',$contacto);
             return $this->db->insert_id();
-
         } # Fin del metodo insert_mcontact()...
 
-        function get_C($id){
+        public function get_C($id){
 
             $obj = $this->obj(); $cont=0; $resp = False;
                      
@@ -34,17 +33,10 @@
             return $resp;       	
         } # Fin de la función get_C
 
-        function update_C(){
-        	
-            $this->db->where('id', $id);
-            $this->db->update('contactos', $put); 
+        public function patch_C($id) {  $this->db->where('id', $id); return $this->db->update('contactos', $put); }
 
-        }
-        private function delete_C($id){
+        public function update_C($id){  $this->db->where('id', $id); return $this->db->update('contactos', $put); }
 
-            $query = $this->db->delete('contactos', array('id' => $id));
-            return $query;
-            
-        }
+        public function delete_C($id){  $del = array('id' => $id);   return $this->db->delete('contactos', $del); }
 
 }

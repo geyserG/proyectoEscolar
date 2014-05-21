@@ -14,6 +14,7 @@ class  Contacto extends Api {
         {
     		case    'post':   $this->insert_contacto();      	    break; # POST
     		case    'get':	  $this->get_contactos($this->id());    break; # GET
+            case    'patch':  $this->pacth_contacto($this->id());  break; # PUT
     		case    'put':    $this->update_contacto($this->id());  break; # PUT
     		case    'delete': $this->delete_contacto($this->id());  break; # DELETE
     		default:      	  $this->response('',405);    		    break; # METODO NO DEFINIDO...
@@ -34,6 +35,11 @@ class  Contacto extends Api {
     	$query = $this->contacto->get_C($id);                        
     	($query) ? $this->response($query, 302) : $this->response($query, 404);
     	
+    }
+    private function patch_contacto($id){
+
+        $query = $this->contacto->pacth_C($id, $this->put());
+        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 
     private function update_contacto($id){

@@ -37,6 +37,8 @@
           return $resp;        	
       }
 
+      public function patch_representante($id) {  $this->db->where('id', $id); return $this->db->update('representante', $put); }
+
       function update_representante($id, $put){
 
         $this->db->where('id', $id);
