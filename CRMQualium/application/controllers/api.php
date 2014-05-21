@@ -17,20 +17,23 @@ class  Api extends CI_Controller {
     public function ruta()
     {   
         # Captura el primer segmento de la URL para cargar la vista...
-        return $this->uri->segment(1);      
+        return $this->uri->segment(2);      
     }
 
     public function id()
     {   
         # Captura el primer segmento de la URL para cargar la vista...
-        return $this->uri->segment(2);      
+        return $this->uri->segment(3);      
     }
- 
+
     # Carga las vistas por default y la vista presente
     public function area_Estatica($modulo, $var = FALSE){
+
+        // $links['clientes']=$var[2];
         $this->load->view('cabecra_y_menu.html');
         $this->load->view('header');
-        $this->load->view('menu');
+        $this->load->view('menu',$var);       
+        $var = FALSE;
         if($var===FALSE)
         {     $this->load->view($modulo); }else{
             $this->load->view($modulo,$var);
