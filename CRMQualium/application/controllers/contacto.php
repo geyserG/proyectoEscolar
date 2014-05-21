@@ -36,9 +36,9 @@ class  Contacto extends Api {
     	($query) ? $this->response($query, 302) : $this->response($query, 404);
     	
     }
-    private function patch_contacto($id){
+    private function pacth_contacto($id){
 
-        $query = $this->contacto->pacth_C($id, $this->put());
+        $query = $this->contacto->patch_C($id, $this->put());
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 

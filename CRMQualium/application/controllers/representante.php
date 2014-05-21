@@ -14,6 +14,7 @@ class Representante extends Api {
         {
     		case     'post':   $this->insert_representante();             break; # POST
     		case     'get':    $this->get_representante($this->id());     break; # GET
+            case     'patch':  $this->patch_representante($this->id());  break; # PUT
     		case     'put':    $this->update_representante($this->id());  break; # PUT	
     		case     'delete': $this->delete_representante($this->id());  break; # DELETE
     		default:  	       $this->response('',405);   		          break; # METODO NO DEFINIDO...
@@ -38,7 +39,7 @@ class Representante extends Api {
 
     private function patch_representante($id){
 
-        $query = $this->representante->patch_r($id, $this->put());
+        $query = $this->representante->patch_representante($id, $this->put());
         ($query) ? $this->response($query, 200) : $this->response($query, 204);        
     }
 

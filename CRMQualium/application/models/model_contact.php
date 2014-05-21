@@ -33,7 +33,9 @@
             return $resp;       	
         } # Fin de la función get_C
 
-        public function patch_C($id) {  $this->db->where('id', $id); return $this->db->update('contactos', $put); }
+        public function patch_C($id, $put) {  
+            (array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
+            $this->db->where('id', $id); return $this->db->update('contactos', $put); }
 
         public function update_C($id){  $this->db->where('id', $id); return $this->db->update('contactos', $put); }
 
