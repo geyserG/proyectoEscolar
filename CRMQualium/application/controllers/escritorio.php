@@ -20,7 +20,30 @@ class Escritorio extends Api {
     }  
 
 	//Vista inicial
-	public function index(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
+	// public function dashboard(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
+	public function index(){
+		
+		$this->form_validation->set_rules('usuario', 'usuario');
+		// $this->form_validation->set_rules('contrasenia', 'contrasenia', 'required');
+
+		if($this->form_validation->run()===FALSE){
+
+			$this->load->view('pruebas');	
+		}
+		else
+		{   
+			$query = $this->usuario->session($this->post());
+			// if($query){$this->dashboard();}
+
+			if($query){
+			// $data['usuario'] = $query;
+			// # $data['usuario'] = $post['usuario'];
+			// # $data['contrasenia'] = $post['contrasenia'];
+		       $this->area_Estatica('dashboard_gustavo', $query);
+			// $this->load->view($query, $data);
+			}
+		}
+	}
 
 	public function clientes()
 	{	
@@ -107,24 +130,6 @@ class Escritorio extends Api {
 	public function post()
 	{
 		return $this->input->post();
-	}
-
-	public function login(){
-		
-		$this->form_validation->set_rules('usuario', 'usuario');
-		// $this->form_validation->set_rules('contrasenia', 'contrasenia', 'required');
-
-		if($this->form_validation->run()===FALSE){
-
-			$this->area_Estatica('pruebas');	
-		}
-		else
-		{   $query = $this->usuario->session($this->post());
-			 $data['usuario'] = $query;
-			# $data['usuario'] = $post['usuario'];
-			# $data['contrasenia'] = $post['contrasenia'];
-			$this->area_Estatica('pruebausuario',$data);		
-		}
 	}
 
 	public function facturas (){
