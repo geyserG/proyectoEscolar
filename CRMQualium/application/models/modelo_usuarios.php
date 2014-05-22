@@ -1,28 +1,55 @@
 <?php
-	/**
-	* Operaciones en la tabla Servicios de la bd...
-	*/
+	
 	class Modelo_usuarios extends CI_Model
 	{
 		
 		function __construct()
-		{
-						
-		}
+		{                    }
 
-		public function insert_user($post)
-		{
-			$query = $this->db->insert('usuarios', $post);
-			return $query; 
-		}
+		public function insert_user($post){	$query = $this->db->insert('usuarios', $post);	return $query; }
 
 		public function get_user($id)
-		{
+		{  
 			$this->db->select('*');
 			($id==NULL) ? $query = $this->db->get('usuarios') :
 			$this->db->where('id', $id); $query = $this->db->get('usuarios');			
 			
 			return $query->result();			
+		}
+
+		
+
+		public function session($post)
+		{   
+
+			$this->db->select('id, permiso');
+			$permisos = $this->db->get('permisos')->result_array();
+			
+
+			$where = array('usuario'=>$post['usuario'], 'contrasenia'=>$post['contrasenia']); 
+			$this->db->select('idperfil'); 
+			($post) ? $query = $this->db->get_where('usuarios', $where) : $query=FALSE;	 		
+			$existe = $query->result(); 
+			if($existe)
+			{
+				$this->db->select('*');
+				$query = $this->db->get_where('perfiles', array('idperfil'=>$existe[0]->idperfil));
+				$resp = $query->result_array();
+				
+				
+				for ($i=0; $i <count($resp) ; $i++) { 
+					for ($x=0; $x <count($permisos) ; $x++) { 
+						
+						if($resp[$i]['idpermiso']==$permisos[$x]['id'])
+						{
+							$privilegios[$permisos[$x]['permiso']] = $permisos[$x]['permiso'];
+						}
+
+					}
+				}
+				
+           	} #var_dump($privilegios); die();
+           	return $privilegios;			
 		}
 
 		public function update_user($id, $put)

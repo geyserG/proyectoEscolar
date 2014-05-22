@@ -29,7 +29,6 @@ class  Cliente extends Api {
     { 
         # La función ipost()... Recupera todos los post que viene desde la petición        
         $query = $this->Customer->insert_customer($this->ipost());
-
         ($query) ? $this->response($query, 201) : $this->response($query, 404);                 
     }
 

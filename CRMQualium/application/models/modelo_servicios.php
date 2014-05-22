@@ -11,7 +11,8 @@
 		}
 
 		public function insert_s($post)
-		{
+		{#var_dump($post); die();
+			// return $this->db->insert('servicios', $post);
 			$query = $this->db->insert('servicios', $post);
 			$id    = $this->db->insert_id();
 			return $id; 

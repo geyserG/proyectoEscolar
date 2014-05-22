@@ -8,52 +8,52 @@ $route['default_controller'] = "escritorio";
 // $route['escritorio/'] = 'escritorio/';
 
 # Dashboard
-$route['escritorio/dashboard'] = 'escritorio/dashboard';
+$route['dashboard'] = 'escritorio/dashboard';
 
 # Rutas para el cliente
-$route['escritorio/modulo_Clientes'] 			 = 'escritorio/clientes';
-$route['escritorio/modulo_cliente_nuevo'] 		 = 'escritorio/clientes/$1';
-$route['escritorio/modulo_consulta_clientes'] 	 = 'escritorio/clientes/$1';
-$route['escritorio/modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
+$route['modulo_Clientes'] 			 = 'escritorio/clientes';
+$route['modulo_cliente_nuevo'] 		 = 'escritorio/clientes/$1';
+$route['modulo_consulta_clientes'] 	 = 'escritorio/clientes/$1';
+$route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 
 //Rutas para la proyectos
-$route['escritorio/modulo_proyectos'] = 'escritorio/proyectos/$1';
-$route['escritorio/modulo_proyectos_consulta']   = 'escritorio/proyectos/$1';
-$route['escritorio/modulo_proyectos_nuevo']      = 'escritorio/proyectos/$1';
+$route['modulo_proyectos'] = 'escritorio/proyectos/$1';
+$route['modulo_proyectos_consulta']   = 'escritorio/proyectos/$1';
+$route['modulo_proyectos_nuevo']      = 'escritorio/proyectos/$1';
 
 //Rutas para la contratos...
-$route['escritorio/modulo_contratos']           = 'escritorio/contratos/$1';
-$route['escritorio/modulo_contratos_nuevo']     = 'escritorio/contratos/$1';
-$route['escritorio/modulo_contratos_historial'] = 'escritorio/contratos/$1';
+$route['modulo_contratos']           = 'escritorio/contratos/$1';
+$route['modulo_contratos_nuevo']     = 'escritorio/contratos/$1';
+$route['modulo_contratos_historial'] = 'escritorio/contratos/$1';
 
 //Rutas para la cotizacion
-$route['escritorio/modulo_cotizaciones']          = 'escritorio/cotizacion/$1';
-$route['escritorio/modulo_cotizaciones_nuevo']    = 'escritorio/cotizacion/$1';
-$route['escritorio/modulo_cotizaciones_consulta'] = 'escritorio/cotizacion/$1';
+$route['modulo_cotizaciones']          = 'escritorio/cotizacion/$1';
+$route['modulo_cotizaciones_nuevo']    = 'escritorio/cotizacion/$1';
+$route['modulo_cotizaciones_consulta'] = 'escritorio/cotizacion/$1';
 
 //Rutas para la facturas...
-$route['escritorio/modulo_facturas'] = 'escritorio/facturas/$1';
+$route['modulo_facturas'] = 'escritorio/facturas/$1';
 // $route['modulo_facturass'] = 'escritorio/facturas/$1';
 // $route['modulo_facturas'] = 'escritorio/facturas/$1';
 
 //Rutas para la actividades...
-$route['escritorio/modulo_actividades'] = 'escritorio/actividades/$1';
+$route['modulo_actividades'] = 'escritorio/actividades/$1';
 // $route['modulo_actividades'] = 'escritorio/actividades/$1';
 // $route['modulo_actividades'] = 'escritorio/actividades/$1';
 
 //Rutas para la catalogos...
-$route['escritorio/modulo_catologos'] = 'escritorio/catalogos/$1';
+$route['modulo_catologos'] = 'escritorio/catalogos/$1';
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
 
 //Rutas para el modilo de usuarios...
-$route['escritorio/modulo_usuarios'] = 'escritorio/usuarios/$1';
+$route['modulo_usuarios'] = 'escritorio/usuarios/$1';
 // $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
 // $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
 
 //Rutas para el modulo de configuracion...
-$route['escritorio/modulo_configuracion'] = 'escritorio/configuracion/$1';
+$route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 // $route['modulo_configuracion'] = 'escritorio/configuracion/$1';
 

@@ -3,8 +3,8 @@
 <nav id="menu" role="navigation">
 	<ul id="menu-lista">
 		<li class="">
-			<label class="icono"><a class="icono" href="escritorio"><span class="icon-uniF006"></span></a></label>
-			<a class="anclaMenu" href="escritorio">
+			<label class="icono"><a class="icono" href="dashboard"><span class="icon-uniF006"></span></a></label>
+			<a class="anclaMenu" href="dashboard">
 				Escritorio
 			</a>
 		</li>
@@ -21,13 +21,13 @@
 			</a>
 		</li>
 		<li class="">
-			<label class="icono"><a class="icono" href="modulo_contratos"><span class="icon-uniF5E2"></span></a></label>
-			<a class="anclaMenu" href="modulo_contratos">
+			<label class="icono"><a class="icono" href="modulo_$contratos"><span class="icon-uniF5E2"></span></a></label>
+			<a class="anclaMenu" href="modulo_$contratos">
 				Contratos
 			</a>
 		</li>
 		<li class="">
-			<label class="icono"><a class="icono" href="modulo_cotizaciones"><span class="icon-calculator"></span></a></label>
+			<label class="icono"><a class="icono" href="modulo_$cotizaciones"><span class="icon-calculator"></span></a></label>
 			<a class="anclaMenu" href="modulo_cotizaciones">
 				Cotización
 			</a>

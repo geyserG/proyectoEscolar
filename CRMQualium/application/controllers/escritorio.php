@@ -20,30 +20,31 @@ class Escritorio extends Api {
     }  
 
 	//Vista inicial
-	// public function dashboard(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
-	public function index(){
+	public function index(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
+	public function dashboard(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
+	// public function index(){
 		
-		$this->form_validation->set_rules('usuario', 'usuario');
-		// $this->form_validation->set_rules('contrasenia', 'contrasenia', 'required');
+	// 	$this->form_validation->set_rules('usuario', 'usuario');
+	// 	// $this->form_validation->set_rules('contrasenia', 'contrasenia', 'required');
 
-		if($this->form_validation->run()===FALSE){
+	// 	if($this->form_validation->run()===FALSE){
 
-			$this->load->view('pruebas');	
-		}
-		else
-		{   
-			$query = $this->usuario->session($this->post());
-			// if($query){$this->dashboard();}
+	// 		$this->load->view('pruebas');	
+	// 	}
+	// 	else
+	// 	{   
+	// 		$query = $this->usuario->session($this->post());
+	// 		// if($query){$this->dashboard();}
 
-			if($query){
-			// $data['usuario'] = $query;
-			// # $data['usuario'] = $post['usuario'];
-			// # $data['contrasenia'] = $post['contrasenia'];
-		       $this->area_Estatica('dashboard_gustavo', $query);
-			// $this->load->view($query, $data);
-			}
-		}
-	}
+	// 		if($query){
+	// 		// $data['usuario'] = $query;
+	// 		// # $data['usuario'] = $post['usuario'];
+	// 		// # $data['contrasenia'] = $post['contrasenia'];
+	// 	       $this->area_Estatica('dashboard_gustavo', $query);
+	// 		// $this->load->view($query, $data);
+	// 		}
+	// 	}
+	// }
 
 	public function clientes()
 	{	
@@ -51,8 +52,7 @@ class Escritorio extends Api {
 
 		if($this->ruta() == 'modulo_cliente_nuevo')
 		{
-			$data['servicios'] = $this->serv->get_sNuevoCliente(); # Lista de servicios
-			$this->load->view($this->ruta(), $data);
+			$this->datosCliente($this->ruta());
 		}
 		# TipoCliente= 'cliente o prospecto' y como los dos cargan los mismos datos entonces lo asignamos a una función
 		# Y simplemente lo llamamos para que nos cargue los datos y la vista.

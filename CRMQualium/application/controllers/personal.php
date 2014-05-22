@@ -38,21 +38,21 @@ class  Personal extends Api {
 
     private function patch_personal($id)
     {   
-        $query = $this->personal>patchPersonal($id, $this->put());       
+        $query = $this->personal->patchPersonal($id, $this->put());       
         ($query)? $this->response($query, 200) : $this->response($query, 406);        
     }
 
     private function update_personal($id)
     {        
         # La función put(); Devuelve el array con los campos espicificos para actualizar              
-        $query = $this->personal>updatePersonal($id, $this->put());
+        $query = $this->personal->updatePersonal($id, $this->put());
              
         ($query) ? $this->response($query, 200) : $this->response($query, 304);        
     }
 
     private function delete_personal($id)
     {
-        $query = $this->personal>deletePersonal($id);
+        $query = $this->personal->deletePersonal($id);
         ($query) ? $this->response($query, 200) : $this->response($query, 304);
     }
 
