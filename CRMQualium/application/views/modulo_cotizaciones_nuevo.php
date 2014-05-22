@@ -1,235 +1,173 @@
-	<!-- <div class="contenedor_modulo"> -->
-		<section class="contenedor_principal_modulos"> 
-			<h3>Información Básica</h3>
-			<hr>
-			<input type="search" class="form-control" placeholder="Buscar cliente">
-			<span id="buscar" class="icon-search"></span>
-			<input type="text" class="form-control" placeholder="12/12/2014" disabled>
+    <section class="contenedor_principal_modulos"> 
+		<h3>Información Básica</h3>
+		<hr>
+		<div id="busquedayfecha">
+		<input type="search" class="form-control" placeholder="Buscar cliente">
+		<span id="buscar" class="icon-search"></span>
+		<input type="text" class="form-control" placeholder="12/12/2014" disabled>	
+		</div>		
+		<div id="datos_cotizacion">
 			<input type="text" class="form-control" placeholder="Cliente">
-			<input type="text" class="form-control" placeholder="Representante">
-			<textarea class="form-control" rows="3"></textarea>
-			<br>
-			<h3>Inversión & Tiempo</h3>
-			<hr>
-			<!-- <table id="cabecera_serv" class="table table-striped table-curved" >
-			    	<thead>
-						<tr>
-							<th>&nbsp;&nbsp;</th>
-							<th style="width:318px;">Servicio</th>
-							<th>Duración</th>				
-							<th>P/Unitario</th>
-							<th></th>
-						</tr>
-					</thead>
-			    </table>		 -->			
-			<div id="txt_aliniado" >
-			    <table class="table table-striped">
-			    	<thead id="cabecera_serv">
-						<tr >
-							<th style="width:58px;"></th>
-							<th style="width:295px;">Servicios</th>
-							<th>Realización</th>				
-							<th>P/Unitario</th>
-													
-						</tr>
-					</thead>
-					<tbody class="scrollContent">
-						<tr >
-							<td style="width:56px;"><input type="checkbox"></td>
-							<td>Tarjeta de presentación frente</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Medallón</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Tríptico</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>díptico</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Catálogo</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Tarjeta de presentación frente y vuelta</td>
-							<td>2 hrs</td>				
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Anuncio sencillo</td>
-							<td>2 hrs</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Menú de restaurante</td>
-							<td>1 semana</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Diseño de caja</td>
-							<td>3 días</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Branding Completo</td>
-							<td>3 días</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Logo Animado</td>
-							<td>3 días</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Video Branding</td>
-							<td>3 días</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Campaña</td>
-							<td>1 semana</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Aplicaciones de campaña</td>
-							<td>1 mes</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Página Web sencilla </td>
-							<td>2 semanas</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Página Web complicada (Mas de 5 secciones)</td>
-							<td>3 a 5 semanas</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>Página Web con sistema interno</td>
-							<td>1 mes</td>					
-							<td>$12,000</td>
-							</tr>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td>App sencilla</td>
-							<td>1 mes</td>					
-							<td>$12,000</td>
-							</tr>
-					</tbody>
-			   </table><br>
-			</div><br><br>
-			<table id="tabla_cotizaciones" class="table table-striped">
-				<tr>
-					<th>Todos<input type="checkbox"></th>
-					<th>Servicio</th>
-					<th>Duración</th>
-					<th>Cantidad</th>
-					<th>P/Unitario</th>
-					<th>Descuento</th>
-					<th>Precio</th>
-					<th></th>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>El punto de usar Lorem Ipsum</td>
-					<td>5</td>
-					<td>1</td>
-					<td>$12,000</td>
-					<td>0%</td>
-					<td>$12,000</td>
-					<td class="iconos-operaciones">
-						<span class="icon-uniF470"></span><span class="icon-uniF756"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>El punto de usar Lorem Ipsum</td>
-					<td>5</td>
-					<td>1</td>
-					<td>$12,000</td>
-					<td>0%</td>
-					<td>$12,000</td>
-					<td class="iconos-operaciones">
-						<span class="icon-uniF470"></span><span class="icon-uniF756"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>El punto de usar Lorem Ipsum</td>
-					<td><input type="text" value="5"></td>
-					<td><input type="text" value="1"></td>
-					<td><input type="text" value="$12,000"></td>
-					<td><input type="text" value="0%"></td>
-					<td>$12,000</td>
-					<td class="iconos-operaciones">
-						<span class="icon-uniF470"></span><span class="icon-uniF756"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>El punto de usar Lorem Ipsum</td>
-					<td>5</td>
-					<td>1</td>
-					<td>$12,000</td>
-					<td>0%</td>
-					<td>$12,000</td>
-					<td class="iconos-operaciones">
-						<span class="icon-uniF470"></span><span class="icon-uniF756"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>El punto de usar Lorem Ipsum</td>
-					<td>5</td>
-					<td>1</td>
-					<td>$12,000</td>
-					<td>0%</td>
-					<td>$12,000</td>
-					<td class="iconos-operaciones">
-						<span class="icon-uniF470"></span><span class="icon-uniF756"></span>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td colspan="5">Total</td>
-					<td>$122,323</td>
-					<td></td>
-				</tr>
-			</table>			
-			<div class="desborde"></div> 
-			<button type="button" class="btn btn-default">Eliminar varios</button>	
-			<br><br><br>
-			<button type="button" class="btn btn-primary">Aceptar</button>
-		    <button type="button" class="btn btn-default"><span class="icon-preview"></span> Vista previa</button>
-			<button type="button" class="btn btn-danger">Cancelar</button>				
-	    </section>
-	<!-- </div> -->
-		<!-- <div class="desborde"></div> -->
+			<input type="text" class="form-control" placeholder="Representante">			
+		</div>
+		<div class="desborde"></div>
+		<textarea style="width: 850px; height: 80px;" class="form-control" rows="3" placeholder="Detalles"></textarea><br>		
+		<h3>Inversión & Tiempo</h3>
+		<hr>		
+		<div id="txt_aliniado" >
+		    <table id="tbla_services" class="table table-striped">
+		    	<thead id="cabecera_serv">
+					<tr>						
+						<th style="width:295px;">Servicios</th>							
+					</tr>
+				</thead>
+				<tbody class="scrollContent">
+					<tr>
+						<td><a href="#">Tarjeta de presentación frente</a>
+							<button type="button" class="btn btn-default"><span class="icon-uniF476"></span>
+							</button>
+							<div id="prueba">
+								<ul>	
+									<li>Concepto:&nbsp;<h7>Diseño Gráfivo</h7><li>
+									<li>P/Unitario:&nbsp;<h7>$300</h7><li>
+									<li>+IVA:&nbsp;<h7>$380</h7><li>
+									<li>Realización:&nbsp;<h7>1 día</h7><li>
+									<li>Detalles:&nbsp;<h7></h7><li>
+							    </ul>
+						    </div>
+						</td>
+					</tr>
+					<tr>
+						<td>Medallón</td>
+					</tr>
+					<tr>
+						<td>Tríptico</td>
+					</tr>
+					<tr>
+						<td>díptico</td>
+					</tr>
+					<tr>
+						<td>Catálogo</td>
+					</tr>
+					<tr>
+						<td>Tarjeta de presentación frente y vuelta</td>
+					</tr>
+					<tr>
+						<td>Anuncio sencillo</td>
+					</tr>
+					<tr>
+						<td>Menú de restaurante</td>
+					</tr>
+					<tr>
+						<td>Diseño de caja</td>
+					</tr>
+					<tr>
+						<td>Branding Completo</td>
+					</tr>
+					<tr>
+						<td>Logo Animado</td>
+					</tr>
+					<tr>
+						<td>Video Branding</td>
+					</tr>
+					<tr>
+						<td>Campaña</td>
+					</tr>
+					<tr>
+						<td>Aplicaciones de campaña</td>
+					</tr>
+					<tr>
+						<td>Página Web sencilla </td>
+					</tr>
+					<tr>
+						<td>Página Web complicada (Mas de 5 secciones)</td>
+					</tr>
+					<tr>
+						<td>Página Web con sistema interno</td>
+					</tr>
+					<tr>
+						<td>App sencilla</td>
+					</tr>
+				</tbody>
+		   </table>
+		   <table id="mostrar_tbla" class="table table-striped">
+			<tr style="height:20px;">
+				<th>Todos<input type="checkbox"></th>
+				<th>Servicio</th>
+				<th>Duración</th>
+				<th>Cantidad</th>
+				<th>P/Unitario</th>
+				<th>Descuento</th>
+				<th>Precio</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>Página web sencilla</td>
+				<td>5</td>
+				<td>1</td>
+				<td>$12,000</td>
+				<td>0%</td>
+				<td>$12,000</td>
+				<td class="iconos-operaciones">
+					<span class="icon-trash"  data-toggle="tooltip" title="Eliminar"></span><span class="icon-uniF756" data-toggle="tooltip" title="Editar"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>App sencilla</td>
+				<td>5</td>
+				<td>1</td>
+				<td>$12,000</td>
+				<td>0%</td>
+				<td>$12,000</td>
+				<td class="iconos-operaciones">
+					<span class="icon-trash"  data-toggle="tooltip" title="Eliminar"></span><span class="icon-uniF756" data-toggle="tooltip" title="Editar"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>Página web complicada</td>
+				<td><input type="text" value="5"></td>
+				<td><input type="text" value="1"></td>
+				<td><input type="text" value="$12,000"></td>
+				<td><input type="text" value="0%"></td>
+				<td>$12,000</td>
+				<td class="iconos-operaciones">
+					<span class="icon-trash"  data-toggle="tooltip" title="Eliminar"></span><span class="icon-uniF756" data-toggle="tooltip" title="Editar"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>Página web complicada</td>
+				<td><input type="text" value="5"></td>
+				<td><input type="text" value="1"></td>
+				<td><input type="text" value="$12,000"></td>
+				<td><input type="text" value="0%"></td>
+				<td>$12,000</td>
+				<td class="iconos-operaciones">
+					<span class="icon-trash"  data-toggle="tooltip" title="Eliminar"></span><span class="icon-uniF756" data-toggle="tooltip" title="Editar"></span>
+				</td>
+			</tr>
+			<tr class="info">
+				<td></td>
+				<td colspan="5">Total</td>
+				<td>$122,323</td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="desborde"></div><br><br> 
+		<button id="delete_varios" type="button" class="btn btn-danger">Eliminar varios</button><br><br>		
+		<button  type="button" class="btn btn-default">Guardar</button>
+	    <button type="button" class="btn btn-primary"><span class="icon-preview"></span> Vista previa</button>
+		<button type="button" class="btn btn-default">Cancelar</button>				
+		</div>					
+    </section>    
 </div>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#prueba").slideToggle();
+  });
+});
+</script>

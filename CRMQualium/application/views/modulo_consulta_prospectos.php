@@ -24,8 +24,8 @@
           <td>Enrique Peña Nieto</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -39,8 +39,8 @@
           <td>Steve Jobs</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -54,8 +54,8 @@
           <td>Mark Zukenberg</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -69,8 +69,8 @@
           <td>Steven Chan</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -84,8 +84,8 @@
           <td>Evan Williams</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -99,8 +99,8 @@
           <td>Rolando Zapata Bello</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -114,8 +114,8 @@
           <td>Henry Ford</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -129,8 +129,8 @@
           <td>Larry Page</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> </div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -144,8 +144,8 @@
           <td>Beto Canul May</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
-            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span></div>
+            
+            <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>
@@ -159,9 +159,9 @@
           <td>Geyser Ramirez Sanches</td>
           <td>04/06/2014</td>
           <td class="icon-operaciones">
-            <div class="eliminar_cliente">
+            
             <span class="icon-trash"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span> 
-            </div>
+           
             <span class="icon-edit2"  data-toggle="tooltip" data-placement="top" title="Editar"></span>
             <span class="icon-email"  data-toggle="tooltip" data-placement="top" title="Enviar"></span>
             <span class="icon-eye"  data-toggle="modal" data-target="#myModal" title="Ver contacto"></span>

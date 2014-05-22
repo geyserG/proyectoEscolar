@@ -6,7 +6,7 @@
 
 	.contenedor_principal_modulos #tabla_cotizaciones{
 		width: 100%;
-		vertical-align: middle;
+		float: left;
 	}
 
 	#tabla_cotizaciones input{
@@ -15,6 +15,15 @@
 
 	
 	}
+
+#mostrar_tbla tr{
+		&:hover{
+			.iconos-operaciones span{
+				opacity: 1;
+			}
+		};
+	}
+
 
 	#tabla_cotizaciones tr{
 		&:hover{
@@ -30,13 +39,24 @@
 		opacity: 0;
 	}
 	.iconos-operaciones span:hover{
-		background: #d7d7d7;
+		background:#0494E8;
 		border-radius: 3px;
 		cursor: pointer;
+		color: white;
 	}
+
+     .iconos-operaciones .icon-trash:hover{ //ES EL ICONO DE ELIMINAR CLIENTE
+		
+		background: red;
+		border-radius: 3px;
+		cursor: pointer;
+		color: white;
+    }
+
+
 /* {{{{{{{{{{{Sección consulta cotizacion}}}}}}}}}}} */
 
-/* {{{{{{{{{{{Sección nuva cotizacion}}}}}}}}}}} */
+/* {{{{{{{{{{{Sección nueva cotizacion}}}}}}}}}}} */
 	.contenedor_principal_modulos{
 		margin: 40px 0px 40px 0px;
 		/*display: block;*/
@@ -48,12 +68,12 @@
 		/*position: relative;*/
 	}
 
-	#tabla_servicios table{
+	/*#tabla_servicios table{
 		display: inline-block;
 		height: 300px;
 		overflow: auto;
 		width: auto;
-	}
+	}*/
 
 	/*#servicios_cotizados{
 		display: block;
@@ -66,8 +86,19 @@
 
 
 /* {{{{{{{{{{{Sección nuEva cotizacion}}}}}}}}}}} */
+#mostrar_tbla{
+
+	width: 75%;
+	float: right;
+}
+
+#tbla_services{
+
+	float:left;
+	width: auto;
 
 
+}
 
 #cabecera_serv{
 
@@ -75,9 +106,12 @@
     background-color: #f9f9f9;
     color: #333;
     display: inline-table;
-    width: 550px;
+    width: 270px;
+
 
 }
+
+
 
 /*#cotizacion_serv table {
 
@@ -94,7 +128,7 @@ tbody.scrollContent {
 	display: block; /*obligado*/ 
 	height: 300px; /*la que necesites*/ 
 	overflow: auto; /*obligado*/
-	width: 550px;
+	width: 285px;
 	
 	}
 
@@ -102,8 +136,35 @@ tbody.scrollContent {
 
 	text-align: left;
 	vertical-align: middle;
+
+}
+
+/*#delete_varios{
+
+	float: left;
+	margin-left: 300px;
+}*/
+
+#busquedayfecha{
+    
 	
+	float: left;
+	height: 110px;
+	width: 400px;
 
 }
 
 
+#datos_cotizacion{
+
+  
+	float: left;
+	margin-left:50px;  
+	height: 110px;
+	width: 400px;
+}
+
+#prueba{
+	 
+	 display: none;
+}
