@@ -25,7 +25,7 @@
           $resp[$cont]['id'] = $value->id; 
           $resp[$cont]['idcliente'] = $value->idcliente;
           $resp[$cont]['nombre'] = $value->nombre;
-          $resp[$cont]['email'] = $value->correo;
+          $resp[$cont]['correo'] = $value->correo;
           $resp[$cont]['cargo'] = $value->cargo;                
           // $phone = $this->db->get_where('telefonos',array('idpropietario'=>$id, 'tabla'=>'representante'));
           // $phone = $phone->result();

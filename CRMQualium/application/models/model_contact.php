@@ -25,7 +25,7 @@
                 $resp[$cont]['id'] = $value->id; 
                 $resp[$cont]['idcliente'] = $value->idcliente;
                 $resp[$cont]['nombre'] = $value->nombre;
-                $resp[$cont]['email'] = $value->correo;
+                $resp[$cont]['correo'] = $value->correo;
                 $resp[$cont]['cargo'] = $value->cargo;                
                 $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idcontacto', 'idtelefono', 'telefonos', 'telefonos_contactos'); 
                 $cont++;
