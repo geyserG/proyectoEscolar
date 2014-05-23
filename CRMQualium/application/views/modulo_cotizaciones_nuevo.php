@@ -1,12 +1,12 @@
     <section class="contenedor_principal_modulos"> 
 		<h3>Información Básica</h3>
 		<hr>
-		<div id="busquedayfecha">
+		<div class="datos_cotizacion">
 		<input type="search" class="form-control" placeholder="Buscar cliente">
 		<span id="buscar" class="icon-search"></span>
 		<input type="text" class="form-control" placeholder="12/12/2014" disabled>	
 		</div>		
-		<div id="datos_cotizacion">
+		<div class="datos_cotizacion">
 			<input type="text" class="form-control" placeholder="Cliente">
 			<input type="text" class="form-control" placeholder="Representante">			
 		</div>
@@ -18,7 +18,7 @@
 		    <table id="tbla_services" class="table table-striped">
 		    	<thead id="cabecera_serv">
 					<tr>						
-						<th style="width:295px;">Servicios</th>							
+						<th>Servicios</th>							
 					</tr>
 				</thead>
 				<tbody class="scrollContent">
@@ -161,7 +161,7 @@
 		<button  type="button" class="btn btn-default">Guardar</button>
 	    <button type="button" class="btn btn-primary"><span class="icon-preview"></span> Vista previa</button>
 		<button type="button" class="btn btn-default">Cancelar</button>				
-		</div>					
+		</div>				
     </section>    
 </div>
 <script>
