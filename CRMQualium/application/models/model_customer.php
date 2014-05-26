@@ -57,6 +57,12 @@
 			return $idcliente;
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
+		# Datos del cliente para buscarlo en el modulo del proyecto...
+		public function get_customerProyect()
+		{
+			$this->db->select('id, nombreComercial');
+			return $this->db->get('clientes')->result();
+		}
 	
 		public function get_customers($ruta)
 		{

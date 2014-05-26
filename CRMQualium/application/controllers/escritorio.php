@@ -96,7 +96,7 @@ class Escritorio extends Api {
 	public function proyectos()
 	{
 		$this->area_Estatica('modulo_proyectos');
-		$data['clientes']    = $this->customer->get_customers($this->ruta());	# Lista de clientes
+		$data['clientes']    = $this->customer->get_customerProyect();	# Lista de clientes
 		$data['empleados'] 	 = $this->empleado->getPersonal();  		# Proyectos
 		$data['servicios'] 	 = $this->serv->get_s();  				# Servicios Relacionados con los proyectos
 		$data['roles']		 = $this->Roles->getRol();  				# Lista de Roles.
