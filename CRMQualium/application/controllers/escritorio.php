@@ -46,10 +46,22 @@ class Escritorio extends Api {
 	// 	}
 	// }
 
-	public function catalogoServicios()
+	// public function catalogoServicios()
+	// {
+	// 	$data['servicios'] = $this->serv->get_s();              	# Lista de Servicios
+	// 	$this->area_Estatica($this->ruta(), $data);
+	// }
+
+	public function catalogos()
 	{
-		$data['servicios'] = $this->serv->get_s();              	# Lista de Servicios
-		$this->area_Estatica($this->ruta(), $data);
+		$this->area_Estatica('modulo_catalogos');
+
+		if($this->ruta() == 'catalogo_Servicios')
+		{
+			$data['servicios'] = $this->serv->get_s();
+			$this->load->view($this->ruta(), $data);	
+		}
+
 	}
 
 	public function clientes()
@@ -101,6 +113,8 @@ class Escritorio extends Api {
 		}
 	}
 
+	
+
 	public function contratos()
 	{
 		$this->area_Estatica('modulo_contratos');
@@ -145,10 +159,6 @@ class Escritorio extends Api {
 
 	public function actividades(){
 		$this->area_Estatica('modulo_actividades');
-	}
-
-	public function catalogos(){
-		$this->area_Estatica('modulo_catalogos');
 	}
 
 	public function usuarios(){

@@ -17,7 +17,7 @@ $route['modulo_consulta_clientes'] 	 = 'escritorio/clientes/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 
-$route['catalogo_Servicios'] 		 = 'escritorio/catalogoServicios';
+// $route['catalogo_Servicios'] 		 = 'escritorio/catalogoServicios';
 
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
@@ -45,7 +45,9 @@ $route['modulo_actividades'] = 'escritorio/actividades/$1';
 // $route['modulo_actividades'] = 'escritorio/actividades/$1';
 
 //Rutas para la catalogos...
-$route['modulo_catologos'] = 'escritorio/catalogos/$1';
+$route['modulo_catalogos']    = 'escritorio/catalogos';
+$route['catalogo_Servicios']  = 'escritorio/catalogos';
+
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
 

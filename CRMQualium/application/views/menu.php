@@ -45,8 +45,8 @@
 			</a>
 		</li>
 		<li class="">
-			<label class="icono"><a class="icono" href="catalogo_Servicios"><span class="icon-book"></span></a></label>
-			<a class="anclaMenu" href="catalogo_Servicios">
+			<label class="icono"><a class="icono" href="modulo_catalogos"><span class="icon-book"></span></a></label>
+			<a class="anclaMenu" href="modulo_catalogos">
 				Catálogos
 			</a>
 		</li>
