@@ -8,6 +8,8 @@ class  Api extends CI_Controller {
 
         
      }
+     private $_code = 200;
+
     public function metodo()
     {
         # Recupera el nombre del metodo y lo convierte a minusculas...
@@ -29,11 +31,9 @@ class  Api extends CI_Controller {
     # Carga las vistas por default y la vista presente
     public function area_Estatica($modulo, $var = FALSE){
 
-        // $links['clientes']=$var[2];
         $this->load->view('cabecra_y_menu.html');
         $this->load->view('header');
         $this->load->view('menu');       
-        $var = FALSE;
         if($var===FALSE)
         {     $this->load->view($modulo); }else{
             $this->load->view($modulo,$var);
@@ -41,20 +41,16 @@ class  Api extends CI_Controller {
     }
 
     protected function response($data, $status)
-    {
-        # $status es el codigo de respuesta que regresa la consulta
-        $status_message = $this->requestStatus($status);
-        echo $this->set_headers($status); 
-        $response['status'] = $status;
-        $response['status_message'] = $status_message;        
-        (is_numeric($data)) ? $response['id'] = $data : $response['data'] = $data;
-        $resp = json_encode($response); 
-        echo $resp;
+    {   
+        $this->_code = ($status) ? $status : 200; 
+        $this->set_headers();        
+        (is_numeric($data)) ? $response['id'] = $data : $response = $data;
+         echo json_encode($response); 
         exit;        
     }   
     
     # Codigo de Respuesta despues de una petición...
-    protected function requestStatus($code) 
+    protected function requestStatus() 
     {
         $status = array(  
             200 => 'OK',
@@ -68,16 +64,15 @@ class  Api extends CI_Controller {
             500 => 'Internal Server Error',
         ); 
         # Regresa el nombre del codigo de status...
-        foreach ($status as $key => $value) { if($key==$code){ return $value; } } # foreach
+        #foreach ($status as $key => $value) { if($key==$code){ return $value; } } # foreach
+        return ( $status[$this->_code]) ? $status[$this->_code] : $status[500];
+        
     }  
 
     # Establece la cabecera de respuesta.
-    private function set_headers($status){
-        # Cabeceras de respuesta
-        $status_message = $this->requestStatus($status); 
-        // header("HTTP/1.1 $status $status_message"); 
-        header("Access-Control-Allow-Methods: *");            
-        header("Access-Control-Allow-Orgin: *");
+    private function set_headers(){
+             
+        header("HTTP/1.1 ".$this->_code." ".$this->requestStatus());
         header("Content-Type: application/json");
             
     }

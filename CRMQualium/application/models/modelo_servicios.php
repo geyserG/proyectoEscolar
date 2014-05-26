@@ -11,21 +11,36 @@
 		}
 
 		public function insert_s($post)
-		{#var_dump($post); die();
-			// return $this->db->insert('servicios', $post);
-			$query = $this->db->insert('servicios', $post);
-			$id    = $this->db->insert_id();
-			return $id; 
-		}
+		{  
+			$insert='';
+			foreach ($post as $key => $value) 
+			{
+				if(!empty($value)){	$insert = 1; }
+			}
+			
+			if($insert==1)
+			{
+				$this->db->insert('servicios', $post); 	$id = $this->db->insert_id();
+				return $this->get_s($id);  
+			}
+			return false;			
+
+		} # Fin del metodo insertar...
+
 		public function get_s($id=FALSE)
 		{
-			$this->db->select('*');
-			($id===FALSE) ? $query = $this->db->get('servicios') : 
-			$this->db->where('id', $id); $query = $this->db->get('servicios');
-
-			if($query){ return $query->result(); }else{ return false;}
+			if($id===FALSE) 
+			{
+			 	return $this->db->get('servicios')->result();
+			}
+			else
+			{
+				$query = $this->db->get_where('servicios', array('id'=>$id))->result();
+				return $query[0];
+			}
 		}
-		# Esta funcion le sirve a la interfaz de modulo cliente_nuevo y consulta_cliente
+		# Esta funcion le sirve a la interfaz de modulo cliente_nuevo y consulta_cliente...
+
 		public function get_sNuevoCliente()
 		{
 			$this->db->select('id, nombre, concepto');
@@ -34,6 +49,18 @@
 			if($query){ return $query->result(); }else{ return false;}
 		
 		}
+
+		public function patch_s($id, $put)
+		{
+			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;	
+			$this->db->where('id', $id);
+			# la variable $put devuelve los campos especificando que datos se actualizaron.
+			$query = $this->db->update('servicios', $put);
+			# Regresa true o false dependiendo de la consulta.
+			if($query){ return $put; }
+			return false;
+		}
+
 		public function update_s($id, $put)
 		{
 			$this->db->where('id', $id);

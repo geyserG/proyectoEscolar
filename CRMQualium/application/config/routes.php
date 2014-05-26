@@ -17,6 +17,8 @@ $route['modulo_consulta_clientes'] 	 = 'escritorio/clientes/$1';
 $route['modulo_consulta_prospectos'] = 'escritorio/clientes/$1';
 
 
+$route['catalogo_Servicios'] 		 = 'escritorio/catalogoServicios';
+
 //Rutas para la proyectos
 $route['modulo_proyectos'] = 'escritorio/proyectos/$1';
 $route['modulo_proyectos_consulta']   = 'escritorio/proyectos/$1';

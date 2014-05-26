@@ -8,6 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 <IfModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods: "GET, POST, PUT, DELETE, OPTIONS"
 </IfModule>
 
 RewriteRule ^(.*)$ index.php/$1 [L]
