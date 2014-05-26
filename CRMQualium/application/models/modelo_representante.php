@@ -47,7 +47,7 @@
         $this->db->update('representante', $put); 
 
       }
-      function delete_representante($id){
+      function delete_r($id){
 
         $query = $this->db->delete('representante', array('id' => $id));
        return $query;

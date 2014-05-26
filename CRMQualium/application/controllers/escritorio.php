@@ -46,6 +46,12 @@ class Escritorio extends Api {
 	// 	}
 	// }
 
+	public function catalogoServicios()
+	{
+		$data['servicios'] = $this->serv->get_s();              	# Lista de Servicios
+		$this->area_Estatica($this->ruta(), $data);
+	}
+
 	public function clientes()
 	{	
 		$this->area_Estatica('modulo_Clientes');  # Carga la vista por default + la vista del modulo
@@ -115,11 +121,11 @@ class Escritorio extends Api {
 	{
 		$this->area_Estatica('modulo_cotizaciones');
 		$data['clientes']		  = $this->customer->get_customers($this->ruta());	# Lista de clientes
-		$data['servicios'] 		  = $this->serv->get_sNuevoCliente();              	# Lista de Servicios
+		$data['servicios'] 		  = $this->serv->get_s();              	# Lista de Servicios
 		$data['representantes']	  =$this->representa->get_r(False);					# List de representantes
 		if($this->ruta() == 'modulo_cotizaciones_nuevo')
 		{
-			$this->load->view($this->ruta());
+			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_cotizaciones_consulta')
 		{
