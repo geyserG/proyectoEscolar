@@ -17,10 +17,9 @@
 
 		}# Fin del metodo insertar telefono.
 
-		public function getPersonal($id)
+		public function getPersonal($id = False)
 		{
-			$this->db->select('*');
-			if($id==NULL) {
+			if($id===False) {
 				return $this->db->get('personal')->result();	
 			}
 			else
@@ -28,8 +27,7 @@
 				$this->db->where('id', $id); 
 				$query = $this->db->get('personal')->result(); 			
 				return $query[0];
-			} 
-			
+			}			
 		}
 
 		public function patchPersonal($id, $put)
