@@ -28,10 +28,10 @@
                       Nuevo
                         </a>
                     </li>        
-			     </ul>
-			   </li>
-			 </ul>
-		  </nav>
+			     <!-- </ul>
+			   </li> -->
+			    </ul>
+		    </nav>
 		  
 	</section>
 <section class="contenedor_principal_modulos"> 

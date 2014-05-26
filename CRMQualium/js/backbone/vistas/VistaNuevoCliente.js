@@ -40,7 +40,11 @@ app.VistaNuevoCliente = Backbone.View.extend({
 				'blur .telefonoContacto'	: 'validarTelefono',
 				'blur #emailRepresentante' 	: 'validarCorreo',
 			'blur .telefonoRepresentante'	: 'validarTelefono',
-			'blur #otroContactoEmail'		: 'validarCorreo' 
+			'blur #otroContactoEmail'		: 'validarCorreo',
+
+
+					//Eventos para las advertencias
+							'click #cerrar'	: 'cerrarAlerta'
 		},
 
 // -----initialize-------------------------------- 
@@ -399,15 +403,24 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		del cliente de manera exitos, de lo contrario la funcion de de la
 		propiedad success no procedera para mostrar el formulario para el
 		registro de contactos y representante.*/
-		app.coleccionClientes.create(objetoCliente,{wait:true,success:function(exito){
-			// Muestra el nombre comercial del cliente el el siguente formulario
-			$('#h1_nombreCliente').html('<span id="span_cliente">'+exito.get('nombreComercial')+'</span>'+'. Datos de contacto');
+		app.coleccionClientes.create(objetoCliente,
+			{
+				wait:true,
+				success	: function(exito){
+					// Muestra el nombre comercial del cliente el el siguente formulario
+					$('#div_nombreCliente').html('<h2>'+exito.get('nombreComercial')+'</h2><h3>Registro para representante y contactos</h3>');
 			
-			esto.guardarTelefono(exito.get('id'),'clientes',telefonos);
-			esto.guardarServiciosI(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosInteres')));
-			esto.guardarServiciosC(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosCuenta')));
-			esto.$('.visibleR').toggleClass('ocultoR');
-		}});
+					esto.guardarTelefono(exito.get('id'),'clientes',telefonos);
+					esto.guardarServiciosI(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosInteres')));
+					esto.guardarServiciosC(exito.get('id'),esto.obtenerServicios(document.getElementsByName('serviciosCuenta')));
+					esto.$('.visibleR').toggleClass('ocultoR');
+				},
+				error	: function () {
+					$('#error #comentario').html('Ocurrio un error al intentar registrar al cliente');
+	      			$('#error').removeClass('oculto');
+				}
+			}
+		);
 		Backbone.emulateHTTP = false;
 		Backbone.emulateJSON = false;
 
@@ -494,7 +507,7 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		return {
              nombreComercial : this.$nombreFiscal.val().trim(),
                 nombreFiscal : this.$nombreComercial.val().trim(),
-                       email : this.$email.val().trim(),
+                      correo : this.$email.val().trim(),
                          rfc : this.$rfc.val().trim(),
                    paginaWeb : this.$paginaWeb.val().trim(),
                         giro : this.$giro.val(),
@@ -552,9 +565,10 @@ app.VistaNuevoCliente = Backbone.View.extend({
         var nombreFoto = jQuery.parseJSON(resp.responseText);
         console.log(nombreFoto);
         if (nombreFoto.data != false){
-        	return ''+nombreFoto.data+'';	
+        	return 'img/fotosClientes/'+nombreFoto.data+'';	
         } else{
-        	nombreFoto.data; //false
+        	// nombreFoto.data; //false
+        	return 'img/fotosClientes/sinfoto.png';
         };
 	},
 // -----otroTelefono------------------------------ 
@@ -696,7 +710,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 // -----validarCorreo----------------------------- 
 	validarCorreo	: function (elemento) {
 		if( !(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
-	      alert('[ERROR:Email]\n\nNo es un correo valido');
+	      $('#error #comentario').html('No es un correo valido');
+	      $('#error').removeClass('oculto');
 	      $(elemento.currentTarget).focus();
 	      return false;
 	    };
@@ -705,7 +720,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	validarTelefono	: function (elemento) {
 		// if(isNaN($(elemento.currentTarget).val().trim()) && $(elemento.currentTarget).val().trim() != '' ) {
 		if(!(/^\d{10}$/.test($(elemento.currentTarget).val().trim())) && $(elemento.currentTarget).val().trim() != '' ) {
-	        alert('[ERROR:Teléfono]\n\nNo ingrese letras u otros símbolos\nEscriba 10 números\nEstablesca un tipo');
+	        $('#error #comentario').html('No ingrese letras u otros símbolos<br>Escriba 10 números<br>Establezca un tipo de teléfono');
+	        $('#error').removeClass('oculto');
 	        $(elemento.currentTarget).focus();
 	        return false;
 	    };
@@ -716,9 +732,13 @@ app.VistaNuevoCliente = Backbone.View.extend({
 			this.$paginaWeb.focus();
 		//   /\.[a-z0-9\.-]+\.[a-z]{2,4}/gi
 		//   /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi
-			alert('[ERROR:Página web]\n\nEscriba una url correcta');
+			$('#error #comentario').html('La dirección de la página web no es correcta');
+	        $('#error').removeClass('oculto');
 			return false;
 		}; 
+	},
+	cerrarAlerta	: function () {
+		$('#error').toggleClass('oculto');
 	},
 // -----limpiarJSON------------------------------- 
 	limpiarJSON	: function (objeto) {

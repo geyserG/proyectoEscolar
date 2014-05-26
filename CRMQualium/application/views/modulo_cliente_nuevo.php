@@ -4,10 +4,23 @@
     <!-- BOTON PARA PRUEBAS -->
     <!-- <button id="btn_eliminar">x</button> -->
 
-    
+    <!-- Mensaje de advertencia y erro. Se establece el mensaje desde backbone
+         a medida que ocurren los errores del usuario -->
+    <div class="alert alert-warning alert-dismissable oculto" id="advertencia">
+      <button type="button" id="cerrar" class="close">&times;</button>
+      <strong>¡Advertencia!</strong>
+      <div id="comentario"></div>
+    </div>
+    <div class="alert alert-danger alert-dismissable oculto" id="error">
+      <button type="button" id="cerrar" class="close">&times;</button>
+      <strong>¡Error!</strong>
+      <div id="comentario"></div>
+    </div>
+
+    <!-- REGISTRO DEL CLIENTE -->
     <div id="formularioCliente" class="visibleR">
         <!-- <button type="button" id="ir" class="btn btn-default btn-xs">Conmutar</button> -->
-        <h3>Nuevo Cliente</h3>
+        <h2>Registro para nuevo cliente</h2>
         <hr>
         Tipo de cliente 
         <div class="btn-group" data-toggle="buttons">
@@ -157,9 +170,12 @@
         <br>
         <br>
     </div>
+    <!-- REGISTRO DEL CONTACTO -->
     <div id="formularioContacto" class="visibleR ocultoR">
         <!-- <button type="button" id="ir" class="btn btn-default btn-xs">Conmutar</button> -->
-        <h3 id="h1_nombreCliente"></h3>
+        <div id="div_nombreCliente">
+            <!-- <h2>Backbone</h2><h3>Registro para representante y contactos</h3> -->
+        </div>
         <hr>
         <div class="dato_contacto">
             <div><h3>Datos de Representante</h3></div>
@@ -233,6 +249,7 @@
         <!-- <a href="modulo_consulta_clientes" id="btn_nuevoContacto" class="btn btn-primary" role="button">Registrar Contactos</a> -->
         <button id="btn_nuevoContacto" class="btn btn-primary">Registrar Contactos</button> 
     </div>
+    <!-- FORMULARIO PARA REGISTRAR OTRO CONTACTO -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -282,8 +299,8 @@
 
 <script type="text/javascript" src="<?=base_url().'js/backbone/app.js'?>"></script>
 <script type="text/javascript">
-    app.coleccionDeClientes = <?=json_encode($clientes)?>;
-    app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
+    /*app.coleccionDeClientes = <?=json_encode($clientes)?>;*/
+    /*app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;*/
 </script>
 <!-- Utilerias -->
     <script type="text/javascript" src="<?=base_url().'js/funcionescrm.js'?>"></script>

@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.VistaConsultaCliente = Backbone.View.extend({
-	el	: '#tbla_cliente',
+	el	: '#clientes',
 	events		: {
 		/*Boton que debe aparecer solo si el usuario tiene
 		  permiso pa ver clientes eliminados*/
@@ -11,6 +11,9 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		la tecla precionada. tras dicho evento se ejecuta la funcion
 		buscarCliente.*/
 		'keyup #inputBuscarCliente'	: 'buscarCliente',
+
+		//Eventos para las advertencias
+
 		// 'click #marcar'				: 'marcar',
 		// 'click #desmarcar'			: 'marcar',
 
@@ -38,14 +41,11 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
 		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
 		// app.coleccionContactos.fetch();
-
-		
-
-
 	},
 	render		: function () {
 		return this;
 	},
+	/* {{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}} */
 	agregarCliente	: function (cliente) {
 		/*El parametro cliente contiene las propiedades del cliente
 		que seran pasadas como modelo a la clase VistaCliente e
@@ -62,7 +62,10 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		esta vista (VistaConsultaCliente)*/
 		this.$filasClientes.append(vistaCliente.render().el);
 	},
-	buscarCliente	: function () {
+	buscarCliente	: function (elemento) {
+
+		// if (elemento.keyCode === 13)
+			elemento.preventDefault();
 		/*Obtenemos al cliente mediante la finción fetch especificando
 		el nombreComercial capturado por el evento keyup. No es
 		necesario almacenar a el o los clientes que coincidieron con 
@@ -80,7 +83,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		this.$filasClientes.html('');
 		/*Ejecutamos la funcion obtenerClientes() para pintar los
 		datos de la coleccion en pantalla.*/
-		this.obtenerClientes();
+		this.obtenerClientes();		
 	},
 	// marcar	: function () {
 	// 	var arregloInputs = document.getElementsByName('checkboxCliente');
