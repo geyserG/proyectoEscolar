@@ -1,4 +1,12 @@
 /*--------------Proyecto Nuevo---------*/
+#nom_proy{
+
+	float: left;
+	width: 400px;
+	height: auto;
+}
+
+
 #fechaInicio {
 	
 	width: 110px;
@@ -30,6 +38,53 @@
 	margin-left:40px; 
 }
 
+
+#tbla_services2{
+
+	width: 400px;
+}
+
+#tbla_services2 td{
+
+	
+	
+	vertical-align: middle;
+	/*margin-top: -118px;
+	margin-left: 50px;
+	*/
+	/*width: 400px;*/
+
+
+}
+
+#cabecera_serv2{
+
+   
+    background-color: #f9f9f9;
+    color: #333;
+    display: inline-table;
+    width: 100%;
+  
+    
+
+
+}
+
+tbody.scrolltbla { 
+	display: block; /*obligado*/ 
+	height: 200px; /*la que necesites*/ 
+	overflow: auto; /*obligado*/
+	
+	
+	}
+
+#fechas_proy{
+
+	float:left;
+	width: auto;
+}
+
+
 #cabecera_fija2{
    
     -webkit-border-top-left-radius: 5px;
@@ -48,7 +103,7 @@
 	height: 190px;
 	overflow: auto;
 	width: 398px;
-	margin-top: -22px;
+	
 }
 #roles {
 	

@@ -4,10 +4,10 @@
         <tr id="color_titulos">
           <th style="text-align:center;">Todos<input type="checkbox"></th>
           <th></th>
-          <th>Nombre<input type="text" class="form-control" placeholder="Buscar">
+          <th><input type="text" class="form-control" placeholder="Proyecto">
             <span class="icon-search busqueda"></span>
           </th>  
-          <th>Responsable<input type="text" class="form-control" placeholder="Buscar">
+          <th><input type="text" class="form-control" placeholder="Rsponsable">
             <span class="icon-search busqueda"></span>
           </th>
           <th>Status</th>
