@@ -5,13 +5,26 @@
 		
 		function __construct(){	}
 
-		public function insertRol($rol){ return $this->db->insert('rolesperfiles', $rol); } # Fin del metodo insertar Rol.
+		public function insertRol($rol){ 
+
+			 $this->db->insert('rolesperfiles', $rol);
+			 $query = $this->db->insert_id();
+			 return $this->getRol($query);
+			 
+
+		 } # Fin del metodo insertar Rol.
 
 		public function getRol($id=FALSE)
 		{
-			($id===FALSE) ? $query = $this->db->get('rolesperfiles') :
-						    $query = $this->db->get_where('rolesperfiles', array('id'=>$id));			
-			return $query->result();				
+			if($id==NULL) {
+				return $this->db->get('rolesperfiles')->result();	
+			}
+			else
+			{
+				$this->db->where('id', $id); 
+				$query = $this->db->get('rolesperfiles')->result(); 
+				return $query[0];
+			}			
 		}
 
 		public function patchRol($id, $put)

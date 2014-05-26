@@ -23,15 +23,15 @@ class  Roles extends Api {
     
     private function insertRol()
     {   # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo... 
-        $insertRol = 'insertRol'; $roles = 'roles';
-        $query = $this->$roles->$insertRol($this->ipost());
+        
+        $query = $this->roles->insertRol($this->ipost());
         ($query) ? $this->response($query, 201) : $this->response($query, 406);
     }
 
     private function getRol($id)
     {  	
         $query = $this->roles->getRol($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);   	
+    	($query) ? $this->response($query, 200) : $this->response($query, 404);   	
     }
 
     private function patchRol($id)

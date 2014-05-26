@@ -6,17 +6,18 @@ class Escritorio extends Api {
 	{
         parent::__construct();
 		$this->load->library('form_validation');
-        $this->load->model('model_customer', 'customer');
-        $this->load->model('model_contact', 'contacto');
-        $this->load->model('modelo_servicios', 'serv');
-        $this->load->model('model_phone', 'telefono');
-        $this->load->model('modelo_representante', 'representa');
-        $this->load->model('modelo_proyecto', 'proyecto');
-        $this->load->model('modelo_proyectoRoles', 'proyectoRoles');
+        $this->load->model('model_customer', 	     'customer');
+        $this->load->model('model_contact', 	     'contacto');
+        $this->load->model('modelo_servicios',       'serv');
+        $this->load->model('model_phone', 		     'telefono');
+        $this->load->model('modelo_representante',   'representa');
+        $this->load->model('modelo_proyecto',        'proyecto');
+        $this->load->model('modelo_proyectoRoles',   'proyectoRoles');
         $this->load->model('model_serviciosInteres', 'servInteres');
-        $this->load->model('model_servicioCliente', 'servCliente');
-        $this->load->model('modelo_roles', 'Roles');
-        $this->load->model('modelo_usuarios', 'usuario');
+        $this->load->model('model_servicioCliente',  'servCliente');
+        $this->load->model('modelo_roles',           'Roles');
+        $this->load->model('modelo_usuarios',        'usuario');
+        $this->load->model('modelo_personal',        'empleado');
     }  
 
 	//Vista inicial
@@ -95,10 +96,10 @@ class Escritorio extends Api {
 	public function proyectos()
 	{
 		$this->area_Estatica('modulo_proyectos');
-		
-		$data['proyectos'] 	   = $this->proyecto->getProyecto();  		# Proyectos
-		$data['servicios'] 	   = $this->serv->get_s();  				# Servicios Relacionados con los proyectos
-		$data['Roles']		   = $this->Roles->getRol();  				# Lista de Roles.
+		$data['clientes']    = $this->customer->get_customers($this->ruta());	# Lista de clientes
+		$data['empleados'] 	 = $this->empleado->getPersonal();  		# Proyectos
+		$data['servicios'] 	 = $this->serv->get_s();  				# Servicios Relacionados con los proyectos
+		$data['roles']		 = $this->Roles->getRol();  				# Lista de Roles.
 
 		if($this->ruta() == 'modulo_proyectos_nuevo'){	$this->load->view($this->ruta(), $data);  }
 		
@@ -113,7 +114,21 @@ class Escritorio extends Api {
 		}
 	}
 
-	
+	public function cotizacion()
+	{
+		$this->area_Estatica('modulo_cotizaciones');
+		$data['clientes']		  = $this->customer->get_customers($this->ruta());	# Lista de clientes
+		$data['servicios'] 		  = $this->serv->get_s();              	# Lista de Servicios
+		$data['representantes']	  =$this->representa->get_r(False);					# List de representantes
+		if($this->ruta() == 'modulo_cotizaciones_nuevo')
+		{
+			$this->load->view($this->ruta(), $data);
+		}
+		if($this->ruta() == 'modulo_cotizaciones_consulta')
+		{
+			$this->load->view($this->ruta());
+		}
+	}
 
 	public function contratos()
 	{
@@ -126,22 +141,6 @@ class Escritorio extends Api {
 			$this->load->view($this->ruta());
 		}
 		if($this->ruta() == 'modulo_contratos_historial')
-		{
-			$this->load->view($this->ruta());
-		}
-	}
-
-	public function cotizacion()
-	{
-		$this->area_Estatica('modulo_cotizaciones');
-		$data['clientes']		  = $this->customer->get_customers($this->ruta());	# Lista de clientes
-		$data['servicios'] 		  = $this->serv->get_s();              	# Lista de Servicios
-		$data['representantes']	  =$this->representa->get_r(False);					# List de representantes
-		if($this->ruta() == 'modulo_cotizaciones_nuevo')
-		{
-			$this->load->view($this->ruta(), $data);
-		}
-		if($this->ruta() == 'modulo_cotizaciones_consulta')
 		{
 			$this->load->view($this->ruta());
 		}

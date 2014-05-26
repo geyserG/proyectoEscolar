@@ -20,8 +20,16 @@
 		public function getPersonal($id)
 		{
 			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('personal') : $this->db->where('id', $id); $query = $this->db->get('personal');			
-			return $query->result();				
+			if($id==NULL) {
+				return $this->db->get('personal')->result();	
+			}
+			else
+			{
+				$this->db->where('id', $id); 
+				$query = $this->db->get('personal')->result(); 			
+				return $query[0];
+			} 
+			
 		}
 
 		public function patchPersonal($id, $put)
