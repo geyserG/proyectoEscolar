@@ -1,6 +1,6 @@
 var app = app || {};
 
-app.VistaConsultaCliente = Backbone.View.extend({
+app.VistaConsultaCP = Backbone.View.extend({
 	el	: '#clientes',
 	events		: {
 		/*Boton que debe aparecer solo si el usuario tiene
@@ -21,27 +21,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		// 'keyup #inputBusquedaC'	: 'buscarServicioC',
 		// 'click .icon-uniF470'	: 'quitarDeLista',
 	},
-	initialize	: function () {
-		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
-		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
-		// this.listenTo(app.coleccionClientes, 'reset', this.obtenerClientes);
-		// this.listenTo(app.coleccionClientes, 'change:visibilidad', this.obtenerClientes);
-		// app.coleccionClientes.fetch();
-		this.$inputBuscarCliente = $('#inputBuscarCliente');
-		/*El selector #filasClientes es el id de la la etiqueta
-		tbody del archivo modulo_consulta_clientes.php.*/
-		this.$filasClientes = $('#filasClientes');
-		/*Cuando se intancie la clase VistaConsultaCliente lo primero
-		que se ejecutará será la funcion initialize. el cual ejecutara
-		la función obtenerClientes(). Está fución se encargará de
-		imprimir a todos los clientes.*/
-		this.obtenerClientes();
-		// this.agregarCliente();
-		
-		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
-		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
-		// app.coleccionContactos.fetch();
-	},
+
 	render		: function () {
 		return this;
 	},
@@ -89,14 +69,14 @@ app.VistaConsultaCliente = Backbone.View.extend({
 	// 	var arregloInputs = document.getElementsByName('checkboxCliente');
 	// 	console.log(arregloInputs);
 	// },
-	obtenerClientes	: function () {
+	obtenerClientes	: function (tipo) {
 		/*Obtenemos los clientes que contengan los
 		atributos especificados en la fincion where
 		de la coleccion de clientes. Se almacena
 		dentro de la variable clientes que puede ser
 		un array de clientes.*/
 		var clientes = app.coleccionClientes.where({
-			tipoCliente:'cliente',
+			tipoCliente:tipo,
 			visibilidad:true
 		});
 		/*Pasamos la variable clientes a la función recursividadCP 
@@ -104,7 +84,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		objetos cliente para imprimirlos en pantalla.*/
 		this.recursividadCP(clientes);
 	},
-	obtenerEliminados	: function () {
+	obtenerEliminados	: function (tipo) {
 		/*Esta función solo puede ser ejecutada si el usuario
 		tiene el permiso*/
 
@@ -117,7 +97,7 @@ app.VistaConsultaCliente = Backbone.View.extend({
 		que son clientes eliminados de manera ficticia.
 		A continuación se alacena en una variable*/
 		var clientes = app.coleccionClientes.where({
-			tipoCliente:'cliente',
+			tipoCliente:tipo,
 			visibilidad:false
 		});
 		/*La variable "clientes" contiene a todos los
@@ -149,5 +129,53 @@ app.VistaConsultaCliente = Backbone.View.extend({
 	}
 });
 
-app.vistaConsultaCliente = new app.VistaConsultaCliente();
+app.VistaConsultaClientes = app.VistaConsultaCP.extend({
+	initialize	: function () {
+		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
+		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
+		// this.listenTo(app.coleccionClientes, 'reset', this.obtenerClientes);
+		// this.listenTo(app.coleccionClientes, 'change:visibilidad', this.obtenerClientes);
+		// app.coleccionClientes.fetch();
+		this.$inputBuscarCliente = $('#inputBuscarCliente');
+		/*El selector #filasClientes es el id de la la etiqueta
+		tbody del archivo modulo_consulta_clientes.php.*/
+		this.$filasClientes = $('#filasClientes');
+		/*Cuando se intancie la clase VistaConsultaCliente lo primero
+		que se ejecutará será la funcion initialize. el cual ejecutara
+		la función obtenerClientes(). Está fución se encargará de
+		imprimir a todos los clientes.*/
+		this.obtenerClientes('cliente');
+		// this.agregarCliente();
+		
+		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
+		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
+		// app.coleccionContactos.fetch();
+	},
+});
+
+app.VistaConsultaProspectos = app.VistaConsultaCP.extend({
+	initialize	: function () {
+		// this.listenTo(app.coleccionClientes, 'add', this.agregarCliente);
+		// this.listenTo(app.coleccionClientes, 'reset', this.agregarTodosLosClientes);
+		// this.listenTo(app.coleccionClientes, 'reset', this.obtenerClientes);
+		// this.listenTo(app.coleccionClientes, 'change:visibilidad', this.obtenerClientes);
+		// app.coleccionClientes.fetch();
+		this.$inputBuscarCliente = $('#inputBuscarCliente');
+		/*El selector #filasClientes es el id de la la etiqueta
+		tbody del archivo modulo_consulta_clientes.php.*/
+		this.$filasClientes = $('#filasClientes');
+		/*Cuando se intancie la clase VistaConsultaCliente lo primero
+		que se ejecutará será la funcion initialize. el cual ejecutara
+		la función obtenerClientes(). Está fución se encargará de
+		imprimir a todos los clientes.*/
+		this.obtenerClientes('prospecto');
+		// this.agregarCliente();
+		
+		// this.listenTo(app.coleccionContactos, 'add', this.agregarContacto);
+		// this.listenTo(app.coleccionContactos, 'reset', this.agregarTodosLosContactos);
+		// app.coleccionContactos.fetch();
+	},
+});
+
+
 

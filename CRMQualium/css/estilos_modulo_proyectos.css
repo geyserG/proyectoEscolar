@@ -1,7 +1,7 @@
 /*--------------Proyecto Nuevo---------*/
 #nom_proy{
 
-	float: left;
+	/*float: left;*/
 	width: 400px;
 	height: auto;
 }
@@ -41,7 +41,7 @@
 
 #tbla_services2{
 
-	width: 400px;
+	width: auto;
 }
 
 #tbla_services2 td{
@@ -121,8 +121,7 @@ tbody.scrolltbla {
     width: 400px;
 }
 
-#select_empleados select{
-	
+#div_empleados select{
     height: 112px;
 	margin-top: -10px;
 }
