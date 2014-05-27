@@ -16,7 +16,7 @@
 
 		public function getRol($id=FALSE)
 		{
-			if($id===NULL) {
+			if($id===FALSE) {
 				return $this->db->get('roles')->result();	
 			}
 			else
