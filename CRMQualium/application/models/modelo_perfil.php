@@ -16,41 +16,54 @@
 
 			$query = $this->db->insert('perfil', $post);
 			$query = $this->db->insert_id();
-			return $query; 
+			return $this->get_perfil($query); 
 		}
 
-		public function get_perfil($id)
+		public function get_perfil($id = FALSE)
 		{
-			$permi=array();   
-			$i=0;
-
-	        $this->db->select('perfil.id, perfil.perfil, perfil_permisos.idpermiso');
-	        $this->db->from('perfil');
-	        $this->db->join('perfil_permisos', 'perfil_permisos.idperfil = perfil.id');
-	        $perfil = $this->db->get();  
-	        ################################################
-	        $this->db->select('permisos.id, permisos.permiso');
-	        $this->db->from('permisos'); 
-	        $this->db->join('perfil_permisos', 'perfil_permisos.idpermiso = permisos.id');
-	        $perper = $this->db->get(); 			
-	        ################################################
-			foreach ($perfil->result() as $key) 
+			if($id==NULL) {
+				return $this->db->get('perfil')->result();	
+			}
+			else
 			{
-				if($key->id===$id)
-				{	
-					foreach ($perper->result() as $key2 => $value2) 
-					{
-						if($key->idpermiso==$value2->id)
-						{	
-							$permi['perfil'] = $key->perfil;
-							$permi['permiso'][$i] =$value2->permiso; $i++;
-						} # Fin de if key->idpermiso 	
-					} # Fin del foreach $query2
-				} # Fin del if key->id
-			}# Fin del foreach $query
+				$this->db->where('id', $id); 
+				$query = $this->db->get('perfil')->result(); 
+				return $query[0];
+			}
+		}
+
+		// public function get_perfil($id)
+		// {
+		// 	$permi=array();   
+		// 	$i=0;
+
+	 //        $this->db->select('perfil.id, perfil.perfil, perfil_permisos.idpermiso');
+	 //        $this->db->from('perfil');
+	 //        $this->db->join('perfil_permisos', 'perfil_permisos.idperfil = perfil.id');
+	 //        $perfil = $this->db->get();  
+	 //        ################################################
+	 //        $this->db->select('permisos.id, permisos.permiso');
+	 //        $this->db->from('permisos'); 
+	 //        $this->db->join('perfil_permisos', 'perfil_permisos.idpermiso = permisos.id');
+	 //        $perper = $this->db->get(); 			
+	 //        ################################################
+		// 	foreach ($perfil->result() as $key) 
+		// 	{
+		// 		if($key->id===$id)
+		// 		{	
+		// 			foreach ($perper->result() as $key2 => $value2) 
+		// 			{
+		// 				if($key->idpermiso==$value2->id)
+		// 				{	
+		// 					$permi['perfil'] = $key->perfil;
+		// 					$permi['permiso'][$i] =$value2->permiso; $i++;
+		// 				} # Fin de if key->idpermiso 	
+		// 			} # Fin del foreach $query2
+		// 		} # Fin del if key->id
+		// 	}# Fin del foreach $query
 				
-			return $permi;		
-		} # Fin del metodo get_perfil() 
+		// 	return $permi;		
+		// } # Fin del metodo get_perfil() 
 
 		public function update_perfil($id, $put)
 		{
