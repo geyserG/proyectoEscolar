@@ -46,8 +46,15 @@
 			$this->db->select('id, nombre, concepto');
 			$this->db->order_by('nombre', 'asc');
 			$query = $this->db->get('servicios');
-			if($query){ return $query->result(); }else{ return false;}
-		
+			if($query){ return $query->result(); }else{ return false;}		
+		}
+
+		# Devuelve el id y el nombre para la busqueda de servicios en el
+		# modulo de proyetos...
+		public function get_Servicios_Proyecto()
+		{
+			$this->db->select('id, nombre');
+			return $this->db->get('servicios')->result();
 		}
 
 		public function patch_s($id, $put)
