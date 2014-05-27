@@ -299,8 +299,8 @@
 
 <script type="text/javascript" src="<?=base_url().'js/backbone/app.js'?>"></script>
 <script type="text/javascript">
-    /*app.coleccionDeClientes = <?=json_encode($clientes)?>;*/
-    /*app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;*/
+    app.coleccionDeClientes = <?=json_encode($clientes)?>;
+    app.coleccionDeServicios = <?php echo json_encode($servicios) ?>;
 </script>
 <!-- Utilerias -->
     <script type="text/javascript" src="<?=base_url().'js/funcionescrm.js'?>"></script>
