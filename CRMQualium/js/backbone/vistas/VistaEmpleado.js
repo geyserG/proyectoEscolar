@@ -1,11 +1,11 @@
 var app = app || {};
 
 app.VistaEmpleado = Backbone.View.extend({
-	tagName	: 'option',
-	// data-toggle	: 'modal',
-	// data-target	: '#myModal',
+	tagName	: 'tr',
+	events	: {
+	},
 
-	plantilla : _.template($('#option_empleado').html()),
+	plantilla : _.template($('#tds_empleado').html()),
 
 	render	: function () {
 		this.$el.html(this.plantilla( this.model.toJSON() ));

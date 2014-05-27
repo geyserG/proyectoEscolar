@@ -4,14 +4,14 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 
 	plantillaCliente : _.template($('#option_cliente').html()),
 	
-	plantillaServicio : _.template($('#tr_servicio').html()),
+	plantillaServicio : _.template($('#tds_servicio').html()),
 
 	events	: {
 	},
 
 	initialize	: function () {
 		this.$select_clientes = $('#select_clientes');
-		this.$select_empleados = $('#select_empleados');
+		this.$tbody_empleados = $('#tbody_empleados');
 		this.$tbody_servicios = $('#tbody_servicios');
 		this.render();
 		this.cargarEmpleados();
@@ -34,7 +34,7 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 
 	cargarEmpleado	: function (empleado) {
 		var vistaEmpleado = new app.VistaEmpleado({ model:empleado });
-		this.$select_empleados.append( vistaEmpleado.render().el );
+		this.$tbody_empleados.append( vistaEmpleado.render().el );
 	},
 
 	cargarEmpleados	: function () {

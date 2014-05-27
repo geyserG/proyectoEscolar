@@ -39,12 +39,12 @@
 }
 
 
-#tbla_services2{
+.tbla_services2{
 
 	width: auto;
 }
 
-#tbla_services2 td{
+.tbla_services2 td{
 
 	
 	
@@ -57,7 +57,7 @@
 
 }
 
-#cabecera_serv2{
+.cabecera_serv2{
 
    
     background-color: #f9f9f9;

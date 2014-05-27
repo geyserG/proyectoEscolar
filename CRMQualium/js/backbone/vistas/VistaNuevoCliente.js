@@ -563,8 +563,8 @@ app.VistaNuevoCliente = Backbone.View.extend({
         });
         var nombreFoto = jQuery.parseJSON(resp.responseText);
         console.log(nombreFoto);
-        if (nombreFoto.data != false){
-        	return 'img/fotosClientes/'+nombreFoto.data+'';	
+        if (nombreFoto != false){
+        	return 'img/fotosClientes/'+nombreFoto+'';	
         } else{
         	// nombreFoto.data; //false
         	return 'img/fotosClientes/sinfoto.png';

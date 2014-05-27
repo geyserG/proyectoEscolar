@@ -28,8 +28,8 @@
 	<div class="desborde"></div><br>
 
 	<!-- {{{{{{{{{{{{{{{{{{{{{{{{tabla de servicios}}}}}}}}}}}}}}}}}}}}}}}} -->
-	<table id="tbla_services2" class="table table-striped">
-		<thead id="cabecera_serv2">
+	<table class="table table-striped tbla_services2">
+		<thead class="cabecera_serv2">
 			<tr>						
 			  <th>Servicios</th>
 			</tr>
@@ -45,16 +45,21 @@
 	    <input type="file" id="exampleInputFile">
 	</div><br>
 	<textarea class="form-control" rows="4" placeholder="Descripción"></textarea>
+	
 	<h3>Asignar Roles</h3>
 	<hr><br>
-	<div id="contenedor_select">
-	    <div id="roles"><b>Empleados</b></div>
-	    <div id="div_empleados">
-		    <select id="select_empleados" multiple class="form-control">
-				<!-- <option data-toggle="modal" data-target="#myModal">Nombre del empleado</option> -->
-			</select>
-	    </div>	    
-	</div>
+	<!-- {{{{{{{{{{{{{{{{{{{tabla de asignación de roles}}}}}}}}}}}}}}}}}}} -->
+	<table class="table table-striped tbla_services2">
+		<thead class="cabecera_serv2">
+			<tr>						
+			  <th>Empleado</th>
+			</tr>
+		</thead>
+		<tbody id="tbody_empleados" class="scrolltbla">
+		</tbody>
+	</table>
+	<!-- {{{{{{{{{{{{{{{{{{{tabla de asignación de roles}}}}}}}}}}}}}}}}}}} -->
+
 	<table id="tbla_roles" class="table table-striped table-curved">      
 		<thead>
 			<tr id="color_th">							                
@@ -106,65 +111,7 @@
 	<button type="button" class="btn btn-primary">Aceptar</button>&nbsp;
 	<button type="button" class="btn btn-danger">Cancelar</button>
 
-	<div class="modal fade" id="myModal">
-		<div class="modal-dialog">
-		    <div id="medida_modal" class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 style="color:#0492e6;"  class="modal-title">Asignar Rol</h4>
-				</div>
-				<div id="barra_rol">
-					<h4 id="h4_nombreEmpleado">Roles de Ivan Villamil</h4>	
-				</div><br><br>	
-				<div class="modal-body">
-					<input id="otro_rol" type="text" class="form-control" placeholder="otro rol">
-					<button id="agregar_btn" type="button" class="btn btn-default">Agregar</button>
-					<div class="desborde"></div>
-					<label><h4 style="color:#0492e6;">Roles</h4></label>
-					<div id="select_rol">				      	   
-						<select multiple class="form-control" >
-				  	   		<option data-toggle="modal" data-target="#myModal">Lider del proyecto</option>		
-				  	   	    <option data-toggle="modal" data-target="#myModal">Community Manager</option>
-							<option data-toggle="modal" data-target="#myModal">Diseñador Gráfico</option>
-							<option data-toggle="modal" data-target="#myModal">Diseñador Gráfico Sr</option>
-							<option data-toggle="modal" data-target="#myModal">Programador</option>
-							<option data-toggle="modal" data-target="#myModal">Practicante</option>
-							<option data-toggle="modal" data-target="#myModal">Productor de Vídeo y Audio</option>
-						</select>						    
-					</div>						
-					<table id="tbla_roles2" class="table table-striped">      
-						<tr>
-							<th>Roles Asignados</th>
-							<th></th>
-						</tr>
-						<tr>
-							<td>Programador SR</td>				                
-							<td class="icon-eliminar">
-								<div class="eliminar_cliente">
-									<span class="icon-circledelete"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-							    </div>
-							</td>
-						</tr>
-						<tr>
-					    	<td>Productor de video y audio</td>
-					    	<td class="icon-eliminar">
-								<div class="eliminar_cliente">
-									<span class="icon-circledelete"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
-							    </div>				                   
-							</td>
-						</tr>
-					</table>				            
-					<div class="desborde"></div>	  
-				</div> 
-				<div class="modal-footer" >
-			      	<div id="botones">
-				    	<button type="button" class="btn btn-default">Aceptar</button>&nbsp;&nbsp;
-			          	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>				          		
-			        </div>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->	
+		
 </div> <!-- LA APERTURA DE ESTA ETIQUETA ESTÁ EN OTRO DOCUMENTO. NO BORRAR!! -->
 
 <script>
@@ -182,11 +129,71 @@
 		<option value="<%- id %>" name="idcliente">  <%- nombreComercial %> </option>
 	</script>
 
-	<script type="text/template" id="option_empleado">
-		<option data-toggle="modal" data-target="#myModal" value="<%- id %>" > <%- nombre %> </option>
+	<script type="text/template" id="tds_empleado">
+		<td>
+			<label data-toggle="modal" data-target="#<%- id %>"><%- nombre %></label>
+			<div class="modal fade" id="<%- id %>">
+				<div class="modal-dialog">
+				    <div id="medida_modal" class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 style="color:#0492e6;"  class="modal-title">Asignar Rol</h4>
+						</div>
+						<div id="barra_rol">
+							<h4><%- nombre %></h4>	
+						</div><br><br>	
+						<div class="modal-body">
+							<input id="otro_rol" type="text" class="form-control" placeholder="otro rol">
+							<button id="agregar_btn" type="button" class="btn btn-default">Agregar</button>
+							<div class="desborde"></div>
+							<label><h4 style="color:#0492e6;">Roles</h4></label>
+							<div id="select_rol">				      	   
+								<select multiple class="form-control" >
+						  	   		<option data-toggle="modal" data-target="#myModal">Lider del proyecto</option>		
+						  	   	    <option data-toggle="modal" data-target="#myModal">Community Manager</option>
+									<option data-toggle="modal" data-target="#myModal">Diseñador Gráfico</option>
+									<option data-toggle="modal" data-target="#myModal">Diseñador Gráfico Sr</option>
+									<option data-toggle="modal" data-target="#myModal">Programador</option>
+									<option data-toggle="modal" data-target="#myModal">Productor de Vídeo y Audio</option>
+								</select>						    
+							</div>						
+							<table id="tbla_roles2" class="table table-striped">      
+								<tr>
+									<th>Roles Asignados</th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>Programador SR</td>				                
+									<td class="icon-eliminar">
+										<div class="eliminar_cliente">
+											<span class="icon-circledelete"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+									    </div>
+									</td>
+								</tr>
+								<tr>
+							    	<td>Productor de video y audio</td>
+							    	<td class="icon-eliminar">
+										<div class="eliminar_cliente">
+											<span class="icon-circledelete"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
+									    </div>				                   
+									</td>
+								</tr>
+							</table>				            
+							<div class="desborde"></div>	  
+						</div> 
+						<div class="modal-footer" >
+					      	<div id="botones">
+						    	<button type="button" class="btn btn-default">Aceptar</button>&nbsp;&nbsp;
+					          	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>				          		
+					        </div>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		</td>
 	</script>
 
-	<script type="text/template" id="tr_servicio">
+	<script type="text/template" id="tds_servicio">
 		<tr>
 			<td>
 				<label for="<%- id %>"> <%- nombre %> </label>
@@ -197,13 +204,17 @@
         </tr>
 	</script>
 
+	<script type="text/template" id="option_rol">
+		<%- nombre %>
+	</script>
+
 
 <script type="text/javascript">
 	var app = app || {};
 	app.coleccionDeClientes  = <?php echo json_encode($clientes)?>;
 	app.coleccionDeServicios = <?php echo json_encode($servicios)?>;
-	app.coleccionDeEmpleados = <?php echo json_encode($empleados)?>
-	/*app.coleccionDeRoles 	 = <?php echo json_encode($roles)?>*/
+	app.coleccionDeEmpleados = <?php echo json_encode($empleados)?>;
+	app.coleccionDeRoles 	 = <?php echo json_encode($roles)?>;
 </script>
 
 <!-- Librerias Backbone -->
