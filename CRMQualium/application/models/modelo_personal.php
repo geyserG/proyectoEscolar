@@ -30,6 +30,13 @@
 			}			
 		}
 
+		# Datos del personal id nombre para el modulo de proyectos...
+		public function getPersonalProy()
+		{	
+			$this->db->select('id, nombre');
+			return $this->db->get('personal')->result();
+		}
+
 		public function patchPersonal($id, $put)
 		{
 			// if(!$id)
@@ -40,6 +47,7 @@
 			$query = $this->db->update('personal', $put);
 			return $query;
 		}
+
 		public function updatePersonal($id, $put)
 		{
 
