@@ -5,7 +5,7 @@
                 <!-- <tr><td colspan="7"><button id="obtenerEliminados">Clientes eliminados</button></td></tr> -->                    
                 <thead>
                     <tr id="color_titulos">
-                        <th><!-- Todos<input type="checkbox" -->&nbsp;&nbsp;</th>
+                        <th><!-- Todos<input type="checkbox" -->&nbsp;&nbsp;&nbsp;</th>
                         <th></th>
                         <th>
                             <input id="inputBuscarCliente" class="form-control" type="text" placeholder="Nombre comercial">
@@ -706,5 +706,7 @@
     <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaCliente.js'?>"></script>
     <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaTelefono.js'?>"></script>
     <!-- vista general -->
-    <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaConsultaCliente.js'?>"></script>
-    <!-- <script type="text/javascript" src="js/backbone/vistas/VistaNuevoCliente.js"></script> -->
+    <script type="text/javascript" src="<?=base_url().'js/backbone/vistas/VistaConsultaCP.js'?>"></script>
+    <script type="text/javascript">
+        app.vistaConsultaClientes = new app.VistaConsultaClientes();
+    </script>

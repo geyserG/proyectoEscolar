@@ -601,6 +601,8 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 	agregarServciciosClienteI	: function (id) {
+		console.log(id);
+		console.log('modelo id ',this.model.get('id'));
 		var sI = app.coleccionServiciosClientesI.where({
 				idcliente:this.model.get('id'), 
 				status:'1'
@@ -1095,4 +1097,10 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 
+});
+
+
+app.VistaClienteProyecto = app.VistaCliente.extend({
+	tagName	: 'option',
+	plantilla : _.template($('#plantilla_td_de_cliente').html()),
 });

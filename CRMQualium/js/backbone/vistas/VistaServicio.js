@@ -57,3 +57,9 @@ app.VistaServicioCuenta = app.VistaServicio.extend({
 		};
 	}	
 });
+
+
+/*Clase para el modulo de proyecto nuevo*/
+app.VistaServicioProyecto = app.VistaServicio.extend({
+	tagName	: 'tr'
+});

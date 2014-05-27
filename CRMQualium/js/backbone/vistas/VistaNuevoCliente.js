@@ -79,7 +79,6 @@ app.VistaNuevoCliente = Backbone.View.extend({
 		this.$menuServiciosCuenta	  = $('#menuServiciosCuenta');
 		// {{{{{{{{{{{{{selectores de servicios de interes y actuales}}}}}}}}}}}}}
 
-
 		this.cargarServiciosC();
 		this.cargarServiciosI();
 	},
