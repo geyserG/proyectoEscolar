@@ -6,14 +6,13 @@ app.VistaServicio = Backbone.View.extend({
 	},
 
 	render	: function () {
-		this.$el.html(this.plantilla( this.model.toJSON() ));
+		this.$el.html(this.plantillaDefault( this.model.toJSON() ));
 		return this;
 	},
-
 });
 
 app.VistaServicioInteres = app.VistaServicio.extend({
-	plantilla	: _.template($('#serviciosI').html()),
+	plantillaDefault	: _.template($('#serviciosI').html()),
 
 	events	: {
 		'click .serviciosInteres'	: 'agregarIntereces'
@@ -36,7 +35,7 @@ app.VistaServicioInteres = app.VistaServicio.extend({
 });
 
 app.VistaServicioCuenta = app.VistaServicio.extend({
-	plantilla	: _.template($('#serviciosC').html()),
+	plantillaDefault	: _.template($('#serviciosC').html()),
 
 	events	: {
 		'click .serviciosCuenta'	: 'agregarCuentas'
@@ -60,6 +59,7 @@ app.VistaServicioCuenta = app.VistaServicio.extend({
 
 
 /*Clase para el modulo de proyecto nuevo*/
-app.VistaServicioProyecto = app.VistaServicio.extend({
-	tagName	: 'tr'
-});
+// app.VistaServicioProyecto = app.VistaServicio.extend({
+// 	tagName	: 'tr',
+// 	plantilla	: _.template($('#tds_servicio').html())
+// });

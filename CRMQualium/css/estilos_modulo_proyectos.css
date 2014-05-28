@@ -163,22 +163,20 @@ tbody.scrolltbla {
 
 	height:auto;
 }
-#select_rol select{
-
-    
-    display:inline-block;
-    float:left;
+#select_rol{
+    /*display:inline-block;*/
+    /*float:left;*/
     
 	margin-top:1px; 
-	width:235px; 
+	width:100%;
 }
 
 
 #tbla_roles {
 	
     float:left;
-	margin-left: 40px;
-	width: 50%;
+	/*margin-left: 40px;*/
+	/*width: 50%;*/
 }
 
 .table-curved > :first-child > :first-child > :first-child {
@@ -203,9 +201,9 @@ tbody.scrolltbla {
 
 #tbla_roles2{
 	
-	float:left;
-	margin-left: 20px;
-	width: 50%;
+	/*float:left;*/
+	/*margin-left: 20px;*/
+	/*width: 50%;*/
 }
 
 #tbla_roles2 tr{
@@ -294,3 +292,8 @@ tbody.scrolltbla {
 /*------------------------------MODULO PROYECTO CONSULTA--------------
 */
 
+/*--------Estilos tablita servicios--------*/
+	.label_servicio {
+		/*width:100%;*/
+		/*height:100%;*/
+	}

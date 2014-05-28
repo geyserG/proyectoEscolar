@@ -2,8 +2,10 @@ var app = app || {};
 
 app.VistaRol = Backbone.View.extend({
 	tagName	: 'option',
+	className	: 'optionRol',
 
-	events	: {},
+	events	: {
+	},
 
 	plantilla : _.template($('#option_rol').html()),
 
