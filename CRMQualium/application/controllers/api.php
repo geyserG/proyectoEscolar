@@ -41,11 +41,11 @@ class  Api extends CI_Controller {
     }
 
     protected function response($data, $status)
-    {   
+    {  
         $this->_code = ($status) ? $status : 200; 
         $this->set_headers();        
         (is_numeric($data)) ? $response['id'] = $data : $response = $data;
-         echo json_encode($response); 
+        echo json_encode($response); 
         exit;        
     }   
     

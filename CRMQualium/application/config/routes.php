@@ -6,7 +6,7 @@
 $route['default_controller'] = "escritorio";
 // $route['(:any)'] = 'escritorio/index/$1';
 // $route['escritorio/'] = 'escritorio/';
-
+$route['pruebausuario'] = 'escritorio/prueba';
 # Dashboard
 $route['dashboard'] = 'escritorio/dashboard';
 
@@ -132,6 +132,9 @@ $route['api_proyectoRoles/(:num)'] = 'proyectoRoles/api/$1';
 
 $route['api_telefonos'] = 'telefono/api';
 $route['api_telefonos/(:num)'] = 'telefono/api/$1';
+
+$route['api_catalogoTelefonos'] = 'catalogoTelefonos/api';
+$route['api_catalogoTelefonos/(:num)'] = 'catalogoTelefonos/api/$1';
 
 $route['api_roles'] = 'roles/api';
 $route['api_roles/(:num)'] = 'roles/api/$1';

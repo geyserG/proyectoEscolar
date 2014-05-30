@@ -47,12 +47,12 @@
 			# Ahora una vez armado el array con los atributos del cliente hacemos una inserción en la bd...
 			if(!empty($data)){	$query = $this->db->insert_batch('cliente_atributo', $data); }
 	
-			# Aquí se inserta los servicios que le interesa al cliente o prospecto...			
-			if(array_key_exists('serviciosInteres', $post))
-			{	 $tabla='servicios_interes';	$obj->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	}
+			// # Aquí se inserta los servicios que le interesa al cliente o prospecto...			
+			// if(array_key_exists('serviciosInteres', $post))
+			// {	 $tabla='servicios_interes';	$obj->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	}
 
-  		    if(array_key_exists('serviciosCuenta',$post))
-  		    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
+  	// 	    if(array_key_exists('serviciosCuenta',$post))
+  	// 	    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
 			
 			return $idcliente;
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
@@ -107,13 +107,13 @@
 
 				 	} # Fin del foreach() $atributos
 
-					# Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
-				 	$serviciosI = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_interes');				 	
-				 	foreach ($serviciosI as $serv=>$value) 	{ $datos[$cont]['serviciosInteres'] = $serviciosI;	}
+					// # Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
+				 // 	$serviciosI = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_interes');				 	
+				 // 	foreach ($serviciosI as $serv=>$value) 	{ $datos[$cont]['serviciosInteres'] = $serviciosI;	}
 
-				 	# Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
-				 	$serviciosC = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_cliente');
-				 	foreach ($serviciosC as $servC=>$valueC) {	$datos[$cont]['serviciosCuenta'] = $serviciosC;	}
+				 // 	# Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
+				 // 	$serviciosC = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_cliente');
+				 // 	foreach ($serviciosC as $servC=>$valueC) {	$datos[$cont]['serviciosCuenta'] = $serviciosC;	}
 				
 				 	// $datos[$cont]['telefonosCliente'] = $obj->joinDinamico($key->id, 'idcliente', 'idtelefono', 'telefonos', 'telefonos_cliente');	 				 	 	
 			 		$cont++;
