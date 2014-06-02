@@ -21,15 +21,15 @@
             ($id===False) ? $query = $this->db->get('contactos') :
                             $query = $this->db->get_where('contactos', array('id'=>$id));
 
-            foreach ($query->result() as $key => $value) {               
-                $resp[$cont]['id'] = $value->id; 
-                $resp[$cont]['idcliente'] = $value->idcliente;
-                $resp[$cont]['nombre'] = $value->nombre;
-                $resp[$cont]['correo'] = $value->correo;
-                $resp[$cont]['cargo'] = $value->cargo;                
-                $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idcontacto', 'idtelefono', 'telefonos', 'telefonos_contactos'); 
-                $cont++;
-            }
+            // foreach ($query->result() as $key => $value) {               
+            //     $resp[$cont]['id'] = $value->id; 
+            //     $resp[$cont]['idcliente'] = $value->idcliente;
+            //     $resp[$cont]['nombre'] = $value->nombre;
+            //     $resp[$cont]['correo'] = $value->correo;
+            //     $resp[$cont]['cargo'] = $value->cargo;                
+            //     $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idcontacto', 'idtelefono', 'telefonos', 'telefonos_contactos'); 
+            //     $cont++;
+            // }
             return $resp;       	
         } # Fin de la función get_C
 
