@@ -166,6 +166,15 @@ class Escritorio extends Api {
 
 	public function usuarios(){
 		$this->area_Estatica('modulo_usuarios');
+
+		if($this->ruta() == 'modulo_usuarios_nuevo')
+		{
+			$this->load->view($this->ruta());
+		}
+		if($this->ruta() == 'modulo_usuarios_consulta')
+		{
+			$this->load->view($this->ruta());
+		}
 	}
 
 	public function configuracion(){

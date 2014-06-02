@@ -53,7 +53,7 @@ $route['catalogo_Servicios']  = 'escritorio/catalogos';
 
 //Rutas para el modilo de usuarios...
 $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
-// $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
+$route['modulo_usuarios_nuevo'] = 'escritorio/usuarios/$1';
 // $route['modulo_usuarios'] = 'escritorio/usuarios/$1';
 
 //Rutas para el modulo de configuracion...
