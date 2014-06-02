@@ -32,7 +32,7 @@ class  Cotizaciones extends Api {
     private function get_cotizacion($id){
 
     	$query = $this->cotizacion->get_cotizacion($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);
+    	($query) ? $this->response($query, 200) : $this->response('Not Found', 404);
     	
     }
 

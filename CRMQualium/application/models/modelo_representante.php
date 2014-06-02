@@ -14,27 +14,16 @@
         return $this->db->insert_id();
       } # Fin del insert_representante();
 
-      function get_r($id)
-      {
-        $obj = $this->obj(); $cont=0;  $resp = False;                   
-        ($id===False) ? $query = $this->db->get('representante') :
-                        $query = $this->db->get_where('representante', array('id'=>$id));
-
-        foreach ($query->result() as $key => $value) 
-        {               
-          $resp[$cont]['id'] = $value->id; 
-          $resp[$cont]['idcliente'] = $value->idcliente;
-          $resp[$cont]['nombre'] = $value->nombre;
-          $resp[$cont]['correo'] = $value->correo;
-          $resp[$cont]['cargo'] = $value->cargo;                
-          // $phone = $this->db->get_where('telefonos',array('idpropietario'=>$id, 'tabla'=>'representante'));
-          // $phone = $phone->result();
-          // $resp[$cont]['telefonos'] = $phone;
-          // $resp[$cont]['telefonos'] = $obj->joinDinamico($value->id, 'idrepresentante', 'idtelefono', 'telefonos', 'telefonos_representante'); 
-          $cont++;
-        }
-
-          return $resp;        	
+      function get_r($id=FALSE)
+      {               
+          if($id!=FALSE)
+          { 
+            $query = $this->db->get_where('representante', array('id'=>$id))->result();
+            ($query) ? $query = $query[0] : $query = false;
+             return $query; 
+          }
+          $query = $this->db->get('representante');
+          return $query->result();   
       }
 
       public function patch_representante($id, $put){ 

@@ -16,7 +16,7 @@
 	
 	}
 
-#mostrar_tbla tr{
+#mostrarTabla tr{
 		&:hover{
 			.iconos-operaciones span{
 				opacity: 1;
@@ -45,7 +45,7 @@
 		color: white;
 	}
 
-     .iconos-operaciones .icon-trash:hover{ //ES EL ICONO DE ELIMINAR CLIENTE
+     .iconos-operaciones .btndelete, .icon-trash:hover{ //ES EL ICONO DE ELIMINAR CLIENTE
 		
 		background: red;
 		border-radius: 3px;
@@ -68,49 +68,22 @@
 		/*position: relative;*/
 	}
 
-	/*#tabla_servicios table{
-		display: inline-block;
-		height: 300px;
-		overflow: auto;
-		width: auto;
-	}*/
 
-	/*#servicios_cotizados{
-		display: block;
-	}*/
-
-	input{
-		width: 100%;
-	}
+	input{	width: 100%; }
 
 
 
 /* {{{{{{{{{{{Sección nuEva cotizacion}}}}}}}}}}} */
-#mostrar_tbla{
+#mostrarTabla{  width: 70%;  }
 
-	
-	width: 70%;
-
-}
-
-#tbla_services{
-
-	
-	display: inline-block;
-	float:left;
-	width:300px; 
-	
-}
+#tablaServicios{ 	display: inline-block; 	float:left;   width:300px; }
 
 #cabecera_serv{
-
    
     background-color: #f9f9f9;
     color: #333;
     display: inline-table;
     width: 270px;
-
-
 }
 
 tbody.scrollContent { 
@@ -124,12 +97,7 @@ tbody.scrollContent {
 
 
 
-#txt_aliniado td {
-
-	text-align: left;
-	vertical-align: middle;
-
-}
+#txt_aliniado td { 	text-align: left;	vertical-align: middle;  }
 
 /*#delete_varios{
 
@@ -138,8 +106,7 @@ tbody.scrollContent {
 }*/
 
 /*#busquedayfecha{
-    
-	display: inline-block;
+display: inline-block;
 padding-right: 100px;
 float: left;
 
@@ -158,3 +125,14 @@ display: inline-block;
 	 
 	 display: none;
 }
+
+td .ocultoI2 { display: none;  }
+   .ocultoI	 { display: none;  }
+   .visibleI { display: block; }
+   .serviciosCotizar{ display: none;
+   }
+      
+#infoSC{  float: right;	 margin-right: 0px;  }
+
+
+

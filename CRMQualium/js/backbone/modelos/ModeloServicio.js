@@ -3,6 +3,7 @@ var app = app || {};
 app.ModeloServicio = Backbone.Model.extend({
 
 	urlRoot	:'http://crmqualium.com/api_servicios',
+	
 
 	// localStorage 	: new Backbone.LocalStorage('servicios-backbone'),
 	// defaults	: {

@@ -8,7 +8,7 @@ app.VistaServicio = Backbone.View.extend({
 	render	: function () {
 		this.$el.html(this.plantillaDefault( this.model.toJSON() ));
 		return this;
-	},
+	}
 });
 
 app.VistaServicioInteres = app.VistaServicio.extend({

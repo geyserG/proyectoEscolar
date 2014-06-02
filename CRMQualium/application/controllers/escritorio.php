@@ -18,44 +18,16 @@ class Escritorio extends Api {
         $this->load->model('modelo_roles',           'Roles');
         $this->load->model('modelo_usuarios',        'usuario');
         $this->load->model('modelo_personal',        'empleado');
+        $this->load->model('modelo_cotizaciones',    'cotizaciones');
     }  
 
 	//Vista inicial
 	public function index(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
 	public function dashboard(){  $this->area_Estatica('dashboard_gustavo');	} # Cargamos el dashboard
-	// public function index(){
-		
-	// 	$this->form_validation->set_rules('usuario', 'usuario');
-	// 	// $this->form_validation->set_rules('contrasenia', 'contrasenia', 'required');
-
-	// 	if($this->form_validation->run()===FALSE){
-
-	// 		$this->load->view('pruebas');	
-	// 	}
-	// 	else
-	// 	{   
-	// 		$query = $this->usuario->session($this->post());
-	// 		// if($query){$this->dashboard();}
-
-	// 		if($query){
-	// 		// $data['usuario'] = $query;
-	// 		// # $data['usuario'] = $post['usuario'];
-	// 		// # $data['contrasenia'] = $post['contrasenia'];
-	// 	       $this->area_Estatica('dashboard_gustavo', $query);
-	// 		// $this->load->view($query, $data);
-	// 		}
-	// 	}
-	// }
-
 	public function prueba()
 	{
 		$this->load->view('pruebausuario');
 	}
-	// public function catalogoServicios()
-	// {
-	// 	$data['servicios'] = $this->serv->get_s();              	# Lista de Servicios
-	// 	$this->area_Estatica($this->ruta(), $data);
-	// }
 
 	public function catalogos()
 	{
@@ -91,8 +63,8 @@ class Escritorio extends Api {
 		$data['servicios'] 		  = $this->serv->get_sNuevoCliente();              	# Lista de Servicios
 		$data['serviciosInteres'] = $this->servInteres->get_servInteres();  		# Servicios de interes del cliente
 		$data['serviciosCliente'] = $this->servCliente->get_servCliente();  		# servicios con los que cuenta el cliente
-		$data['contactos']		  = $this->contacto->get_C(False);					# Lista Contactos
-		$data['representantes']	  =$this->representa->get_r(False);					# List de representantes
+		$data['contactos']		  = $this->contacto->get_C();					# Lista Contactos
+		$data['representantes']	  =$this->representa->get_r();					# List de representantes
 
 		$this->load->view($vista, $data); # Cargamos la vista
 	}
@@ -122,15 +94,16 @@ class Escritorio extends Api {
 	{
 		$this->area_Estatica('modulo_cotizaciones');
 		$data['clientes']		  = $this->customer->get_customerProyect();	# Lista de clientes
-		$data['servicios'] 		  = $this->serv->get_s();              	# Lista de Servicios
-		$data['representantes']	  =$this->representa->get_r(False);					# List de representantes
+		$data['servicios'] 		  = $this->serv->get_s();  	# Lista de Servicios
+		$data['representantes']	  =$this->representa->get_r();					# List de representantes
 		if($this->ruta() == 'modulo_cotizaciones_nuevo')
 		{
 			$this->load->view($this->ruta(), $data);
 		}
 		if($this->ruta() == 'modulo_cotizaciones_consulta')
-		{
-			$this->load->view($this->ruta());
+		{   
+			$data['cotizaciones'] = $this->cotizaciones->get_cotizacion();
+			$this->load->view($this->ruta(), $data);
 		}
 	}
 

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  ProyectoRoles extends Api {
+class  RolesDeProyecto extends Api {
 
     public function __construct() 
     {
