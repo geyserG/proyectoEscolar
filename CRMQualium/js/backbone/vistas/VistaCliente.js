@@ -539,6 +539,7 @@ app.VistaCliente = Backbone.View.extend({
 		Backbone.emulateJSON = false;
 	},
 	actualizarComentario	: function (elemento) {
+		$(elemento.currentTarget).parents('tr').children('.respuesta').html('<img src="img/ajax-loader.gif" width="14" height="14">');
 		clearTimeout(this.esperar);
 		var modelo = this.model;
 
@@ -601,8 +602,6 @@ app.VistaCliente = Backbone.View.extend({
 		};
 	},
 	agregarServciciosClienteI	: function (id) {
-		console.log(id);
-		console.log('modelo id ',this.model.get('id'));
 		var sI = app.coleccionServiciosClientesI.where({
 				idcliente:this.model.get('id'), 
 				status:'1'
