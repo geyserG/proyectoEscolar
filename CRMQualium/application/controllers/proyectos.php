@@ -24,10 +24,10 @@ class  Proyectos extends Api {
 
     private function insert_proyecto()
     {   
-        var_dump($_FILES);
-        # La función ipost()... Recupera todos los post que viene desde la petición        
-        // $query = $this->proy->insertProyecto($this->ipost());
-        // ($query) ? $this->response($query, 201) : $this->response($query, 404);                 
+        
+        #La función ipost()... Recupera todos los post que viene desde la petición        
+        $query = $this->proy->insertProyecto($this->ipost());
+        ($query) ? $this->response($query, 201) : $this->response('error', 404);                 
     }
 
     private function get_proyecto($id)
