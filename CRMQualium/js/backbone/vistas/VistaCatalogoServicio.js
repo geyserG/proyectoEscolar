@@ -1,6 +1,6 @@
 var app = app || {};
 
-app.VistaServicio = Backbone.View.extend({
+app.VistaCatalogoServicio = app.VistaServicio.extend({
 	tagName : 'tr',
 
 	plantilla	: _.template($('#plantilla_servicio').html()),
@@ -12,6 +12,8 @@ app.VistaServicio = Backbone.View.extend({
 	},
 
 	initialize	: function () {
+		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
 	render	: function () {//Sirve para pintar el servicio
@@ -61,6 +63,10 @@ app.VistaServicio = Backbone.View.extend({
 	        };
 	    });
 	    return json;
+	},
+
+	holamundo : function () {
+		alert('Hola');
 	}
 });
 

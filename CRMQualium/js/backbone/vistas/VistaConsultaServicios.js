@@ -9,7 +9,7 @@ app.VistaConsultaServicios = Backbone.View.extend({
 		this.$tablaServicios = this.$('#tablaServicios');
 		this.cargarServicios();
 		this.listenTo( app.coleccionServicios, 'add', this.cargarServicio );
-		this.listenTo( app.coleccionServicios, 'reset', this.cargarServicios );
+	    this.listenTo( app.coleccionServicios, 'reset', this.cargarServicios );
 
 		// app.coleccionServicios.fetch();
 	},
@@ -17,8 +17,8 @@ app.VistaConsultaServicios = Backbone.View.extend({
 	render	: function () {},
 
 	cargarServicio	: function (modelodeladd) {
-		var vistaServicio = new app.VistaServicio( { model:modelodeladd } );
-		this.$tablaServicios.append( vistaServicio.render().el );
+		var vistaCatalogoServicio = new app.VistaCatalogoServicio( { model:modelodeladd } );
+		this.$tablaServicios.append( vistaCatalogoServicio.render().el );
 	},
 
 	cargarServicios	: function () {
