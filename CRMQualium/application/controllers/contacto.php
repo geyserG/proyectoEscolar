@@ -33,7 +33,7 @@ class  Contacto extends Api {
     private function get_contactos($id){
 
     	$query = $this->contacto->get_C($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);
+    	($query) ? $this->response($query, 302) : $this->response('Not Found', 404);
     	
     }
     private function pacth_contacto($id){

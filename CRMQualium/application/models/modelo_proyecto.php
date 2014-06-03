@@ -9,24 +9,35 @@
 
 		public function insertProyecto($post)
 		{
+			$proyecto=false;
 			$columna = $this->db->field_data('proyectos');
-			foreach ($columna as $key)
-			{ 
-				if(array_key_exists($key->name, $post)) # Existe la cabecera en el array $put?
+			if($post)
+			{
+				foreach ($columna as $key)
+				{ 
+					if(array_key_exists($key->name, $post)) # Existe la cabecera en el array $put?
+					{
+						$proyecto[$key->name] = $post[$key->name];	     		        		
+					}
+				} # Foreach
+				
+				if($proyecto!=NULL)
 				{
-					$proyecto[$key->name] = $post[$key->name];	     		        		
+					$query = $this->db->insert('proyectos', $proyecto);
+					$id    = $this->db->insert_id();
+					if(array_key_exists('servicios', $post))
+			    	{ 
+				      $tabla='proyectoservicios'; 
+					  $this->insert_sic($post['servicios'], $id, $tabla);	
+					}
+					return $id;
 				}
-			} # Foreach
-			$query = $this->db->insert('proyectos', $proyecto);
-			$id    = $this->db->insert_id();
-
-			if(array_key_exists('servicios', $post))
-		    { 
-		      $tabla='proyectoservicios'; 
-			  $this->insert_sic($post['servicios'], $id, $tabla);	
+				
+				return false; # False si el formulario no coincide con los campos de la bd				
 			}
-
-			return $id;
+			return false; # False si el post esta vacio...
+			
+			
 		} # Fin del metodo insertar proyectos.
 
 		public function getProyecto($id=FALSE)

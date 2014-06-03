@@ -33,7 +33,7 @@ class Representante extends Api {
     private function get_representante($id){
 
     	$query = $this->representante->get_r($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);
+    	($query) ? $this->response($query, 200) : $this->response('Not Found', 404);
     	
     }
 

@@ -14,13 +14,13 @@ class  Servicios extends Api {
         {
     		case     'post':	$this->insert_serv();  			   break; # POST
     		case     'get':   	$this->get_servs($this->id());     break; # GET	
-            case     'patch':   $this->patch_serv($this->id());   break; # GET
+            case     'patch':   $this->patch_serv($this->id());    break; # GET
     		case     'put':     $this->update_serv($this->id());   break; # PUT	
     		case     'delete':	$this->delete_serv($this->id());   break; # DELETE
     		default:           	$this->response('',405);  		   break; # METODO NO DEFINIDO...
     	}
     }
-    
+ 
     private function insert_serv(){
 
         # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...  
