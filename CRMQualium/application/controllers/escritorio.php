@@ -38,6 +38,11 @@ class Escritorio extends Api {
 			$data['servicios'] = $this->serv->get_s();
 			$this->load->view($this->ruta(), $data);	
 		}
+		if($this->ruta() == 'catalogo_perfiles')
+		{
+			
+			$this->load->view($this->ruta());	
+		}
 
 	}
 

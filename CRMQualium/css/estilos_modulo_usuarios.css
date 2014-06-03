@@ -1,0 +1,12 @@
+#ancho{
+
+    display:inline-block; 
+	width: 315px;
+}
+
+#permisos_asignados {
+
+	width: 400px;
+}
+
+/*.form-control{ height: 250px; }*/

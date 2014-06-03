@@ -1,3 +1,8 @@
+#fecha{
+
+	width: 100px;
+}
+
 #buscar{
 	float:left;
 	margin-top: -38px;
@@ -13,7 +18,7 @@
 
 }
 
-#cabecera_fija{
+/*#cabecera_fija{
    
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -32,23 +37,23 @@
 	overflow: auto;
 	width: 490px;
 	margin-top: -22px;
-}
+}*/
 
 #serv_obtenidos {
 
 	display: inline-block;
-    height: auto;
+    
 	width: 100%;
 
 }
 
-/*tbody.scrollContent { 
-	display: block;  
-	height: 200px; 
-	overflow: auto;
-	width: 100%;
-
-	}*/
+tbody.scrollContent2 { 
+	display: block; /*obligado*/ 
+	height: 155px; /*la que necesites*/ 
+	overflow: auto; /*obligado*/
+	width: 285px;
+	
+	}
 
 #icono_mas {
 
@@ -96,7 +101,11 @@
 }
 
 
+
+
 --------Historial de contratos------------------
+
+
 
 
 

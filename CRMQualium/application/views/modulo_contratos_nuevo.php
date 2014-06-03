@@ -1,146 +1,98 @@
 	<script src="js/jquery-ui-1.10.4.custom.js"></script>	
 	<h3>Nuevo Contrato</h3>
 	<hr><br>
-	<input class="form-control datepicker " type="text" id="fechaInicio" placeholder="Fecha"> 
+	<input class="form-control datepicker " type="text" id="fecha" placeholder="Fecha"> 
 	<input type="text" class="form-control" placeholder="Buscar cliente">
 	<span id="buscar" class="icon-search"></span>
-	<input type="text" class="form-control" placeholder="Cliente">
+	
 	<input type="text" class="form-control" placeholder="Representante">
 	<br>
 	<h3>Inversión & Tiempo</h3>
 	<hr><br>
-	<table id="cabecera_fija" class="table table-striped " >
-		<thead>
-			<tr>
-				<th>&nbsp;&nbsp;</th>
-				<th style="width:318px;">Servicio</th>				
-				<th>P/Unitario</th>
-				<th></th>
+	<div class="btn-group" data-toggle="buttons">
+	    Tipo de Plan<br>
+	    <label class="btn btn-primary">
+	    <input type="radio" name="options" id="option1"> Evento
+	    </label>
+	    <label class="btn btn-primary">
+	    <input type="radio" name="options" id="option2"> Iguala
+	    </label>	    
+    </div><br><br>
+    <table id="tbla_services" class="table table-striped">
+    	<thead id="cabecera_serv">
+			<tr>						
+				<th>Servicios</th>							
 			</tr>
 		</thead>
-	</table>		
-	<div id="servicios_contratos">
-		<table  class="table table-striped" >
-			<tbody>
-				<tr>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><input id="cuadro_busqueda" type="text" class="form-control" placeholder="Otro servicio"></td>					
-					<td><input id="cuadro_busqueda1"type="text" class="form-control" placeholder="Precio"></td>
-					<td class="icon-operaciones">
-					 <span id="icono_mas" class="icon-uniF476"></span>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Tarjeta de presentación frente</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Medallón</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Tríptico</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>díptico</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Catálogo</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Tarjeta de presentación frente y vuelta</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Anuncio sencillo</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Menú de restaurante</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Diseño de caja</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Branding Completo</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Logo Animado</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Video Branding</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Campaña</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Aplicaciones de campaña</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Página Web sencilla </td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Página Web complicada (Mas de 5 secciones)</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>Página Web con sistema interno</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>App sencilla</td>					
-					<td>$12,000</td>
-					<td></td>
-				</tr>
-			</tbody>
-	   </table><br>
-	</div><br>
+		<tbody class="scrollContent2">
+			<tr>
+				<td><a href="#">Tarjeta de presentación frente</a>
+					<button id="bton" type="button" class="btn btn-default"><span class="icon-info" data-toggle="tooltip" title="Información"></span>
+					</button>
+					<div id="prueba">
+						<ul>	
+							<li>Concepto:&nbsp;<h7>Diseño Gráfivo</h7><li>
+							<li>P/Unitario:&nbsp;<h7>$300</h7><li>
+							<li>+IVA:&nbsp;<h7>$380</h7><li>
+							<li>Realización:&nbsp;<h7>1 día</h7><li>
+							<li>Detalles:&nbsp;<h7></h7><li>
+					    </ul>
+				    </div>
+				</td>
+			</tr>
+			<tr>
+				<td>Medallón</td>
+			</tr>
+			<tr>
+				<td>Tríptico</td>
+			</tr>
+			<tr>
+				<td>díptico</td>
+			</tr>
+			<tr>
+				<td>Catálogo</td>
+			</tr>
+			<tr>
+				<td>Tarjeta de presentación frente y vuelta</td>
+			</tr>
+			<tr>
+				<td>Anuncio sencillo</td>
+			</tr>
+			<tr>
+				<td>Menú de restaurante</td>
+			</tr>
+			<tr>
+				<td>Diseño de caja</td>
+			</tr>
+			<tr>
+				<td>Branding Completo</td>
+			</tr>
+			<tr>
+				<td>Logo Animado</td>
+			</tr>
+			<tr>
+				<td>Video Branding</td>
+			</tr>
+			<tr>
+				<td>Campaña</td>
+			</tr>
+			<tr>
+				<td>Aplicaciones de campaña</td>
+			</tr>
+			<tr>
+				<td>Página Web sencilla </td>
+			</tr>
+			<tr>
+				<td>Página Web complicada (Mas de 5 secciones)</td>
+			</tr>
+			<tr>
+				<td>Página Web con sistema interno</td>
+			</tr>
+			<tr>
+				<td>App sencilla</td>
+			</tr>
+		</tbody>
+	</table>
 	<div id="serv_obtenidos">   
 	    <table class="table table-striped table-curved" >
 			<thead>
@@ -156,7 +108,7 @@
 					<td><b>Todos</b><input type="checkbox"></td>
 					<td><b>Servicio</b></td>
 					<td><b>Descuento</b></td>
-					<td><b>Duración</b></td>
+					<td><b>Realización</b></td>
 					<td class="linea"><b>Cantidad</b></td>
 					<td><b>P/Unitario</b></td>
 					<td class="linea"><b>Precio</b></td>
@@ -277,25 +229,29 @@
 			    			<span class="icon-circledelete"   data-toggle="tooltip" data-placement="top" title="Eliminar"></span>
 			           </div>
 		           </td>		
-				</tr>						
+				</tr>
+				<tr class="info">
+					<td></td>
+					<td >Total</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>$122,323</td>
+					<td></td>
+					<td></td>					
+			    </tr>						
 			</tbody>
-	   </table>
-	   <div id="precio_total">
-		   <table class="table table-striped">
-			    <tbody>
-					<tr>
-						<td><b>Total</b></td>
-					</tr>
-				</tbody>
-	   	    </table>
-	   	</div>
+	    </table>
 	</div>
-	<div class="desborde"></div> 
-	<button type="button" class="btn btn-default">Eliminar varios</button>	
-	<br><br><br>
-	<button type="button" class="btn btn-primary">Aceptar</button>
-	<button type="button" class="btn btn-default"><span class="icon-preview"></span> Vista previa</button>
-	<button type="button" class="btn btn-danger">Cancelar</button>                 
+   	<div class="desborde"></div> 
+   	<button type="button" class="btn btn-default">Eliminar varios</button>	
+   	<br><br><br>
+   	<button type="button" class="btn btn-primary">Aceptar</button>
+   	<button type="button" class="btn btn-default"><span class="icon-preview"></span> Vista previa</button>
+   	<button type="button" class="btn btn-danger">Cancelar</button>                 
 </div>
 <script>
   $(function() {
@@ -304,4 +260,11 @@
       changeYear: true
     });
   });
+
+$(document).ready(function(){
+  $("#bton").click(function(){
+    $("#prueba").slideToggle();
+  });
+});
+
 </script>

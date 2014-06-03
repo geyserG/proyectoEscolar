@@ -51,8 +51,8 @@
 			</a>
 		</li>
 		<li class="">
-			<label class="icono"><a class="icono" href="#"><span class="icon-user"></span></a></label>
-			<a class="anclaMenu" href="#">
+			<label class="icono"><a class="icono" href="modulo_usuarios"><span class="icon-user"></span></a></label>
+			<a class="anclaMenu" href="modulo_usuarios">
 				Usuarios
 			</a>
 		</li>
