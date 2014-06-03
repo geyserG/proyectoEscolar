@@ -47,6 +47,7 @@ $route['modulo_actividades'] = 'escritorio/actividades/$1';
 //Rutas para la catalogos...
 $route['modulo_catalogos']    = 'escritorio/catalogos';
 $route['catalogo_Servicios']  = 'escritorio/catalogos';
+$route['catalogo_perfiles']  = 'escritorio/catalogos';
 
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
 // $route['modulo_catologos'] = 'escritorio/catologos/$1';
