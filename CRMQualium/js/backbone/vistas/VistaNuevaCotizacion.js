@@ -4,38 +4,36 @@ app.VistaNuevaCotizacion = Backbone.View.extend({
 	el : '.contenedor_principal_modulos',
 
 	events : {
-		// Para mostrar los detalles del servicio...
-		'click 	  .btndelete'     : 'eliminarServicio',
-		// 'click    .icon-uniF756'  : 'habilitarEdicion',
-		'click     #cliente'      : 'buscarCliente',
-		'click 	   #guardar'	  : 'guardarCotizacion',
-		// 'keypress .visibleI'      : 'actualizar'
-		// 'click     #infoSC' : 'ocultarDetalles'
-		// 'click .icon-info'        : 'mostrarDetalles',
-		// 'click .divCo' : 'mostrarDetalles'
-		// 'click .serviciosCotizar' : 'agregarServiciosCo'
+		
+		'click 	.btndelete' : 'eliminarServicio',
+		'click  #cliente'   : 'buscarCliente',
+		'click 	#guardar'	: 'guardarCotizacion',
+		'click  #todos'		: 'marcarTodosCheck',
+		'keypress #cliente' : 'soloLetras'
+	},
+
+	marcarTodosCheck : function(elemento){
+		$('.cajita').attr('checked', true);
 	},
 
 	initialize : function () {
 
+		var fecha = new Date();
+
+		this.$('#fecha').val(fecha.getDate()+'/'+fecha.getMonth()+'/'+fecha.getFullYear());
 		this.$tablaServicios = this.$('#tablaServicios');
 		this.cargarServiciosCo();
-		this.$trServicio = this.$('#trServicio');
-		
+				
 		//Datos de la cotizacion
 		this.$idcliente 	  = this.$('#idcliente');
 		this.$idrepresentante = this.$('#idrepresentante');		
 		this.$fecha 		  = this.$('#fecha');		
 		this.$detalles   	  = this.$('#detalles');
+		
 	},
 
-	// ocultarDetalles : function (elemento) {
-	// 	this.$tablaServicios.children().toggleClass('visibleI');	
-	// 	// this.$(elemento.currentTarget).toggleClass('visibleI');
-	// },
-
-	buscarCliente : function (elemento){ 
-
+	buscarCliente : function (elemento){ 	
+	
 		this.clientes = new Array();  var cont  = 0; 
 		for(i in app.coleccionDeClientes)
 		{
@@ -49,6 +47,26 @@ app.VistaNuevaCotizacion = Backbone.View.extend({
 			esto.buscarRepresentante(ui.item.value);
 		});
 
+	},
+
+	// Validamos que el campo #cliente solo contenga letras
+	soloLetras : function(e)
+	{
+	   key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
 	},
 
 	buscarRepresentante : function(pcliente)
@@ -81,14 +99,8 @@ app.VistaNuevaCotizacion = Backbone.View.extend({
 		
 	},
 
-	mostrarDetalles : function (icono) {
-		// console.log(	$('#tablaServicios').children().children().children().children().html('td')	);
-		$(icono.currentTarget).children().children().toggleClass('visibleI');
-		// this.$el.children().children().children().toggleClass('visibleI');	
-		// this.$tablaServicios.currentTarget().children().children().children().toggleClass('visibleI');	
-	},
-
 	render : function () {
+
 		return this;
 	},
 
@@ -105,15 +117,6 @@ app.VistaNuevaCotizacion = Backbone.View.extend({
 		$(elemento.currentTarget).parents('tr').remove();
 		$('#tablaServicios #'+$(elemento.currentTarget).attr('id')).attr('disabled',false);
 		$('#tablaServicios #'+$(elemento.currentTarget).attr('id')).attr('checked',false);
-	},
-
-	//Funcion para habilitar la edicion de servicios que estan en la lista de servicios cotizando...
-	habilitarEdicion : function (elemento){
-		var tr = $(elemento.currentTarget).parents('tr');
-		tr.children('td').children().toggleClass('visibleI');
-		// $(elemento.currentTarget).toggleClass('visibleI');
-		// this.$trServicio.children().children().children().toggleClass('visibleI');
-		
 	},
 
 	obtenerJsonPerfil : function () {
@@ -133,65 +136,66 @@ app.VistaNuevaCotizacion = Backbone.View.extend({
 		var modeloPerfil = this.obtenerJsonPerfil();
 		console.log(modeloPerfil);
 
-	},
-
-	actualizar : function(elemento)
-	{
-		if(elemento.keyCode === 13) {
-
-			var valorSinEspacios = $(elemento.currentTarget).val().trim();
-			// $(e.currentTarget).val(valorSinEspacios);
-			var tr = $(elemento.currentTarget).parents('tr');
-		    tr.children('td').children().toggleClass('visibleI');
-			
-
-			// console.log($('#pprecio').currentTarget.html(valorSinEspacios));
-			// this.$('#pprecio').currentTarget.html(valorSinEspacios);
-			// this.$input.val(valorSinEspacios);
-		// this.cerrar();
-		};
 	}
 	
 });
-
 app.vistaNuevaCotizacion = new app.VistaNuevaCotizacion();
+//###########################################################
 
-app.VistaTablaCotizaciones = app.VistaNuevaCotizacion.extend({
-	tagName : 'tr',
+// AQUIE ESTA LA SEPARACION LO DE ARRIBA ES OTRA MADRE Y LO DE ABAJO ES OTRO DESMADRE...
 
-	serviciosAgregado : _.template($('#serviciosAgregado').html()),
+// //###########################################################
+// app.VistaTablaCotizaciones = Backbone.View.extend({
+// 	tagName : 'tr',
 
-	events : {
-		'click  .icon-uniF756'  : 'habilitarEdicion',
-		'keypress .visibleI'      : 'actualizar'
-	},
+// 	serviciosAgregado : _.template($('#serviciosAgregado').html()),
 
-	initialize : function(){
-		this.$mostrarTabla = this.$('#mostrarTabla');
-	},
+// 	events : {
+// 		'click  .icon-uniF756' : 'habilitarEdicion',
+// 		'keypress .visibleI'   : 'actualizar',
+// 		// 'keypress  #oprecio'   : ''
+//  	},
 
-	//Funcion para habilitar la edicion de servicios que estan en la lista de servicios cotizando...
-	habilitarEdicion : function (elemento){
-		var tr = $(elemento.currentTarget).parents('tr');
-		tr.children('td').children().toggleClass('visibleI');
-		// this.$tagName.children().children().children().toggleClass('visibleI');
-		
-	},
+// 	initialize : function(){
+// 		this.$mostrarTabla = this.$('#mostrarTabla');
+// 	},
 
-	actualizar : function(elemento)
-	{
-		if(elemento.keyCode === 13) {
+// 	render : function(){
+// 		/* Recibe el modelo de la vista servicio cotización y la pinta en pantalla */
+// 		this.$el.html(this.serviciosAgregado( this.model.toJSON() ));
+// 		/* Esta función establece el importe con los datos por default del servicio...*/
+// 		this.establecerImporte();
+// 		return this;
+// 	},
+// 	/* Habilita los inputs para la edicion de servicios que estan en la lista de servicios cotizando...*/
+// 	habilitarEdicion : function (elemento){		
+// 		this.$el.children().children().toggleClass('visibleI');		
+// 	},
+ 	
+//  	 Una vez capturados los cambios actualiza la vista mostrada en pantalla del servicio cotizando...
+// 	actualizar : function(elemento)
+// 	{
+// 		if(elemento.keyCode === 13) {
+						
+// 			this.$('#realizacion').text(this.$('#oduracion').val());
+// 			this.$('#cantidad').text(this.$('#ocantidad').val());
+// 			this.$('#precio').text(this.$('#oprecio').val());
+// 			this.$('#descuento').text(this.$('#odescuento').val());			
+// 			this.$el.children().children().toggleClass('visibleI');
+// 			/* Despues de modificar los datos del servicio si hubo cambio
+// 			   en los precios se deberá reflejar en el importe...*/
+// 			this.establecerImporte();			
+// 		};
+// 	},
 
-			var valorSinEspacios = $(elemento.currentTarget).val().trim();
-			var tr = $(elemento.currentTarget).parents('tr');
-		    tr.children('td').children().toggleClass('visibleI');
-			// console.log($('#pprecio').currentTarget.html(valorSinEspacios));
-			// this.$('#pprecio').currentTarget.html(valorSinEspacios);
-			// this.$input.val(valorSinEspacios);
-		// this.cerrar();
-		};
-	}
+// 	/* Esta función obtiene los valores de la vista que se acaba de 
+// 	   agregar o que se esta editando para sacar el importe del servicio...*/
+// 	establecerImporte : function(){
+// 		var cantidad  = this.$el.find('#cantidad').text();			
+// 		var precio    = this.$el.find('#precio').text();
+// 		var descuento = this.$el.find('#descuento').text();
+// 		var importe   = (cantidad * precio) - descuento;
+// 		this.$('#importe').text('$'+importe);
+// 	}
 
-});
-
-app.vistaTablaCotizaciones = new app.VistaTablaCotizaciones();
+// });

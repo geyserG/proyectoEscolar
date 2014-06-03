@@ -128,8 +128,8 @@ $route['api_proyectos'] = 'proyectos/api';
 $route['api_proyectos/(:num)'] = 'proyectos/api/$1';
 
 # Ruta para la api de Servicios de Interes...
-$route['api_proyectoRoles'] = 'proyectoRoles/api';
-$route['api_proyectoRoles/(:num)'] = 'proyectoRoles/api/$1';
+$route['api_rolesDeProyecto'] = 'rolesDeProyecto/api';
+$route['api_rolesDeProyecto/(:num)'] = 'rolesDeProyecto/api/$1';
 
 $route['api_telefonos'] = 'telefono/api';
 $route['api_telefonos/(:num)'] = 'telefono/api/$1';
