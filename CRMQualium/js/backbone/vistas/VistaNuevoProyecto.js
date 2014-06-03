@@ -26,22 +26,6 @@ app.VistaServicioProyecto = app.VistaServicio.extend({
 		this.$el.css('color','#CCC');
 	}
 });
-
-	    /*--------------------------------------------------*/
-
-// app.VistaCliente = Backbone.View.extend({
-// 	tagName	: 'option',
-
-// 	plantilla 	: _.template($('#option_cliente').html()),
-
-// 	render : function () {
-// 		this.$el.html( this.plantilla(this.model.toJSON()) );
-// 		this.$el.attr( 'value', this.model.get('id') );
-// 		return this;
-// 	},
-// });
-
-	    /*--------------------------------------------------*/
 /* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
 
 
@@ -52,13 +36,6 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	plantillaServicio 	: _.template($('#tds_servicio').html()),
 
 	events	: {
-		// 'click #busqueda'					: 'buscarCliente',
-		// 'keypress #busqueda'				: 'buscarCliente',
-		// 'keydown #busqueda'					: 'buscarCliente',
-		// 'keypress #select_clientes'			: 'seleccionarCliente',
-		// 'click #select_clientes'			: 'seleccionarCliente',
-		// 'blur #select_clientes'				: 'esconderSelect',
-
 		'click .eliminarDeTabla_servicios'	: 'eliminarDeTabla',
 		'click .eliminarDeTabla_empleados'	: 'eliminarDeTabla',
 		'click .btn_eliminarMarcados'		: 'eliminarMarcados',
@@ -71,16 +48,18 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		'click #btn_nuevoProyecto'			: 'guadarProyecto',
 		'change .btn_marcarTodos'			: 'marcarTodos',
 		'click .cerrar'						: 'cerrarAlerta',
+
+		'click #btn_subirArchivo'			: 'subirArchivo'
 	},
 
 	initialize			: function () {
-		// this.$select_clientes 	= $('#select_clientes');
 		this.$busqueda			= $('#busqueda');
-		this.$hidden_cliente_id	= $('#hidden_cliente_id');
+		this.$hidden_idCliente	= $('#hidden_idCliente');
 
 		this.$tbody_empleados 	= $('#tbody_empleados');
 		this.$tbody_servicios 	= $('#tbody_servicios');
 		this.cargarClientes();
+		this.$fechaInicio       = $('#fechaInicio');
 		this.cargarServicios();
 		this.cargarEmpleados();
 
@@ -91,26 +70,23 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 
 		this.btn_marcarTodos	= $('.btn_marcarTodos')[0];
 
-		this.$fechaInicio       = $('#fechaInicio');
 		this.$fechaEntrega      = $('#fechaEntrega');
 		this.$duracion          = $('#duracion');
+
+		this.$form_subirArchivos = $('#paso2 #form_subirArchivos')[0];
+		this.$section_resp_Paso2 = $('#paso2 .panel-body');
 	},
 	render				: function () {
 		return this;
 	},
-	// cargarCliente		: function (cliente) {
-	// 	// var vistaCliente = new app.VistaCliente( {model : cliente} );
-	// 	// this.$select_clientes.append( vistaCliente.render().el );
-	// },
 	cargarClientes		: function () {
-		// app.coleccionClientes.each( this.cargarCliente, this );
 		var esto = this;
 		this.$busqueda.autocomplete(
 			{
 				source : app.coleccionClientes.pluck('nombreComercial'),
 				select : function( event, ui ) {
 					var cliente = app.coleccionClientes.findWhere({nombreComercial:ui.item.value});
-					esto.$hidden_cliente_id.val(cliente.get('id'));
+					esto.$hidden_idCliente.val(cliente.get('id'));
 				}
 			}
 		);
@@ -123,38 +99,6 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	},
 	cargarServicios		: function () {
 		app.coleccionServicios.each( this.cargarServicio, this );
-	},
-	eliminarDeTabla	: function (elem) {
-		/*Separamos la clase del elem para acceder a la tabla
-		del cual queremos eliminar uno de sus tr*/
-		var arrayClass = $(elem.currentTarget)
-						 .attr('class')
-						 .split('_');
-
-		/*Ejemplo de cómo se ve el selector:
-		  $(#tbody_servicios #servicio_n).attr('disabled',false);
-		  ó
-		  $(#tbody_empleados #servicio_n).attr('disabled',false);
-		*/
-		$( "#tbody_"+arrayClass[1]+" #"
-					+$(elem.currentTarget).attr('id') )
-					.attr('disabled',false); //activamos el checkbox
-
-		$( "#tbody_"+arrayClass[1]+" #"
-					+$(elem.currentTarget).attr('id') )
-					.attr('checked',false); //desmarcamos el checkbox
-
-		$( "#tbody_"+arrayClass[1]+" #"
-					+$(elem.currentTarget).attr('id') )
-					.parents('tr')
-					// .removeClass()	//removemos el color del tr
-					.css('color','#333'); //Cambiamos color del texto
-
-		$(elem.currentTarget).parents('tr').remove();
-	},
-	cargarEmpleado		: function (empleado) {
-		var vistaEmpleado = new app.VistaEmpleado({ model:empleado });
-		this.$tbody_empleados.append( vistaEmpleado.render().el );
 	},
 	cargarEmpleados		: function () {
 		app.coleccionEmpleados.each( this.cargarEmpleado, this );
@@ -191,18 +135,76 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 
 		this.$fechaEntrega.val( fechaEntrega );
 	},
+	cargarEmpleado		: function (empleado) {
+		var vistaEmpleado = new app.VistaEmpleado({ model:empleado });
+		this.$tbody_empleados.append( vistaEmpleado.render().el );
+	},
+	cerrarAlerta		: function (elem) {
+		$(elem.currentTarget)
+		.parent()
+		.toggleClass('oculto');
+	},
+	eliminarDeTabla		: function (elem) {
+		/*Separamos la clase del elem para acceder a la tabla
+		del cual queremos eliminar uno de sus tr*/
+		var arrayClass = $(elem.currentTarget)
+						 .attr('class')
+						 .split('_');
+
+		/*Ejemplo de cómo se ve el selector:
+		  $(#tbody_servicios #servicio_n).attr('disabled',false);
+		  ó
+		  $(#tbody_empleados #servicio_n).attr('disabled',false);
+		*/
+		$( "#tbody_"+arrayClass[1]+" #"
+					+$(elem.currentTarget).attr('id') )
+					.attr('disabled',false); //activamos el checkbox
+
+		$( "#tbody_"+arrayClass[1]+" #"
+					+$(elem.currentTarget).attr('id') )
+					.attr('checked',false); //desmarcamos el checkbox
+
+		$( "#tbody_"+arrayClass[1]+" #"
+					+$(elem.currentTarget).attr('id') )
+					.parents('tr')
+					// .removeClass()	//removemos el color del tr
+					.css('color','#333'); //Cambiamos color del texto
+
+		$(elem.currentTarget).parents('tr').remove();
+	},
+	eliminarMarcados	: function (elem) {
+		var atributoClass = $(elem.currentTarget)
+							.attr('class')
+							.split(' ');
+		var checkboxTabla = document
+							.getElementsByName(atributoClass[3]);
+		var array = new Array();
+		for (var i = 0; i < checkboxTabla.length; i++) {
+			if ($(checkboxTabla[i]).is(':checked')) {
+				array.push(checkboxTabla[i]);
+			};
+		};
+		for (var i = 0; i < array.length; i++) {
+			$(array[i])
+			.parents('tr')
+			.children('.icon-eliminar')
+			.children()
+			.click();
+		};
+		// /*Restablecemos el boton de Marcar todos*/
+		// $(elem.currentTarget)//Utilizamo elem como referencia
+		// .parent()//Nos ubicamos en el padre del elemento
+		// .children('.btn-group')//Nos hubicamos en el hijo especificado
+		// .children('.btn')//Nos hubicamos en el hijo del hijo anterios
+		// .click('toggle');//Conmutamos el botón
+	},
 	guadarProyecto		: function (elem) {
 		var esto = this;
-		/* {}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{} */
-		var form = this.pasarAJson($(document.forms[0]).serializeArray());
-		form.archivo = new FormData($('#exampleInputFile')[0]);
-		console.log(new FormData($('#exampleInputFile')[0]));
-		console.log(form);
-		elem.preventDefault();
-		/* {}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{} */
-		for (var i = 0; i < $(document.forms).length; i++) {
-			console.log(this.pasarAJson($(document.forms[i]).serializeArray()));
+		var forms = $('#paso1 form');
+		for (var i = 0; i < forms.length; i++) {
+			console.log(this.pasarAJson($(forms[i]).serializeArray()));
 		};
+		elem.preventDefault();
 		return;
 
 
@@ -231,12 +233,7 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		);
 		elem.preventDefault();
 	},
-	cerrarAlerta		: function (elem) {
-		$(elem.currentTarget)
-		.parent()
-		.toggleClass('oculto');
-	},
-	marcarTodos 	: function (elem) {
+	marcarTodos 		: function (elem) {
 		var checkboxTabla = document
 							.getElementsByName(
 								$(elem.currentTarget).attr('id')
@@ -251,82 +248,6 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 			};
 		};
 	},
-	eliminarMarcados	: function (elem) {
-		var atributoClass = $(elem.currentTarget)
-							.attr('class')
-							.split(' ');
-		var checkboxTabla = document
-							.getElementsByName(atributoClass[3]);
-		var array = new Array();
-		for (var i = 0; i < checkboxTabla.length; i++) {
-			if ($(checkboxTabla[i]).is(':checked')) {
-				array.push(checkboxTabla[i]);
-			};
-		};
-		for (var i = 0; i < array.length; i++) {
-			$(array[i])
-			.parents('tr')
-			.children('.icon-eliminar')
-			.children()
-			.click();
-		};
-		/*Restablecemos el boton de Marcar todos*/
-		$(elem.currentTarget)//Utilizamo elem como referencia
-		.parent()//Nos ubicamos en el padre del elemento
-		.children('.btn-group')//Nos hubicamos en el hijo especificado
-		.children('.btn')//Nos hubicamos en el hijo del hijo anterios
-		.button('toggle');//Conmutamos el botón 
-	},
-
-	buscarCliente		: function (elem) {
-		if (elem.keyCode === 13) {
-			alert( $(elem.currentTarget).val() );
-		};
-		// if (elem.keyCode !== 13) {
-		// 	this.$select_clientes.addClass('vis');
-		// 	if (elem.keyCode === 40) {
-		// 		this.$select_clientes.focus();
-		// 		return;
-		// 	};
-		// 	/* ------------------------------------ */
-		// 	this.$select_clientes.attr('size',app.coleccionClientes.length+1);
-		// 	app.coleccionClientes.fetch({
-		// 		reset:true,
-		// 		data:{
-		// 			nombreComercial: this.$busqueda.val()
-		// 		}
-		// 	});
-		// 	/* ------------------------------------ */
-		// 	if (app.coleccionClientes.length == 0) {
-		// 		app.coleccionClientes.fetch({reset:true, data:{nombreComercial: ''}});
-		// 		this.$select_clientes.html('');
-		// 	} else {
-		// 		this.$select_clientes.html('');
-		// 	};
-		// 	/* ------------------------------------ */
-		// 	this.cargarClientes();
-		// } else{
-		// 	elem.preventDefault();
-		// };
-	},
-
-	// seleccionarCliente 	: function (elem) {
-	// 	if (elem.keyCode === 13 || elem.type === 'click') {
-	// 		this.imprimirCliente();
-	// 		this.$select_clientes.blur();
-	// 		elem.preventDefault();
-	// 	};
-	// },
-	// imprimirCliente 	: function (){
-	// 	this.$busqueda.val( $('#select_clientes option:selected')
-	// 						.text()
-	// 						.trim()
-	// 					  );
-	// },
-	// esconderSelect	: function () {
-	// 	this.$select_clientes.removeClass('vis');
-	// },
-
 	pasarAJson			: function (objSerializado) {
 	    var json = {};
 	    $.each(objSerializado, function () {
@@ -341,6 +262,32 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	    });
 	    return json;
 	},
+	subirArchivo		: function (elemento) {
+		var formData = new FormData(this.$form_subirArchivos);
+		elemento.preventDefault();
+		// return;   
+        //hacemos la petición ajax  
+        var resp = $.ajax({
+            url: 'http://crmqualium.com/api_archivos',  
+            type: 'POST',
+            async:false,
+            // Form data
+            //datos del formulario
+            data: formData,
+            //necesario para subir archivos via ajax
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        var nombreArchivo = jQuery.parseJSON(resp.responseText);
+        if (nombreArchivo != false){
+        	this.$section_resp_Paso2.append('<div class="alert alert-success"><b>¡Exito!</b> Se ha logrado subir <b>'+nombreArchivo+'</b></div>');
+        	return 'archivos/'+nombreArchivo+'';
+        } else{
+        	this.$section_resp_Paso2.append('<div class="alert alert-danger"><b>¡Error!</b> No se puedo subir <b>'+nombreArchivo+'</b></div>');
+        	return nombreFoto.data; //false
+        };
+	}
 });
 
 app.vistaNuevoProyecto = new app.VistaNuevoProyecto();

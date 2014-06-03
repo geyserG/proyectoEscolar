@@ -77,7 +77,7 @@ app.VistaParticipante = Backbone.View.extend({
 						/*Con la funcion split creamos un array*/
 						.split('_');
 		/**/
-		this.$form_participante.append(this.plantillaRol({ id:opcionRol[0], nombre:opcionRol[1], name:'roles' }));
+		this.$form_participante.append(this.plantillaRol({ id:opcionRol[0], nombre:opcionRol[1], name:'idrol' }));
 		this.$select_rol.children('#'+opcionRol[0]).attr('disabled',true);
 	},
 
