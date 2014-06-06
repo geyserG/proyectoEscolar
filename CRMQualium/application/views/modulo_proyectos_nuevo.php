@@ -8,8 +8,8 @@
 		<h4>¡Advertencia!</h4>
 		<p id="comentario"></p>
 		<br>
-		<button type="button" id="eliminar" class="btn btn-danger">Eliminar</button>
-		<button type="button" id="cancelar" class="btn btn-default">Cancelar</button>
+		<button type="button" id="cancelar" class="btn btn-danger">Cancelar archivos</button>
+		<button type="button" id="continuar" class="btn btn-default">Continuar</button>
 	</div>
 	<div class="alert alert-danger alert-dismissable oculto" id="error">
 		<button type="button" class="close cerrar">&times;</button>
@@ -27,38 +27,42 @@
 
 	<style type="text/css">
 		.section_Visible {
-			/*display: block;*/
+			display: block;
 			/*border: 1px solid gray;*/
 		}
 
 		.section_Oculto {
-			/*display: none;*/
+			display: none;
 			/*border: 1px solid gray;*/
+		}
+
+		.fileinput-button {
+			position: relative;
+			overflow: hidden;
+		}
+		.fileinput-button input {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 0;
+			opacity: 0;
+			-ms-filter: 'alpha(opacity=0)';
+			font-size: 200px;
+			direction: ltr;
+			cursor: pointer;
+		}
+
+		/* Fixes for IE < 8 */
+		@media screen\9 {
+			.fileinput-button input {
+				filter: alpha(opacity=0);
+				font-size: 100%;
+				height: 100%;
+			}
 		}
 	</style>
 
-	<section id="paso2" class="section_Visible section_Oculto">
-		<h3>Archivos de proyecto</h3>
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="panel-heading">Adjuntar archivo</div>
-				<div class="panel-body">
-					<form id="form_subirArchivos">
-						<div class="form-group">
-						    <input type="file" id="inputArchivos" name="archivo">
-						</div>
-						<button type="submit" id="btn_subirArchivo" class="btn btn-default">Subir archivo</button>
-				    </form>
-				</div>
-			</div>
-		</div>
-	    <!-- <br> -->
-	    <div class="panel panel-primary">
-			<div class="panel-heading">Lista de archivos</div>
-			<div class="panel-body"><!-- Respuestas del servidor --></div>
-	    </div>
-	</section>
-	<section id="paso1" class="section_Visible">
+	<section id="paso1" class="section_Visible"><!-- section_Oculto -->
 		<form id="formNuevoProyecto">
 			<div class="row">
 				<div class="col-md-3">
@@ -196,8 +200,51 @@
 			<button type="button" id="btn_nuevoProyecto" class="btn btn-primary">Guardar</button>
 		</form>
 	</section>
+	<section id="paso2" class="section_Visible">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Archivos de proyecto</div>
+			<div class="panel-body">
+				<div class="panel-body">
+					<form id="form_subirArchivos">
+						<label class="btn btn-success fileinput-button">
+		                    <span class="icon-paperclip"></span>
+		                    <span>Adjuntar archivos</span>
+		                    <input type="file" id="inputArchivos" multiple name="archivo[]">
+		                </label>
+		                <button type="submit" id="btn_subirArchivo" class="btn btn-primary start">
+		                    <i class="glyphicon glyphicon-upload"></i>
+		                    <span>Subir</span>
+		                </button>
+		                <button type="reset" id="btn_cancelarArchivo" class="btn btn-warning cancel">
+		                    <i class="glyphicon glyphicon-ban-circle"></i>
+		                    <span>Cancelar</span>
+		                </button>
+				    </form>
+				    <br>
+					<table class="table table-hover" style="display: table-cell;"><!-- style="display: table-cell; width: 400px;" -->
+						<thead>
+							<tr><th colspan="4">Archivos a subir</th></tr>
+						</thead>
+						<tbody id="tbody_archivos">
+						</tbody>
+					</table>
+					<table class="table" style="display: table-cell;"><!-- style="display: table-cell; width: 200px;" -->
+						<thead>
+							<tr><th>Subidos</th></tr>
+						</thead>
+						<tbody id="tbody_respuesta">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	    <!-- <div class="panel panel-info">
+			<div class="panel-heading">Lista de archivos</div>
+			<div class="panel-body"></div>
+	    </div> -->
+	</section>
 </div> <!-- LA APERTURA DE ESTA ETIQUETA ESTÁ EN OTRO DOCUMENTO. NO BORRAR!! -->
-
+		
 
 
 <!-- plantillas -->
@@ -287,6 +334,17 @@
 			</div>
 			<input type="hidden" class="rol" name="<%- name %>" value="<%- id %>">
 		</div>
+	</script>
+
+	<script type="text/template" id="tr_archivo">
+		<tr class="<%- i %>">
+			<td><%- tipo %></td>
+			<td><%- nombre %></td>
+			<td><%- tamaño %></td>
+			<td class="icon-eliminar">
+		    	<label id="<%- i %>" class="icon-circledelete eliminarArchivo"></label>
+		    </td>
+		</tr>
 	</script>
 <script type="text/javascript">
 	var app = app || {};

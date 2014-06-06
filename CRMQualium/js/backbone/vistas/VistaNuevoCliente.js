@@ -546,7 +546,10 @@ app.VistaNuevoCliente = Backbone.View.extend({
 	        showMessage("<span class='info'>Foto a subir: "+fileName+", peso total: "+fileSize+" bytes.</span>");
 	},
 	urlFoto	: function () {
+		// console.log($("#formularioFoto")[0]);
         var formData = new FormData($("#formularioFoto")[0]);
+        // console.log(formData);
+        // alert(JSON.stringify(formData));
         var mensaje = "";    
         //hacemos la petición ajax  
         var resp = $.ajax({

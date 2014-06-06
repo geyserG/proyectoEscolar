@@ -8,8 +8,10 @@
 
         function insert_mult()
         {
+          
           if(!empty($_FILES))
           {
+            // var_dump($_FILES); die();
                if(array_key_exists('fotoCliente', $_FILES)&&$_FILES['fotoCliente']['name']!="")
                {
                    $carpeta="img/fotosClientes/";
@@ -34,12 +36,16 @@
                {
                    $carpeta="archivos/";
                    opendir($carpeta);
-                   $destino=$carpeta.$_FILES['archivo']['name'];  
+                     for($i=0; $i<count($_FILES['archivo']['name']);$i++)
+                     {
+                       $destino=$carpeta.$_FILES['archivo']['name'][$i];  
 
-                   if(copy($_FILES['archivo']['tmp_name'], $destino))
-                   {
-                       return $_FILES['archivo']['name'];
-                   }
+                       if(copy($_FILES['archivo']['tmp_name'][$i], $destino))
+                       {
+                           $archivos[$i] = $_FILES['archivo']['name'][$i];
+                       }
+                     }
+                     return $archivos;
                }
             }
            

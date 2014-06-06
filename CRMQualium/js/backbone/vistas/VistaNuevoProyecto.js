@@ -34,6 +34,7 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 
 	
 	plantillaServicio 	: _.template($('#tds_servicio').html()),
+	plantillaArchivo	: _.template($('#tr_archivo').html()),
 
 	events	: {
 		'click .eliminarDeTabla_servicios'	: 'eliminarDeTabla',
@@ -49,7 +50,11 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		'change .btn_marcarTodos'			: 'marcarTodos',
 		'click .cerrar'						: 'cerrarAlerta',
 
-		'click #btn_subirArchivo'			: 'subirArchivo'
+		'click #btn_subirArchivo'			: 'subirArchivo',
+		'change #inputArchivos'				: 'cargarArchivos',
+		'click .eliminarArchivo'			: 'eliminarArchivo',
+		'click #btn_cancelarArchivo'		: 'eliminarArchivo',
+		'click #cancelar'					: 'eliminarArchivo'
 	},
 
 	initialize			: function () {
@@ -73,8 +78,10 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		this.$fechaEntrega      = $('#fechaEntrega');
 		this.$duracion          = $('#duracion');
 
-		this.$form_subirArchivos = $('#paso2 #form_subirArchivos')[0];
-		this.$section_resp_Paso2 = $('#paso2 .panel-body');
+		this.$inputArchivos		= $('#inputArchivos');
+		this.$section_resp_Paso2 = $('#paso2 .panel-info .panel-body');
+		this.$tbody_archivos	= $('#tbody_archivos');
+		this.$tbody_respuesta	= $('#tbody_respuesta');
 	},
 	render				: function () {
 		return this;
@@ -193,7 +200,7 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		};
 		// /*Restablecemos el boton de Marcar todos*/
 		// $(elem.currentTarget)//Utilizamo elem como referencia
-		// .parent()//Nos ubicamos en el padre del elemento
+		// .parent()//Nos ubicamos en el padre del elem
 		// .children('.btn-group')//Nos hubicamos en el hijo especificado
 		// .children('.btn')//Nos hubicamos en el hijo del hijo anterios
 		// .click('toggle');//Conmutamos el botón
@@ -262,31 +269,69 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	    });
 	    return json;
 	},
-	subirArchivo		: function (elemento) {
-		var formData = new FormData(this.$form_subirArchivos);
-		elemento.preventDefault();
-		// return;   
-        //hacemos la petición ajax  
-        var resp = $.ajax({
-            url: 'http://crmqualium.com/api_archivos',  
-            type: 'POST',
-            async:false,
-            // Form data
-            //datos del formulario
-            data: formData,
-            //necesario para subir archivos via ajax
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-        var nombreArchivo = jQuery.parseJSON(resp.responseText);
-        if (nombreArchivo != false){
-        	this.$section_resp_Paso2.append('<div class="alert alert-success"><b>¡Exito!</b> Se ha logrado subir <b>'+nombreArchivo+'</b></div>');
-        	return 'archivos/'+nombreArchivo+'';
-        } else{
-        	this.$section_resp_Paso2.append('<div class="alert alert-danger"><b>¡Error!</b> No se puedo subir <b>'+nombreArchivo+'</b></div>');
-        	return nombreFoto.data; //false
-        };
+
+	cargarArchivos		: function (elem) {
+		this.$tbody_archivos.html('');
+		this.arrArchivos = new Array();
+		var archivos = $(elem.currentTarget)[0].files;
+		for (var i = 0; i < archivos.length; i++) {
+			this.$tbody_archivos.append( this.plantillaArchivo( {i:i, tipo:archivos[i].type, nombre:archivos[i].name, tamaño:archivos[i].size} ) );
+		};
+	},
+	subirArchivo		: function (elem) {
+		elem.preventDefault();
+		var archivos = this.$inputArchivos.prop('files');
+		
+		var esto = this;
+		
+		if (this.arrArchivos) {
+			esto.$tbody_respuesta.children().removeClass('success');
+			for (var i = archivos.length - 1; i >= 0; i--) {
+				if ( this.arrArchivos.indexOf(String(i)) == -1 ) {
+					var formData = new FormData();
+					this.classTr = i;
+					var esto = this;
+					formData.append('archivo[]',archivos[i]);
+					var resp = $.ajax({
+			            url: 'http://crmqualium.com/api_archivos',  
+			            type: 'POST',
+			            async:true,
+			            // Form data
+			            //datos del formulario
+			            data: formData,
+			            //necesario para subir archivos via ajax
+			            cache: false,
+			            contentType: false,
+			            processData: false,
+			            success: function (exito) {
+			        	console.log(esto.classTr);
+			            	for (var i = 0; i < exito.length; i++) {
+			            		esto.$tbody_respuesta.prepend('<tr class="success"><td>'+exito[i]+'</td></tr>');
+			            	};
+			            },
+			            error  : function (error) {
+			            	console.log(error);
+			            	// esto.tbody_archivos.children('.'+i).addClass('danger');
+			            }
+			        });
+				};
+			};
+		}			
+	},
+	eliminarArchivo		: function (elem) {
+		this.arrArchivos.push( $(elem.currentTarget).attr('id') );
+		$(elem.currentTarget).parents('tr').remove();
+	},
+	cancelarArchivos	: function (elem) {
+		if ($(elem.currentTarget).attr('id') != 'cancelar') {
+			$('#advertencia #comentario').html('Los archivos a subir seran cancelados');
+			$('#advertencia').removeClass('oculto');
+		} else{
+			for (var i = 0; i < $('.eliminarArchivo').length; i++) {
+				this.arrArchivos.push(i);
+			};
+			this.$tbody_archivos.html('');
+		};
 	}
 });
 
