@@ -1,6 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//class  Cliente extends CI_Controller {
 include 'api.php';
 class  Cliente extends Api {
 
@@ -8,8 +7,6 @@ class  Cliente extends Api {
     {
         parent::__construct();
         $this->load->model('Model_customer', 'Customer');
-        $this->load->helper('url');
-       
     }
 
     public function api() 
@@ -17,9 +14,9 @@ class  Cliente extends Api {
         switch ($this->metodo()) 
         {
             case    'post':   $this->insert_c();            break; # POST
-            case    'get':    $this->get_customers();       break; # GET 
+            case    'get':    $this->get_customers();       break; # GET
             case    'patch':  $this->patch_c($this->id());  break; # PATCH
-            case    'put':    $this->update_c($this->id()); break; # PUT 
+            case    'put':    $this->update_c($this->id()); break; # PUT
             case    'delete': $this->delete_c($this->id()); break; # DELETE
             default:          $this->response('405');       break; # Metodo no definido...
         }
@@ -41,8 +38,8 @@ class  Cliente extends Api {
 
     private function patch_c($id)
     {   
-        $query = $this->Customer->patch_customer($id, $this->put());       
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+        $query = $this->Customer->patch_customer($id, $this->put());
+        ($query)? $this->response($query, 200) : $this->response($query, 406);
     }
 
     private function update_c($id)
@@ -59,5 +56,5 @@ class  Cliente extends Api {
         ($query) ? $this->response($query, 200) : $this->response($query, 304);
     }
 
-} # Fin de la Clase Api_cliente
+} # Fin de la Claase Api_cliente
 

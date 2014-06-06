@@ -111,11 +111,15 @@ $route['api_serviciosInteres/(:num)'] = 'serviciosInteres/api/$1';
 # Ruta para la api de Servicios de Interes...
 $route['api_serviciosCliente'] = 'serviciosCliente/api';
 $route['api_serviciosCliente/(:num)'] = 'serviciosCliente/api/$1';
-
-# Ruta para la api de Servicios de Interes...
+##################################################################
+# Ruta de apis para la Cotizacioin...
 $route['api_cotizaciones'] = 'cotizaciones/api';
 $route['api_cotizaciones/(:num)'] = 'cotizaciones/api/$1';
 
+# Ruta para la api de Servicios cotizados
+$route['api_servicioCotizado']        = 'servicioCotizado/api';
+$route['api_servicioCotizado/(:num)'] = 'servicioCotizado/api/$1';
+##################################################################
 # Ruta para la api de Servicios de Interes...
 $route['api_archivos'] = 'multimedia/api';
 $route['api_archivos/(:num)'] = 'multimedia/api/$1';
@@ -127,6 +131,9 @@ $route['api_personal/(:num)'] = 'personal/api/$1';
 # Ruta para la api de Servicios de Interes...
 $route['api_proyectos'] = 'proyectos/api';
 $route['api_proyectos/(:num)'] = 'proyectos/api/$1';
+
+$route['api_serviciosProyecto'] = 'serviciosProyecto/api';
+$route['api_serviciosProyecto/(:num)'] = 'serviciosProyecto/api/$1';
 
 # Ruta para la api de Servicios de Interes...
 $route['api_rolesDeProyecto'] = 'rolesDeProyecto/api';
@@ -140,3 +147,6 @@ $route['api_catalogoTelefonos/(:num)'] = 'catalogoTelefonos/api/$1';
 
 $route['api_roles'] = 'roles/api';
 $route['api_roles/(:num)'] = 'roles/api/$1';
+
+$route['api_facturas'] = 'facturas/api';
+$route['api_facturas/(:num)'] = 'facturas/api/$1';

@@ -2,17 +2,13 @@
     /**
     * Operaciones en la base de datos con los contactos
     */
-    require_once 'modelo_rit.php';
     class Model_contact extends CI_Model
     {          
-        public function obj(){
-            return $obj = new modelo_rit();
-        }
-        public function insert_C($contacto)
+       public function insert_C($contacto)
         {
             $query = $this->db->insert('contactos',$contacto);
             return $this->db->insert_id();
-        } # Fin del metodo insert_mcontact()...
+        } # Fin del metod insert_mcontact()...
 
         public function get_C($id=FALSE)
         {                

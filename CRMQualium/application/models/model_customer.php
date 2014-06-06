@@ -11,7 +11,7 @@
 
 		function insert_customer($post)
 		{
-			$obj = new modelo_rit();			
+			 $obj = new modelo_rit();			
 			$x=0; # Este es un contador para mi array de inserción...	
 			# Se almacena campos obligatorios en la tabla de clientes... 						
 			$query = $this->db->insert('clientes', array('nombreComercial'=>$post['nombreComercial'], 
@@ -47,13 +47,6 @@
 			# Ahora una vez armado el array con los atributos del cliente hacemos una inserción en la bd...
 			if(!empty($data)){	$query = $this->db->insert_batch('cliente_atributo', $data); }
 	
-			// # Aquí se inserta los servicios que le interesa al cliente o prospecto...			
-			// if(array_key_exists('serviciosInteres', $post))
-			// {	 $tabla='servicios_interes';	$obj->insert_sic($post['serviciosInteres'], $idcliente, $tabla);	}
-
-  	// 	    if(array_key_exists('serviciosCuenta',$post))
-  	// 	    {	 $tabla='servicios_cliente'; 	$obj->insert_sic($post['serviciosCuenta'], $idcliente, $tabla);	}	
-			
 			return $idcliente;
 		}//	----------FUNCTION INSERT_CUSTOMER--------------
 
@@ -107,15 +100,6 @@
 
 				 	} # Fin del foreach() $atributos
 
-					// # Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
-				 // 	$serviciosI = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_interes');				 	
-				 // 	foreach ($serviciosI as $serv=>$value) 	{ $datos[$cont]['serviciosInteres'] = $serviciosI;	}
-
-				 // 	# Hacemos un join para buscar los nombres de los servicios atraves de las relaciones de sus id´s
-				 // 	$serviciosC = $obj->joinDinamico($key->id, 'idcliente', 'idservicio', 'servicios', 'servicios_cliente');
-				 // 	foreach ($serviciosC as $servC=>$valueC) {	$datos[$cont]['serviciosCuenta'] = $serviciosC;	}
-				
-				 	// $datos[$cont]['telefonosCliente'] = $obj->joinDinamico($key->id, 'idcliente', 'idtelefono', 'telefonos', 'telefonos_cliente');	 				 	 	
 			 		$cont++;
 			    }# Fin del foreach() $clientes
 				return $datos;	
@@ -126,6 +110,7 @@
 
 		public function patch_customer($id, $put)
 		{
+			var_dump($put); die();
 			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
 			$query = false;
 			# Consulta las cabeceras de la tabla clientes

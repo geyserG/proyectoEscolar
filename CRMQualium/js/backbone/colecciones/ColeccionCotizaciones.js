@@ -1,7 +1,7 @@
 var app = app || {};
 
 var ColeccionCotizaciones = Backbone.Collection.extend({
-	url : 'http://crmqualium.com/api_cotizaciones',
+	url   : 'http://crmqualium.com/api_cotizaciones',
 	model : app.ModeloCotizacion
 	
 
@@ -12,4 +12,4 @@ var ColeccionCotizaciones = Backbone.Collection.extend({
 	
 });
 
-app.coleccionCotizaciones = new ColeccionCotizaciones(app.coleccionDeCotizaciones);
+app.coleccionCotizaciones = new ColeccionCotizaciones();

@@ -12,6 +12,7 @@
 
 		public function insert_s($post)
 		{  
+
 			$insert='';
 			foreach ($post as $key => $value) 
 			{
@@ -29,15 +30,12 @@
 
 		public function get_s($id=FALSE)
 		{
-			if($id===FALSE) 
-			{
-			 	return $this->db->get('servicios')->result();
+			if($id===FALSE){
+				return $this->db->get('servicios')->result();	
 			}
-			else
-			{
-				$query = $this->db->get_where('servicios', array('id'=>$id))->result();
-				return $query[0];
-			}
+
+			$query = $this->db->get_where('servicios', array('id'=> $id))->result(); 
+			return (array_key_exists(0, $query)) ? $query[0] : $query = false;
 		}
 		# Esta funcion le sirve a la interfaz de modulo cliente_nuevo y consulta_cliente...
 
@@ -62,24 +60,20 @@
 			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;	
 			$this->db->where('id', $id);
 			# la variable $put devuelve los campos especificando que datos se actualizaron.
-			$query = $this->db->update('servicios', $put);
-			# Regresa true o false dependiendo de la consulta.
-			if($query){ return $put; }
-			return false;
+			return $this->db->update('servicios', $put);
+		
 		}
 
 		public function update_s($id, $put)
 		{
 			$this->db->where('id', $id);
 			# la variable $put devuelve los campos especificando que datos se actualizaron.
-			$query = $this->db->update('servicios', $put);
-			# Regresa true o false dependiendo de la consulta.
-			return $query;
+			return $query = $this->db->update('servicios', $put);			
 		}
+
 		public function delete_s($id)
 		{
-			$query = $this->db->delete('servicios', array('id' => $id));
-			return $query;
+			return $this->db->delete('servicios', array('id' => $id));			
 		}
 
 	} # Fin de la clase Model_phones

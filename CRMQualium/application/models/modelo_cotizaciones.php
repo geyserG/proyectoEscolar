@@ -9,34 +9,16 @@
 
         function insert_cotizacion($post)
         {
+            // var_dump($post); die();
             $query = $this->db->insert('cotizacion',array( 
                                                         'idcliente'      =>$post['idcliente'],
                                                         'idrepresentante'=>$post['idrepresentante'],
+                                                        'idempleado'     =>$post['idempleado'],
                                                         'fecha'          =>$post['fecha'],
-                                                        'comentario'     =>$post['comentario']
+                                                        'detalles'       =>$post['detalles']
                                                         ));
             # Recuperamos el id del contacto...
-            $id = $this->db->insert_id();
-            // $query = $this->db->insert('cotizacion_servicios',array('idcotizacion'=>$id, 
-            //                                             'idservicio'  =>$post['idservicio'],
-            //                                             'duracion'    =>$post['duracion'],
-            //                                             'cantidad'    =>$post['cantidad'],
-            //                                             'precio'      =>$post['precio'],
-            //                                             'descuento'   =>$post['descuento'],
-            //                                             ));
-            foreach ($post as $key => $value)
-            {
-                $data[$key] = array('idcotizacion'=>$id, 
-                                    'idservicio'  =>$post['idservicio'][$key],
-                                    'duracion'    =>$post['duracion'][$key],
-                                    'cantidad'    =>$post['cantidad'][$key],
-                                    'precio'      =>$post['precio'][$key],
-                                    'descuento'   =>$post['descuento'][$key]);                
-            }
-            # Enviamos a la inserción varias filas.
-            $query = $this->insert_batch('cotizacion_servicios', $data);
-
-            return $query;   
+           return $this->db->insert_id();           
 
         } # Fin del metodo insert_mcontact()...
 

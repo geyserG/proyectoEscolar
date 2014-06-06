@@ -35,12 +35,13 @@ app.VistaServicioCotizacion = app.VistaServicio.extend({
 //###########################################################
 app.VistaTablaCotizaciones = Backbone.View.extend({
 	tagName : 'tr',
-
+	className : 'fila',
+    
 	serviciosAgregado : _.template($('#serviciosAgregado').html()),
 
 	events : {
-		'click  .icon-uniF756' : 'habilitarEdicion',
-		'keypress .visibleI'   : 'actualizar'
+		'keyup  .valor'     : 'establecerImporte2', 
+        'click  .btndelete' : 'restarTotal'
  	},
 
 	initialize : function(){
@@ -58,63 +59,42 @@ app.VistaTablaCotizaciones = Backbone.View.extend({
 	habilitarEdicion : function (elemento){		
 		this.$el.children().children().toggleClass('visibleI');		
 	},
- 	
- 	/* Una vez capturados los cambios actualiza la vista mostrada en pantalla del servicio cotizando...*/
-	actualizar : function(elemento)
-	{
-		var total = 0;
-		if(elemento.keyCode === 13) {
-						
-			this.$('#realizacion').text(this.$('#oduracion').val());
-			this.$('#cantidad').text(this.$('#ocantidad').val());
-			this.$('#precio').text(this.$('#oprecio').val());
-			this.$('#descuento').text(this.$('#odescuento').val());	
-
-			this.$el.children().children().toggleClass('visibleI');
-			/* Despues de modificar los datos del servicio si hubo cambio
-			   en los precios se deberá reflejar en el importe...*/
-			// this.establecerImporte();	
-			var impante   = Number(this.$('#importe').text());
-			var cantidad  = this.$('#ocantidad').val();			
-			var precio    = this.$('#oprecio').val();
-			var descuento = this.$('#odescuento').val();		
-			var importe   = (cantidad * precio) - descuento;
-			this.$('#importe').text(importe);
-
-			var importes = ($('#trServicio').find('.importes').text());
-
-			$.each(importes);
-			total+=total+(importes.importe);	
-		
-			// var totalantes = Number($('#total').text());
-			// $('#total').text(importe);
-			// var totaldespues = Number($('#total').text());
-
-			// var total = totalantes + totaldespues;
-			// total = total-totalantes;
-			// $('#total').text(total);
-		};
-	},
 
 	/* Esta función obtiene los valores de la vista que se acaba de 
 	   agregar o que se esta editando para sacar el importe del servicio...*/
 	establecerImporte : function(){
 
-		var cantidad  = this.$('#ocantidad').val();			
-		var precio    = this.$('#oprecio').val();
-		var descuento = this.$('#odescuento').val();		
+        var total = Number($('#total').text());
+		var cantidad  = this.$('#cantidad').val();			
+		var precio    = this.$('#precio').val();
+		var descuento = this.$('#descuento').val();
 		var importe   = (cantidad * precio) - descuento;
-		this.$('#importe').text(importe);
+		this.$('#importe').val(importe);		
+        $('#total').text(total + importe);
+	},
 
+	establecerImporte2 : function(){
+
+        var total = Number($('#total').text());
+		var cantidad  = this.$('#cantidad').val();			
+		var precio    = this.$('#precio').val();
+		var descuento = this.$('#descuento').val();
+		var importe   = (cantidad * precio) - descuento;
+		this.$('#importe').val(importe);
 		
-		// var totalantes = Number($('#total').text());
-		// $('#total').text(importe);
-		// var totaldespues = Number($('#total').text());
+		this.$('#hduracion' ).val(this.$('#duracion' ).val());
+        this.$('#hcantidad' ).val(this.$('#cantidad' ).val());
+        this.$('#hprecio'   ).val(this.$('#precio'   ).val());
+        this.$('#hdescuento').val(this.$('#descuento').val());
 
-		// var total = totalantes + totaldespues;
-		// $('#total').text(total);
+        
+	},
 
-	}
+    restarTotal : function(){
+        var total   = Number($('#total').text());
+        var importe = Number(this.$('#importe').val());
+        $('#total').text(total - importe);
+    }
 
 });
 

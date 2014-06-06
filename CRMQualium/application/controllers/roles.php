@@ -31,7 +31,7 @@ class  Roles extends Api {
     private function getRol($id)
     {  	
         $query = $this->roles->getRol($id);                        
-    	($query) ? $this->response($query, 200) : $this->response($query, 404);   	
+    	($query) ? $this->response($query, 200) : $this->response('Not Found', 404);   	
     }
 
     private function patchRol($id)
