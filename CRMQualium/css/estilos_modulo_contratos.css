@@ -1,6 +1,7 @@
-#fecha{
+.fecha{
 
-	width: 100px;
+	width: 150px !important;
+	
 }
 
 #buscar{
@@ -18,26 +19,50 @@
 
 }
 
-/*#cabecera_fija{
-   
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: #f9f9f9;
-    color: #333;
-    width: 473px;
+.datos_primarios{
+
+	display:inline-block;
+	float: left;
+	margin-right: 100px !important;
+	width: 400px;
+
 }
 
-#servicios_contratos table{
-	display: inline-block;
-	height: 230px;
-	overflow: auto;
-	width: 490px;
-	margin-top: -22px;
-}*/
+#radio1{
+
+float: left !important;
+
+
+
+
+}
+
+#radio2{
+
+	float: left;
+	margin-left: 70px; 
+
+
+}
+
+#tipo_plan{
+
+	float: left;
+	width: 600px;
+
+}
+
+#info_servicio{
+
+    display: none;
+	height: 125px;
+}
+
+
+#panel_contrato{
+
+	width: 580px;
+}
 
 #serv_obtenidos {
 
@@ -49,9 +74,9 @@
 
 tbody.scrollContent2 { 
 	display: block; /*obligado*/ 
-	height: 155px; /*la que necesites*/ 
+	height: 165px; /*la que necesites*/ 
 	overflow: auto; /*obligado*/
-	width: 285px;
+	width: 578px;
 	
 	}
 
@@ -63,16 +88,7 @@ tbody.scrollContent2 {
 
 }
 
-#cuadro_busqueda {
-	
-	width: 300px;
-	height: 25px;
-}
-#cuadro_busqueda1 {
-	
-	width: 78px;
-	height: 25px;
-}
+
 .precio {
 	width: 78px;
 	height: 20px;
@@ -99,8 +115,6 @@ tbody.scrollContent2 {
 
 	margin-top:-18px; 
 }
-
-
 
 
 --------Historial de contratos------------------

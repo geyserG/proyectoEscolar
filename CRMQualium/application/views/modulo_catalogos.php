@@ -4,7 +4,7 @@
 	   <nav>
 			<ul id="menu_modulo" class="nav nav-pills">
 				<li>
-	            	<a href="">
+	            	<a href="catalogo_empleados">
 	             	   <div class="icono_menu_modulo">
 	                	 <span class="icon-businesscard2"></span>
 	              	   </div>
@@ -20,7 +20,7 @@
 		            </a>
 				</li>
 				 <li>
-	            	<a href="">
+	            	<a href="catalogo_perfiles">
 	             	   <div class="icono_menu_modulo">
 	                	 <span class="icon-user"></span>
 	              	   </div>
@@ -28,7 +28,7 @@
 	                </a>
 	            </li>
 				 <li>
-	            	<a href="">
+	            	<a href="catalogo_permisos">
 	             	   <div class="icono_menu_modulo">
 	                	 <span class="icon-unlock"></span>
 	              	   </div>
