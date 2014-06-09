@@ -1,33 +1,33 @@
  <?php
-    /**
-    * Operaciones en la base de datos con los contactos
-    */
-    class Model_contact extends CI_Model
-    {          
-       public function insert_C($contacto)
-        {
-            $query = $this->db->insert('contactos',$contacto);
-            return $this->db->insert_id();
-        } # Fin del metod insert_mcontact()...
 
-        public function get_C($id=FALSE)
-        {                
-              if($id!=FALSE)
-              { 
-                $query = $this->db->get_where('contactos', array('id'=>$id))->result();
-                ($query) ? $query = $query[0] : $query = false;
-                 return $query; 
-              }
-              $query = $this->db->get('contactos');
-              return $query->result();   
+    #           ..........DATOS DEL MODELO CONTACTO....
+    #  'idcliente' => $post['idcliente' ],  'nombre' =>$post['nombre'],
+    #  'correo'    => $post['correo'    ],  'cargo'  =>$post['cargo' ],
+
+    require_once 'Modelo_crud.php';
+    class Model_contact extends Modelo_crud
+    { 
+      public function __construct( ) {}      
+
+        public function create($args)
+        {   
+            $this->db->insert('contactos', $args);
+            return $this->get($this->db->insert_id());     
+        }
+        
+        public function get ( $id = FALSE ) 
+        {  
+          $reply = $this->where(  $id  );  # Ejecutamos el metodo where...      
+          return $this->db->get  ( 'contactos' )->$reply();  # Este metodo ejecuta get con y sin ID...
         }
 
-        public function patch_C($id, $put) {  
-            (array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
-            $this->db->where('id', $id); return $this->db->update('contactos', $put); }
-
-        public function update_C($id){  $this->db->where('id', $id); return $this->db->update('contactos', $put); }
-
-        public function delete_C($id){  $del = array('id' => $id);   return $this->db->delete('contactos', $del); }
-
-}
+        public function save (  $id,  $put ) 
+        {   
+            return $this->db->update('contactos', $put, array('id' => $id)  );   
+        }       
+        
+        public function destroy (  $id  ) 
+        {   
+            return $this->db->delete('contactos', array('id' => $id)  ); 
+        }
+    }    

@@ -1,41 +1,32 @@
 <?php
-	/**
-	* Operaciones en la tabla Servicios de la bd...
-	*/
-	class Modelo_permisos extends CI_Model
+	#            DATOS DEL MODELO PERMISO
+	# $post ['nombre']........$post ['descripcion']
+	require_once 'Modelo_crud.php';
+	class Modelo_permisos extends Modelo_crud
 	{
+		public function __construct(){}
+
+		public function create($post) 
+		{   
+			$this->db->insert('permisos', $post)->insert_id();
+			return $this->get($this->db->insert_id());	
+		}
+
+		# Este metodo línea hace dos cosas devuelve todos los registros o devuelve el especificado con el ID
+		public function get ( $id = FALSE ) 
+		{ 	
+			$reply = $this->where($id);
+			return $this->db->get  ( 'permisos' )->$reply();
+		}
+
+		public function save (  $id,  $put ) 
+		{	
+			return $this->db->update('permisos', $put, array('id' => $id)  );	
+		}		
 		
-		function __construct()
-		{						
+		public function destroy (  $id  ) 
+		{	
+			return $this->db->delete('permisos', array('id' => $id)  );	
 		}
 
-		public function insert_perm($post)
-		{
-			$query = $this->db->insert('permisos', $post);
-			return $query; 
-		}
-
-		public function get_perm($id)
-		{
-			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('permisos') :
-			$this->db->where('id', $id); $query = $this->db->get('permisos');			
-			
-			return $query->result();			
-		}
-
-		public function update_perm($id, $put)
-		{
-			$this->db->where('id', $id);
-			# la variable $put devuelve los campos especificando que datos se actualizaron.
-			$query = $this->db->update('permisos', $put);
-			# Regresa true o false dependiendo de la consulta.
-			return $query;
-		}
-		public function delete_perm($id)
-		{
-			$query = $this->db->delete('permisos', array('id' => $id));
-			return $query;
-		}
-
-	} # Fin de la clase Model_phones
+	} # Fin de la clase Modelo_permisos

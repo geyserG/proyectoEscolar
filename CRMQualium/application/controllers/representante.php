@@ -1,59 +1,42 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class Representante extends Api {
+class  Representante extends Api {
 
-	public function __construct() {
+    public function __construct() {
         parent::__construct();
-        $this->load->model('Modelo_representante', 'representante');             
+        $this->load->model('Modelo_representante', 'rep');             
     }
 
-    public function api() {    
-
-    	switch ($this->metodo()) 
-        {
-    		case     'post':   $this->insert_representante();             break; # POST
-    		case     'get':    $this->get_representante($this->id());     break; # GET
-            case     'patch':  $this->patch_representante($this->id());  break; # PUT
-    		case     'put':    $this->update_representante($this->id());  break; # PUT	
-    		case     'delete': $this->delete_representante($this->id());  break; # DELETE
-    		default:  	       $this->response('',405);   		          break; # METODO NO DEFINIDO...
-    	}
-    }
-    
-    private function insert_representante(){
-
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost();         
-        $query = $this->representante->insert_r($post);
-        # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+    public function api() 
+    {
+        $metodo = $this->request();
+        $this->$metodo();
     }
 
-    private function get_representante($id){
-
-    	$query = $this->representante->get_r($id);                        
-    	($query) ? $this->response($query, 200) : $this->response('Not Found', 404);
-    	
+    private function create()
+    {
+        $query = $this->rep->create_rep(  $this->ipost()  );
+        # El metodo pre_response() establece el codigo de respuesta y acepta dos parametros 
+        # El resultado de la $query y el metodo que se acaba de ejecutar...
+        $this->pre_response($query, 'create');        
     }
 
-    private function patch_representante($id){
-
-        $query = $this->representante->patch_representante($id, $this->put());
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    private function get()
+    {
+        $query = $this->rep->get_rep( $this->id() ); 
+        $this->pre_response($query, 'get');     
     }
 
-    private function update_representante($id){
-
-        $put = $this->put();
-    	$query = $this->representante->update_r($id, $put);
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    private function update()
+    {
+        $query = $this->rep->update_rep(  $this->id(), $this->put()  );
+        $this->pre_response($query, 'update');  
     }
 
-    private function delete_representante($id){
-
-    	$query = $this->representante->delete_r($id);    	
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
-    }
-
+    private function delete()
+    {
+        $query = $this->rep->delete_rep(  $this->id()  ); 
+       $this->pre_response($query, 'delete');  
+    }   
 } # Fin de la Clase Api_contacto

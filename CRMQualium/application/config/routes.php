@@ -75,9 +75,17 @@ $route['api_cliente/(:num)'] = 'cliente/api';
 $route['api_contactos'] = 'contacto/api';
 $route['api_contactos/(:num)'] = 'contacto/api/$1';
 
+
+$route['api_contratos'] = 'contratos/api';
+$route['api_contratos/(:num)'] = 'contratos/api/$1';
+
 # Rutas para la api de clientes...
 $route['api_cliente'] = 'cliente/api';
 $route['api_cliente/(:num)'] = 'cliente/api';
+
+# Rutas para la api de clientes...
+$route['api_empleados'] = 'empleados/api';
+$route['api_empleados/(:num)'] = 'empleados/api';
 
 # Rutas para la api de clientes...
 $route['api_prospecto'] = 'cliente/api';

@@ -3,7 +3,6 @@
 include 'api.php';
 class  ServicioCotizado extends Api {
 
-    # sc = Servicio Cotizado
     public function __construct() 
     {
         parent::__construct();
@@ -12,49 +11,33 @@ class  ServicioCotizado extends Api {
 
     public function api() 
     {
-        switch ($this->metodo()) 
-        {
-            case    'post':   $this->insert_sc();            break; # POST
-            case    'get':    $this->get_sc($this->id());    break; # GET
-            case    'patch':  $this->patch_sc($this->id());  break; # PATCH
-            case    'put':    $this->update_sc($this->id()); break; # PUT
-            case    'delete': $this->delete_sc($this->id()); break; # DELETE
-            default:          $this->response('405');        break; # Metodo no definido...
-        }
+        $metodo = $this->request();
+        $this->$metodo();
     }
 
-    private function insert_sc()
+    private function create()
     { 
         # La función ipost()... Recupera todos los post que viene desde la petición        
         $query = $this->servCotizado->insert_servicioCotizado($this->ipost());
-        ($query) ? $this->response($query, 201) : $this->response($query, 404);                 
+        $this->pre_response($query, 'create');                  
     }
 
-    private function get_sc($id)
+    private function get()
     {
-       $query = $this->servCotizado->get_servicioCotizado($id); 
-
-       ($query) ? $this->response($query, 200) : $this->response($query, 404);
+       $query = $this->servCotizado->get_servicioCotizado($this->id()); 
+       $this->pre_response($query, 'get'); 
     }
 
-    // private function patch_c($id)
+    // private function update($id)
     // {   
     //     $query = $this->servCotizado->patch_customer($id, $this->put());
-    //     ($query)? $this->response($query, 200) : $this->response($query, 406);
+    //     $this->pre_response($query, 'update');         
     // }
 
-    // private function update_c($id)
-    // {        
-    //     # La función put(); Devuelve el array con los campos espicificos para actualizar              
-    //     $query = $this->servCotizado->update_customer($id, $this->put());
-             
-    //     ($query) ? $this->response($query, 200) : $this->response($query, 304);        
-    // }
-
-    // private function delete_c($id)
+    // private function delete($id)
     // {
     //     $query = $this->servCotizado->delete_customer($id);
-    //     ($query) ? $this->response($query, 200) : $this->response($query, 304);
+    //     $this->pre_response($query, 'delete'); 
     // }
 
 } # Fin de la Claase Api_cliente

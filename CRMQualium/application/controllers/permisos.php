@@ -5,62 +5,42 @@ class  Permisos extends Api {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('Modelo_permisos', 'perm');             
+        $this->load->model('Modelo_permisos', 'perm');
+        // $this->load->model('Modelo_crud', 'perm');
+        // $this->tabla = 'permisos';
+                     
     }
 
-    public function api() {
-
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);     
-
-        switch ($this->metodo()) {
-            case 'post':
-                $this->insert_permisos();
-                break;
-            case 'get':
-                $this->get_permisos($id);
-                break;  
-            case 'put':
-                 $this->update_permisos($id);
-                break;  
-            case 'delete':
-                $this->delete_permisos($id);
-                break;
-            default:
-                $this->response('',405);
-                break;
-        }
-
+    public function api() 
+    {
+        $metodo = $this->request();
+        $this->$metodo();
     }
-    
-    private function insert_permisos(){
-
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost(); 
-        $query = $this->perm->insert_perm($post);
+   
+    private function create(){
+        
         # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+        $query = $this->perm->create ( $this->ipost()   );        
+                 $this->pre_response ( $query, 'create' );                  
     }
 
-    private function get_permisos($id){
-
-        $query = $this->perm->get_perm($id);                        
-        ($query) ? $this->response($query, 200) : $this->response($query, 404);
+    private function get(){
+        
+        $query = $this->perm->get     ( $this->id()   );                        
+                 $this->pre_response  ( $query, 'get' ); 
         
     }
 
-    private function update_permisos($id){
-
-        $put = $this->put();
-        $query = $this->perm->update_perm($id, $put);
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    private function update()
+    {    
+        $query = $this->perm->save   (  $this->id(), $this->put() );
+                 $this->pre_response (  $query, 'update'          );         
     }
 
-    private function delete_permisos($id){
-
-        $query = $this->perm->delete_perm($id);        
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+    private function delete()
+    {  
+        $query = $this->perm->destroy (  $this->id()      );        
+                 $this->pre_response  (  $query, 'delete' ); 
     }
 
 } # Fin de la Clase Api_cliente
