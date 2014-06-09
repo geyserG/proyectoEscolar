@@ -23,7 +23,6 @@
 	</div>
 
 	<h1>Nuevo Proyecto</h1>
-	<hr>
 
 	<style type="text/css">
 		.section_Visible {
@@ -62,148 +61,169 @@
 		}
 	</style>
 
-	<section id="paso1" class="section_Visible"><!-- section_Oculto -->
-		<form id="formNuevoProyecto">
-			<div class="row">
-				<div class="col-md-3">
-					<div id="nom_proy">
-						<!-- <div id="busquedaClinte"> -->
-							<div class="form-group has-feedback">
-							  <input type="text" id="busqueda" class="form-control" placeholder="Buscar cliente" style="width: 100%;">
-							  <span class="glyphicon glyphicon-search form-control-feedback" style="top:0px"></span>
-							</div>
-							
-							<input type="hidden" id="hidden_idCliente" name="idcliente">
-							<!-- <select id="select_clientes" class="form-control ocu" style="width:100%" name="idcliente">
-							</select> -->
-						<!-- </div> -->
-						<input type="text" class="form-control" placeholder="Nombre del proyecto" style="width:100%" name="nombre">
-					</div>
-				</div>
-				<div class="col-md-6">
-					<fieldset>
-						<label for="disabledTextInput">Especifique la fecha de inicio y entrega del proyecto</label>
+	<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+		</div>
+	</div>
+	<div id="divSecciones">
+		<section id="paso1" class="section_Visible"><!-- section_Oculto -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">Datos de proyecto</div>
+				<div class="panel-body">
+					<form id="formNuevoProyecto">
 						<div class="row">
-							<div class="col-md-4">
-								<div class="divfech">	    	
-								    <h5><b>Inicio</b></h5>	    
-								    <input id="fechaInicio" class="form-control" type="date" name="fechainicio">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="divfech">
-									<h5><b>Termino</b></h5>
-									<input id="fechaEntrega" class="form-control" type="date" name="fechafinal">
-							    </div>
-							</div>
 							<div class="col-md-3">
-								<div class="divfech">
-									<h5><b>Duración en días</b></h5>
-									<input type="number" id="duracion" class="form-control">
+								<div id="nom_proy">
+									<!-- <div id="busquedaClinte"> -->
+										<div class="form-group has-feedback">
+										  <input type="text" id="busqueda" class="form-control" placeholder="Buscar cliente" style="width: 100%;">
+										  <span class="glyphicon glyphicon-search form-control-feedback" style="top:0px"></span>
+										</div>
+										
+										<input type="hidden" id="hidden_idCliente" name="idcliente">
+										<!-- <select id="select_clientes" class="form-control ocu" style="width:100%" name="idcliente">
+										</select> -->
+									<!-- </div> -->
+									<input type="text" class="form-control" placeholder="Nombre del proyecto" style="width:100%" name="nombre">
 								</div>
+							</div>
+							<div class="col-md-6">
+								<fieldset>
+									<label for="disabledTextInput">Especifique la fecha de inicio y entrega del proyecto</label>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="divfech">	    	
+											    <h5><b>Inicio</b></h5>	    
+											    <input id="fechaInicio" class="form-control" type="date" name="fechainicio">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="divfech">
+												<h5><b>Termino</b></h5>
+												<input id="fechaEntrega" class="form-control" type="date" name="fechafinal">
+										    </div>
+										</div>
+										<div class="col-md-3">
+											<div class="divfech">
+												<h5><b>Duración en días</b></h5>
+												<input type="number" id="duracion" class="form-control">
+											</div>
+										</div>
+									</div>
+								</fieldset>
 							</div>
 						</div>
-					</fieldset>
+						<br>
+
+						<div class="row">
+							<div class="col-md-3">
+								<table class="table table-curved"><!--  tbla_apilacion -->
+									<thead class="cabecera_serv2">
+										<tr class="color_th">						
+										  <th>Servicios</th>
+										</tr>
+									</thead>
+									<tbody id="tbody_servicios" class="scrolltbla">
+									</tbody>
+								</table>	
+							</div>
+							<div class="col-md-6">
+								<table id="tbla_roles" class="table table-striped table-curved">
+									<thead>
+										<tr class="color_th">
+											<th>&nbsp;&nbsp;&nbsp;</th>
+											<th>Servicio seleccionado</th>
+											<th>&nbsp;&nbsp;&nbsp;</th>
+										</tr>
+								    </thead>
+								    <tbody id="tbody_servicios_seleccionados">
+								    	<!-- PLANTILLA SERVICIOS SELECCIONADOS -->
+								    </tbody>
+								    <tfoot>
+								    	<tr>
+									    	<td colspan="4">
+									    		<!-- <button type="button" id="checkboxServicios" class="btn_marcarTodos">Marcar todos</button> -->
+												<div class="btn-group" data-toggle="buttons">
+													<label class="btn btn-default btn-xs">
+														<input type="checkbox" id="checkboxServicios" class="btn_marcarTodos"> Marcar todos
+													</label>
+												</div>
+												<button type="button" class="btn btn-danger btn-xs checkboxServicios btn_eliminarMarcados">Eliminar marcados</button>
+									    	</td>
+									    </tr>
+								    </tfoot>		
+								</table>
+							</div>
+						</div> <!-- Fin class row -->
+
+						<br>
+						
+						<textarea class="form-control" rows="4" placeholder="Descripción del proyecto" name="descripcion"></textarea>
+					</form>
+				</div>
+				<div class="panel-footer">
+					<button type="button" id="btn_cancelarProyecto" class="btn btn-default">Cancelar</button>
+					<button type="button" id="btn_guardarProyecto" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
-			<br>
+		</section>
 
-			<div class="row">
-				<div class="col-md-3">
-					<table class="table table-curved"><!--  tbla_apilacion -->
-						<thead class="cabecera_serv2">
-							<tr class="color_th">						
-							  <th>Servicios</th>
-							</tr>
-						</thead>
-						<tbody id="tbody_servicios" class="scrolltbla">
-						</tbody>
-					</table>	
+		<section id="paso2" class="section_Visible">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Asignar roles al proyecto</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3">
+							<table class="table table-curved"><!--  tbla_apilacion -->
+								<thead class="cabecera_serv2">
+									<tr class="color_th">						
+									  <th>Empleado</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_empleados" class="scrolltbla">
+								</tbody>
+							</table>
+						</div>
+						<div class="col-md-7">
+							<table id="tbla_roles" class="table table-striped table-curved">
+								<thead>
+									<tr class="color_th">
+										<th>&nbsp;&nbsp;&nbsp;</th>
+										<th style="width: 200px;">Empleados</th>
+										<th style="width: 400px;">Roles (<small>Establesca un responsable para el nuevo proyecto</small>)</th>
+										<th></th>
+									</tr>
+							    </thead>
+							    <tbody id="tbody_empleados_seleccionados">
+							    	<!-- PLANTILLA EMPLEADOS SELECCIONADOS -->
+							    </tbody>
+							    <tfoot>
+							    	<tr>
+								    	<td colspan="4">
+								    		<!-- <button id="checkboxEmpleados" class="btn_marcarTodos"></button> -->
+											<div class="btn-group" data-toggle="buttons">
+												<label class="btn btn-default btn-xs">
+													<input type="checkbox" id="checkboxEmpleados" class="btn_marcarTodos"> Marcar todos
+												</label>
+											</div>
+											<button type="button" class="btn btn-danger btn-xs checkboxEmpleados btn_eliminarMarcados">Eliminar marcados</button>
+								    	</td>
+								    </tr>
+							    </tfoot>
+							</table>
+						</div>
+					</div> <!-- Fin class row -->
 				</div>
-				<div class="col-md-6">
-					<table id="tbla_roles" class="table table-striped table-curved">
-						<thead>
-							<tr class="color_th">
-								<th>&nbsp;&nbsp;&nbsp;</th>
-								<th>Servicio seleccionado</th>
-								<th>&nbsp;&nbsp;&nbsp;</th>
-							</tr>
-					    </thead>
-					    <tbody id="tbody_servicios_seleccionados">
-					    	<!-- PLANTILLA SERVICIOS SELECCIONADOS -->
-					    </tbody>
-					    <tfoot>
-					    	<tr>
-						    	<td colspan="4">
-						    		<!-- <button type="button" id="checkboxServicios" class="btn_marcarTodos">Marcar todos</button> -->
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default btn-xs">
-											<input type="checkbox" id="checkboxServicios" class="btn_marcarTodos"> Marcar todos
-										</label>
-									</div>
-									<button type="button" class="btn btn-danger btn-xs checkboxServicios btn_eliminarMarcados">Eliminar marcados</button>
-						    	</td>
-						    </tr>
-					    </tfoot>		
-					</table>
+				<div class="panel-footer">
+					<button type="button" id="btn_cancelarRoles" class="btn btn-default">Cancelar</button>
+					<button type="button" id="btn_guardarRoles" class="btn btn-primary">Guardar</button>
 				</div>
-			</div> <!-- Fin class row -->
+			</div>
+		</section>
 
-			<br>
-			
-			<textarea class="form-control" rows="4" placeholder="Descripción del proyecto" name="descripcion"></textarea>
-			
-			<h3>Asignar Roles</h3>
-			<hr><br>
-			<div class="row">
-				<div class="col-md-3">
-					<table class="table table-curved"><!--  tbla_apilacion -->
-						<thead class="cabecera_serv2">
-							<tr class="color_th">						
-							  <th>Empleado</th>
-							</tr>
-						</thead>
-						<tbody id="tbody_empleados" class="scrolltbla">
-						</tbody>
-					</table>
-				</div>
-				<div class="col-md-7">
-					<table id="tbla_roles" class="table table-striped table-curved">
-						<thead>
-							<tr class="color_th">
-								<th>&nbsp;&nbsp;&nbsp;</th>
-								<th style="width: 200px;">Empleados</th>
-								<th style="width: 400px;">Roles (<small>Establesca un responsable para el nuevo proyecto</small>)</th>
-								<th></th>
-							</tr>
-					    </thead>
-					    <tbody id="tbody_empleados_seleccionados">
-					    	<!-- PLANTILLA EMPLEADOS SELECCIONADOS -->
-					    </tbody>
-					    <tfoot>
-					    	<tr>
-						    	<td colspan="3">
-						    		<!-- <button id="checkboxEmpleados" class="btn_marcarTodos"></button> -->
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default btn-xs">
-											<input type="checkbox" id="checkboxEmpleados" class="btn_marcarTodos"> Marcar todos
-										</label>
-									</div>
-									<button type="button" class="btn btn-danger btn-xs checkboxEmpleados btn_eliminarMarcados">Eliminar marcados</button>
-						    	</td>
-						    </tr>
-					    </tfoot>
-					</table>
-				</div>
-			</div> <!-- Fin class row -->
-			<button type="button" class="btn btn-default">Cancelar</button>
-			<button type="button" id="btn_nuevoProyecto" class="btn btn-primary">Guardar</button>
-		</form>
-	</section>
-	<section id="paso2" class="section_Visible">
-		<div class="panel panel-primary">
-			<div class="panel-heading">Archivos de proyecto</div>
-			<div class="panel-body">
+		<section id="paso3" class="section_Visible">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Archivos de proyecto</div>
 				<div class="panel-body">
 					<form id="form_subirArchivos">
 						<label class="btn btn-success fileinput-button">
@@ -221,30 +241,21 @@
 		                </button>
 				    </form>
 				    <br>
-					<table class="table table-hover" style="display: table-cell;"><!-- style="display: table-cell; width: 400px;" -->
+					<table class="table table-hover"><!-- style="display: table-cell; width: 400px;" -->
 						<thead>
 							<tr><th colspan="4">Archivos a subir</th></tr>
 						</thead>
 						<tbody id="tbody_archivos">
 						</tbody>
 					</table>
-					<table class="table" style="display: table-cell;"><!-- style="display: table-cell; width: 200px;" -->
-						<thead>
-							<tr><th>Subidos</th></tr>
-						</thead>
-						<tbody id="tbody_respuesta">
-						</tbody>
-					</table>
+				</div>
+				<div class="panel-footer">
+					<button type="button" class="btn btn-default">Finalizar</button>
 				</div>
 			</div>
-		</div>
-	    <!-- <div class="panel panel-info">
-			<div class="panel-heading">Lista de archivos</div>
-			<div class="panel-body"></div>
-	    </div> -->
-	</section>
+		</section>
+	</div>
 </div> <!-- LA APERTURA DE ESTA ETIQUETA ESTÁ EN OTRO DOCUMENTO. NO BORRAR!! -->
-		
 
 
 <!-- plantillas -->
@@ -310,6 +321,7 @@
 					</div>
 				</div>
 	    		<form class="form_participante">
+	    			<input type="hidden" name="idproyecto" value="<%- idproyecto %>">
 	    			<input type="hidden" name="idpersonal" value="<%- id %>">
 				</form>
 	    </td>

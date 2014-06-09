@@ -46,15 +46,21 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		'change #duracion'					: 'calcularEntrega',
 		'keyup #duracion'					: 'calcularEntrega',
 
-		'click #btn_nuevoProyecto'			: 'guadarProyecto',
+		'click #btn_guardarProyecto'		: 'guadarProyecto',
+		'click #btn_cancelarProyecto'		: '',
+		'click #btn_guardarRoles'			: 'guadarRoles',
+		'click #btn_cancelarRoles'			: '',
+
 		'change .btn_marcarTodos'			: 'marcarTodos',
 		'click .cerrar'						: 'cerrarAlerta',
 
 		'click #btn_subirArchivo'			: 'subirArchivo',
 		'change #inputArchivos'				: 'cargarArchivos',
+		'click #inputArchivos'				: 'eliminarFileList',
 		'click .eliminarArchivo'			: 'eliminarArchivo',
-		'click #btn_cancelarArchivo'		: 'eliminarArchivo',
-		'click #cancelar'					: 'eliminarArchivo'
+		'click #btn_cancelarArchivo'		: 'cancelarArchivos',
+		'click #cancelar'					: 'cancelarArchivos',
+		'click #continuar'					: 'cancelarArchivos',
 	},
 
 	initialize			: function () {
@@ -66,11 +72,11 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		this.cargarClientes();
 		this.$fechaInicio       = $('#fechaInicio');
 		this.cargarServicios();
-		this.cargarEmpleados();
 
 		this.$advertencia		= $('#advertencia');
 		this.$error 			= $('#error');
 		this.$exito 			= $('#exito');
+
 		this.$formNuevoProyecto = $('#formNuevoProyecto');
 
 		this.btn_marcarTodos	= $('.btn_marcarTodos')[0];
@@ -79,9 +85,10 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 		this.$duracion          = $('#duracion');
 
 		this.$inputArchivos		= $('#inputArchivos');
-		this.$section_resp_Paso2 = $('#paso2 .panel-info .panel-body');
+		this.$section_resp_Paso3 = $('#paso3 .panel-info .panel-body');
 		this.$tbody_archivos	= $('#tbody_archivos');
-		this.$tbody_respuesta	= $('#tbody_respuesta');
+
+		this.idProyecto;
 	},
 	render				: function () {
 		return this;
@@ -106,6 +113,15 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	},
 	cargarServicios		: function () {
 		app.coleccionServicios.each( this.cargarServicio, this );
+	},
+	cargarEmpleado		: function (empleado) {
+		/*añadimos una nueva propiedad al modelo de empledo para
+		tener en cada formulario rol el id del proyecto, de esta 
+		manera es más facil enviar los roles a la api de roles de 
+		proyecto*/
+		empleado.set({idproyecto:this.idProyecto});
+		var vistaEmpleado = new app.VistaEmpleado({ model:empleado });
+		this.$tbody_empleados.append( vistaEmpleado.render().el );
 	},
 	cargarEmpleados		: function () {
 		app.coleccionEmpleados.each( this.cargarEmpleado, this );
@@ -141,10 +157,6 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 			fechaEntrega += (fF.getDate());
 
 		this.$fechaEntrega.val( fechaEntrega );
-	},
-	cargarEmpleado		: function (empleado) {
-		var vistaEmpleado = new app.VistaEmpleado({ model:empleado });
-		this.$tbody_empleados.append( vistaEmpleado.render().el );
 	},
 	cerrarAlerta		: function (elem) {
 		$(elem.currentTarget)
@@ -207,20 +219,23 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	},
 	guadarProyecto		: function (elem) {
 		var esto = this;
-		var forms = $('#paso1 form');
-		for (var i = 0; i < forms.length; i++) {
-			console.log(this.pasarAJson($(forms[i]).serializeArray()));
-		};
-		elem.preventDefault();
-		return;
+		var modeloProyecto = this.pasarAJson(this.$formNuevoProyecto.serializeArray());
 
+		/******************************/
+		var servicios = modeloProyecto.servicios;
+		delete modeloProyecto.servicios;
+		/******************************/
 
-		
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
 		app.coleccionProyectos.create(
-			this.pasarAJson(this.$formNuevoProyecto.serializeArray()),
+			modeloProyecto,
 			{
-				// wait	: true,
+				wait	: true,
 				success	: function (exito) {
+					/*----------------------------------------------*/
+					esto.globalizarIdProyecto(exito);
+					/*----------------------------------------------*/
 					esto.$exito
 						.children('#comentario')
 						.html('El proyecto <b>'	+
@@ -228,6 +243,9 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 												+'</b> se guardo con exito');
 					esto.$exito
 						.toggleClass('oculto');
+					/*----------------------------------------------*/
+					esto.cargarEmpleados();
+					/*----------------------------------------------*/
 				},
 				error	: function (error) {
 					esto.$error
@@ -238,7 +256,122 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 				}
 			}
 		);
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
+
 		elem.preventDefault();
+	},
+	globalizarIdProyecto: function (modelo) {
+		this.idProyecto = modelo.get('id');
+	},
+	guadarRoles			: function (elem) {
+		var esto = this;
+		var forms = $('#paso2 form');
+
+		// Backbone.emulateHTTP = true;
+		// Backbone.emulateJSON = true;
+
+		for (var iForm = 0; iForm < forms.length; iForm++) {
+			var modelo = this.pasarAJson(this.$(forms[iForm]).serializeArray());
+			/*Comprobamos si hay roles nuevos*/
+			if ( typeof modelo.nombre !== 'undefined' ) {
+				/*Aislamos los nuevos roles*/
+				var nuevosRoles = {};
+				nuevosRoles.nombre = modelo.nombre;
+				delete modelo.nombre;
+				/*Comprobamos si hay más de un rol nuevo*/
+				if ($.isArray(modelo.idrol)) {
+					this.guadarRolRecursivo({
+						// id 			: modelo.id, 
+						idproyecto 	: modelo.idproyecto, 
+						idpersonal 	: modelo.idpersonal,
+						idrol 		: modelo.idrol.concat(this.guardarRolesNuevos({nombre:nuevosRoles.nombre}))
+					});
+				} else{
+					this.guadarRolRecursivo({
+						// id 			: modelo.id, 
+						idproyecto 	: modelo.idproyecto, 
+						idpersonal 	: modelo.idpersonal,
+						idrol 		: [modelo.idrol].concat(this.guardarRolesNuevos({nombre:nuevosRoles.nombre}))
+					});
+				};
+			};
+			/*Comprobamos si el empleado ejercera más de un rol*/
+			// if ($.isArray(modelo.idrol)) {
+			// 	for (var iRol = 0; iRol < modelo.idrol.length; iRol++) {
+			// 		app.coleccionRolesProyectos.create(
+			// 			{ 
+			// 				id:modelo.id, 
+			// 				idproyecto:modelo.idproyecto, 
+			// 				idpersonal:modelo.idpersonal, 
+			// 				idrol:modelo.idrol[iRol] 
+			// 			},
+			// 			{
+			// 				wait	: true,
+			// 				success	: function (exito) {},
+			// 				error	: function (error) {}
+			// 			}
+			// 		);
+			// 	};
+			// } else{
+			// 	app.coleccionRolesProyectos.create(
+			// 		modelo,
+			// 		{
+			// 			wait	: true,
+			// 			success	: function (exito) {},
+			// 			error	: function (error) {}
+			// 		}
+			// 	);
+			// };
+		};
+		// Backbone.emulateHTTP = false;
+		// Backbone.emulateJSON = false;
+	},
+	guadarRolRecursivo	: function (modelo) {
+		// console.log(modelo);
+		if ($.isArray(modelo.idrol)) {
+			for (var i = 0; i < modelo.idrol.length; i++) {
+				this.guadarRolRecursivo({ 
+					// id:modelo.id,
+					idproyecto:modelo.idproyecto, 
+					idpersonal:modelo.idpersonal, 
+					idrol:modelo.idrol[i]
+				});
+			};
+		} else{
+			Backbone.emulateHTTP = true;
+			Backbone.emulateJSON = true;
+			app.coleccionRolesProyectos.create(
+				modelo,
+				{
+					wait	: true,
+					success	: function (exito) {},
+					error	: function (error) {}
+				}
+			);
+			Backbone.emulateHTTP = false;
+			Backbone.emulateJSON = false;
+		};	
+	},
+
+	guardarRolesNuevos	: function (roles) {
+		var vistaRol = new app.VistaRol();
+		var array = new Array();
+		if ($.isArray(roles.nombre)) {
+			for (var i = 0; i < roles.nombre.length; i++) {
+				vistaRol.guardarRol(
+					{nombre:roles.nombre[i]},
+					function (id) {  array.push(id) }
+				);
+			};
+			return array;
+		} else{
+			vistaRol.guardarRol(
+				{nombre:roles.nombre},
+				function (id) {  array.push(id) }
+			);
+			return array;
+		};
 	},
 	marcarTodos 		: function (elem) {
 		var checkboxTabla = document
@@ -269,68 +402,80 @@ app.VistaNuevoProyecto = Backbone.View.extend({
 	    });
 	    return json;
 	},
-
+/*Controladores para carga de archivos*/
 	cargarArchivos		: function (elem) {
 		this.$tbody_archivos.html('');
 		this.arrArchivos = new Array();
-		var archivos = $(elem.currentTarget)[0].files;
+		// if ( this.arrArchivos == $(elem.currentTarget).prop('files') ) {console.log('Si')} else{console.log('No')};
+		var archivos = $(elem.currentTarget).prop('files');
 		for (var i = 0; i < archivos.length; i++) {
 			this.$tbody_archivos.append( this.plantillaArchivo( {i:i, tipo:archivos[i].type, nombre:archivos[i].name, tamaño:archivos[i].size} ) );
 		};
+	},
+	eliminarFileList	: function () {
+		delete this.$inputArchivos.val('');
 	},
 	subirArchivo		: function (elem) {
 		elem.preventDefault();
 		var archivos = this.$inputArchivos.prop('files');
 		
 		var esto = this;
-		
+		esto.classTr =  archivos.length - 1;
 		if (this.arrArchivos) {
-			esto.$tbody_respuesta.children().removeClass('success');
 			for (var i = archivos.length - 1; i >= 0; i--) {
 				if ( this.arrArchivos.indexOf(String(i)) == -1 ) {
+				this.$tbody_archivos.children('.'+i).children('.icon-eliminar').html('<img src="img/ajax-loader25x25.gif">');
 					var formData = new FormData();
-					this.classTr = i;
-					var esto = this;
 					formData.append('archivo[]',archivos[i]);
 					var resp = $.ajax({
 			            url: 'http://crmqualium.com/api_archivos',  
 			            type: 'POST',
 			            async:true,
-			            // Form data
-			            //datos del formulario
 			            data: formData,
 			            //necesario para subir archivos via ajax
 			            cache: false,
 			            contentType: false,
 			            processData: false,
 			            success: function (exito) {
-			        	console.log(esto.classTr);
-			            	for (var i = 0; i < exito.length; i++) {
-			            		esto.$tbody_respuesta.prepend('<tr class="success"><td>'+exito[i]+'</td></tr>');
-			            	};
+			            	esto.$tbody_archivos.children('.'+esto.classTr).addClass('success');
+			            	esto.$tbody_archivos.children('.'+esto.classTr).children('.icon-eliminar').html('<div class="has-success"><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>');
+			   				esto.classTr--;
 			            },
 			            error  : function (error) {
-			            	console.log(error);
-			            	// esto.tbody_archivos.children('.'+i).addClass('danger');
+			            	esto.$tbody_archivos.children('.'+esto.classTr).addClass('danger');
+			            	esto.$tbody_archivos.children('.'+esto.classTr).children('.icon-eliminar').html('<div class="has-error"><span class="glyphicon glyphicon-remove form-control-feedback"></span></div>');
+			   				esto.classTr--;
 			            }
 			        });
 				};
 			};
 		}			
 	},
+	guardarArchivo		: function (direccion) {
+		Backbone.emulateHTTP = true;
+		Backbone.emulateJSON = true;
+		// app.
+		Backbone.emulateHTTP = false;
+		Backbone.emulateJSON = false;
+	},
 	eliminarArchivo		: function (elem) {
 		this.arrArchivos.push( $(elem.currentTarget).attr('id') );
 		$(elem.currentTarget).parents('tr').remove();
 	},
 	cancelarArchivos	: function (elem) {
-		if ($(elem.currentTarget).attr('id') != 'cancelar') {
+		if ($(elem.currentTarget).attr('id') == 'btn_cancelarArchivo') {
 			$('#advertencia #comentario').html('Los archivos a subir seran cancelados');
 			$('#advertencia').removeClass('oculto');
-		} else{
+		}; 
+		if ($(elem.currentTarget).attr('id') == 'cancelar') {
 			for (var i = 0; i < $('.eliminarArchivo').length; i++) {
 				this.arrArchivos.push(i);
 			};
+			$('#advertencia').addClass('oculto');
 			this.$tbody_archivos.html('');
+		};
+		if ($(elem.currentTarget).attr('id') == 'continuar') {
+			$(elem.currentTarget).parents('div').children('.cerrar').click();
 		};
 	}
 });

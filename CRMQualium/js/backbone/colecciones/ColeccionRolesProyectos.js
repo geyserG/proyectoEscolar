@@ -4,7 +4,7 @@ var ColeccionRolesProyectos = Backbone.Collection.extend({
 	
 	model	: app.ModeloRolProyecto,
 
-	url: 'http://crmqualium.com/api_rolesDeProyectos',
+	url: 'http://crmqualium.com/api_rolesDeProyecto',
 	// localStorage	: new Backbone.LocalStorage('proyectos-backbone'),
 
 	// obtenerTodos : function () {
@@ -13,9 +13,9 @@ var ColeccionRolesProyectos = Backbone.Collection.extend({
 	// 	});
 	// },
 
-	// obtenerUltimoId	: function () {
-	// 	return this.last().get('id');
-	// },
+	obtenerUltimoId	: function () {
+		return this.last().get('id');
+	},
 
 	// obtenerUltimo	: function () {
 	// 	return this.last();
