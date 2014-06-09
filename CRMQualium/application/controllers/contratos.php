@@ -3,50 +3,38 @@
 include 'api.php';
 class  Contratos extends Api {
 
-	public function __construct() {
+    public function __construct() {
         parent::__construct();
-        $this->load->model('Modelo_cotizaciones', 'cotizacion');             
+        $this->load->model('Modelo_contract', 'contract');             
     }
 
     public function api() 
-    {   # El metodo $this->id devuelve el id para las peticiones get(), update(), delete()   
-    	switch ($this->metodo()) 
-        {
-    	    case     'post':   $this->insert_cotizacion();             break; # POST
-    		case     'get':    $this->get_cotizacion($this->id());     break; # GET
-    		case     'put':    $this->update_cotizacion($this->id());  break; # PUT
-    		case     'delete': $this->delete_cotizacion($this->id());  break; # DELETE
-    		default:           $this->response('',405);        		   break; # Función Inexistente
-    	}
-    } # Fin de la funcion api()...
-    
-    private function insert_cotizacion(){
-
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost();         
-        $query = $this->cotizacion->insert_cotizacion($post);
-        # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+    {
+        $metodo = $this->request();
+        $this->$metodo();
     }
 
-    private function get_cotizacion($id){
-
-    	$query = $this->cotizacion->get_cotizacion($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);
-    	
+   private function create()
+    {
+        $query = $this->contract->create(  $this->ipost()  );
+        $this->pre_response($query, 'create');                  
     }
 
-    private function update_cotizacion($id){
-
-        $put = $this->put();
-    	$query = $this->cotizacion->update_cotizacion($id, $put);
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    private function get()
+    {
+        $query = $this->contract->get( $this->id() ); 
+        $this->pre_response($query, 'get'); 
     }
 
-    private function delete_cotizacion($id){
-
-    	$query = $this->cotizacion->delete_cotizacion($id);    	
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+    private function update()
+    {
+        $query = $this->contract->save(  $this->id(), $this->put()  );
+                 $this->pre_response  (  $query, 'update'           );
     }
 
-} # Fin de la Clase Api_cliente
+    private function delete()
+    {
+        $query = $this->contract->destroy(  $this->id()  ); 
+        $this->pre_response($query, 'delete'); 
+    }   
+} # Fin de la Clase Api_contacto

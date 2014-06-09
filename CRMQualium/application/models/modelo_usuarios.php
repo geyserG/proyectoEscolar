@@ -1,20 +1,21 @@
 <?php
-	
-	class Modelo_usuarios extends CI_Model
+	require_once 'Modelo_crud.php';
+	class Modelo_usuarios extends Modelo_crud
 	{
 		
 		function __construct()
 		{                    }
 
-		public function insert_user($post){	$query = $this->db->insert('usuarios', $post);	return $query; }
+		public function create($post)
+		{	
+			$this->db->insert('usuarios', $args);
+            return $this->get($this->db->insert_id());
+        }
 
-		public function get_user($id)
+		public function get($id)
 		{  
-			$this->db->select('*');
-			($id==NULL) ? $query = $this->db->get('usuarios') :
-			$this->db->where('id', $id); $query = $this->db->get('usuarios');			
-			
-			return $query->result();			
+			$reply = $this->where(  $id  );  # Ejecutamos el metodo where...      
+            return $this->db->get  ( 'usuarios' )->$reply();  # Este metodo ejecuta get con y sin ID...
 		}
 
 		

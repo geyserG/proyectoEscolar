@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 include 'api.php';
-class  RolesDeProyecto extends Api {
+class  Empleados extends Api {
 
     public function __construct() 
     {
         parent::__construct();
-        $this->load->model('Modelo_proyectoRoles', 'proyRol');       
+        $this->load->model('Modelo_empleado', 'emp');       
     }
 
     public function api() 
@@ -16,27 +16,29 @@ class  RolesDeProyecto extends Api {
     }
 
     private function create()
-    {   # La función ipost()... Recupera todos los post que viene desde la petición        
-        $query = $this->proyRol->insertProyRol($this->ipost());
+    {
+        # La función ipost()... Recupera todos los post que viene desde la petición        
+        $query = $this->emp->create($this->ipost());
         $this->pre_response($query, 'create');                  
     }
 
     private function get()
     {
-       $query = $this->proyRol->getProyRol($this->id()); 
+       $query = $this->emp->get($this->id());
        $this->pre_response($query, 'get'); 
     }
+
     private function update()
     {        
         # La función put(); Devuelve el array con los campos espicificos para actualizar              
-        $query = $this->proyRol->updateProyRol($this->id(), $this->put());
+        $query = $this->emp->save($this->id(), $this->put());
              
         $this->pre_response($query, 'update');         
     }
 
     private function delete()
     {
-        $query = $this->proyRol->deleteProyRol($this->id());
+        $query = $this->emp->destroy($this->id());
         $this->pre_response($query, 'delete'); 
     }
 

@@ -6,54 +6,42 @@ class  Proyectos extends Api {
     public function __construct() 
     {
         parent::__construct();
-        $this->load->model('Modelo_proyecto', 'proy');       
+        $this->load->model('Modelo_proyecto', 'proy');  # Cargamos el modelo proyectos      
     }
 
     public function api() 
     {
-        switch ($this->metodo()) 
-        {
-            case    'post':   $this->insert_proyecto();             break; # POST
-            case    'get':    $this->get_proyecto($this->id());     break; # GET 
-            case    'patch':  $this->patch_proyecto($this->id());   break; # PATCH
-            case    'put':    $this->update_proyecto($this->id());  break; # PUT 
-            case    'delete': $this->delete_proyecto($this->id());  break; # DELETE
-            default:          $this->response(405);                 break; # Metodo no definido...
-        }
+        $metodo = $this->request();
+        $this->$metodo();
     }
 
-    private function insert_proyecto()
-    {           
-        #La función ipost()... Recupera todos los post que viene desde la petición        
-        $query = $this->proy->insertProyecto($this->ipost());
-        ($query) ? $this->response($query, 201) : $this->response('error', 404);                 
-    }
-
-    private function get_proyecto($id)
+    private function create()
     {
-       $query = $this->proy->getProyecto($id); 
-       ($query) ? $this->response($query, 200) : $this->response($query, 404);
+        $query = $this->proy->create(  $this->ipost()  );
+        $this->pre_response($query, 'create');                  
     }
 
-    private function patch_proyecto($id)
-    {   
-        $query = $this->proy->patchProyecto($id, $this->put());       
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
-    }
-
-    private function update_proyecto($id)
-    {        
-        # La función put(); Devuelve el array con los campos espicificos para actualizar              
-        $query = $this->proy->updateProyecto($id, $this->put());
-             
-        ($query) ? $this->response($query, 200) : $this->response($query, 304);        
-    }
-
-    private function delete_proyecto($id)
+    private function get()
     {
-        $query = $this->proy->deleteProyecto($id);
-        ($query) ? $this->response($query, 200) : $this->response($query, 304);
+        $query = $this->proy->get( $this->id() ); 
+        $this->pre_response($query, 'get'); 
     }
+
+    private function update()
+    {
+        $query = $this->proy->update( $this->id() , $this->put()  );
+        $this->pre_response($query, 'update');                 
+    }
+
+    private function delete()
+    {
+        $query = $this->proy->delete( $this->id()   ); 
+        $this->pre_response($query, 'delete');        
+    }   
 
 } # Fin de la Clase Api_cliente
 
+
+// $query = $this->proy->crud('proyectos','insert', '', $this->ipost());
+// $query = $this->proy->crud('proyectos','get', $id); 
+// ($put) ? $query = $this->proy->crud('proyectos','update', $id, $put) : $query = true;

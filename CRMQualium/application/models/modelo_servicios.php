@@ -2,8 +2,8 @@
 	/**
 	* Operaciones en la tabla Servicios de la bd...
 	*/
-	require_once 'modelo_rit.php';
-	class Modelo_servicios extends CI_Model
+	require_once 'modelo_crud.php';
+	class Modelo_servicios extends Modelo_crud
 	{		
 		function __construct()
 		{
@@ -13,18 +13,8 @@
 		public function insert_s($post)
 		{  
 
-			$insert='';
-			foreach ($post as $key => $value) 
-			{
-				if(!empty($value)){	$insert = 1; }
-			}
-			
-			if($insert==1)
-			{
 				$this->db->insert('servicios', $post); 	$id = $this->db->insert_id();
-				return $this->get_s($id);  
-			}
-			return false;			
+				return $this->get_s($id); 	
 
 		} # Fin del metodo insertar...
 
@@ -34,7 +24,7 @@
 				return $this->db->get('servicios')->result();	
 			}
 
-			$query = $this->db->get_where('servicios', array('id'=> $id))->result(); 
+			return $this->db->get_where('servicios', array('id'=> $id))->result(); 
 			return (array_key_exists(0, $query)) ? $query[0] : $query = false;
 		}
 		# Esta funcion le sirve a la interfaz de modulo cliente_nuevo y consulta_cliente...

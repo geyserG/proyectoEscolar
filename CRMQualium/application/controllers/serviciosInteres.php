@@ -10,46 +10,33 @@ class  ServiciosInteres extends Api {
 
     public function api() 
     {
-        # Con esta funcion obtnemos el id de la petición.
-        # get(), update(), delete()
-        $id = $this->uri->segment(2);  
-    	switch ($this->metodo()) 
-        {
-    		case      'post':	$this->insert_si();		        break;
-    		case      'get':	$this->get_si($this->id());		break;	
-    		case      'put':    $this->update_si($this->id());	break;	
-    		case      'delete':	$this->delete_si($this->id());	break;
-    		default:		    $this->response('',405);        break;
-    	}
+        $metodo = $this->request();
+        $this->$metodo();
     }
     
-    private function insert_si()
+    private function create()
     {
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost();         
-        $query = $this->servint->insert_servInteres($post);
-        # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+        $query = $this->servint->insert_servInteres($this->ipost());
+        $this->pre_response($query, 'create');                  
     }
 
-    private function get_si($id){
+    private function get($id){
 
     	$query = $this->servint->get_servInteres($id);                        
-    	($query) ? $this->response($query, 302) : $this->response($query, 404);
+    	$this->pre_response($query, 'get'); 
     	
     }
 
-    private function update_si($id){
+    private function update($id){
 
-        // $put = $this->put();
     	$query = $this->servint->update_servInteres($id, $this->put());
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+        $this->pre_response($query, 'update');         
     }
 
-    private function delete_si($id){
+    private function delete($id){
 
     	$query = $this->servint->delete_servInteres($id);    	
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+        $this->pre_response($query, 'delete'); 
     }
 
 } # Fin de la Clase Api_cliente

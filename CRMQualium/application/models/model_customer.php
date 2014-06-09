@@ -59,7 +59,7 @@
 	
 		public function get_customers($ruta)
 		{
-			($ruta=='modulo_consulta_clientes'||$ruta=='api_cliente') ?	$tipoCliente ='cliente' : $tipoCliente = 'prospecto';
+			($ruta=='modulo_consulta_clientes'||$ruta=='api_cliente'||$ruta=='modulo_cliente_nuevo') ?	$tipoCliente ='cliente' : $tipoCliente = 'prospecto';
 
 			$obj = new modelo_rit();
 			###$cont RELLENA EL ARREGLO DATOS, $contrep RELLENA EL ARRELGO DE REPRESENTANTES y $conCont CONTACTOS###
@@ -110,8 +110,6 @@
 
 		public function patch_customer($id, $put)
 		{
-			var_dump($put); die();
-			(array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
 			$query = false;
 			# Consulta las cabeceras de la tabla clientes
 			$columna = $this->db->field_data('clientes');
@@ -153,6 +151,11 @@
 			
 			return $query;
 		} # Fin de pacth customer
+
+		public function delete_customer($id)
+		{
+			return $this->db->delete('clientes', array('id' => $id));  		   	
+		}
 
 		// public function update_customer($id, $iput){
 
@@ -205,13 +208,6 @@
 			
 		//  return $query;			
 		// } # Fin del update_customer....
-
-		public function delete_customer($id){
-
-			$query = $this->db->delete('clientes', array('id' => $id));
-  		   	return $query;
-		}
-
 		
 	}//Fin de la clase Model_Customer		
 

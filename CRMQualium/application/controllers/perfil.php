@@ -3,50 +3,41 @@
 include 'api.php';
 class  Perfil extends Api {
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
         $this->load->model('Modelo_perfil', 'perfil');             
     }
 
-    public function api() }
+    public function api() 
     {
-        # Con esta funcion obtnemos el id de la petición, get(), update(), delete()
-        switch ($this->metodo()) 
-        {
-            case     'post':   $this->insert_perfil();           break;
-            case     'get':    $this->get_perfil($this->id);     break;  
-            case     'put':    $this->update_perfil($this->id);  break;  
-            case     'delete': $this->delete_perfil($this->id);  break;
-            default:           $this->response('',405);          break;
-        }
-    } # Fin del método api()....
+        $metodo = $this->request();
+        $this->$metodo();
+    }
     
-    private function insert_perfil(){
+    private function create(){
 
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost(); 
-        $query = $this->perfil->insert_perfil($post);
+        $query = $this->perfil->create($this->ipost());
         # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+        $this->pre_response($query, 'create');                  
     }
 
-    private function get_perfil($id)
+    private function get()
     {
-        $query = $this->perfil->get_perfil($id);                        
-        ($query) ? $this->response($query, 200) : $this->response($query, 404);        
+        $query = $this->perfil->get($this->id());                        
+        $this->pre_response($query, 'get'); 
     }
 
-    private function update_perfil($id)
+    private function update()
     {
-        $put = $this->put();
-        $query = $this->perfil->update_perfil($id, $put);
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+        $query = $this->perfil->save($this->id(), $this->put());
+        $this->pre_response($query, 'update');         
     }
 
-    private function delete_perfil($id)
+    private function delete()
     {
-        $query = $this->perfil->delete_perfil($id);        
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+        $query = $this->perfil->destroy($this->id());        
+        $this->pre_response($query, 'delete'); 
     }
 
 } # Fin de la Clase Api_cliente

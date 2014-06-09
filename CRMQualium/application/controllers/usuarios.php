@@ -9,45 +9,33 @@ class  Usuarios extends Api {
     }
 
     public function api() 
-    {   
-        # Con esta funcion obtnemos el id de la petición get(), update(), delete()
-        $id = $this->uri->segment(2);     
-
-        switch ($this->metodo()) 
-        {
-            case      'post':    $this->insert_usuarios();      break;
-            case      'get':     $this->get_usuarios($id);      break;  
-            case      'put':     $this->update_usuarios($id);   break;  
-            case      'delete':  $this->delete_usuarios($id);   break;
-            default:             $this->response('',405);       break;
-        }
+    {
+        $metodo = $this->request();
+        $this->$metodo();
     }
     
-    private function insert_usuarios(){
+    private function create(){
 
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost(); 
-        $query = $this->user->insert_user($post);
-        # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+        $query = $this->user->create($this->ipost());
+        $this->pre_response($query, 'create');                  
     }
 
-    private function get_usuarios($post)
+    private function get()
     {
-        $query = $this->user->get_user($id);                        
-        ($query) ? $this->response($query, 200) : $this->response($query, 404);        
+        $query = $this->user->get($this->id());                        
+        $this->pre_response($query, 'get'); 
     }
 
-    private function update_usuarios($id)
+    private function update()
     {
-        $query = $this->user->update_user($id, $this->put());
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+        $query = $this->user->save($this->id(), $this->put());
+        $this->pre_response($query, 'update');         
     }
 
-    private function delete_usuarios($id)
+    private function delete()
     {
-        $query = $this->user->delete_user($id);        
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+        $query = $this->user->destroy($this->id());        
+        $this->pre_response($query, 'delete'); 
     }
 
 } # Fin de la Clase Api_cliente

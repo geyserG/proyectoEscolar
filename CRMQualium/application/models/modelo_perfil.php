@@ -1,36 +1,33 @@
 <?php
-	/**
-	* Permite crear nuevos perfiles con sus permisos
-	* Operaciones en la tabla Servicios de la bd...
-	*/
-	class Modelo_perfil extends CI_Model
+	require_once 'Modelo_crud.php';
+	class Modelo_perfil extends Modelo_crud
 	{
 		
-		function __construct()
-		{
-						
-		}
+		function __construct(){}
 
-		public function insert_perfil($post)
-		{ 		
+		public function create($post) 
+        {   
+	        $this->db->insert('perfiles', $post);
+	        return $this->get($this->db->insert_id());  
+      	}
 
-			$query = $this->db->insert('perfil', $post);
-			$query = $this->db->insert_id();
-			return $this->get_perfil($query); 
-		}
+      # Este metodo línea hace dos cosas devuelve todos los registros o devuelve el especificado con el ID
+      	public function get ( $id = FALSE ) 
+        {  
+	        $reply = $this->where($id);
+	        return $this->db->get  ( 'perfiles' )->$reply();
+      	}
 
-		public function get_perfil($id = FALSE)
-		{
-			if($id==NULL) {
-				return $this->db->get('perfil')->result();	
-			}
-			else
-			{
-				$this->db->where('id', $id); 
-				$query = $this->db->get('perfil')->result(); 
-				return $query[0];
-			}
-		}
+      	public function save (  $id,  $put ) 
+        { 
+        	return $this->db->update('perfiles', $put, array('id' => $id)  ); 
+      	}   
+      
+      	public function destroy (  $id  ) 
+        { 
+        	return $this->db->delete('perfiles', array('id' => $id)  ); 
+      	}
+    } # Fin de la clase Model_perfil
 
 		// public function get_perfil($id)
 		// {
@@ -65,18 +62,4 @@
 		// 	return $permi;		
 		// } # Fin del metodo get_perfil() 
 
-		public function update_perfil($id, $put)
-		{
-			$this->db->where('id', $id);
-			# la variable $put devuelve los campos especificando que datos se actualizaron.
-			$query = $this->db->update('perfil', $put);
-			# Regresa true o false dependiendo de la consulta.
-			return $query;
-		}
-		public function delete_perfil($id)
-		{
-			$query = $this->db->delete('perfil', array('id' => $id));
-			return $query;
-		}
-
-	} # Fin de la clase Model_phones
+	

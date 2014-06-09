@@ -5,48 +5,37 @@ class  Cotizaciones extends Api {
 
 	public function __construct() {
         parent::__construct();
-        $this->load->model('Modelo_cotizaciones', 'cotizacion');             
+        $this->load->model('Model_budget', 'budget');             
     }
 
     public function api() 
-    {   # El metodo $this->id devuelve el id para las peticiones get(), update(), delete()   
-    	switch ($this->metodo()) 
-        {
-    	    case     'post':   $this->insert_cotizacion();             break; # POST
-    		case     'get':    $this->get_cotizacion($this->id());     break; # GET
-    		case     'put':    $this->update_cotizacion($this->id());  break; # PUT
-    		case     'delete': $this->delete_cotizacion($this->id());  break; # DELETE
-    		default:           $this->response('',405);        		   break; # Función Inexistente
-    	}
-    } # Fin de la funcion api()...
+    {
+        $metodo = $this->request();
+        $this->$metodo();
+    }
     
-    private function insert_cotizacion(){
-
-        # Con $this->inpost() recuperamos las variables post y lo enviamos al modelo...
-        $post = $this->ipost();         
-        $query = $this->cotizacion->insert_cotizacion($post);
-        # $query regresa true o false y con esto enviamos un codigo de respuesta al cliente...
-        ($query) ? $this->response($query, 201) : $this->response($query, 406);
+    private function create()
+    {
+        $query = $this->budget->create(  $this->ipost()  );
+        $this->pre_response($query, 'create');                  
     }
 
-    private function get_cotizacion($id){
-
-    	$query = $this->cotizacion->get_cotizacion($id);                        
-    	($query) ? $this->response($query, 200) : $this->response('Not Found', 404);
-    	
+    private function get()
+    {
+        $query = $this->budget->get( $this->id() );
+    	$this->pre_response($query, 'get'); 
     }
 
-    private function update_cotizacion($id){
-
-        $put = $this->put();
-    	$query = $this->cotizacion->update_cotizacion($id, $put);
-        ($query) ? $this->response($query, 200) : $this->response($query, 204);        
+    private function update()
+    {
+    	$query = $this->budget->save(  $this->id(), $this->put()  );
+        $this->pre_response($query, 'update');               
     }
 
-    private function delete_cotizacion($id){
-
-    	$query = $this->cotizacion->delete_cotizacion($id);    	
-        ($query)? $this->response($query, 200) : $this->response($query, 406);        
+    private function delete()
+    {
+    	$query = $this->budget->destroy(  $this->id()  ); 
+        $this->pre_response($query, 'delete');        
     }
 
-} # Fin de la Clase Api_cliente
+} # Fin de la Clase Cotizaciones

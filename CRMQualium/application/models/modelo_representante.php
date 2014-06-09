@@ -1,46 +1,33 @@
  <?php
-    /**
-    * Operaciones en la base de datos con los contactos
-    */
-    require_once 'modelo_rit.php';
-    class Modelo_representante extends CI_Model
-    {          
+    require_once 'Modelo_crud.php';
 
-      function obj(){  return $obj = new modelo_rit();  }
+    #  DATOS DEL MODELO REPRESENTANTE....
+    #  'idcliente' => $post['idcliente' ],  'nombre' =>$post['nombre'],
+    #  'correo'    => $post['correo'    ],  'cargo'  =>$post['cargo' ],
 
-      function insert_r($representante)
-      {
-        $query = $this->db->insert('representante', $representante);
-        return $this->db->insert_id();
-      } # Fin del insert_representante();
-
-      function get_r($id=FALSE)
-      {               
-          if($id!=FALSE)
-          { 
-            $query = $this->db->get_where('representante', array('id'=>$id))->result();
-            ($query) ? $query = $query[0] : $query = false;
-             return $query; 
-          }
-          $query = $this->db->get('representante');
-          return $query->result();   
+  class Modelo_representante extends Modelo_crud
+  { 
+      public function __construct(){}
+      
+      protected function create($args)
+      {   
+            $this->db->insert('contactos', $args);
+            return $this->get($this->db->insert_id());     
+      }
+        
+      public function get ( $id = FALSE ) 
+      {  
+        $reply = $this->where(  $id  );  # Ejecutamos el metodo where...      
+        return $this->db->get  ( 'contactos' )->$reply();  # Este metodo ejecuta get con y sin ID...
       }
 
-      public function patch_representante($id, $put){ 
-        (array_key_exists(0, $put)&&is_object($put[0])) ? $put = (array)$put[0] : $put = $put;
-        $this->db->where('id', $id); return $this->db->update('representante', $put); }
-
-      function update_representante($id, $put){
-
-        $this->db->where('id', $id);
-        $this->db->update('representante', $put); 
-
+      public function save (  $id,  $put ) 
+      {   
+        return $this->db->update('contactos', $put, array('id' => $id)  );   
+      }       
+        
+      public function destroy (  $id  ) 
+      {   
+        return $this->db->delete('contactos', array('id' => $id)  ); 
       }
-      function delete_r($id){
-
-        $query = $this->db->delete('representante', array('id' => $id));
-       return $query;
-            
-      }
-
-}
+  }    
